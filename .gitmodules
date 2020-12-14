@@ -1,0 +1,3 @@
+[submodule "src/prune"]
+	path = src/prune
+	url = https://github.com/Hahn-Schickard/Automatic-Structured-Pruning
