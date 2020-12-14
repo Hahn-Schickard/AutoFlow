@@ -11,13 +11,19 @@ from UIWindows.UIHelperWindow import *
 from UIWindows.UILoadWindow import *
 from UIWindows.UIOptiWindow import *
 from UIWindows.UIRestrictionWindow import *
+from UIWindows.UISettingsWindow import *
 from UIWindows.UIStartWindow import *
 from UIWindows.UITargetWindow import *
+from UIWindows.UITaskWindow import *
 from UIWindows.UIMarcusWindow1 import *
 from UIWindows.UIMarcusWindow2 import *
 from UIWindows.UIMarcusWindow3 import *
 from UIWindows.UIMarcusWindow4 import *
 from UIWindows.UIMarcusWindow5 import *
+from UIWindows.UIConstraintsWindow import *
+from UIWindows.UIReturnWindow import *
+from UIWindows.UIAutoMLWindow import *
+
 
 
 from Threads.Loading_images_thread import *
@@ -39,10 +45,13 @@ class MainWindow(QMainWindow):
         self.Y=0
         self.project_name = None
         self.output_path = None
+        self.output_path_ml = None
         self.model_path = None
         self.data_loader_path = None
+        self.data_loader_path_ml = None
         self.target = None
         self.optimizations = []
+        self.constraints = []
         
         self.prun_factor_dense = None
         self.prun_factor_conv = None
@@ -51,6 +60,17 @@ class MainWindow(QMainWindow):
         self.Know_Dis_2 = None
         self.Huffman_1 = None
         self.Huffman_2 = None
+        
+        self.params_factor = 1
+        self.floats_factor = 1
+        self.complex_factor = 1
+        self.max_size = 0
+        self.max_trials = 10
+        self.max_epoch = 20
+        
+        self.params_check = False
+        self.floats_check = False
+        self.complex_check = False
         
         self.MarcusWindow1()
     
@@ -109,24 +129,18 @@ class MainWindow(QMainWindow):
         
         self.Window1d = UIMarcusWindow4(self)
         
-        if self.output_path != None:
-            self.Window1d.Output_Pfad.setText(self.output_path)
+        if self.output_path_ml != None:
+            self.Window1d.Output_Pfad.setText(self.output_path_ml)
         
         if self.project_name != None:
             self.Window1d.Projekt_Name.setText(self.project_name)
-        
-        if self.model_path != None:
-            self.Window1d.Model_Pfad.setText(self.model_path)
-        
-        if self.data_loader_path != None:
-            self.Window1d.Daten_Pfad.setText(self.data_loader_path)
 
-        print(self.model_path)
+        if self.data_loader_path_ml != None:
+            self.Window1d.Daten_Pfad.setText(self.data_loader_path_ml)
         
-        self.Window1d.Output_Pfad_Browse.clicked.connect(self.get_output_path)
-        self.Window1d.Modell_einlesen_Browse.clicked.connect(self.get_model_path)
-        self.Window1d.Daten_einlesen_Browse.clicked.connect(self.get_data_loader_path)
-        self.Window1d.Next.clicked.connect(self.MarcusWindow5)
+        self.Window1d.Output_Pfad_Browse.clicked.connect(self.get_output_path_ml)
+        self.Window1d.Daten_einlesen_Browse.clicked.connect(self.get_data_loader_path_ml)
+        self.Window1d.Next.clicked.connect(lambda:self.TaskWindow("Next"))
         self.Window1d.Back.clicked.connect(self.MarcusWindow1)
         
         self.setCentralWidget(self.Window1d)
@@ -222,7 +236,57 @@ class MainWindow(QMainWindow):
         
         self.setCentralWidget(self.Window2)
         self.show()
+       
+        
+    def TaskWindow(self, n):
+        self.setFixedWidth(800)
+        self.setFixedHeight(600)
+        
+        if n == "Next":
             
+            self.project_name = self.Window1d.Projekt_Name.text()
+            self.output_path_ml = self.Window1d.Output_Pfad.text()
+            self.data_loader_path_ml = self.Window1d.Daten_Pfad.text() 
+                
+        if self.project_name == "" or self.output_path == "":
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+             
+            msg.setText("Please enter your data")
+            msg.setWindowTitle("Warning")
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            msg.exec_()
+            
+            return
+        
+        if n == "Back":
+            
+            if "Params" in self.constraints:
+                self.params_factor = float(self.Window3.Params_factor.text())
+            if "Floats" in self.constraints:
+                self.floats_factor = float(self.Window3.Floats_factor.text())
+            if "Complex" in self.constraints:
+                self.complex_factor = float(self.Window3.Complex_factor.text())
+
+        print(self.data_loader_path_ml)
+        
+        
+        self.Window2 = UITaskWindow(self)
+        
+        
+        self.Window2.ImageClassification.clicked.connect(lambda:self.ConstraintsWindow("Next","imageClassification"))
+        self.Window2.ImageRegression.clicked.connect(lambda:self.ConstraintsWindow("Next","imageRegression"))
+        self.Window2.TextClassification.clicked.connect(lambda:self.ConstraintsWindow("Next","textClassification"))
+        self.Window2.TextRegression.clicked.connect(lambda:self.ConstraintsWindow("Next","textRegression"))
+        self.Window2.DataClassification.clicked.connect(lambda:self.ConstraintsWindow("Next","dataClassification"))
+        self.Window2.DataRegression.clicked.connect(lambda:self.ConstraintsWindow("Next","dataRegression"))
+
+        
+        self.Window2.Back.clicked.connect(self.MarcusWindow4)
+        
+        self.setCentralWidget(self.Window2)
+        self.show()
+                    
         
     def HelperWindow(self):        
         self.setFixedWidth(800)
@@ -327,6 +391,145 @@ class MainWindow(QMainWindow):
         self.show()
         
         
+    def ConstraintsWindow(self, n, target):
+        self.setFixedWidth(800)
+        self.setFixedHeight(600)
+        
+        if n == "Next":
+            self.target = target
+            print(self.target)
+            
+            if self.target == "?":
+                self.Dot.setVisible(False)
+            if self.target == None:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                 
+                msg.setText("Please choose a task")
+                msg.setWindowTitle("Warning")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                msg.exec_()
+                
+                return
+
+        self.Window3 = UIConstraintsWindow(self)
+        
+        if "Params" in self.constraints:
+            self.Window3.Params.setChecked(True)
+            self.set_params()
+            self.Window3.Params_factor.setText(str(self.params_factor))
+        if "Floats" in self.constraints:
+            self.Window3.Floats.setChecked(True)
+            self.set_floats()
+            self.Window3.Floats_factor.setText(str(self.floats_factor))
+        if "Complex" in self.constraints:
+            self.Window3.Complex.setChecked(True)
+            self.set_complex()
+            self.Window3.Complex_factor.setText(str(self.complex_factor)) 
+            
+        self.Window3.Params.toggled.connect(self.set_params)
+        self.Window3.Floats.toggled.connect(self.set_floats)
+        self.Window3.Complex.toggled.connect(self.set_complex)
+
+        
+        self.Window3.Back.clicked.connect(lambda:self.TaskWindow("Back"))
+        self.Window3.Next.clicked.connect(lambda:self.SettingsWindow("Next"))
+        
+        self.setCentralWidget(self.Window3)
+        self.show()
+        
+    def SettingsWindow(self, n):     
+                      
+        
+        if n == "Next":
+            if "Params" in self.constraints:
+                try:
+                    print(float(self.Window3.Params_factor.text()))
+                    if float(self.Window3.Params_factor.text()) < 0.1 or float(self.Window3.Params_factor.text()) > 10:
+                        msg = QMessageBox()
+                        msg.setIcon(QMessageBox.Warning)
+                         
+                        msg.setText("Enter factor between 0.1 and 10")
+                        msg.setWindowTitle("Warning")
+                        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                        msg.exec_()
+                        return
+                    
+                    self.params_factor = float(self.Window3.Params_factor.text())
+                except:                    
+                    msg = QMessageBox()
+                    msg.setIcon(QMessageBox.Warning)
+                     
+                    msg.setText("Please enter a number")
+                    msg.setWindowTitle("Warning")
+                    msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                    msg.exec_()
+                    return
+            
+            if "Floats" in self.constraints:
+                try:
+                    print(float(self.Window3.Floats_factor.text()))
+                    if float(self.Window3.Floats_factor.text()) < 0.1 or float(self.Window3.Floats_factor.text()) > 10:
+                        msg = QMessageBox()
+                        msg.setIcon(QMessageBox.Warning)
+                         
+                        msg.setText("Enter factor between 0.1 and 10")
+                        msg.setWindowTitle("Warning")
+                        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                        msg.exec_()
+                        return
+                    
+                    self.floats_factor = float(self.Window3.Floats_factor.text())
+                except:                    
+                    msg = QMessageBox()
+                    msg.setIcon(QMessageBox.Warning)
+                     
+                    msg.setText("Please enter a number")
+                    msg.setWindowTitle("Warning")
+                    msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                    msg.exec_()
+                    return
+                
+            if "Complex" in self.constraints:
+                try:
+                    print(float(self.Window3.Complex_factor.text()))
+                    if float(self.Window3.Complex_factor.text()) < 0.1 or float(self.Window3.Complex_factor.text()) > 10:
+                        msg = QMessageBox()
+                        msg.setIcon(QMessageBox.Warning)
+                         
+                        msg.setText("Enter factor between 0.1 and 10")
+                        msg.setWindowTitle("Warning")
+                        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                        msg.exec_()
+                        return
+                    
+                    self.complex_factor = float(self.Window3.Complex_factor.text())
+                except:                    
+                    msg = QMessageBox()
+                    msg.setIcon(QMessageBox.Warning)
+                     
+                    msg.setText("Please enter a number")
+                    msg.setWindowTitle("Warning")
+                    msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                    msg.exec_()
+                    return
+            
+
+        self.Window4 = UISettingsWindow(self)
+        
+
+        self.Window4.epochs_factor.setText(str(self.max_epoch))
+        self.Window4.max_trials_factor.setText(str(self.max_trials))
+        self.Window4.max_size_factor.setText(str(self.max_size))
+        
+        self.Window4.Back.clicked.connect(lambda:self.ConstraintsWindow("Back", self.target))
+        self.Window4.Next.clicked.connect(lambda:self.AutoMLWindow("Next"))
+        
+        
+        self.setCentralWidget(self.Window4)
+        self.show()
+        
+        
     def RestrictionWindow(self, n):            
         
         if n == "Next":
@@ -412,6 +615,41 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.Window4)
         self.show()
         
+    def AutoMLWindow(self, n):         
+        if n == "Next":
+            self.max_epoch = self.Window4.epochs_factor.text()
+            self.max_trials = self.Window4.max_trials_factor.text()
+            self.max_size = self.Window4.max_size_factor.text()
+
+        
+        self.Window5 = UIAutoMLWindow()
+          
+        self.Window5.Back.clicked.connect(lambda:self.SettingsWindow("Back"))
+        self.Window5.Start.clicked.connect(lambda:self.ReturnWindow("Next"))
+       
+        self.Window5.Finish.clicked.connect(self.close)
+
+        
+        self.setCentralWidget(self.Window5)
+        self.show()
+        
+    def ReturnWindow(self, n):         
+        
+        if n == "Next":
+            self.start_autokeras()
+  
+        
+        self.Window6 = UIReturnWindow()
+        
+        self.Window6.Back.clicked.connect(lambda:self.AutoMLWindow("Back"))
+        self.Window6.Load.clicked.connect(lambda:self.MarcusWindow1())         
+       
+        self.Window6.Finish.clicked.connect(self.close)
+        
+
+        self.setCentralWidget(self.Window6)
+        self.show()
+        
         
     def LoadWindow(self):         
         
@@ -427,14 +665,27 @@ class MainWindow(QMainWindow):
         
         self.Window5.Finish.clicked.connect(self.close)
         
-        print("LUL")
-        print(self.Window5.Load.height())
-        
         self.setCentralWidget(self.Window5)
         self.show()
             
         
         
+    def start_autokeras(self):
+        if "Params" in self.constraints:
+            self.params_check = True;
+
+        if "Floats" in self.constraints:
+            self.floats_check = True;
+
+        if "Complex" in self.constraints:
+            self.complex_check = True;
+            
+        if self.target == "imageClassification":
+            os.system(f"start /B start cmd.exe @cmd /k python autoML/ImageClassifier.py --ProjectName={self.project_name} --OutputPath={self.output_path_ml} --DataPath={self.data_loader_path_ml} --ParamConstraint={self.params_check} --ParamFactor={self.params_factor} --FlopConstraint={self.floats_check} --FlopFactor={self.floats_factor} --ComplexConstraint={self.complex_check} --ComplexFactor={self.complex_factor} --MaxSize={self.max_size} --MaxTrials={self.max_trials} --MaxEpochs={self.max_epoch}")
+
+        if self.target == "imageRegression":
+            os.system(f"start /B start cmd.exe @cmd /k python autoML/ImageRegressor.py --ProjectName={self.project_name} --OutputPath={self.output_path_ml} --DataPath={self.data_loader_path_ml} --ParamConstraint={self.params_check} --ParamFactor={self.params_factor} --FlopConstraint={self.floats_check} --FlopFactor={self.floats_factor} --ComplexConstraint={self.complex_check} --ComplexFactor={self.complex_factor} --MaxSize={self.max_size} --MaxTrials={self.max_trials} --MaxEpochs={self.max_epoch}")
+
         
         
     def get_output_path(self):
@@ -442,7 +693,12 @@ class MainWindow(QMainWindow):
         self.Window1.Output_Pfad.setText(self.output_path)
         print(self.Window1.Output_Pfad.text())
         
-        
+
+    def get_output_path_ml(self):
+        self.output_path_ml = QFileDialog.getExistingDirectory(self, 'Select the output path', './')
+        self.Window1d.Output_Pfad.setText(self.output_path_ml)
+        print(self.Window1d.Output_Pfad.text())
+    
         
     def get_model_path(self):
         self.model_path = QFileDialog.getOpenFileName(self, 'Select your model', './')[0]
@@ -450,12 +706,17 @@ class MainWindow(QMainWindow):
         print(self.Window1.Model_Pfad.text())
         
       
-      
     def get_data_loader_path(self):
         self.data_loader_path = QFileDialog.getOpenFileName(self, 'Select your data loader script', './')[0]
         self.Window1.Daten_Pfad.setText(self.data_loader_path)
         print(self.Window1.Daten_Pfad.text())
         
+        
+    def get_data_loader_path_ml(self):
+        self.data_loader_path_ml = QFileDialog.getOpenFileName(self, 'Select your data loader script', './')[0]
+        self.Window1d.Daten_Pfad.setText(self.data_loader_path_ml)
+        print(self.Window1d.Daten_Pfad.text())
+                
         
     def set_pruning(self):
         if self.Window3.Pruning.isChecked() == True:
@@ -489,6 +750,85 @@ class MainWindow(QMainWindow):
             
             self.Window3.Pruning.setIconSize(QSize(150, 150))
             self.Window3.Pruning.setGeometry(120, 85, 170, 170)
+            
+    def set_params(self):
+        if self.Window3.Params.isChecked() == True:
+            if not "Params" in self.constraints:
+                self.constraints.append("Params") 
+                print(self.constraints)
+            if self.params_factor == None:
+                self.Window3.Params_factor.setText("1")
+            else:
+                self.Window3.Params_factor.setText(str(self.params_factor))
+            self.Window3.Params_factor.setVisible(True)
+            self.Window3.Params_label.setVisible(True)
+            
+            self.Window3.Params.setIconSize(QSize(100, 100))
+            self.Window3.Params.setGeometry(145, 85, 120, 120)
+       
+        else:
+            if "Params" in self.constraints:
+                self.constraints.remove("Params")
+                print(self.constraints)
+            self.params_factor = float(self.Window3.Params_factor.text())
+            self.Window3.Params_factor.setVisible(False)
+            self.Window3.Params_label.setVisible(False)
+            
+            self.Window3.Params.setIconSize(QSize(150, 150))
+            self.Window3.Params.setGeometry(120, 85, 170, 170)
+            
+    def set_floats(self):
+        if self.Window3.Floats.isChecked() == True:
+            if not "Floats" in self.constraints:
+                self.constraints.append("Floats") 
+                print(self.constraints)
+            if self.floats_factor == None:
+                self.Window3.Floats_factor.setText("1")
+            else:
+                self.Window3.Floats_factor.setText(str(self.floats_factor))
+            self.Window3.Floats_factor.setVisible(True)
+            self.Window3.Floats_label.setVisible(True)
+            
+            self.Window3.Floats.setIconSize(QSize(100, 100))
+            self.Window3.Floats.setGeometry(540, 85, 120, 120)
+       
+        else:
+            if "Floats" in self.constraints:
+                self.constraints.remove("Floats")
+                print(self.constraints)
+            self.floats_factor = float(self.Window3.Floats_factor.text())
+            self.Window3.Floats_factor.setVisible(False)
+            self.Window3.Floats_label.setVisible(False)
+            
+            self.Window3.Floats.setIconSize(QSize(150, 150))
+            self.Window3.Floats.setGeometry(515, 85, 170, 170)
+            
+            
+    def set_complex(self):
+        if self.Window3.Complex.isChecked() == True:
+            if not "Complex" in self.constraints:
+                self.constraints.append("Complex") 
+                print(self.constraints)
+            if self.complex_factor == None:
+                self.Window3.Complex_factor.setText("1")
+            else:
+                self.Window3.Complex_factor.setText(str(self.complex_factor))
+            self.Window3.Complex_factor.setVisible(True)
+            self.Window3.Complex_label.setVisible(True)
+            
+            self.Window3.Complex.setIconSize(QSize(100, 100))
+            self.Window3.Complex.setGeometry(145, 320, 120, 120)
+       
+        else:
+            if "Complex" in self.constraints:
+                self.constraints.remove("Complex")
+                print(self.constraints)
+            self.complex_factor = float(self.Window3.Complex_factor.text())
+            self.Window3.Complex_factor.setVisible(False)
+            self.Window3.Complex_label.setVisible(False)
+            
+            self.Window3.Complex.setIconSize(QSize(150, 150))
+            self.Window3.Complex.setGeometry(120, 320, 170, 170)
             
             
     def set_quantization(self):
@@ -564,6 +904,7 @@ class MainWindow(QMainWindow):
             
             self.Window3.Dis.setIconSize(QSize(150, 150))
             self.Window3.Dis.setGeometry(120, 320, 170, 170)
+
             
             
     def set_huffman_coding(self):

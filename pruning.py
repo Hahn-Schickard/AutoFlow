@@ -7,7 +7,7 @@ from tensorflow.keras.utils import to_categorical
 from tensorflow.keras import backend as K
 import tensorflow as tf
 import numpy as np
-from keras.callbacks import EarlyStopping
+from tensorflow.keras.callbacks import EarlyStopping
 
 import tempfile
 

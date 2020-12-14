@@ -1,3 +1,5 @@
+Autokeras Version 1.0.2
+
 ## List of files and folders
 
 | File name     | Description   |

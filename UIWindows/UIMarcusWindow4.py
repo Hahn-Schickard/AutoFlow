@@ -10,16 +10,8 @@ class UIMarcusWindow4(QWidget):
     def __init__(self, parent=None):
         super(UIMarcusWindow4, self).__init__(parent)
         
-        self.Projekt_Name_label = QLabel("Marcels GUI:")
-        self.Projekt_Name_label.setFont(QFont("Marcel GUI:", 12))
-        
-        self.Modell_einlesen_label = QLabel("Keras model:")
-        self.Modell_einlesen_label.setFont(QFont("Keras model:", 12))
-        
-        self.Modelpng = QLabel(self)
-        Modelimg = QPixmap(os.path.join('Images', 'network.png'))
-        Modelimg= Modelimg.scaledToWidth(150)
-        self.Modelpng.setPixmap(Modelimg)
+        self.Projekt_Name_label = QLabel("AutoML Projectname:")
+        self.Projekt_Name_label.setFont(QFont("AutoML Projectname:", 12))
         
         self.Daten_label = QLabel("Datascript:")
         self.Daten_label.setFont(QFont("Datascript:", 12))
@@ -58,11 +50,7 @@ class UIMarcusWindow4(QWidget):
         
         self.Output_Pfad_Browse = QPushButton(" Output path... ", self)
         self.Output_Pfad_Browse.setFont(QFont(" Output path... ", 12))
-        self.Output_Pfad_Browse.setStyleSheet("background-color : rgb(10, 100, 200)")
-        
-        self.Modell_einlesen_Browse = QPushButton(" Select Model... ", self)
-        self.Modell_einlesen_Browse.setFont(QFont(" Select Model... ", 12))
-        self.Modell_einlesen_Browse.setStyleSheet("background-color : rgb(10, 100, 200)")
+        self.Output_Pfad_Browse.setStyleSheet("background-color : rgb(10, 100, 200)")   
         
         self.Daten_einlesen_Browse = QPushButton(" Select Data... ", self)
         self.Daten_einlesen_Browse.setFont(QFont(" Select Data... ", 12))
@@ -105,32 +93,20 @@ class UIMarcusWindow4(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[6].addStretch()
-        self.horizontal_box[6].addWidget(self.Modell_einlesen_label)
-        self.horizontal_box[6].addStretch()
-        self.horizontal_box[6].addStretch()
         self.horizontal_box[6].addWidget(self.Daten_label)
         self.horizontal_box[6].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[7].addStretch()
-        self.horizontal_box[7].addWidget(self.Modelpng)
-        self.horizontal_box[7].addStretch()
         self.horizontal_box[7].addStretch()
         self.horizontal_box[7].addWidget(self.Datapng)
         self.horizontal_box[7].addStretch()     
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[8].addStretch()
-        self.horizontal_box[8].addWidget(self.Model_Pfad)
-        self.horizontal_box[8].addStretch()
-        self.horizontal_box[8].addStretch()
         self.horizontal_box[8].addWidget(self.Daten_Pfad)
         self.horizontal_box[8].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[9].addStretch()
-        self.horizontal_box[9].addWidget(self.Modell_einlesen_Browse)
-        self.horizontal_box[9].addStretch()
         self.horizontal_box[9].addStretch()
         self.horizontal_box[9].addWidget(self.Daten_einlesen_Browse)
         self.horizontal_box[9].addStretch()
