@@ -16,6 +16,12 @@ class UIHelperWindow(QWidget):
         
         self.ParameterL = QLabel("Parameter")
         self.ParameterL.setFont(QFont("Parameter", 12))
+
+        self.FPS = QLineEdit()
+        self.FPS.setFixedWidth(200)
+        
+        self.FPSL = QLabel("FPS")
+        self.FPSL.setFont(QFont("FPS", 12))
         
         self.Schritt = QLabel(self)
         Schritt_img = QPixmap(os.path.join('Images', 'GUI_progress_bar', 'GUI_step_4.png'))
@@ -23,12 +29,6 @@ class UIHelperWindow(QWidget):
         self.Schritt.setFixedHeight(30)
         self.Schritt.setAlignment(Qt.AlignCenter)
         
-        self.FPS = QLineEdit()
-        self.FPS.setFixedWidth(200)
-        
-        self.FPSL = QLabel("FPS")
-        self.FPSL.setFont(QFont("FPS", 12))
-                
         self.Bauform = QLabel("Bauform")
         self.Bauform.setFont(QFont("Bauform", 12))
         

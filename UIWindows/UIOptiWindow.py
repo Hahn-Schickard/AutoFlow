@@ -43,24 +43,56 @@ class UIOptiWindow(QWidget):
         self.Pruning.setIconSize(QSize(150, 150))
         self.Pruning.setCheckable(True)
         self.Pruning.setGeometry(120, 85, 170, 170)
+        self.Pruning.setToolTip('...')
+        self.Pruning.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         self.Quantization = QPushButton(self)
         self.Quantization.setIcon(QIcon(os.path.join('Images', 'Quantization_Button.png')))
         self.Quantization.setIconSize(QSize(150, 150))
         self.Quantization.setCheckable(True)
         self.Quantization.setGeometry(515, 85, 170, 170)
+        self.Quantization.setToolTip('...')
+        self.Quantization.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         self.Dis = QPushButton(self)
         self.Dis.setIcon(QIcon(os.path.join('Images', 'MCU.png')))
         self.Dis.setIconSize(QSize(150, 150))
         self.Dis.setCheckable(True)
         self.Dis.setGeometry(120, 320, 170, 170)
+        self.Dis.setToolTip('...')
+        self.Dis.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         self.Huf = QPushButton(self)
         self.Huf.setIcon(QIcon(os.path.join('Images', 'MCU.png')))
         self.Huf.setIconSize(QSize(150, 150))
         self.Huf.setCheckable(True)        
         self.Huf.setGeometry(515, 320, 170, 170)
+        self.Huf.setToolTip('...')
+        self.Huf.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         self.Pruning_Dense_label = QLabel("Pruningfactor\nDense layer", self)
         self.Pruning_Dense_label.setFont(QFont("Pruningfactor\nDense layer", 10))

@@ -38,18 +38,26 @@ class UIMarcusWindow1(QWidget):
         self.load_model = QPushButton(self)
         self.load_model.setIcon(QIcon(os.path.join('Images', 'Loadmodel.png')))
         self.load_model.setIconSize(QSize(200, 250))
-        self.load_model.setStyleSheet("QPushButton::hover"
-                             "{"
-                             "background-color : rgb(10, 100, 200);"
-                             "}") 
+        self.load_model.setToolTip('...')
+        self.load_model.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         self.train_model = QPushButton(self)
         self.train_model.setIcon(QIcon(os.path.join('Images', 'Trainmodel.png')))
         self.train_model.setIconSize(QSize(200, 250))
-        self.train_model.setStyleSheet("QPushButton::hover"
-                             "{"
-                             "background-color : rgb(10, 100, 200);"
-                             "}")
+        self.train_model.setToolTip('...')
+        self.train_model.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         
         self.horizontal_box = []

@@ -50,15 +50,25 @@ class UIMarcusWindow3(QWidget):
         
         self.Output_Pfad_Browse = QPushButton(" Output path... ", self)
         self.Output_Pfad_Browse.setFont(QFont(" Output path... ", 12))
-        self.Output_Pfad_Browse.setStyleSheet("background-color : rgb(10, 100, 200)")
+        self.Output_Pfad_Browse.setToolTip('...')
+        self.Output_Pfad_Browse.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         self.Modell_einlesen_Browse = QPushButton(" Select Model... ", self)
         self.Modell_einlesen_Browse.setFont(QFont(" Select Model... ", 12))
-        self.Modell_einlesen_Browse.setStyleSheet("background-color : rgb(10, 100, 200)")
-        
-        self.Daten_einlesen_Browse = QPushButton(" Select Data... ", self)
-        self.Daten_einlesen_Browse.setFont(QFont(" Select Data... ", 12))
-        self.Daten_einlesen_Browse.setStyleSheet("background-color : rgb(10, 100, 200)")
+        self.Modell_einlesen_Browse.setToolTip('...')
+        self.Modell_einlesen_Browse.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
 
         self.Next = QPushButton(self)
         self.Next.setIcon(QIcon(os.path.join('Images', 'next_arrow.png')))

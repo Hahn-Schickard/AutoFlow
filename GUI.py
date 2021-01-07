@@ -115,9 +115,8 @@ class MainWindow(QMainWindow):
 
         print(self.model_path)
         
-        self.Window1c.Output_Pfad_Browse.clicked.connect(self.get_output_path)
-        self.Window1c.Modell_einlesen_Browse.clicked.connect(self.get_model_path)
-        self.Window1c.Daten_einlesen_Browse.clicked.connect(self.get_data_loader_path)
+        self.Window1c.Output_Pfad_Browse.clicked.connect(lambda:self.get_output_path(self.Window1c))
+        self.Window1c.Modell_einlesen_Browse.clicked.connect(lambda:self.get_model_path(self.Window1c))
         self.Window1c.Next.clicked.connect(lambda:self.TargetWindow("Next"))
         self.Window1c.Back.clicked.connect(self.MarcusWindow2)
         
@@ -138,8 +137,8 @@ class MainWindow(QMainWindow):
         if self.data_loader_path_ml != None:
             self.Window1d.Daten_Pfad.setText(self.data_loader_path_ml)
         
-        self.Window1d.Output_Pfad_Browse.clicked.connect(self.get_output_path_ml)
-        self.Window1d.Daten_einlesen_Browse.clicked.connect(self.get_data_loader_path_ml)
+        self.Window1d.Output_Pfad_Browse.clicked.connect(lambda:self.get_output_path_ml(self.Window1d))
+        self.Window1d.Daten_einlesen_Browse.clicked.connect(lambda:self.get_data_loader_path_ml(self.Window1d))
         self.Window1d.Next.clicked.connect(lambda:self.TaskWindow("Next"))
         self.Window1d.Back.clicked.connect(self.MarcusWindow1)
         
@@ -176,9 +175,9 @@ class MainWindow(QMainWindow):
             self.Window1.Daten_Pfad.setText(self.data_loader_path)
 
         
-        self.Window1.Output_Pfad_Browse.clicked.connect(self.get_output_path)
-        self.Window1.Modell_einlesen_Browse.clicked.connect(self.get_model_path)
-        self.Window1.Daten_einlesen_Browse.clicked.connect(self.get_data_loader_path)
+        self.Window1.Output_Pfad_Browse.clicked.connect(lambda:self.get_output_path(self.Window1))
+        self.Window1.Modell_einlesen_Browse.clicked.connect(lambda:self.get_model_path(self.Window1))
+        self.Window1.Daten_einlesen_Browse.clicked.connect(lambda:self.get_data_loader_path(self.Window1))
         
         self.Window1.Next.clicked.connect(lambda:self.TargetWindow("Next"))
         self.Window1.Back.clicked.connect(self.MarcusWindow2)
@@ -385,7 +384,7 @@ class MainWindow(QMainWindow):
         self.Window3.quant_int.clicked.connect(lambda:self.set_quant_dtype("int"))
         
         self.Window3.Back.clicked.connect(lambda:self.TargetWindow("Back"))
-        self.Window3.Next.clicked.connect(lambda:self.RestrictionWindow("Next"))
+        self.Window3.Next.clicked.connect(lambda:self.LoadWindow("Next"))
         
         self.setCentralWidget(self.Window3)
         self.show()
@@ -529,7 +528,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.Window4)
         self.show()
         
-        
+    """       
     def RestrictionWindow(self, n):            
         
         if n == "Next":
@@ -614,7 +613,7 @@ class MainWindow(QMainWindow):
         
         self.setCentralWidget(self.Window4)
         self.show()
-        
+    """      
     def AutoMLWindow(self, n):         
         if n == "Next":
             self.max_epoch = self.Window4.epochs_factor.text()
@@ -651,11 +650,87 @@ class MainWindow(QMainWindow):
         self.show()
         
         
-    def LoadWindow(self):         
+    def LoadWindow(self, n):  
+
+        if n == "Next":
+            if "Pruning" in self.optimizations:
+                try:
+                    if int(self.Window3.Pruning_Dense.text()) < 5 or int(self.Window3.Pruning_Dense.text()) > 95  or int(self.Window3.Pruning_Conv.text()) < 5  or int(self.Window3.Pruning_Conv.text()) > 95:
+                        msg = QMessageBox()
+                        msg.setIcon(QMessageBox.Warning)
+                         
+                        msg.setText("Enter prunefactors between 5 and 95")
+                        msg.setWindowTitle("Warning")
+                        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                        msg.exec_()
+                        return
+                    
+                    self.prun_factor_dense = int(self.Window3.Pruning_Dense.text())
+                    self.prun_factor_conv = int(self.Window3.Pruning_Conv.text())
+                except:
+                    msg = QMessageBox()
+                    msg.setIcon(QMessageBox.Warning)
+                     
+                    msg.setText("Please enter a number")
+                    msg.setWindowTitle("Warning")
+                    msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                    msg.exec_()
+                    return
+            
+            if "Quantization" in self.optimizations and self.quant_dtype == None:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                 
+                msg.setText("Enter a dtype for quantization")
+                msg.setWindowTitle("Warning")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                msg.exec_()
+                return
+                    
+            if self.optimizations and self.data_loader_path == "":
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                 
+                msg.setText("Please enter a data loader at the start window")
+                msg.setWindowTitle("Warning")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                msg.exec_()
+                return        
+        
+        
+            if "Quantization" in self.optimizations:
+                if self.Window3.quant_int.isChecked():
+                    self.quant_dtype = "int"
+                elif self.Window3.quant_float.isChecked():
+                    self.quant_dtype = "float"
+                else:
+                    print("No datatype for quantization is selected")
+            if "Knowledge_Distillation" in self.optimizations:
+                self.Know_Dis_1 = int(self.Window3.Dis_1.text())
+                self.Know_Dis_2 = int(self.Window3.Dis_2.text())
+            if "Huffman_Coding" in self.optimizations:
+                self.Huffman_1 = int(self.Window3.Huf_1.text())
+                self.Huffman_2 = int(self.Window3.Huf_2.text())
+            print(self.prun_factor_dense, self.prun_factor_conv)
+            print(self.quant_dtype)
+            print(self.Know_Dis_1, self.Know_Dis_2)
+            print(self.Huffman_1, self.Huffman_2)
+            
+            if self.optimizations and self.data_loader_path == "":
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                 
+                msg.setText("Please enter a data loader at the start window")
+                msg.setWindowTitle("Warning")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                msg.exec_()
+                
+                return       
         
         self.Window5 = UILoadWindow(self.model_path, self.project_name, self.output_path, self.data_loader_path, self.prun_factor_dense, self.prun_factor_conv, self.optimizations, self)
         
-        self.Window5.Back.clicked.connect(lambda:self.RestrictionWindow("Back"))
+        #self.Window5.Back.clicked.connect(lambda:self.RestrictionWindow("Back"))
+        self.Window5.Back.clicked.connect(lambda:self.OptiWindow("Back", self.target))
         
         self.Window5.Load.clicked.connect(self.model_pruning)
         self.Window5.Load.clicked.connect(self.download)
@@ -688,34 +763,34 @@ class MainWindow(QMainWindow):
 
         
         
-    def get_output_path(self):
+    def get_output_path(self, CurWindow):
         self.output_path = QFileDialog.getExistingDirectory(self, 'Select the output path', './')
-        self.Window1.Output_Pfad.setText(self.output_path)
-        print(self.Window1.Output_Pfad.text())
+        CurWindow.Output_Pfad.setText(self.output_path)
+        print(CurWindow.Output_Pfad.text())
         
 
-    def get_output_path_ml(self):
+    def get_output_path_ml(self, CurWindow):
         self.output_path_ml = QFileDialog.getExistingDirectory(self, 'Select the output path', './')
-        self.Window1d.Output_Pfad.setText(self.output_path_ml)
-        print(self.Window1d.Output_Pfad.text())
+        CurWindow.Output_Pfad.setText(self.output_path_ml)
+        print(CurWindow.Output_Pfad.text())
     
         
-    def get_model_path(self):
+    def get_model_path(self, CurWindow):
         self.model_path = QFileDialog.getOpenFileName(self, 'Select your model', './')[0]
-        self.Window1.Model_Pfad.setText(self.model_path)
-        print(self.Window1.Model_Pfad.text())
+        CurWindow.Model_Pfad.setText(self.model_path)
+        print(CurWindow.Model_Pfad.text())
         
       
-    def get_data_loader_path(self):
+    def get_data_loader_path(self, CurWindow):
         self.data_loader_path = QFileDialog.getOpenFileName(self, 'Select your data loader script', './')[0]
-        self.Window1.Daten_Pfad.setText(self.data_loader_path)
-        print(self.Window1.Daten_Pfad.text())
+        CurWindow.Daten_Pfad.setText(self.data_loader_path)
+        print(CurWindow.Daten_Pfad.text())
         
         
-    def get_data_loader_path_ml(self):
+    def get_data_loader_path_ml(self, CurWindow):
         self.data_loader_path_ml = QFileDialog.getOpenFileName(self, 'Select your data loader script', './')[0]
-        self.Window1d.Daten_Pfad.setText(self.data_loader_path_ml)
-        print(self.Window1d.Daten_Pfad.text())
+        CurWindow.Daten_Pfad.setText(self.data_loader_path_ml)
+        print(CurWindow.Daten_Pfad.text())
                 
         
     def set_pruning(self):

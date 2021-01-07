@@ -40,6 +40,7 @@ class UIAutoMLWindow(QWidget):
         self.Finish = QPushButton("Finish", self)
         self.Finish.setFont(QFont("Finish", 12))
         self.Finish.setFixedWidth(125)
+        self.Finish.setToolTip('...')
         self.Finish.setVisible(False)
         
         self.Back = QPushButton(self)
@@ -51,10 +52,14 @@ class UIAutoMLWindow(QWidget):
         self.Start = QPushButton(self)
         self.Start.setIcon(QIcon(os.path.join('Images', 'start.png')))
         self.Start.setIconSize(QSize(160, 160))
-        self.Start.setStyleSheet("QPushButton::hover"
-                             "{"
-                             "background-color : rgb(10, 100, 200);"
-                             "}") 
+        self.Start.setToolTip('...')
+        self.Start.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         self.horizontal_box = []
         self.horizontal_box.append(QHBoxLayout())

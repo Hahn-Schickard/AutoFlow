@@ -37,52 +37,76 @@ class UITaskWindow(QWidget):
         self.ImageClassification = QPushButton(self)
         self.ImageClassification.setIcon(QIcon(os.path.join('Images', 'ImageCl.png')))
         self.ImageClassification.setIconSize(QSize(200, 250))
-        self.ImageClassification.setStyleSheet("QPushButton::hover"
-                             "{"
-                             "background-color : rgb(10, 100, 200);"
-                             "}") 
+        self.ImageClassification.setToolTip('...')
+        self.ImageClassification.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         self.ImageRegression = QPushButton(self)
         self.ImageRegression.setIcon(QIcon(os.path.join('Images', 'ImageRE.png')))
         self.ImageRegression.setIconSize(QSize(200, 250))
-        self.ImageRegression.setStyleSheet("QPushButton::hover"
-                             "{"
-                             "background-color : rgb(10, 100, 200);"
-                             "}") 
+        self.ImageRegression.setToolTip('...')
+        self.ImageRegression.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
     
         self.TextClassification = QPushButton(self)
         self.TextClassification.setIcon(QIcon(os.path.join('Images', 'TextCI.png')))
         self.TextClassification.setIconSize(QSize(200, 250))
-        self.TextClassification.setStyleSheet("QPushButton::hover"
-                             "{"
-                             "background-color : rgb(10, 100, 200);"
-                             "}") 
+        self.TextClassification.setToolTip('...')
+        self.TextClassification.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         
         self.TextRegression = QPushButton(self)
         self.TextRegression.setIcon(QIcon(os.path.join('Images', 'TextRE.png')))
         self.TextRegression.setIconSize(QSize(200, 250))
-        self.TextRegression.setStyleSheet("QPushButton::hover"
-                             "{"
-                             "background-color : rgb(10, 100, 200);"
-                             "}") 
+        self.TextRegression.setToolTip('...')
+        self.TextRegression.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         self.DataClassification = QPushButton(self)
         self.DataClassification.setIcon(QIcon(os.path.join('Images', 'DataCI.png')))
         self.DataClassification.setIconSize(QSize(200, 250))
-        self.DataClassification.setStyleSheet("QPushButton::hover"
-                             "{"
-                             "background-color : rgb(10, 100, 200);"
-                             "}") 
+        self.DataClassification.setToolTip('...')
+        self.DataClassification.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         self.DataRegression = QPushButton(self)
         self.DataRegression.setIcon(QIcon(os.path.join('Images', 'DataRE.png')))
         self.DataRegression.setIconSize(QSize(200, 250))
-        self.DataRegression.setStyleSheet("QPushButton::hover"
-                             "{"
-                             "background-color : rgb(10, 100, 200);"
-                             "}") 
+        self.DataRegression.setToolTip('...')
+        self.DataRegression.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         
         self.horizontal_box = []

@@ -43,18 +43,26 @@ class UIMarcusWindow2(QWidget):
         self.uC = QPushButton(self)
         self.uC.setIcon(QIcon(os.path.join('Images', 'Data.png')))
         self.uC.setIconSize(QSize(200, 250))
-        self.uC.setStyleSheet("QPushButton::hover"
-                             "{"
-                             "background-color : rgb(10, 100, 200);"
-                             "}") 
+        self.uC.setToolTip('...')
+        self.uC.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         self.FPGA = QPushButton(self)
         self.FPGA.setIcon(QIcon(os.path.join('Images', 'Datapriv.png')))
         self.FPGA.setIconSize(QSize(200, 250))
-        self.FPGA.setStyleSheet("QPushButton::hover"
-                             "{"
-                             "background-color : rgb(10, 100, 200);"
-                             "}") 
+        self.FPGA.setToolTip('...')
+        self.FPGA.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
 
         self.horizontal_box = []

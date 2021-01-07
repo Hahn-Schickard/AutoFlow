@@ -46,6 +46,14 @@ class UILoadWindow(QWidget):
         self.Finish.setFont(QFont("Finish", 12))
         self.Finish.setFixedWidth(125)
         self.Finish.setVisible(False)
+        self.Finish.setToolTip('...')
+        self.Finish.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""")
         
         self.Back = QPushButton(self)
         self.Back.setIcon(QIcon(os.path.join('Images', 'back_arrow.png')))

@@ -43,18 +43,42 @@ class UIConstraintsWindow(QWidget):
         self.Params.setIconSize(QSize(150, 150))
         self.Params.setCheckable(True)
         self.Params.setGeometry(120, 85, 170, 170)
+        self.Params.setToolTip('...')
+        self.Params.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         self.Floats = QPushButton(self)
         self.Floats.setIcon(QIcon(os.path.join('Images', 'flops.png')))
         self.Floats.setIconSize(QSize(150, 150))
         self.Floats.setCheckable(True)
         self.Floats.setGeometry(515, 85, 170, 170)
+        self.Floats.setToolTip('...')
+        self.Floats.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         self.Complex = QPushButton(self)
         self.Complex.setIcon(QIcon(os.path.join('Images', 'complex.png')))
         self.Complex.setIconSize(QSize(150, 150))
         self.Complex.setCheckable(True)
         self.Complex.setGeometry(120, 320, 170, 170)
+        self.Complex.setToolTip('...')
+        self.Complex.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""") 
         
         self.Params_label = QLabel("Faktor", self)
         self.Params_label.setFont(QFont("Faktor", 10))
