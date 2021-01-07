@@ -65,34 +65,34 @@ class UIOptiWindow(QWidget):
                            }
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}""") 
-        
+        """
         self.Dis = QPushButton(self)
         self.Dis.setIcon(QIcon(os.path.join('Images', 'MCU.png')))
         self.Dis.setIconSize(QSize(150, 150))
         self.Dis.setCheckable(True)
         self.Dis.setGeometry(120, 320, 170, 170)
-        self.Dis.setToolTip('...')
-        self.Dis.setStyleSheet("""QToolTip { 
-                           background-color : rgb(53, 53, 53);
-                           color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""") 
-        
+        self.Dis.setToolTip('...')"""
+        #self.Dis.setStyleSheet("""QToolTip { 
+        #                   background-color : rgb(53, 53, 53);
+        #                  color: white; 
+        #                   border: black solid 1px
+        #                   }
+        #                   QPushButton::hover {
+        #                   background-color : rgb(10, 100, 200)}""") 
+        """
         self.Huf = QPushButton(self)
         self.Huf.setIcon(QIcon(os.path.join('Images', 'MCU.png')))
         self.Huf.setIconSize(QSize(150, 150))
         self.Huf.setCheckable(True)        
         self.Huf.setGeometry(515, 320, 170, 170)
-        self.Huf.setToolTip('...')
-        self.Huf.setStyleSheet("""QToolTip { 
-                           background-color : rgb(53, 53, 53);
-                           color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""") 
+        self.Huf.setToolTip('...')"""
+        #self.Huf.setStyleSheet("""QToolTip { 
+        #                   background-color : rgb(53, 53, 53);
+        #                   color: white; 
+        #                   border: black solid 1px
+        #                   }
+        #                   QPushButton::hover {
+        #                   background-color : rgb(10, 100, 200)}""") 
         
         self.Pruning_Dense_label = QLabel("Pruningfactor\nDense layer", self)
         self.Pruning_Dense_label.setFont(QFont("Pruningfactor\nDense layer", 10))
@@ -237,7 +237,7 @@ class UIOptiWindow(QWidget):
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[3].addWidget(self.Abstand)
         self.horizontal_box[3].setAlignment(Qt.AlignTop)
-                
+        """        
         self.horizontal_box.append(QHBoxLayout())
         sublayout_unten = QGridLayout()        
         sublayout_unten.addWidget(self.Abstand, 0, 0, Qt.AlignCenter)
@@ -272,14 +272,14 @@ class UIOptiWindow(QWidget):
         sublayout_unten.addWidget(self.Abstand, 2, 9, Qt.AlignCenter)
                 
         self.horizontal_box[4].addLayout(sublayout_unten)     
-        
+        """
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[5].addWidget(self.Back)
-        self.horizontal_box[5].addStretch()
-        self.horizontal_box[5].addWidget(self.Schritt)
-        self.horizontal_box[5].addStretch()
-        self.horizontal_box[5].addWidget(self.Next)
-        self.horizontal_box[5].setAlignment(Qt.AlignBottom)
+        self.horizontal_box[4].addWidget(self.Back)
+        self.horizontal_box[4].addStretch()
+        self.horizontal_box[4].addWidget(self.Schritt)
+        self.horizontal_box[4].addStretch()
+        self.horizontal_box[4].addWidget(self.Next)
+        self.horizontal_box[4].setAlignment(Qt.AlignBottom)
 
         
         self.vertical_box = QVBoxLayout()

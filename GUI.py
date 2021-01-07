@@ -187,8 +187,6 @@ class MainWindow(QMainWindow):
         
         
     def TargetWindow(self, n):
-        self.setFixedWidth(800)
-        self.setFixedHeight(600)
         
         if n == "Next":
             
@@ -238,8 +236,6 @@ class MainWindow(QMainWindow):
        
         
     def TaskWindow(self, n):
-        self.setFixedWidth(800)
-        self.setFixedHeight(600)
         
         if n == "Next":
             
@@ -327,8 +323,6 @@ class MainWindow(QMainWindow):
         
         
     def OptiWindow(self, n, target):
-        self.setFixedWidth(800)
-        self.setFixedHeight(600)
         
         if n == "Next":
             self.target = target
@@ -364,6 +358,7 @@ class MainWindow(QMainWindow):
                 elif "int" in self.quant_dtype:
                     self.Window3.quant_int.setChecked(True)  
                     self.Window3.quant_float.setChecked(False) 
+        """            
         if "Knowledge_Distillation" in self.optimizations:
             self.Window3.Dis.setChecked(True)
             self.set_knowledge_distillation()
@@ -374,11 +369,11 @@ class MainWindow(QMainWindow):
             self.set_huffman_coding()
             self.Window3.Huf_1.setText(str(self.Huffman_1))
             self.Window3.Huf_2.setText(str(self.Huffman_2))
-            
+        """    
         self.Window3.Pruning.toggled.connect(self.set_pruning)
         self.Window3.Quantization.toggled.connect(self.set_quantization)
-        self.Window3.Dis.toggled.connect(self.set_knowledge_distillation)
-        self.Window3.Huf.toggled.connect(self.set_huffman_coding)
+        #self.Window3.Dis.toggled.connect(self.set_knowledge_distillation)
+        #self.Window3.Huf.toggled.connect(self.set_huffman_coding)
         
         self.Window3.quant_float.clicked.connect(lambda:self.set_quant_dtype("float"))
         self.Window3.quant_int.clicked.connect(lambda:self.set_quant_dtype("int"))
@@ -391,8 +386,6 @@ class MainWindow(QMainWindow):
         
         
     def ConstraintsWindow(self, n, target):
-        self.setFixedWidth(800)
-        self.setFixedHeight(600)
         
         if n == "Next":
             self.target = target
