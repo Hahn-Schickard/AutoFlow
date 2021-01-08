@@ -41,6 +41,7 @@ class MainWindow(QMainWindow):
         self.setFixedWidth(800)
         self.setFixedHeight(600)
         
+        self.FONT_TYPE = "Arial"
         self.X=0
         self.Y=0
         self.project_name = None
