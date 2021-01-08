@@ -13,15 +13,17 @@ from Threads.Prune_model_thread import *
 
 
 class UIAutoMLWindow(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, FONT_STYLE, parent=None):
         super(UIAutoMLWindow, self).__init__(parent)
-                
+
+        self.FONT_STYLE = FONT_STYLE        
+
         self.label = QLabel("AutoML")
-        self.label.setFont(QFont("AutoML", 12))
+        self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
         self.info = QLabel("Start the AutoML Process:")
-        self.info.setFont(QFont("Start the AutoML Process:", 12))
+        self.info.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.info.setAlignment(Qt.AlignCenter)
         
         self.Abstand = QLabel()
@@ -38,7 +40,7 @@ class UIAutoMLWindow(QWidget):
         self.Schritt.setAlignment(Qt.AlignCenter)
         
         self.Finish = QPushButton("Finish", self)
-        self.Finish.setFont(QFont("Finish", 12))
+        self.Finish.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Finish.setFixedWidth(125)
         self.Finish.setToolTip('...')
         self.Finish.setVisible(False)

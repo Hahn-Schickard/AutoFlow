@@ -7,14 +7,16 @@ from PyQt5.QtCore import *
 
 
 class UIMarcusWindow3(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, FONT_STYLE, parent=None):
         super(UIMarcusWindow3, self).__init__(parent)
         #Project with no Data
+        self.FONT_STYLE = FONT_STYLE        
+        
         self.Projekt_Name_label = QLabel("Project name:")
-        self.Projekt_Name_label.setFont(QFont("Project name:", 12))
+        self.Projekt_Name_label.setStyleSheet("font: 12pt " + FONT_STYLE)
         
         self.Modell_einlesen_label = QLabel("Keras model:")
-        self.Modell_einlesen_label.setFont(QFont("Keras model:", 12))
+        self.Modell_einlesen_label.setStyleSheet("font: 12pt " + FONT_STYLE)
         
         self.Modelpng = QLabel(self)
         Modelimg = QPixmap(os.path.join('Images', 'network.png'))
@@ -34,22 +36,23 @@ class UIMarcusWindow3(QWidget):
         self.Abstand_unten.setFixedHeight(30)
         
         self.Projekt_Name = QLineEdit()
+        self.Projekt_Name.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Projekt_Name.setFixedWidth(200)
         
         self.Model_Pfad = QLabel("")
         self.Model_Pfad.setFixedWidth(300)
-        self.Model_Pfad.setFont(QFont("",11))
+        self.Model_Pfad.setStyleSheet("font: 12pt " + FONT_STYLE)
         
         self.Output_Pfad = QLabel("")
         self.Output_Pfad.setFixedWidth(300)
-        self.Output_Pfad.setFont(QFont("",11))
+        self.Output_Pfad.setStyleSheet("font: 12pt " + FONT_STYLE)
         
         self.Daten_Pfad = QLabel("")
         self.Daten_Pfad.setFixedWidth(300)
-        self.Daten_Pfad.setFont(QFont("",11))
+        self.Daten_Pfad.setStyleSheet("font: 12pt " + FONT_STYLE)
         
         self.Output_Pfad_Browse = QPushButton(" Output path... ", self)
-        self.Output_Pfad_Browse.setFont(QFont(" Output path... ", 12))
+        self.Output_Pfad_Browse.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Output_Pfad_Browse.setToolTip('...')
         self.Output_Pfad_Browse.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);
@@ -60,7 +63,7 @@ class UIMarcusWindow3(QWidget):
                            background-color : rgb(10, 100, 200)}""") 
         
         self.Modell_einlesen_Browse = QPushButton(" Select Model... ", self)
-        self.Modell_einlesen_Browse.setFont(QFont(" Select Model... ", 12))
+        self.Modell_einlesen_Browse.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Modell_einlesen_Browse.setToolTip('...')
         self.Modell_einlesen_Browse.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);

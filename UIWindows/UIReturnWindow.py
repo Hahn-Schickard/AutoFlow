@@ -13,11 +13,13 @@ from Threads.Prune_model_thread import *
 
 
 class UIReturnWindow(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, FONT_STYLE, parent=None):
         super(UIReturnWindow, self).__init__(parent)
                 
+        self.FONT_STYLE = FONT_STYLE        
+        
         self.label = QLabel("End")
-        self.label.setFont(QFont("End", 12))
+        self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
         self.Abstand = QLabel()
@@ -31,7 +33,7 @@ class UIReturnWindow(QWidget):
         self.Schritt.setAlignment(Qt.AlignCenter)
         
         self.Finish = QPushButton("Finish", self)
-        self.Finish.setFont(QFont("Finish", 12))
+        self.Finish.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Finish.setFixedWidth(125)
         self.Finish.setVisible(False)
         
@@ -46,11 +48,11 @@ class UIReturnWindow(QWidget):
         self.Load.setFixedHeight(30)
         
         self.info1 = QLabel("Check if the Process is running.")
-        self.info1.setFont(QFont("Check if the Process is running.", 12))
+        self.info1.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.info1.setAlignment(Qt.AlignCenter)
         
         self.info2 = QLabel("Return to Start Screen by pressing the right arrow button.")
-        self.info2.setFont(QFont("Return to Start Screen by pressing the right arrow button.", 12))
+        self.info2.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.info2.setAlignment(Qt.AlignCenter)
         
         

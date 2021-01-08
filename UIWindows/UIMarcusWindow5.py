@@ -13,12 +13,14 @@ from Threads.Prune_model_thread import *
 
 
 class UIMarcusWindow5(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, FONT_STYLE, parent=None):
         super(UIMarcusWindow5, self).__init__(parent)
         
         
+        self.FONT_STYLE = FONT_STYLE        
+        
         self.label = QLabel("Training")
-        self.label.setFont(QFont("Training", 12))
+        self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
         self.Abstand = QLabel()
@@ -35,7 +37,7 @@ class UIMarcusWindow5(QWidget):
         self.Schritt.setAlignment(Qt.AlignCenter)
         
         self.Finish = QPushButton("Finish", self)
-        self.Finish.setFont(QFont("Finish", 12))
+        self.Finish.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Finish.setFixedWidth(125)
         self.Finish.setVisible(False)
         

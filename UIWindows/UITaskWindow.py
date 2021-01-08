@@ -7,11 +7,13 @@ from PyQt5.QtCore import *
 
 
 class UITaskWindow(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, FONT_STYLE, parent=None):
         super(UITaskWindow, self).__init__(parent)
         
+        self.FONT_STYLE = FONT_STYLE        
+        
         self.label = QLabel("Choose your Task")
-        self.label.setFont(QFont("Choose your Task", 12))
+        self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
         self.Abstand = QLabel()

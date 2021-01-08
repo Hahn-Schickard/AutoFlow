@@ -7,11 +7,13 @@ from PyQt5.QtCore import *
 
 
 class UIRestrictionWindow(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, FONT_STYLE, parent=None):
         super(UIRestrictionWindow, self).__init__(parent)
         
+        self.FONT_STYLE = FONT_STYLE        
+        
         self.label = QLabel("Restrictions")
-        self.label.setFont(QFont("Restrictions", 12))
+        self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
         self.Abstand = QLabel()

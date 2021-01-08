@@ -7,21 +7,25 @@ from PyQt5.QtCore import *
 
 
 class UIHelperWindow(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, FONT_STYLE, parent=None):
         super(UIHelperWindow, self).__init__(parent)
         
         
+        self.FONT_STYLE = FONT_STYLE        
+        
         self.Parameter = QLineEdit()
+        self.Parameter.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Parameter.setFixedWidth(200)
         
         self.ParameterL = QLabel("Parameter")
-        self.ParameterL.setFont(QFont("Parameter", 12))
+        self.ParameterL.setStyleSheet("font: 12pt " + FONT_STYLE)
 
         self.FPS = QLineEdit()
+        self.FPS.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.FPS.setFixedWidth(200)
         
         self.FPSL = QLabel("FPS")
-        self.FPSL.setFont(QFont("FPS", 12))
+        self.FPSL.setStyleSheet("font: 12pt " + FONT_STYLE)
         
         self.Schritt = QLabel(self)
         Schritt_img = QPixmap(os.path.join('Images', 'GUI_progress_bar', 'GUI_step_4.png'))
@@ -30,56 +34,56 @@ class UIHelperWindow(QWidget):
         self.Schritt.setAlignment(Qt.AlignCenter)
         
         self.Bauform = QLabel("Bauform")
-        self.Bauform.setFont(QFont("Bauform", 12))
+        self.Bauform.setStyleSheet("font: 12pt " + FONT_STYLE)
         
         self.Forms = QPushButton(" small ", self)
-        self.Forms.setFont(QFont(" small ", 12))
+        self.Forms.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Forms.setCheckable(True) 
         self.Formm = QPushButton(" medium ", self)
-        self.Formm.setFont(QFont(" medium ", 12))
+        self.Formm.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Formm.setCheckable(True)
         self.Forml = QPushButton(" large ", self)
-        self.Forml.setFont(QFont(" large ", 12))
+        self.Forml.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Forml.setCheckable(True)
 
         self.Flexibilitat = QLabel("Flexibilität")
-        self.Flexibilitat.setFont(QFont("Flexibilität", 12))
+        self.Flexibilitat.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Flexibilitat.setAlignment(Qt.AlignCenter)
         
         self.Flexs = QPushButton(" small ", self)
-        self.Flexs.setFont(QFont(" small ", 12))
+        self.Flexs.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Flexs.setCheckable(True) 
         self.Flexm = QPushButton(" medium ", self)
-        self.Flexm.setFont(QFont(" medium ", 12))
+        self.Flexm.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Flexm.setCheckable(True) 
         self.Flexl = QPushButton(" large ", self)
-        self.Flexl.setFont(QFont(" large ", 12))
+        self.Flexl.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Flexl.setCheckable(True) 
         
         self.Energieverbrauch = QLabel("Energieverbrauch")
-        self.Energieverbrauch.setFont(QFont("Energieverbrauch", 12))
+        self.Energieverbrauch.setStyleSheet("font: 12pt " + FONT_STYLE)
         
         self.Energies = QPushButton(" small ", self)
-        self.Energies.setFont(QFont(" small ", 12))
+        self.Energies.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Energies.setCheckable(True)
         self.Energiem = QPushButton(" medium ", self)
-        self.Energiem.setFont(QFont(" medium ", 12))
+        self.Energiem.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Energiem.setCheckable(True)
         self.Energiel = QPushButton(" large ", self)
-        self.Energiel.setFont(QFont(" large ", 12))
+        self.Energiel.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Energiel.setCheckable(True)
         
         self.Preis = QLabel("Preis")
-        self.Preis.setFont(QFont("Preis", 12))
+        self.Preis.setStyleSheet("font: 12pt " + FONT_STYLE)
         
         self.Preiss = QPushButton(" small ", self)
-        self.Preiss.setFont(QFont(" small ", 12))
+        self.Preiss.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Preiss.setCheckable(True)
         self.Preism = QPushButton(" medium ", self)
-        self.Preism.setFont(QFont(" medium ", 12))
+        self.Preism.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Preism.setCheckable(True)
         self.Preisl = QPushButton(" large ", self)
-        self.Preisl.setFont(QFont(" large ", 12))
+        self.Preisl.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Preisl.setCheckable(True)
         
         self.Loadpng = QLabel(self)

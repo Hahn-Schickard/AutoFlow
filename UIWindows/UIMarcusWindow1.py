@@ -13,11 +13,13 @@ from Threads.Prune_model_thread import *
 
 
 class UIMarcusWindow1(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, FONT_STYLE, parent=None):
         super(UIMarcusWindow1, self).__init__(parent)
+
+        self.FONT_STYLE = FONT_STYLE        
         
         self.label = QLabel("Load or train a model?")
-        self.label.setFont(QFont("Load or train a model?", 12))
+        self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
         self.Abstand = QLabel()

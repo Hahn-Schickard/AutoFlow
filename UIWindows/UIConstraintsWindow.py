@@ -7,11 +7,13 @@ from PyQt5.QtCore import *
 
 
 class UIConstraintsWindow(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, FONT_STYLE, parent=None):
         super(UIConstraintsWindow, self).__init__(parent)
         
+        self.FONT_STYLE = FONT_STYLE        
+        
         self.label = QLabel("Constraints")
-        self.label.setFont(QFont("Constraints", 12))
+        self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
         self.Abstand = QLabel(self)
@@ -81,7 +83,7 @@ class UIConstraintsWindow(QWidget):
                            background-color : rgb(10, 100, 200)}""") 
         
         self.Params_label = QLabel("Faktor", self)
-        self.Params_label.setFont(QFont("Faktor", 10))
+        self.Params_label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Params_label.setFixedWidth(90)
         self.Params_label.setFixedHeight(30)
         self.Params_label.setAlignment(Qt.AlignCenter)
@@ -89,31 +91,34 @@ class UIConstraintsWindow(QWidget):
         
         
         self.Params_factor = QLineEdit(self)
+        self.Params_factor.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Params_factor.setFixedWidth(90)
         self.Params_factor.setFixedHeight(30)
         self.Params_factor.setVisible(False)
 
 
         self.Floats_label = QLabel("Faktor", self)
-        self.Floats_label.setFont(QFont("Faktor", 10))
+        self.Floats_label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Floats_label.setFixedWidth(90)
         self.Floats_label.setFixedHeight(30)
         self.Floats_label.setAlignment(Qt.AlignCenter)
         self.Floats_label.setVisible(False)
         
         self.Floats_factor = QLineEdit(self)
+        self.Floats_factor.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Floats_factor.setFixedWidth(90)
         self.Floats_factor.setFixedHeight(30)
         self.Floats_factor.setVisible(False)
 
         self.Complex_label = QLabel("Faktor", self)
-        self.Complex_label.setFont(QFont("Faktor", 10))
+        self.Complex_label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Complex_label.setFixedWidth(90)
         self.Complex_label.setFixedHeight(30)
         self.Complex_label.setAlignment(Qt.AlignCenter)
         self.Complex_label.setVisible(False)
         
         self.Complex_factor = QLineEdit(self)
+        self.Complex_factor.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Complex_factor.setFixedWidth(90)
         self.Complex_factor.setFixedHeight(30)
         self.Complex_factor.setVisible(False)

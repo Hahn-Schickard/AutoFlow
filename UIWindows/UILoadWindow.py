@@ -13,9 +13,10 @@ from Threads.Prune_model_thread import *
 
 
 class UILoadWindow(QWidget):
-    def __init__(self, model_path, project_name, output_path, datascript_path, prun_factor_dense, prun_factor_conv, optimizations, parent=None):
+    def __init__(self, FONT_STYLE, model_path, project_name, output_path, datascript_path, prun_factor_dense, prun_factor_conv, optimizations, parent=None):
         super(UILoadWindow, self).__init__(parent)
         
+        self.FONT_STYLE = FONT_STYLE        
         self.project_name = project_name
         self.model_path = model_path
         self.output_path = output_path
@@ -26,7 +27,7 @@ class UILoadWindow(QWidget):
         
         
         self.label = QLabel("Create Projectfiles")
-        self.label.setFont(QFont("Create Projectfiles", 12))
+        self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
         self.Abstand = QLabel()
@@ -43,7 +44,7 @@ class UILoadWindow(QWidget):
         self.Schritt.setAlignment(Qt.AlignCenter)
         
         self.Finish = QPushButton("Finish", self)
-        self.Finish.setFont(QFont("Finish", 12))
+        self.Finish.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Finish.setFixedWidth(125)
         self.Finish.setVisible(False)
         self.Finish.setToolTip('...')

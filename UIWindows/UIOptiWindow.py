@@ -7,13 +7,13 @@ from PyQt5.QtCore import *
 
 
 class UIOptiWindow(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, FONT_STYLE, parent=None):
         super(UIOptiWindow, self).__init__(parent)
 
-        self.Font_size = 9
+        self.FONT_STYLE = FONT_STYLE        
         
         self.label = QLabel("Optimization")
-        self.label.setFont(QFont(FONT_TYPE, 12))
+        self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
         self.Abstand = QLabel(self)
@@ -97,89 +97,93 @@ class UIOptiWindow(QWidget):
         #                   background-color : rgb(10, 100, 200)}""") 
         
         self.Pruning_Dense_label = QLabel("Pruningfactor\nDense layer", self)
-        self.Pruning_Dense_label.setFont(QFont("Pruningfactor\nDense layer", self.Font_size))
+        self.Pruning_Dense_label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Pruning_Dense_label.setFixedWidth(90)
         self.Pruning_Dense_label.setFixedHeight(30)
         self.Pruning_Dense_label.setAlignment(Qt.AlignCenter)
         self.Pruning_Dense_label.setVisible(False)
         
         self.Pruning_Conv_label = QLabel("Pruningfactor\nConv layer", self)
-        self.Pruning_Conv_label.setFont(QFont("Pruningfactor\nConv layer", self.Font_size))
+        self.Pruning_Conv_label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Pruning_Conv_label.setFixedWidth(90)
         self.Pruning_Conv_label.setFixedHeight(30)
         self.Pruning_Conv_label.setAlignment(Qt.AlignCenter)
         self.Pruning_Conv_label.setVisible(False)
         
         self.Pruning_Dense = QLineEdit(self)
-        self.Pruning_Dense.setFont(QFont("Sans Serif", self.Font_size))
+        self.Pruning_Dense.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Pruning_Dense.setFixedWidth(90)
         self.Pruning_Dense.setFixedHeight(30)
         self.Pruning_Dense.setVisible(False)
 
         self.Pruning_Conv = QLineEdit(self)
-        self.Pruning_Conv.setFont(QFont("", self.Font_size))
+        self.Pruning_Conv.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Pruning_Conv.setFixedWidth(90)
         self.Pruning_Conv.setFixedHeight(30)
         self.Pruning_Conv.setVisible(False)
 
         self.quant_float = QPushButton("float16", self)
-        self.quant_float.setFont(QFont("float16", self.Font_size))
+        self.quant_float.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.quant_float.setFixedWidth(90)
         self.quant_float.setFixedHeight(30)
         self.quant_float.setCheckable(True)
         self.quant_float.setVisible(False)
         
         self.quant_int = QPushButton("int8", self)
-        self.quant_int.setFont(QFont("int8", self.Font_size))
+        self.quant_int.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.quant_int.setFixedWidth(90)
         self.quant_int.setFixedHeight(30)
         self.quant_int.setCheckable(True)
         self.quant_int.setVisible(False)
 
         self.Dis_1_label = QLabel("Dis_1_label", self)
-        self.Dis_1_label.setFont(QFont("Dis_1_label", self.Font_size))
+        self.Dis_1_label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Dis_1_label.setFixedWidth(90)
         self.Dis_1_label.setFixedHeight(30)
         self.Dis_1_label.setAlignment(Qt.AlignCenter)
         self.Dis_1_label.setVisible(False)
         
         self.Dis_2_label = QLabel("Dis_2_label", self)
-        self.Dis_2_label.setFont(QFont("Dis_2_label", self.Font_size))
+        self.Dis_2_label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Dis_2_label.setFixedWidth(90)
         self.Dis_2_label.setFixedHeight(30)
         self.Dis_2_label.setAlignment(Qt.AlignCenter)
         self.Dis_2_label.setVisible(False)
         
         self.Dis_1 = QLineEdit(self)
+        self.Dis_1.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Dis_1.setFixedWidth(90)
         self.Dis_1.setFixedHeight(30)
         self.Dis_1.setVisible(False)
 
         self.Dis_2 = QLineEdit(self)
+        self.Dis_2.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Dis_2.setFixedWidth(90)
         self.Dis_2.setFixedHeight(30)
         self.Dis_2.setVisible(False)
         
         self.Huf_1_label = QLabel("Huf_1_label", self)
-        self.Huf_1_label.setFont(QFont("Huf_1_label", self.Font_size))
+        self.Huf_1_label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Huf_1_label.setFixedWidth(90)
         self.Huf_1_label.setFixedHeight(30)
         self.Huf_1_label.setAlignment(Qt.AlignCenter)
         self.Huf_1_label.setVisible(False)
         
         self.Huf_2_label = QLabel("Huf_2_label", self)
-        self.Huf_2_label.setFont(QFont("Huf_2_label", self.Font_size))
+        self.Huf_2_label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Huf_2_label.setFixedWidth(90)
         self.Huf_2_label.setFixedHeight(30)
         self.Huf_2_label.setAlignment(Qt.AlignCenter)
         self.Huf_2_label.setVisible(False)
         
         self.Huf_1 = QLineEdit(self)
+        self.Huf_1.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Huf_1.setFixedWidth(90)
         self.Huf_1.setFixedHeight(30)
         self.Huf_1.setVisible(False)
 
         self.Huf_2 = QLineEdit(self)
+        self.Huf_2.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Huf_2.setFixedWidth(90)
         self.Huf_2.setFixedHeight(30)
         self.Huf_2.setVisible(False)

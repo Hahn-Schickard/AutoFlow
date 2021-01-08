@@ -7,28 +7,30 @@ from PyQt5.QtCore import *
 
 
 class UISettingsWindow(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, FONT_STYLE, parent=None):
         super(UISettingsWindow, self).__init__(parent)
         
+        self.FONT_STYLE = FONT_STYLE        
+        
         self.label = QLabel("Settings")
-        self.label.setFont(QFont("Settings", 12))
+        self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
         self.Epochs = QLabel("Epochs:")
-        self.Epochs.setFont(QFont("Epochs:", 12))
+        self.Epochs.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Epochs.setFixedWidth(120)
         self.Epochs.setFixedHeight(30)
         self.Epochs.setAlignment(Qt.AlignLeft)
         
         self.max_trials = QLabel("Max. Trials:")
-        self.max_trials.setFont(QFont("Max. Trials:", 12))
+        self.max_trials.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.max_trials.setFixedWidth(120)
         self.max_trials.setFixedHeight(30)
         self.max_trials.setAlignment(Qt.AlignLeft)
         
         
         self.max_size = QLabel("Max. Model Size:")
-        self.max_size.setFont(QFont("Max. Model Size:", 12))
+        self.max_size.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.max_size.setFixedWidth(120)
         self.max_size.setFixedHeight(30)
         self.max_size.setAlignment(Qt.AlignLeft)
@@ -39,14 +41,17 @@ class UISettingsWindow(QWidget):
         self.Abstand.setFixedHeight(30)
         
         self.epochs_factor = QLineEdit(self)
+        self.epochs_factor.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.epochs_factor.setFixedWidth(90)
         self.epochs_factor.setFixedHeight(30)
         
         self.max_trials_factor = QLineEdit(self)
+        self.max_trials_factor.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.max_trials_factor.setFixedWidth(90)
         self.max_trials_factor.setFixedHeight(30)
         
         self.max_size_factor = QLineEdit(self)
+        self.max_size_factor.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.max_size_factor.setFixedWidth(90)
         self.max_size_factor.setFixedHeight(30)
 

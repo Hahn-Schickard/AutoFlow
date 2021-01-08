@@ -41,7 +41,7 @@ class MainWindow(QMainWindow):
         self.setFixedWidth(800)
         self.setFixedHeight(600)
         
-        self.FONT_TYPE = "Arial"
+        self.FONT_STYLE = "Helvetica"
         self.X=0
         self.Y=0
         self.project_name = None
@@ -77,7 +77,7 @@ class MainWindow(QMainWindow):
     
     def MarcusWindow1(self):
         
-        self.Window1a = UIMarcusWindow1(self)
+        self.Window1a = UIMarcusWindow1(self.FONT_STYLE, self)
         
         self.Window1a.load_model.clicked.connect(self.MarcusWindow4)
         self.Window1a.train_model.clicked.connect(self.MarcusWindow2)
@@ -88,7 +88,7 @@ class MainWindow(QMainWindow):
     
     def MarcusWindow2(self):
         
-        self.Window1b = UIMarcusWindow2(self)
+        self.Window1b = UIMarcusWindow2(self.FONT_STYLE, self)
         
         self.Window1b.uC.clicked.connect(self.StartWindow)
         self.Window1b.FPGA.clicked.connect(self.MarcusWindow3)
@@ -100,7 +100,7 @@ class MainWindow(QMainWindow):
         
     def MarcusWindow3(self):
         
-        self.Window1c = UIMarcusWindow3(self)
+        self.Window1c = UIMarcusWindow3(self.FONT_STYLE, self)
         
         if self.output_path != None:
             self.Window1c.Output_Pfad.setText(self.output_path)
@@ -127,7 +127,7 @@ class MainWindow(QMainWindow):
         
     def MarcusWindow4(self):
         
-        self.Window1d = UIMarcusWindow4(self)
+        self.Window1d = UIMarcusWindow4(self.FONT_STYLE, self)
         
         if self.output_path_ml != None:
             self.Window1d.Output_Pfad.setText(self.output_path_ml)
@@ -149,7 +149,7 @@ class MainWindow(QMainWindow):
     
     def MarcusWindow5(self):
         
-        self.Window1e = UIMarcusWindow5(self)
+        self.Window1e = UIMarcusWindow5(self.FONT_STYLE, self)
         
         self.Window1e.Back.clicked.connect(self.MarcusWindow4)
         
@@ -161,7 +161,7 @@ class MainWindow(QMainWindow):
 
 
     def StartWindow(self):
-        self.Window1 = UIStartWindow(self)
+        self.Window1 = UIStartWindow(self.FONT_STYLE, self)
         
         if self.output_path != None:
             self.Window1.Output_Pfad.setText(self.output_path)
@@ -223,7 +223,7 @@ class MainWindow(QMainWindow):
         print(self.data_loader_path)
         
         
-        self.Window2 = UITargetWindow(self)
+        self.Window2 = UITargetWindow(self.FONT_STYLE, self)
         
         
         self.Window2.uC.clicked.connect(lambda:self.OptiWindow("Next","uC"))
@@ -267,7 +267,7 @@ class MainWindow(QMainWindow):
         print(self.data_loader_path_ml)
         
         
-        self.Window2 = UITaskWindow(self)
+        self.Window2 = UITaskWindow(self.FONT_STYLE, self)
         
         
         self.Window2.ImageClassification.clicked.connect(lambda:self.ConstraintsWindow("Next","imageClassification"))
@@ -287,7 +287,7 @@ class MainWindow(QMainWindow):
     def HelperWindow(self):        
         self.setFixedWidth(800)
         self.setFixedHeight(900)
-        self.Window3a = UIHelperWindow(self)
+        self.Window3a = UIHelperWindow(self.FONT_STYLE, self)
         
         
         
@@ -342,7 +342,7 @@ class MainWindow(QMainWindow):
                 
                 return
 
-        self.Window3 = UIOptiWindow(self)
+        self.Window3 = UIOptiWindow(self.FONT_STYLE, self)
         
         if "Pruning" in self.optimizations:
             self.Window3.Pruning.setChecked(True)
@@ -405,7 +405,7 @@ class MainWindow(QMainWindow):
                 
                 return
 
-        self.Window3 = UIConstraintsWindow(self)
+        self.Window3 = UIConstraintsWindow(self.FONT_STYLE, self)
         
         if "Params" in self.constraints:
             self.Window3.Params.setChecked(True)
@@ -508,7 +508,7 @@ class MainWindow(QMainWindow):
                     return
             
 
-        self.Window4 = UISettingsWindow(self)
+        self.Window4 = UISettingsWindow(self.FONT_STYLE, self)
         
 
         self.Window4.epochs_factor.setText(str(self.max_epoch))
@@ -600,7 +600,7 @@ class MainWindow(QMainWindow):
                 
                 return
 
-        self.Window4 = UIRestrictionWindow(self)
+        self.Window4 = UIRestrictionWindow(self.FONT_STYLE, self)
         
         self.Window4.Back.clicked.connect(lambda:self.OptiWindow("Back", self.target))
         self.Window4.Next.clicked.connect(self.LoadWindow)
@@ -615,7 +615,7 @@ class MainWindow(QMainWindow):
             self.max_size = self.Window4.max_size_factor.text()
 
         
-        self.Window5 = UIAutoMLWindow()
+        self.Window5 = UIAutoMLWindow(self.FONT_STYLE, self)
           
         self.Window5.Back.clicked.connect(lambda:self.SettingsWindow("Back"))
         self.Window5.Start.clicked.connect(lambda:self.ReturnWindow("Next"))
@@ -632,7 +632,7 @@ class MainWindow(QMainWindow):
             self.start_autokeras()
   
         
-        self.Window6 = UIReturnWindow()
+        self.Window6 = UIReturnWindow(self.FONT_STYLE, self)
         
         self.Window6.Back.clicked.connect(lambda:self.AutoMLWindow("Back"))
         self.Window6.Load.clicked.connect(lambda:self.MarcusWindow1())         
@@ -721,7 +721,7 @@ class MainWindow(QMainWindow):
                 
                 return       
         
-        self.Window5 = UILoadWindow(self.model_path, self.project_name, self.output_path, self.data_loader_path, self.prun_factor_dense, self.prun_factor_conv, self.optimizations, self)
+        self.Window5 = UILoadWindow(self.FONT_STYLE, self.model_path, self.project_name, self.output_path, self.data_loader_path, self.prun_factor_dense, self.prun_factor_conv, self.optimizations, self)
         
         #self.Window5.Back.clicked.connect(lambda:self.RestrictionWindow("Back"))
         self.Window5.Back.clicked.connect(lambda:self.OptiWindow("Back", self.target))
