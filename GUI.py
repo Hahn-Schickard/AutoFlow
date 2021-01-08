@@ -1016,14 +1016,37 @@ class MainWindow(QMainWindow):
             
         else:
             Parameter = self.Window3a.Parameter.text()
-            Parameter=int(Parameter)
+            print(type(Parameter))
+            try:
+                Parameter=int(Parameter)
+            except ValueError:
+                self.Window3a.Parameter.setText(Parameter[:-1])
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                
+                msg.setText("Please enter a number not a character.")
+                msg.setWindowTitle("Warning")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                msg.exec_()
+                return
         
         if self.Window3a.FPS.text() == "":
             FPS=0
             
         else:
             FPS = self.Window3a.FPS.text()
-            FPS=int(FPS)
+            try:
+                FPS=int(FPS)
+            except ValueError:
+                self.Window3a.FPS.setText(FPS[:-1])
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                
+                msg.setText("Please enter a number not a character.")
+                msg.setWindowTitle("Warning")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                msg.exec_()
+                return
             
         FLOPs=Parameter*FPS
         print(FLOPs)
