@@ -44,17 +44,17 @@ class UILoadWindow(QWidget):
         self.Schritt.setAlignment(Qt.AlignCenter)
         
         self.Finish = QPushButton("Finish", self)
-        self.Finish.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Finish.setFixedWidth(125)
         self.Finish.setVisible(False)
         self.Finish.setToolTip('...')
-        self.Finish.setStyleSheet("""QToolTip { 
+        self.Finish.setStyleSheet("""QPushButton {
+                           font: 12pt """ + FONT_STYLE + """}
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}
+                           QToolTip { 
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""")
+                           border: black solid 1px}""") 
         
         self.Back = QPushButton(self)
         self.Back.setIcon(QIcon(os.path.join('Images', 'back_arrow.png')))

@@ -60,37 +60,37 @@ class UIStartWindow(QWidget):
         self.Daten_Pfad.setStyleSheet("font: 12pt " + FONT_STYLE)
         
         self.Output_Pfad_Browse = QPushButton(" Output path... ", self)
-        self.Output_Pfad_Browse.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Output_Pfad_Browse.setToolTip('...')
-        self.Output_Pfad_Browse.setStyleSheet("""QToolTip { 
+        self.Output_Pfad_Browse.setStyleSheet("""QPushButton {
+                           font: 12pt """ + FONT_STYLE + """}
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}
+                           QToolTip { 
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""") 
+                           border: black solid 1px}""")  
         
         self.Modell_einlesen_Browse = QPushButton(" Select Model... ", self)
-        self.Modell_einlesen_Browse.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Modell_einlesen_Browse.setToolTip('...')
-        self.Modell_einlesen_Browse.setStyleSheet("""QToolTip { 
+        self.Modell_einlesen_Browse.setStyleSheet("""QPushButton {
+                           font: 12pt """ + FONT_STYLE + """}
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}
+                           QToolTip { 
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""") 
+                           border: black solid 1px}""") 
         
         self.Daten_einlesen_Browse = QPushButton(" Select Data... ", self)
-        self.Daten_einlesen_Browse.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Daten_einlesen_Browse.setToolTip('...')
-        self.Daten_einlesen_Browse.setStyleSheet("""QToolTip { 
+        self.Daten_einlesen_Browse.setStyleSheet("""QPushButton {
+                           font: 12pt """ + FONT_STYLE + """}
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}
+                           QToolTip { 
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""") 
+                           border: black solid 1px}""") 
 
         self.Next = QPushButton(self)
         self.Next.setIcon(QIcon(os.path.join('Images', 'next_arrow.png')))

@@ -42,6 +42,7 @@ class MainWindow(QMainWindow):
         self.setFixedHeight(600)
         
         self.FONT_STYLE = "Helvetica"
+
         self.X=0
         self.Y=0
         self.project_name = None
