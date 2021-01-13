@@ -24,15 +24,15 @@ from UIWindows.UIConstraintsWindow import *
 from UIWindows.UIReturnWindow import *
 from UIWindows.UIAutoMLWindow import *
 
-
-
-from Threads.Loading_images_thread import *
-#from Threads.Create_project_thread import *
-from Threads.Prune_model_thread import *
-
-
-
 class MainWindow(QMainWindow):
+    from ._MarcusWindow1 import MarcusWindow1
+    from ._MarcusWindow2 import MarcusWindow2
+    from ._MarcusWindow3 import MarcusWindow3
+    from ._MarcusWindow4 import MarcusWindow4
+    from ._MarcusWindow5 import MarcusWindow5
+    
+    
+    
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         
@@ -76,89 +76,7 @@ class MainWindow(QMainWindow):
         
         self.MarcusWindow1()
     
-    def MarcusWindow1(self):
-        
-        self.Window1a = UIMarcusWindow1(self.FONT_STYLE, self)
-        
-        self.Window1a.load_model.clicked.connect(self.MarcusWindow4)
-        self.Window1a.train_model.clicked.connect(self.MarcusWindow2)
-        
-        self.setCentralWidget(self.Window1a)
-        self.show()
-
     
-    def MarcusWindow2(self):
-        
-        self.Window1b = UIMarcusWindow2(self.FONT_STYLE, self)
-        
-        self.Window1b.uC.clicked.connect(self.StartWindow)
-        self.Window1b.FPGA.clicked.connect(self.MarcusWindow3)
-        self.Window1b.Back.clicked.connect(self.MarcusWindow1)
-        
-        self.setCentralWidget(self.Window1b)
-        self.show()
-        
-        
-    def MarcusWindow3(self):
-        
-        self.Window1c = UIMarcusWindow3(self.FONT_STYLE, self)
-        
-        if self.output_path != None:
-            self.Window1c.Output_Pfad.setText(self.output_path)
-        
-        if self.project_name != None:
-            self.Window1c.Projekt_Name.setText(self.project_name)
-        
-        if self.model_path != None:
-            self.Window1c.Model_Pfad.setText(self.model_path)
-        
-        if self.data_loader_path != None:
-            self.Window1c.Daten_Pfad.setText(self.data_loader_path)
-
-        print(self.model_path)
-        
-        self.Window1c.Output_Pfad_Browse.clicked.connect(lambda:self.get_output_path(self.Window1c))
-        self.Window1c.Modell_einlesen_Browse.clicked.connect(lambda:self.get_model_path(self.Window1c))
-        self.Window1c.Next.clicked.connect(lambda:self.TargetWindow("Next"))
-        self.Window1c.Back.clicked.connect(self.MarcusWindow2)
-        
-        self.setCentralWidget(self.Window1c)
-        self.show()
-        
-        
-    def MarcusWindow4(self):
-        
-        self.Window1d = UIMarcusWindow4(self.FONT_STYLE, self)
-        
-        if self.output_path_ml != None:
-            self.Window1d.Output_Pfad.setText(self.output_path_ml)
-        
-        if self.project_name != None:
-            self.Window1d.Projekt_Name.setText(self.project_name)
-
-        if self.data_loader_path_ml != None:
-            self.Window1d.Daten_Pfad.setText(self.data_loader_path_ml)
-        
-        self.Window1d.Output_Pfad_Browse.clicked.connect(lambda:self.get_output_path_ml(self.Window1d))
-        self.Window1d.Daten_einlesen_Browse.clicked.connect(lambda:self.get_data_loader_path_ml(self.Window1d))
-        self.Window1d.Next.clicked.connect(lambda:self.TaskWindow("Next"))
-        self.Window1d.Back.clicked.connect(self.MarcusWindow1)
-        
-        self.setCentralWidget(self.Window1d)
-        self.show()
-        
-    
-    def MarcusWindow5(self):
-        
-        self.Window1e = UIMarcusWindow5(self.FONT_STYLE, self)
-        
-        self.Window1e.Back.clicked.connect(self.MarcusWindow4)
-        
-        #self.Window1e.Load.clicked.connect(self.model_pruning)
-        #self.Window1e.Load.clicked.connect(self.download)
-        
-        self.setCentralWidget(self.Window1e)
-        self.show()
 
 
     def StartWindow(self):
@@ -1246,42 +1164,3 @@ class MainWindow(QMainWindow):
             x_train, y_train, x_test, y_test = get_data()
             pruned_model = pruning(self.model_path, x_train, y_train, prun_factor_dense, prun_factor_conv)
             
-    #def closeEvent(self, event):
-    #    msg = "Do you want to exit the application?"
-    #    reply = QMessageBox.question(self, 'Message', msg, QMessageBox.Yes, QMessageBox.No)
-            
-     
-        
-    
-
-app = QApplication(sys.argv)
-
-
-
-
-# Force the style to be the same on all OSs:
-app.setStyle("Fusion")
-
-# Now use a palette to switch to dark colors:
-palette = QPalette()
-palette.setColor(QPalette.Window, QColor(53, 53, 53))
-palette.setColor(QPalette.WindowText, Qt.white)
-palette.setColor(QPalette.Base, QColor(25, 25, 25))
-palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
-palette.setColor(QPalette.ToolTipBase, Qt.white)
-palette.setColor(QPalette.ToolTipText, Qt.white)
-palette.setColor(QPalette.Text, Qt.white)
-palette.setColor(QPalette.Button, QColor(53, 53, 53))
-palette.setColor(QPalette.ButtonText, Qt.white)
-palette.setColor(QPalette.BrightText, Qt.red)
-palette.setColor(QPalette.Link, QColor(42, 130, 218))
-palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
-palette.setColor(QPalette.HighlightedText, Qt.black)
-app.setPalette(palette)
-
-app.setStyleSheet("QPushButton:pressed { background-color: rgb(10, 100, 200) }" "QPushButton:checked { background-color: rgb(10, 100, 200) }" "QPushButton::hover { background-color : rgb(10, 100, 200)}" )
-
-w = MainWindow()
-w.show()
-#w.setFixedSize(w.size())
-sys.exit(app.exec_())
