@@ -27,7 +27,7 @@ from UIWindows.UIAutoMLWindow import *
 
 
 from Threads.Loading_images_thread import *
-from Threads.Create_project_thread import *
+#from Threads.Create_project_thread import *
 from Threads.Prune_model_thread import *
 
 
@@ -722,7 +722,7 @@ class MainWindow(QMainWindow):
                 
                 return       
         
-        self.Window5 = UILoadWindow(self.FONT_STYLE, self.model_path, self.project_name, self.output_path, self.data_loader_path, self.prun_factor_dense, self.prun_factor_conv, self.optimizations, self)
+        self.Window5 = UILoadWindow(self.FONT_STYLE, self.model_path, self.project_name, self.output_path, self.data_loader_path, self.prun_factor_dense, self.prun_factor_conv, self.optimizations,self.target, self)
         
         #self.Window5.Back.clicked.connect(lambda:self.RestrictionWindow("Back"))
         self.Window5.Back.clicked.connect(lambda:self.OptiWindow("Back", self.target))
@@ -1209,6 +1209,14 @@ class MainWindow(QMainWindow):
             try:
                 self.Window5.prune_model.stop_thread()
                 print("To uC start")
+                self.Window5.conv_build_load.start()
+            except:
+                print("Error")
+                
+        if "FPGA" in self.target:
+            try:
+                self.Window5.prune_model.stop_thread()
+                print("To FPGA start")
                 self.Window5.conv_build_load.start()
             except:
                 print("Error")
