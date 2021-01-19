@@ -1,3 +1,18 @@
+"""A one line summary of the module or program, terminated by a period.
+
+Leave one blank line.  The rest of this docstring should contain an
+overall description of the module or program.  Optionally, it may also
+contain a brief description of exported classes and functions and/or usage
+examples.
+
+  Typical usage example:
+
+  foo = ClassFoo()
+  bar = foo.FunctionBar()
+"""
+
+
+
 import sys
 import os
 
@@ -9,6 +24,15 @@ from PyQt5.QtCore import *
 
 
 class MainWindow(QMainWindow):
+    """Summary of class here.
+
+    Longer class information....
+    Longer class information....
+
+    Attributes:
+        likes_spam: A boolean indicating if we like SPAM or not.
+        eggs: An integer count of the eggs we have laid.
+    """
     from ._MarcusWindow1 import MarcusWindow1
     from ._MarcusWindow2 import MarcusWindow2
     from ._MarcusWindow3 import MarcusWindow3
@@ -55,6 +79,31 @@ class MainWindow(QMainWindow):
     )
 
     def __init__(self, parent=None):
+        """one liner
+
+    explain text
+    many lines
+    bla
+    
+
+    Args:
+      self:
+        explain text
+      parent:
+        Optional; text
+
+    Returns:
+      text
+
+      {b'Serak': ('Rigel VII', 'Preparer'),
+       b'Zim': ('Irk', 'Invader'),
+       b'Lrrr': ('Omicron Persei 8', 'Emperor')}
+
+      text
+
+    Raises:
+      IOError: An error occurred accessing the smalltable.
+    """
         super(MainWindow, self).__init__(parent)
 
         self.setWindowTitle("Neural Network on Microcontroller")
