@@ -16,10 +16,7 @@ from GUI import MainWindow
 #from Threads.Prune_model_thread import *
 
 
-
 app = QApplication(sys.argv)
-
-
 # Force the style to be the same on all OSs:
 app.setStyle("Fusion")
 
