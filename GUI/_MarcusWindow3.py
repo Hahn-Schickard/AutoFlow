@@ -19,7 +19,7 @@ def MarcusWindow3(self):
         
         self.Window1c.Output_Pfad_Browse.clicked.connect(lambda:self.get_output_path(self.Window1c))
         self.Window1c.Modell_einlesen_Browse.clicked.connect(lambda:self.get_model_path(self.Window1c))
-        self.Window1c.Next.clicked.connect(lambda:self.TargetWindow("Next"))
+        self.Window1c.Next.clicked.connect(lambda:self.TargetWindow("Next", self.Window1c))
         self.Window1c.Back.clicked.connect(self.MarcusWindow2)
         
         self.setCentralWidget(self.Window1c)

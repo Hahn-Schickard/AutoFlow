@@ -9,14 +9,14 @@ from PyQt5.QtCore import *
 
 from UIWindows.UITargetWindow import *
 
-def TargetWindow(self, n):
+def TargetWindow(self, n, LastWindow):
     
     if n == "Next":
         
-        self.project_name = self.Window1.Projekt_Name.text()
-        self.output_path = self.Window1.Output_Pfad.text()
-        self.model_path = self.Window1.Model_Pfad.text()
-        self.data_loader_path = self.Window1.Daten_Pfad.text() 
+        self.project_name = LastWindow.Projekt_Name.text()
+        self.output_path = LastWindow.Output_Pfad.text()
+        self.model_path = LastWindow.Model_Pfad.text()
+        self.data_loader_path = LastWindow.Daten_Pfad.text() 
             
     if self.project_name == "" or self.model_path == "" or self.output_path == "":
         msg = QMessageBox()
@@ -32,14 +32,14 @@ def TargetWindow(self, n):
     if n == "Back":
         
         if "Pruning" in self.optimizations:
-            self.prun_factor_dense = int(self.Window3.Pruning_Dense.text())
-            self.prun_factor_conv = int(self.Window3.Pruning_Conv.text())
+            self.prun_factor_dense = int(LastWindow.Pruning_Dense.text())
+            self.prun_factor_conv = int(LastWindow.Pruning_Conv.text())
         if "Knowledge_Distillation" in self.optimizations:
-            self.Know_Dis_1 = int(self.Window3.Dis_1.text())
-            self.Know_Dis_2 = int(self.Window3.Dis_2.text())
+            self.Know_Dis_1 = int(LastWindow.Dis_1.text())
+            self.Know_Dis_2 = int(LastWindow.Dis_2.text())
         if "Huffman_Coding" in self.optimizations:
-            self.Huffman_1 = int(self.Window3.Huf_1.text())
-            self.Huffman_2 = int(self.Window3.Huf_2.text())
+            self.Huffman_1 = int(LastWindow.Huf_1.text())
+            self.Huffman_2 = int(LastWindow.Huf_2.text())
 
     print(self.model_path)
     print(self.data_loader_path)

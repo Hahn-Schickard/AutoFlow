@@ -58,7 +58,7 @@ def OptiWindow(self, n, target):
         self.Window3.Huf_1.setText(str(self.Huffman_1))
         self.Window3.Huf_2.setText(str(self.Huffman_2))
     """    
-    self.Window3.Pruning.toggled.connect(self.set_pruning)
+    self.Window3.Pruning.toggled.connect(lambda:self.set_pruning(self.Window3))
     self.Window3.Quantization.toggled.connect(self.set_quantization)
     #self.Window3.Dis.toggled.connect(self.set_knowledge_distillation)
     #self.Window3.Huf.toggled.connect(self.set_huffman_coding)
@@ -66,7 +66,7 @@ def OptiWindow(self, n, target):
     self.Window3.quant_float.clicked.connect(lambda:self.set_quant_dtype("float"))
     self.Window3.quant_int.clicked.connect(lambda:self.set_quant_dtype("int"))
     
-    self.Window3.Back.clicked.connect(lambda:self.TargetWindow("Back"))
+    self.Window3.Back.clicked.connect(lambda:self.TargetWindow("Back", self.Window3))
     self.Window3.Next.clicked.connect(lambda:self.LoadWindow("Next"))
     
     self.setCentralWidget(self.Window3)

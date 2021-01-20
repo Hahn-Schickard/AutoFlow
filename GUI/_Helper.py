@@ -28,38 +28,38 @@ def get_data_loader_path(self, CurWindow):
     CurWindow.Daten_Pfad.setText(self.data_loader_path)
     print(CurWindow.Daten_Pfad.text())
 
-def set_pruning(self):
-    if self.Window3.Pruning.isChecked() == True:
+def set_pruning(self, CurWindow):
+    if CurWindow.Pruning.isChecked() == True:
         if not "Pruning" in self.optimizations:
             self.optimizations.append("Pruning")
             print(self.optimizations)
         if self.prun_factor_dense == None and self.prun_factor_conv == None:
-            self.Window3.Pruning_Dense.setText("10")
-            self.Window3.Pruning_Conv.setText("10")
+            CurWindow.Pruning_Dense.setText("10")
+            CurWindow.Pruning_Conv.setText("10")
         else:
-            self.Window3.Pruning_Dense.setText(str(self.prun_factor_dense))
-            self.Window3.Pruning_Conv.setText(str(self.prun_factor_conv))
-        self.Window3.Pruning_Dense.setVisible(True)
-        self.Window3.Pruning_Conv.setVisible(True)
-        self.Window3.Pruning_Conv_label.setVisible(True)
-        self.Window3.Pruning_Dense_label.setVisible(True)
+            CurWindow.Pruning_Dense.setText(str(self.prun_factor_dense))
+            CurWindow.Pruning_Conv.setText(str(self.prun_factor_conv))
+        CurWindow.Pruning_Dense.setVisible(True)
+        CurWindow.Pruning_Conv.setVisible(True)
+        CurWindow.Pruning_Conv_label.setVisible(True)
+        CurWindow.Pruning_Dense_label.setVisible(True)
 
-        self.Window3.Pruning.setIconSize(QSize(100, 100))
-        self.Window3.Pruning.setGeometry(145, 85, 120, 120)
+        CurWindow.Pruning.setIconSize(QSize(100, 100))
+        CurWindow.Pruning.setGeometry(145, 85, 120, 120)
 
     else:
         if "Pruning" in self.optimizations:
             self.optimizations.remove("Pruning")
             print(self.optimizations)
-        self.prun_factor_dense = int(self.Window3.Pruning_Dense.text())
-        self.prun_factor_conv = int(self.Window3.Pruning_Conv.text())
-        self.Window3.Pruning_Dense.setVisible(False)
-        self.Window3.Pruning_Conv.setVisible(False)
-        self.Window3.Pruning_Conv_label.setVisible(False)
-        self.Window3.Pruning_Dense_label.setVisible(False)
+        self.prun_factor_dense = int(CurWindow.Pruning_Dense.text())
+        self.prun_factor_conv = int(CurWindow.Pruning_Conv.text())
+        CurWindow.Pruning_Dense.setVisible(False)
+        CurWindow.Pruning_Conv.setVisible(False)
+        CurWindow.Pruning_Conv_label.setVisible(False)
+        CurWindow.Pruning_Dense_label.setVisible(False)
 
-        self.Window3.Pruning.setIconSize(QSize(150, 150))
-        self.Window3.Pruning.setGeometry(120, 85, 170, 170)
+        CurWindow.Pruning.setIconSize(QSize(150, 150))
+        CurWindow.Pruning.setGeometry(120, 85, 170, 170)
 
 def set_quantization(self):
     if self.Window3.Quantization.isChecked() == True:

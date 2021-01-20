@@ -30,7 +30,7 @@ def StartWindow(self):
     self.Window1.Modell_einlesen_Browse.clicked.connect(lambda:self.get_model_path(self.Window1))
     self.Window1.Daten_einlesen_Browse.clicked.connect(lambda:self.get_data_loader_path(self.Window1))
     
-    self.Window1.Next.clicked.connect(lambda:self.TargetWindow("Next"))
+    self.Window1.Next.clicked.connect(lambda:self.TargetWindow("Next", self.Window1))
     self.Window1.Back.clicked.connect(self.MarcusWindow2)
     
     self.setCentralWidget(self.Window1)
