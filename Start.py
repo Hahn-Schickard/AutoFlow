@@ -7,36 +7,16 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-from UIWindows.UIHelperWindow import *
-from UIWindows.UILoadWindow import *
-from UIWindows.UIOptiWindow import *
-from UIWindows.UIRestrictionWindow import *
-from UIWindows.UISettingsWindow import *
-from UIWindows.UIStartWindow import *
-from UIWindows.UITargetWindow import *
-from UIWindows.UITaskWindow import *
-from UIWindows.UIMarcusWindow1 import *
-from UIWindows.UIMarcusWindow2 import *
-from UIWindows.UIMarcusWindow3 import *
-from UIWindows.UIMarcusWindow4 import *
-from UIWindows.UIMarcusWindow5 import *
-from UIWindows.UIConstraintsWindow import *
-from UIWindows.UIReturnWindow import *
-from UIWindows.UIAutoMLWindow import *
+
 from GUI import MainWindow
 
 
-from Threads.Loading_images_thread import *
+#from Threads.Loading_images_thread import *
 #from Threads.Create_project_thread import *
-from Threads.Prune_model_thread import *
-
+#from Threads.Prune_model_thread import *
 
 
 app = QApplication(sys.argv)
-
-
-
-
 # Force the style to be the same on all OSs:
 app.setStyle("Fusion")
 
