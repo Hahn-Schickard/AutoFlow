@@ -32,7 +32,7 @@ def LoadWindow(self, n):
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Warning)
                  
-                msg.setText("Please enter a number")
+                msg.setText("Please enter a number for pruning or disable it.")
                 msg.setWindowTitle("Warning")
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                 msg.exec_()
@@ -42,7 +42,7 @@ def LoadWindow(self, n):
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
              
-            msg.setText("Enter a dtype for quantization")
+            msg.setText("Enter a dtype for quantization.")
             msg.setWindowTitle("Warning")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             msg.exec_()
@@ -52,7 +52,7 @@ def LoadWindow(self, n):
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
              
-            msg.setText("Please enter a data loader at the start window")
+            msg.setText("Please enter a data loader at the start window.")
             msg.setWindowTitle("Warning")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             msg.exec_()
@@ -65,7 +65,7 @@ def LoadWindow(self, n):
             elif self.Window3.quant_float.isChecked():
                 self.quant_dtype = "float"
             else:
-                print("No datatype for quantization is selected")
+                print("No datatype for quantization is selected.")
         if "Knowledge_Distillation" in self.optimizations:
             self.Know_Dis_1 = int(self.Window3.Dis_1.text())
             self.Know_Dis_2 = int(self.Window3.Dis_2.text())
@@ -81,7 +81,7 @@ def LoadWindow(self, n):
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
              
-            msg.setText("Please enter a data loader at the start window")
+            msg.setText("Please enter a data loader at the start window.")
             msg.setWindowTitle("Warning")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             msg.exec_()

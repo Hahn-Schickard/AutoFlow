@@ -32,14 +32,45 @@ def TargetWindow(self, n, LastWindow):
     if n == "Back":
         
         if "Pruning" in self.optimizations:
-            self.prun_factor_dense = int(LastWindow.Pruning_Dense.text())
-            self.prun_factor_conv = int(LastWindow.Pruning_Conv.text())
+            try:                
+                self.prun_factor_dense = int(LastWindow.Pruning_Dense.text())
+                self.prun_factor_conv = int(LastWindow.Pruning_Conv.text())
+            except:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                 
+                msg.setText("Please enter a number for pruning or disable it.")
+                msg.setWindowTitle("Warning")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                msg.exec_()
+                return
+            
         if "Knowledge_Distillation" in self.optimizations:
-            self.Know_Dis_1 = int(LastWindow.Dis_1.text())
-            self.Know_Dis_2 = int(LastWindow.Dis_2.text())
+            try:                
+                self.Know_Dis_1 = int(LastWindow.Dis_1.text())
+                self.Know_Dis_2 = int(LastWindow.Dis_2.text())
+            except:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                 
+                msg.setText("Please enter a number for Knowledge Distillation or disable it.")
+                msg.setWindowTitle("Warning")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                msg.exec_()
+                return
         if "Huffman_Coding" in self.optimizations:
-            self.Huffman_1 = int(LastWindow.Huf_1.text())
-            self.Huffman_2 = int(LastWindow.Huf_2.text())
+            try:                
+                self.Huffman_1 = int(LastWindow.Huf_1.text())
+                self.Huffman_2 = int(LastWindow.Huf_2.text())
+            except:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                 
+                msg.setText("Please enter a number for Huffman Coding or disable it.")
+                msg.setWindowTitle("Warning")
+                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                msg.exec_()
+                return
 
     print(self.model_path)
     print(self.data_loader_path)

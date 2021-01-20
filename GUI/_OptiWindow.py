@@ -33,12 +33,12 @@ def OptiWindow(self, n, target):
     
     if "Pruning" in self.optimizations:
         self.Window3.Pruning.setChecked(True)
-        self.set_pruning()
+        self.set_pruning(self.Window3)
         self.Window3.Pruning_Dense.setText(str(self.prun_factor_dense))
         self.Window3.Pruning_Conv.setText(str(self.prun_factor_conv))
     if "Quantization" in self.optimizations:
         self.Window3.Quantization.setChecked(True)
-        self.set_quantization()
+        self.set_quantization(self.Window3)
         if self.quant_dtype != None:
             if "float" in self.quant_dtype:
                 self.Window3.quant_int.setChecked(False)  
@@ -49,22 +49,22 @@ def OptiWindow(self, n, target):
     """            
     if "Knowledge_Distillation" in self.optimizations:
         self.Window3.Dis.setChecked(True)
-        self.set_knowledge_distillation()
+        self.set_knowledge_distillation(self.Window3)
         self.Window3.Dis_1.setText(str(self.Know_Dis_1))
         self.Window3.Dis_2.setText(str(self.Know_Dis_2))
     if "Huffman_Coding" in self.optimizations:
         self.Window3.Huf.setChecked(True)
-        self.set_huffman_coding()
+        self.set_huffman_coding(self.Window3)
         self.Window3.Huf_1.setText(str(self.Huffman_1))
         self.Window3.Huf_2.setText(str(self.Huffman_2))
     """    
     self.Window3.Pruning.toggled.connect(lambda:self.set_pruning(self.Window3))
-    self.Window3.Quantization.toggled.connect(self.set_quantization)
-    #self.Window3.Dis.toggled.connect(self.set_knowledge_distillation)
-    #self.Window3.Huf.toggled.connect(self.set_huffman_coding)
+    self.Window3.Quantization.toggled.connect(lambda:self.set_quantization(self.Window3))
+    #self.Window3.Dis.toggled.connect(lambda:self.set_knowledge_distillation(self.Window3))
+    #self.Window3.Huf.toggled.connect(lambda:self.set_huffman_coding(self.Window3))
     
-    self.Window3.quant_float.clicked.connect(lambda:self.set_quant_dtype("float"))
-    self.Window3.quant_int.clicked.connect(lambda:self.set_quant_dtype("int"))
+    self.Window3.quant_float.clicked.connect(lambda:self.set_quant_dtype("float", self.Window3))
+    self.Window3.quant_int.clicked.connect(lambda:self.set_quant_dtype("int", self.Window3))
     
     self.Window3.Back.clicked.connect(lambda:self.TargetWindow("Back", self.Window3))
     self.Window3.Next.clicked.connect(lambda:self.LoadWindow("Next"))

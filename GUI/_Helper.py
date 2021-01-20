@@ -51,8 +51,12 @@ def set_pruning(self, CurWindow):
         if "Pruning" in self.optimizations:
             self.optimizations.remove("Pruning")
             print(self.optimizations)
-        self.prun_factor_dense = int(CurWindow.Pruning_Dense.text())
-        self.prun_factor_conv = int(CurWindow.Pruning_Conv.text())
+        try:
+            self.prun_factor_dense = int(CurWindow.Pruning_Dense.text())
+            self.prun_factor_conv = int(CurWindow.Pruning_Conv.text())
+        except:
+            self.prun_factor_dense = None
+            self.prun_factor_conv = None
         CurWindow.Pruning_Dense.setVisible(False)
         CurWindow.Pruning_Conv.setVisible(False)
         CurWindow.Pruning_Conv_label.setVisible(False)
@@ -61,103 +65,103 @@ def set_pruning(self, CurWindow):
         CurWindow.Pruning.setIconSize(QSize(150, 150))
         CurWindow.Pruning.setGeometry(120, 85, 170, 170)
 
-def set_quantization(self):
-    if self.Window3.Quantization.isChecked() == True:
+def set_quantization(self, CurWindow):
+    if CurWindow.Quantization.isChecked() == True:
         if not "Quantization" in self.optimizations:
             self.optimizations.append("Quantization")
             print(self.optimizations)
         if self.quant_dtype != None:
             if "float" in self.quant_dtype:
-                self.Window3.quant_int.setChecked(False)
-                self.Window3.quant_float.setChecked(True)
+                CurWindow.quant_int.setChecked(False)
+                CurWindow.quant_float.setChecked(True)
             elif "int" in self.quant_dtype:
-                self.Window3.quant_int.setChecked(True)
-                self.Window3.quant_float.setChecked(False)
-        self.Window3.quant_float.setVisible(True)
-        self.Window3.quant_int.setVisible(True)
+                CurWindow.quant_int.setChecked(True)
+                CurWindow.quant_float.setChecked(False)
+        CurWindow.quant_float.setVisible(True)
+        CurWindow.quant_int.setVisible(True)
 
-        self.Window3.Quantization.setIconSize(QSize(100, 100))
-        self.Window3.Quantization.setGeometry(540, 85, 120, 120)
+        CurWindow.Quantization.setIconSize(QSize(100, 100))
+        CurWindow.Quantization.setGeometry(540, 85, 120, 120)
 
     else:
         if "Quantization" in self.optimizations:
             self.optimizations.remove("Quantization")
             print(self.optimizations)
-        self.Window3.quant_float.setChecked(False)
-        self.Window3.quant_int.setChecked(False)
-        self.Window3.quant_float.setVisible(False)
-        self.Window3.quant_int.setVisible(False)
+        CurWindow.quant_float.setChecked(False)
+        CurWindow.quant_int.setChecked(False)
+        CurWindow.quant_float.setVisible(False)
+        CurWindow.quant_int.setVisible(False)
 
-        self.Window3.Quantization.setIconSize(QSize(150, 150))
-        self.Window3.Quantization.setGeometry(515, 85, 170, 170)
+        CurWindow.Quantization.setIconSize(QSize(150, 150))
+        CurWindow.Quantization.setGeometry(515, 85, 170, 170)
 
-def set_quant_dtype(self, dtype):
+def set_quant_dtype(self, dtype, CurWindow):
     if "float" in dtype:
-        self.Window3.quant_int.setChecked(False)
-        if self.Window3.quant_float.isChecked() == False:
+        CurWindow.quant_int.setChecked(False)
+        if CurWindow.quant_float.isChecked() == False:
             self.quant_dtype = None
         else:
             self.quant_dtype = dtype
     elif "int" in dtype:
-        self.Window3.quant_float.setChecked(False)
-        if self.Window3.quant_int.isChecked() == False:
+        CurWindow.quant_float.setChecked(False)
+        if CurWindow.quant_int.isChecked() == False:
             self.quant_dtype = None
         else:
             self.quant_dtype = dtype
 
-def set_knowledge_distillation(self):
-    if self.Window3.Dis.isChecked() == True:
+def set_knowledge_distillation(self, CurWindow):
+    if CurWindow.Dis.isChecked() == True:
         if not "Knowledge_Distillation" in self.optimizations:
             self.optimizations.append("Knowledge_Distillation")
             print(self.optimizations)
-        self.Window3.Dis_1.setText("10")
-        self.Window3.Dis_2.setText("10")
-        self.Window3.Dis_1.setVisible(True)
-        self.Window3.Dis_2.setVisible(True)
-        self.Window3.Dis_1_label.setVisible(True)
-        self.Window3.Dis_2_label.setVisible(True)
+        CurWindow.Dis_1.setText("10")
+        CurWindow.Dis_2.setText("10")
+        CurWindow.Dis_1.setVisible(True)
+        CurWindow.Dis_2.setVisible(True)
+        CurWindow.Dis_1_label.setVisible(True)
+        CurWindow.Dis_2_label.setVisible(True)
 
-        self.Window3.Dis.setIconSize(QSize(100, 100))
-        self.Window3.Dis.setGeometry(145, 320, 120, 120)
+        CurWindow.Dis.setIconSize(QSize(100, 100))
+        CurWindow.Dis.setGeometry(145, 320, 120, 120)
 
     else:
         if "Knowledge_Distillation" in self.optimizations:
             self.optimizations.remove("Knowledge_Distillation")
             print(self.optimizations)
-        self.Window3.Dis_1.setVisible(False)
-        self.Window3.Dis_2.setVisible(False)
-        self.Window3.Dis_1_label.setVisible(False)
-        self.Window3.Dis_2_label.setVisible(False)
+        CurWindow.Dis_1.setVisible(False)
+        CurWindow.Dis_2.setVisible(False)
+        CurWindow.Dis_1_label.setVisible(False)
+        CurWindow.Dis_2_label.setVisible(False)
 
-        self.Window3.Dis.setIconSize(QSize(150, 150))
-        self.Window3.Dis.setGeometry(120, 320, 170, 170)
+        CurWindow.Dis.setIconSize(QSize(150, 150))
+        CurWindow.Dis.setGeometry(120, 320, 170, 170)
 
-def set_huffman_coding(self):
-    if self.Window3.Huf.isChecked() == True:
+def set_huffman_coding(self, CurWindow):
+    if CurWindow.Huf.isChecked() == True:
         if not "Huffman_Coding" in self.optimizations:
             self.optimizations.append("Huffman_Coding")
             print(self.optimizations)
-        self.Window3.Huf_1.setText("10")
-        self.Window3.Huf_2.setText("10")
-        self.Window3.Huf_1.setVisible(True)
-        self.Window3.Huf_2.setVisible(True)
-        self.Window3.Huf_1_label.setVisible(True)
-        self.Window3.Huf_2_label.setVisible(True)
+        CurWindow.Huf_1.setText("10")
+        CurWindow.Huf_2.setText("10")
+        CurWindow.Huf_1.setVisible(True)
+        CurWindow.Huf_2.setVisible(True)
+        CurWindow.Huf_1_label.setVisible(True)
+        CurWindow.Huf_2_label.setVisible(True)
 
-        self.Window3.Huf.setIconSize(QSize(100, 100))
-        self.Window3.Huf.setGeometry(540, 320, 120, 120)
+        CurWindow.Huf.setIconSize(QSize(100, 100))
+        CurWindow.Huf.setGeometry(540, 320, 120, 120)
 
     else:
         if "Huffman_Coding" in self.optimizations:
             self.optimizations.remove("Huffman_Coding")
             print(self.optimizations)
-        self.Window3.Huf_1.setVisible(False)
-        self.Window3.Huf_2.setVisible(False)
-        self.Window3.Huf_1_label.setVisible(False)
-        self.Window3.Huf_2_label.setVisible(False)
+        CurWindow.Huf_1.setVisible(False)
+        CurWindow.Huf_2.setVisible(False)
+        CurWindow.Huf_1_label.setVisible(False)
+        CurWindow.Huf_2_label.setVisible(False)
 
-        self.Window3.Huf.setIconSize(QSize(150, 150))
-        self.Window3.Huf.setGeometry(515, 320, 170, 170)
+        CurWindow.Huf.setIconSize(QSize(150, 150))
+        CurWindow.Huf.setGeometry(515, 320, 170, 170)
 
 def get_optimization(self, button):
 
