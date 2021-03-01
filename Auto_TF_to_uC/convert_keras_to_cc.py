@@ -32,7 +32,6 @@ def convert_model_to_tflite(Keras_model_dir, converted_model_dir, model_name, op
         x_train, _, _, _ = datascript.get_data()
         x_train = tf.cast(x_train, tf.float32)
         x_train = tf.data.Dataset.from_tensor_slices(x_train).batch(1)
-        print(x_train)
 
         converter.optimizations = [tf.lite.Optimize.DEFAULT]
         converter.representative_dataset = representative_dataset
@@ -45,7 +44,6 @@ def convert_model_to_tflite(Keras_model_dir, converted_model_dir, model_name, op
     return model_input_shape, model_input_dtype, model_output_neurons
 
 def representative_dataset():
-    print(x_train)
     for input_value in x_train.take(250):
         # Model has only one input so each data point has one element.
         yield [input_value]
