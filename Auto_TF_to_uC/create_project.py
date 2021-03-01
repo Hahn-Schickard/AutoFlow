@@ -6,7 +6,7 @@ import pathlib
 from Auto_TF_to_uC.convert_keras_to_cc import *
 from Auto_TF_to_uC.write_files_uc import *
 
-def convert_and_write(Keras_model_dir, project_name, output_path):  
+def convert_and_write(Keras_model_dir, project_name, output_path, optimizations, datascript_path):  
     """
     A keras model get's converted into a C++ model, the project directory is created
     and all files that are needed to compile the project get generated.
@@ -28,7 +28,7 @@ def convert_and_write(Keras_model_dir, project_name, output_path):
     project_dir = create_project_dir(project_name, output_path)
     
     
-    model_input_shape, model_input_dtype, model_output_neurons = convert_model_to_tflite(Keras_model_dir, converted_model_dir, model_name)
+    model_input_shape, model_input_dtype, model_output_neurons = convert_model_to_tflite(Keras_model_dir, converted_model_dir, model_name, optimizations, datascript_path)
     convert_model_to_cpp(converted_model_dir, model_name, project_dir)
     
     for i in range(1,len(model_input_shape)):

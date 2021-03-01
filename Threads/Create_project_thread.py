@@ -14,16 +14,18 @@ class Convert_Build_Loading(QThread):
     
     request_signal = pyqtSignal()
     
-    def __init__(self, model_path, project_name, output_path):
+    def __init__(self, model_path, project_name, output_path, optimizations, datascript_path):
         QThread.__init__(self)
         self.model_path = model_path
         self.project_name = project_name
         self.output_path = output_path
+        self.optimizations = optimizations
+        self.datascript_path = datascript_path
         
 
     def run(self):
           
-        convert_and_write(self.model_path, self.project_name, self.output_path)
+        convert_and_write(self.model_path, self.project_name, self.output_path, self.optimizations, self.datascript_path)
         print("Ende")
         self.request_signal.emit()
         

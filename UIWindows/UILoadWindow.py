@@ -104,9 +104,9 @@ class UILoadWindow(QWidget):
         
         if 'uC' in target:
             if 'Pruning' in optimizations:
-                self.conv_build_load = Convert_Build_Loading(str(self.model_path[:-3]) + '_pruned.h5', self.project_name, self.output_path)
+                self.conv_build_load = Convert_Build_Loading(str(self.model_path[:-3]) + '_pruned.h5', self.project_name, self.output_path, optimizations, self.datascript_path)
             else:
-                self.conv_build_load = Convert_Build_Loading(self.model_path, self.project_name, self.output_path)
+                self.conv_build_load = Convert_Build_Loading(self.model_path, self.project_name, self.output_path, optimizations, self.datascript_path)
         if 'FPGA' in target:
-            self.conv_build_load = Convert_Build_Loading_FPGA(self.model_path, self.project_name, self.output_path)
+            self.conv_build_load = Convert_Build_Loading_FPGA(self.model_path, self.project_name, self.output_path, optimizations, self.datascript_path)
             

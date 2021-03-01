@@ -1,7 +1,11 @@
 from tensorflow import lite
 import tensorflow as tf
+import sys
+import os
 
-def convert_model_to_tflite(Keras_model_dir, converted_model_dir, model_name):
+x_train = None
+
+def convert_model_to_tflite(Keras_model_dir, converted_model_dir, model_name, opti, datascript_path):
     """
     A keras model get's converter into a TensorFlow lite model.
     
@@ -22,13 +26,31 @@ def convert_model_to_tflite(Keras_model_dir, converted_model_dir, model_name):
     model_input_dtype = keras_file.input.dtype
     model_output_neurons = keras_file.layers[-1].output_shape[1]
     converter = lite.TFLiteConverter.from_keras_model(keras_file)
-    '''
-    Here you can define the quantization when it's working for microcontroller
-    '''
+
+    if "Quantization" in opti:
+        sys.path.append(os.path.dirname(datascript_path))
+        datascript = __import__(os.path.splitext(os.path.basename(datascript_path))[0])
+        global x_train
+        x_train, _, _, _ = datascript.get_data()
+        x_train = tf.cast(x_train, tf.float32)
+        x_train = tf.data.Dataset.from_tensor_slices(x_train).batch(1)
+        print(x_train)
+
+        converter.optimizations = [tf.lite.Optimize.DEFAULT]
+        converter.representative_dataset = representative_dataset
+        converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
+        converter.inference_input_type = tf.int8  # or tf.uint8
+        converter.inference_output_type = tf.int8  # or tf.uint8
+        
     tflite_model = converter.convert()
     open(converted_model_dir + model_name + ".tflite", "wb").write(tflite_model)
     return model_input_shape, model_input_dtype, model_output_neurons
 
+def representative_dataset():
+    print(x_train)
+    for input_value in x_train.take(250):
+        # Model has only one input so each data point has one element.
+        yield [input_value]
 
 def convert_model_to_cpp(converted_model_dir, model_name, project_dir):
     """
