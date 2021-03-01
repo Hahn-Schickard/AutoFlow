@@ -3,8 +3,6 @@ import tensorflow as tf
 import sys
 import os
 
-x_train = None
-
 def convert_model_to_tflite(Keras_model_dir, converted_model_dir, model_name, opti, datascript_path):
     """
     A keras model get's converter into a TensorFlow lite model.
