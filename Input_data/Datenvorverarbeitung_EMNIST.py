@@ -5,10 +5,10 @@ def get_data():
     path = str(pathlib.Path(__file__).parent.absolute())
     print(path)
 
-    mnist_train_x = np.load("/home/jetson/automatic/Input_data/EMNIST_Data/MNIST/mnist_train_x.npy")
-    mnist_train_y = np.load("/home/jetson/automatic/Input_data/EMNIST_Data/MNIST/mnist_train_y.npy")
-    mnist_test_x = np.load("/home/jetson/automatic/Input_data/EMNIST_Data/MNIST/mnist_test_x.npy")
-    mnist_test_y = np.load("/home/jetson/automatic/Input_data/EMNIST_Data/MNIST/mnist_test_y.npy")
+    mnist_train_x = np.load(path + "/EMNIST_Data/MNIST/mnist_train_x.npy")
+    mnist_train_y = np.load(path + "/EMNIST_Data/MNIST/mnist_train_y.npy")
+    mnist_test_x = np.load(path + "/EMNIST_Data/MNIST/mnist_test_x.npy")
+    mnist_test_y = np.load(path + "/EMNIST_Data/MNIST/mnist_test_y.npy")
     letter_label_placeholder_train = np.zeros((mnist_train_y.shape[0],26))
     letter_label_placeholder_test = np.zeros((mnist_test_y.shape[0],26))
     
@@ -16,10 +16,10 @@ def get_data():
     mnist_test_y = np.concatenate((mnist_test_y, letter_label_placeholder_test), axis=1)
     
     
-    letter_train_x = np.load("/home/jetson/automatic/Input_data/EMNIST_Data/Letter/letter_train_x.npy")
-    letter_train_y = np.load("/home/jetson/automatic/Input_data/EMNIST_Data/Letter/letter_train_y.npy")
-    letter_test_x = np.load("/home/jetson/automatic/Input_data/EMNIST_Data/Letter/letter_test_x.npy")
-    letter_test_y = np.load("/home/jetson/automatic/Input_data/EMNIST_Data/Letter/letter_test_y.npy")
+    letter_train_x = np.load(path + "/EMNIST_Data/Letter/letter_train_x.npy")
+    letter_train_y = np.load(path + "/EMNIST_Data/Letter/letter_train_y.npy")
+    letter_test_x = np.load(path + "/EMNIST_Data/Letter/letter_test_x.npy")
+    letter_test_y = np.load(path + "/EMNIST_Data/Letter/letter_test_y.npy")
     mnist_label_placeholder_train = np.zeros((letter_train_y.shape[0],10))
     mnist_label_placeholder_test = np.zeros((letter_test_y.shape[0],10))
     
