@@ -130,6 +130,8 @@ class UIOptiWindow(QWidget):
         self.quant_float.setFixedHeight(30)
         self.quant_float.setCheckable(True)
         self.quant_float.setVisible(False)
+        self.quant_float.setDisabled(True)
+        self.quant_float.setStyleSheet("font: 12pt " + FONT_STYLE + ";" + "background-color : gray")
         
         self.quant_int = QPushButton("int8", self)
         self.quant_int.setStyleSheet("font: 12pt " + FONT_STYLE)
