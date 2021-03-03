@@ -15,7 +15,7 @@ limitations under the License.
 #ifndef TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_PROCESS_BROADCAST_SHAPES_H_
 #define TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_PROCESS_BROADCAST_SHAPES_H_
 
-#include "../types.h"
+#include "tensorflow/lite/kernels/internal/types.h"
 
 namespace tflite {
 
@@ -76,6 +76,10 @@ inline bool ProcessBroadcastShapes(const RuntimeShape& shape0,
           BroadcastableOpCategory::kFirstInputBroadcastsFast &&
       params->broadcast_category !=
           BroadcastableOpCategory::kSecondInputBroadcastsFast) {
+    // This is unreachable because at least one else clause in the above loop
+    // must be reached.
+    TFLITE_DCHECK(false);
+    params->broadcast_category = BroadcastableOpCategory::kNonBroadcast;
     return false;
   }
 

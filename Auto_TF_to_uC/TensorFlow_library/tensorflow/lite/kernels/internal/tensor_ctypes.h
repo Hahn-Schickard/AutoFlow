@@ -15,8 +15,8 @@ limitations under the License.
 #ifndef TENSORFLOW_LITE_KERNELS_INTERNAL_TENSOR_CTYPES_H_
 #define TENSORFLOW_LITE_KERNELS_INTERNAL_TENSOR_CTYPES_H_
 
-#include "../../c/c_api_internal.h"
-#include "../../kernels/internal/types.h"
+#include "tensorflow/lite/c/common.h"
+#include "tensorflow/lite/kernels/internal/types.h"
 
 namespace tflite {
 

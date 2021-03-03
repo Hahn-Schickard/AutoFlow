@@ -15,8 +15,8 @@ limitations under the License.
 #ifndef TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_CONV_H_
 #define TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_CONV_H_
 
-#include "../types.h"
-#include "../common.h"
+#include "tensorflow/lite/kernels/internal/types.h"
+#include "tensorflow/lite/kernels/internal/common.h"
 
 
 

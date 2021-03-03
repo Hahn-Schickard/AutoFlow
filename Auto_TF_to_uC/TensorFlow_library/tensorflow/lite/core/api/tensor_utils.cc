@@ -13,9 +13,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-#include "../../core/api/tensor_utils.h"
+#include "tensorflow/lite/core/api/tensor_utils.h"
 
 #include <string.h>
+
+#include "tensorflow/lite/c/common.h"
 
 namespace tflite {
 
@@ -37,7 +39,7 @@ TfLiteStatus ResetVariableTensor(TfLiteTensor* tensor) {
   memset(tensor->data.raw, value, tensor->bytes);
 #else
   char* raw_ptr = tensor->data.raw;
-  for (int i = 0; i < tensor->bytes; ++i) {
+  for (size_t i = 0; i < tensor->bytes; ++i) {
     *raw_ptr = value;
     raw_ptr++;
   }

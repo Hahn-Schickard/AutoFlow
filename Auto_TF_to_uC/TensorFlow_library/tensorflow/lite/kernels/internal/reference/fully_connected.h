@@ -15,15 +15,13 @@ limitations under the License.
 #ifndef TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_FULLY_CONNECTED_H_
 #define TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_FULLY_CONNECTED_H_
 
-#include "../common.h"
-#include "../quantization_util.h"
-#include "../round.h"
-#include "../types.h"
+#include "tensorflow/lite/kernels/internal/common.h"
+#include "tensorflow/lite/kernels/internal/cppmath.h"
+#include "tensorflow/lite/kernels/internal/quantization_util.h"
+#include "tensorflow/lite/kernels/internal/types.h"
 
 namespace tflite {
 namespace reference_ops {
-
-const int kReverseShift = -1;
 
 inline void FullyConnected(
     const FullyConnectedParams& params, const RuntimeShape& input_shape,

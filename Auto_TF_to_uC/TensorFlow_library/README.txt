@@ -1,1 +1,0 @@
-This libraries are needed to execute the Keras model on the microcontroller.

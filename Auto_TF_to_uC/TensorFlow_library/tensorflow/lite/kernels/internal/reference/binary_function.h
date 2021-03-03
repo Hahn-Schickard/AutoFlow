@@ -15,9 +15,9 @@ limitations under the License.
 #ifndef TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_BINARY_FUNCTION_H_
 #define TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_BINARY_FUNCTION_H_
 
-#include "../common.h"
-#include "../compatibility.h"
-#include "../types.h"
+#include "tensorflow/lite/kernels/internal/common.h"
+#include "tensorflow/lite/kernels/internal/compatibility.h"
+#include "tensorflow/lite/kernels/internal/types.h"
 
 namespace tflite {
 
@@ -26,7 +26,7 @@ namespace reference_ops {
 // TODO(ycling): Refactoring. Remove BroadcastLogical and use the more
 // generalized and efficient BroadcastBinaryFunction.
 //
-// Also appears to duplicte MinimumMaximum.
+// Also appears to duplicate MinimumMaximum.
 //
 // R: Result type. T1: Input 1 type. T2: Input 2 type.
 template <typename R, typename T1, typename T2>

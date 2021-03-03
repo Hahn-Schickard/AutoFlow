@@ -73,12 +73,7 @@ def main_functions(project_dir, model_name, model_input_neurons, model_output_ne
         
     with open(project_dir + "/src/TF_Lite_exe.cc", "w") as f:
             
-        f.write('#include "./../inc/' + str(model_name) + '_data.h"\n'
-                '#include "./../TensorFlow_library/tensorflow/lite/experimental/micro/kernels/all_ops_resolver.h"\n'
-                '#include "./../TensorFlow_library/tensorflow/lite/experimental/micro/micro_error_reporter.h"\n'
-                '#include "./../TensorFlow_library/tensorflow/lite/experimental/micro/micro_interpreter.h"\n'
-                '#include "./../TensorFlow_library/tensorflow/lite/schema/schema_generated.h"\n'
-                '#include "./../TensorFlow_library/tensorflow/lite/version.h"\n'
+        f.write('#include "./../inc/TF_Lite_exe.h"\n'
                 '\n'
                 'namespace {\n'
                 '// Create an area of memory to use for input, output, and intermediate arrays.\n'
@@ -173,7 +168,14 @@ def main_functions(project_dir, model_name, model_input_neurons, model_output_ne
                 
                           
     with open(project_dir + "/inc/TF_Lite_exe.h", "w") as f:
-        f.write('void setup();\n'
+        f.write('#include "./inc/' + str(model_name) + '_data.h"\n'
+                '#include "./tensorflow/lite/experimental/micro/kernels/all_ops_resolver.h"\n'
+                '#include "./tensorflow/lite/experimental/micro/micro_error_reporter.h"\n'
+                '#include "./tensorflow/lite/experimental/micro/micro_interpreter.h"\n'
+                '#include "./tensorflow/lite/schema/schema_generated.h"\n'
+                '#include "./tensorflow/lite/version.h"\n'
+                '\n'
+                'void setup();\n'
                 'float* model_execute(float ')
          
         for i in range(1,model_input_dim):

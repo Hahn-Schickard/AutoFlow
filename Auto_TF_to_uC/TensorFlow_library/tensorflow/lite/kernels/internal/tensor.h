@@ -18,10 +18,10 @@ limitations under the License.
 #include <complex>
 #include <vector>
 
-#include "../../c/c_api_internal.h"
-#include "../../kernels/internal/tensor_ctypes.h"
-#include "../../kernels/internal/types.h"
-#include "../../string_util.h"
+#include "tensorflow/lite/c/common.h"
+#include "tensorflow/lite/kernels/internal/tensor_ctypes.h"
+#include "tensorflow/lite/kernels/internal/types.h"
+#include "tensorflow/lite/string_util.h"
 
 namespace tflite {
 
@@ -119,6 +119,8 @@ class SequentialTensorWriter {
   T* output_ptr_;
 };
 
+// String ops are not yet supported on platforms w/ static memory.
+#ifndef TF_LITE_STATIC_MEMORY
 template <>
 class SequentialTensorWriter<string> {
  public:
@@ -138,6 +140,7 @@ class SequentialTensorWriter<string> {
   TfLiteTensor* output_;
   DynamicBuffer buffer_;
 };
+#endif  // TF_LITE_STATIC_MEMORY
 
 }  // namespace tflite
 
