@@ -104,7 +104,7 @@ def main_functions(project_dir, model_name, model_input_neurons, model_output_ne
                 '  }\n'
                 '\n'
                 '  // This pulls in all the operation implementations we need.\n'
-                '  static tflite::ops::micro::AllOpsResolver resolver;\n'
+                '  static tflite::AllOpsResolver resolver;\n'
                 '\n'
                 '  // Build an interpreter to run the model with.\n'
                 '  static tflite::MicroInterpreter static_interpreter(\n'
@@ -168,10 +168,10 @@ def main_functions(project_dir, model_name, model_input_neurons, model_output_ne
                 
                           
     with open(project_dir + "/inc/TF_Lite_exe.h", "w") as f:
-        f.write('#include "./inc/' + str(model_name) + '_data.h"\n'
-                '#include "./tensorflow/lite/experimental/micro/kernels/all_ops_resolver.h"\n'
-                '#include "./tensorflow/lite/experimental/micro/micro_error_reporter.h"\n'
-                '#include "./tensorflow/lite/experimental/micro/micro_interpreter.h"\n'
+        f.write('#include "./' + str(model_name) + '_data.h"\n'
+                '#include "./tensorflow/lite/micro/all_ops_resolver.h"\n'
+                '#include "./tensorflow/lite/micro/micro_error_reporter.h"\n'
+                '#include "./tensorflow/lite/micro/micro_interpreter.h"\n'
                 '#include "./tensorflow/lite/schema/schema_generated.h"\n'
                 '#include "./tensorflow/lite/version.h"\n'
                 '\n'
