@@ -14,7 +14,9 @@
 
 <div align="center">
   <sub>A little framework that make your life easier. Built with ❤︎ by
-  <a href="https://de.linkedin.com/in/marcus-r%C3%BCb-3b07071b2">Marcus Rüb</a> and
+  <a href="https://de.linkedin.com/in/marcus-r%C3%BCb-3b07071b2">Marcus Rüb</a>, <a href="https://de.linkedin.com/in/marcel-sawrin-1436a2153">
+    Marcel Sawrin
+  </a> and
   <a href="https://de.linkedin.com/in/daniel-konegen-a451271b3">
     Daniel Konegen
   </a>
