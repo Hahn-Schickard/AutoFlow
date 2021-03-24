@@ -1,10 +1,10 @@
-<h1 align="center">Choo</h1>
+<h1 align="center">AUTOFlow</h1>
 
 <div align="center">
   :steam_locomotive::train::train::train::train::train:
 </div>
 <div align="center">
-  <strong>Fun functional programming</strong>
+  <strong>Bring you AI to the Edge</strong>
 </div>
 <div align="center">
   A <code>4kb</code> framework for creating sturdy frontend applications
