@@ -54,13 +54,10 @@ $ Einfügen
 
 
 ## See Also
-- [bankai](https://github.com/choojs/bankai) - streaming asset compiler
-- [stack.gl](http://stack.gl/) - open software ecosystem for WebGL
-- [yo-yo](https://github.com/maxogden/yo-yo) - tiny library for modular UI
-- [tachyons](https://github.com/tachyons-css/tachyons) - functional CSS for
-  humans
-- [sheetify](https://github.com/stackcss/sheetify) - modular CSS bundler for
-  `browserify`
+- [AUTOKERAS](https://autokeras.com/) - Automl
+- [HLS4ML](https://fastmachinelearning.org/hls4ml/) - FPGA Framework
+- [Tensorflow Lite](https://www.tensorflow.org/lite/microcontrollers) - Tensorflow Lite for MCUs
+
 
 ## Support
 Creating a quality framework takes a lot of time. Unlike others frameworks,
