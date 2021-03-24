@@ -37,12 +37,12 @@
 - [Support](#support)
 
 ## Features
-- __minimal size:__ weighing `4kb`, Choo is a tiny little framework
-- __event based:__ our performant event system makes writing apps easy
-- __small api:__ with only 6 methods there's not much to learn
-- __minimal tooling:__ built for the cutting edge `browserify` compiler
-- __isomorphic:__ renders seamlessly in both Node and browsers
-- __very cute:__ choo choo!
+- __GUI interface:__ With this framework we offer a GUI, which should facilitate the entry into the AI as far as possible.
+- __AUTOML:__ With the help of AUTOML techniques, ML models can be generated automatically. No experience with ML is required.
+- __automatic compression:__ Existing ML models can be automatically compressed to reduce the size and speed of the model
+- __automatic Code generation:__ The framework automatically generates code for the target platform.
+- __different target platform:__ MCUs, FPGAs, Arduino, Raspberry PI etc.
+- __easy to handle:__ ...
 
 ## Example
 ```js
