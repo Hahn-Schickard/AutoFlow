@@ -22,7 +22,7 @@
 
 ## Table of Contents
 - [Features](#features)
-- [Example](#example)
+- [Install Guide](#Install-Guide)
 - [Get Started](#get-started)
 - [Events](#events)
 - [State](#state)
@@ -44,7 +44,7 @@
 - __different target platform:__ MCUs, FPGAs, Arduino, Raspberry PI etc.
 - __easy to handle:__ ...
 
-## Example
+## Install Guide
 ```js
 var html = require('choo/html')
 var devtools = require('choo-devtools')
