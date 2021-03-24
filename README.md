@@ -7,7 +7,7 @@
   <strong>Bring you AI to the Edge</strong>
 </div>
 <div align="center">
-  A <code>4kb</code> framework for creating sturdy frontend applications
+  A framework for implementing ML in the Edge
 </div>
 
 <br />
