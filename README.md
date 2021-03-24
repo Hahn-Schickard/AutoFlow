@@ -7,7 +7,7 @@
   <strong>Bring you AI to the Edge</strong>
 </div>
 <div align="center">
-  A framework for implementing ML in the Edge
+  Autoflow is a tool that helps developers to implement machine learning (ML) faster and easier on embedded devices. The whole workflow of a data scientist should be covered. Starting from building the ML model to the selection of the target platform to the optimization and implementation of the model on the target platform.
 </div>
 
 <br />
