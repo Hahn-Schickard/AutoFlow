@@ -35,9 +35,20 @@ def convert_model_to_tflite(Keras_model_dir, converted_model_dir, model_name, op
 
         converter.optimizations = [tf.lite.Optimize.DEFAULT]
         converter.representative_dataset = representative_dataset
+        # Input and Output can be float
+        
+        """
+        Additionally, to ensure compatibility with integer only devices 
+        (such as 8-bit microcontrollers) and accelerators (such as the Coral Edge TPU), 
+        you can enforce full integer quantization for all ops including the input and 
+        output, by using the following steps:
+        
         converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
         converter.inference_input_type = tf.int8  # or tf.uint8
         converter.inference_output_type = tf.int8  # or tf.uint8
+        
+        Input and Output of the TFLite model has to be integer not float values
+        """
         
     tflite_model = converter.convert()
     open(converted_model_dir + model_name + ".tflite", "wb").write(tflite_model)
