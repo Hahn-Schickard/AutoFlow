@@ -8,7 +8,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 
-from GUI import MainWindow
+from src.GUIEvents import MainWindow
 
 
 #from Threads.Loading_images_thread import *
