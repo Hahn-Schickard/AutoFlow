@@ -132,7 +132,7 @@ class MainWindow(QMainWindow):
         self.Know_Dis_2 = None
         self.Huffman_1 = None
         self.Huffman_2 = None
-
+        
         self.params_factor = 1
         self.floats_factor = 1
         self.complex_factor = 1

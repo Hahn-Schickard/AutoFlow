@@ -1,19 +1,22 @@
+"""This is the start file to run the AUTOFlow GUI
+
+In this file we import the libarys and define the GUI with all the layouts
+
+  Typical usage example:
+
+  python start.py
+"""
+
 import sys
 import os
-
-
 import math
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-
-
 from src.GUIEvents import MainWindow
 
 
-#from Threads.Loading_images_thread import *
-#from Threads.Create_project_thread import *
-#from Threads.Prune_model_thread import *
+
 
 
 app = QApplication(sys.argv)
