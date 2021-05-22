@@ -1,16 +1,18 @@
-import sys
-import os
+"""This is a splittet method from the Mainwindow class which contain the logic for the AutoMLData window
 
+The programmed logic in this method defines the workflow and path for the GUI. Especially
 
-import math
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+  Typical usage example:
+
+  foo = ClassFoo()
+  bar = foo.FunctionBar()
+"""
 
 
 from UIWindows.UIRestrictionWindow import *
 
-def RestrictionWindow(self, n):            
+def RestrictionWindow(self, n):        
+    
         
     if n == "Next":
         if "Pruning" in self.optimizations:

@@ -1,3 +1,13 @@
+"""This is a splittet method from the Mainwindow class which contain the logic for the AutoMLData window
+
+The programmed logic in this method defines the workflow and path for the GUI. Especially
+
+  Typical usage example:
+
+  foo = ClassFoo()
+  bar = foo.FunctionBar()
+"""
+
 from src.GUILayout.Start import *
 def GUIStart(self):
         """one liner
