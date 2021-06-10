@@ -25,7 +25,7 @@ def convert_and_write(Keras_model_dir, project_name, output_path, optimizations,
     model_name,_ = os.path.splitext(model_name)
     model_input_neurons = 1
     
-    project_dir = create_project_dir(project_name, output_path)
+    project_dir = create_project_dir(project_name, output_path, converted_model_dir, model_name)
     
     
     model_input_shape, model_input_dtype, model_output_neurons = convert_model_to_tflite(Keras_model_dir, converted_model_dir, model_name, optimizations, datascript_path, quant_dtype)
@@ -37,3 +37,6 @@ def convert_and_write(Keras_model_dir, project_name, output_path, optimizations,
     
     main_functions(project_dir, model_name, model_input_neurons, model_output_neurons, model_input_dtype, model_input_shape, len(model_input_shape))
     TensorFlow_library(project_dir)
+    shutil.rmtree(converted_model_dir)
+    if 'Pruning' in optimizations:
+        pruned_keras_model(Keras_model_dir, project_dir, model_name)

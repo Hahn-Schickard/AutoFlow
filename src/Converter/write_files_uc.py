@@ -4,7 +4,7 @@ import shutil
 import pathlib
 
 
-def create_project_dir(project_name, output_path):
+def create_project_dir(project_name, output_path, converted_model_dir, model_name):
     """
     Creates a directory where all files of the project will be stored.
     
@@ -18,6 +18,9 @@ def create_project_dir(project_name, output_path):
     
     path = output_path
     project_dir = path + "/" + project_name
+
+    if not os.path.exists(converted_model_dir):
+        os.mkdir(converted_model_dir)
     
     if not os.path.exists(path):
         os.mkdir(path)
@@ -26,6 +29,8 @@ def create_project_dir(project_name, output_path):
         os.mkdir(project_dir)
         os.mkdir(project_dir + "/src")
         os.mkdir(project_dir + "/inc")
+        if "_pruned" in model_name:
+            os.mkdir(project_dir + "/pruned_keras_model")
         
     return project_dir
 
@@ -198,26 +203,6 @@ def TensorFlow_library(project_dir):
     shutil.copytree(str(pathlib.Path(__file__).parent.absolute()) + "/TensorFlow_library", project_dir + "/TensorFlow_library")
 
 
-def create_project_dir(project_name, output_path):
-    """
-    Creates a directory where all files of the project will be stored.
-    
-    Args: 
-        project_name: Name of the project which should be generated
-        output_path: Directory where the project should be generated
-            
-    Return: 
-        project_dir: Path of the project directory
-    """    
-    path = output_path
-    project_dir = path + "/" + project_name
-    
-    if not os.path.exists(path):
-        os.mkdir(path)
-        
-    if not os.path.exists(project_dir):
-        os.mkdir(project_dir)
-        os.mkdir(project_dir + "/src")
-        os.mkdir(project_dir + "/inc")
-        
-    return project_dir
+def pruned_keras_model(Keras_model_dir, project_dir, model_name):
+
+    shutil.copy(Keras_model_dir, project_dir + "/pruned_keras_model/" + model_name + ".h5")
