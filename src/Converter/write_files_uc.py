@@ -131,27 +131,27 @@ def main_functions(project_dir, model_name, model_input_neurons, model_output_ne
                 '\n'
                 'float* model_execute(float input_data')
         
-        for i in range(1,model_input_dim):
-            f.write('[' + str(model_input_shape[i]) + ']')
+        for input_dimension in range(1,model_input_dim):
+            f.write('[' + str(model_input_shape[input_dimension]) + ']')
         
         f.write(') {\n'
                 "  // Place our inputdata in the model's input tensor as one dimensional input\n"
                 '  input_neurons = 0;\n')
         
-        for i in range(1,model_input_dim):
-            f.write('  for(int i' + str(i) + ' = 0; i' + str(i) + ' < ' + str(model_input_shape[i]) + '; i' + str(i) + '++) {\n')
+        for input_dimension in range(1,model_input_dim):
+            f.write('  for(int i' + str(input_dimension) + ' = 0; i' + str(input_dimension) + ' < ' + str(model_input_shape[input_dimension]) + '; i' + str(input_dimension) + '++) {\n')
             
         f.write('  input->data.' + in_dt + '[input_neurons] = input_data[')
         
-        for i in range(1,model_input_dim):
-            if i == model_input_dim-1:
-                f.write('i' + str(i) + '];\n')
+        for input_dimension in range(1,model_input_dim):
+            if input_dimension == model_input_dim-1:
+                f.write('i' + str(input_dimension) + '];\n')
             else:
-                f.write('i' + str(i) + '][')
+                f.write('i' + str(input_dimension) + '][')
         
         f.write('  input_neurons++;\n')
                 
-        for i in range(model_input_dim-1,0,-1):
+        for input_dimension in range(model_input_dim-1,0,-1):
             f.write('  }\n')
             
         f.write('\n'
@@ -183,8 +183,8 @@ def main_functions(project_dir, model_name, model_input_neurons, model_output_ne
                 'void setup();\n'
                 'float* model_execute(float ')
          
-        for i in range(1,model_input_dim):
-            f.write('[' + str(model_input_shape[i]) + ']')
+        for input_dimension in range(1,model_input_dim):
+            f.write('[' + str(model_input_shape[input_dimension]) + ']')
         
         f.write(');')
         
