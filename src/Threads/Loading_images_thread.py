@@ -25,7 +25,7 @@ class Loading_images(QThread):
             
             time.sleep(0.75)
             
-            self.Loadpng.setPixmap(QPixmap(os.path.join('Images','GUI_loading_images', 'GUI_load_' + str(self.i) + '.png')))
+            self.Loadpng.setPixmap(QPixmap(os.path.join('src', 'GUILayout', 'Images','GUI_loading_images', 'GUI_load_' + str(self.i) + '.png')))
             
         
     def stop_thread(self):

@@ -71,11 +71,10 @@ class MainWindow(QMainWindow):
         set_knowledge_distillation,
         set_huffman_coding,
         get_optimization,
-        set_optimizations,
+        # set_optimizations,
         model_pruning,
         download,
-        terminate_thread,
-        optimization_before_load
+        terminate_thread
     )
 
     def __init__(self, parent=None):

@@ -124,21 +124,47 @@ class UIOptiWindow(QWidget):
         self.Pruning_Conv.setAlignment(Qt.AlignCenter)
         self.Pruning_Conv.setVisible(False)
 
-        self.quant_float = QPushButton("float16", self)
-        self.quant_float.setStyleSheet("font: 12pt " + FONT_STYLE)
-        self.quant_float.setFixedWidth(90)
-        self.quant_float.setFixedHeight(30)
-        self.quant_float.setCheckable(True)
-        self.quant_float.setVisible(False)
-        self.quant_float.setDisabled(True)
-        self.quant_float.setStyleSheet("font: 12pt " + FONT_STYLE + ";" + "background-color : gray")
-        
-        self.quant_int = QPushButton("int8", self)
-        self.quant_int.setStyleSheet("font: 12pt " + FONT_STYLE)
+        self.quant_int = QPushButton("int8+float32", self)
         self.quant_int.setFixedWidth(90)
         self.quant_int.setFixedHeight(30)
         self.quant_int.setCheckable(True)
         self.quant_int.setVisible(False)
+        self.quant_int.setToolTip('This quantization approach converts all weights\n'
+                                     'to int8 values. But the input and output\n'
+                                     'still remain 32-bit float.')
+        self.quant_int.setStyleSheet("""QPushButton {
+                           font: 9pt """ + FONT_STYLE + """}
+                           QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover
+                           {
+                           background-color : rgb(10, 100, 200);
+                           }""")
+        # self.quant_int.setDisabled(True)
+        # self.quant_int.setStyleSheet("font: 12pt " + FONT_STYLE + ";" + "background-color : gray")
+        
+        self.quant_int_only = QPushButton("int8 only", self)
+        self.quant_int_only.setFixedWidth(90)
+        self.quant_int_only.setFixedHeight(30)
+        self.quant_int_only.setCheckable(True)
+        self.quant_int_only.setVisible(False)
+        self.quant_int_only.setToolTip('This quantization approach converts all weights\n'
+                                     'to int8 values. Also the input and output\n'
+                                     'will be converted to 8-bit integer.')
+        self.quant_int_only.setStyleSheet("""QPushButton {
+                           font: 10pt """ + FONT_STYLE + """}
+                           QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover
+                           {
+                           background-color : rgb(10, 100, 200);
+                           }""")
 
         self.Dis_1_label = QLabel("Dis_1_label", self)
         self.Dis_1_label.setStyleSheet("font: 10pt " + FONT_STYLE)
@@ -234,9 +260,9 @@ class UIOptiWindow(QWidget):
         sublayout_oben.addWidget(self.Pruning_Conv, 2, 3, Qt.AlignCenter)
         sublayout_oben.addWidget(self.Abstand, 2, 4, Qt.AlignCenter)
         sublayout_oben.addWidget(self.Abstand, 2, 5, Qt.AlignCenter)
-        sublayout_oben.addWidget(self.quant_float, 2, 6, Qt.AlignCenter)
+        sublayout_oben.addWidget(self.quant_int, 2, 6, Qt.AlignCenter)
         sublayout_oben.addWidget(self.Abstand_label, 2, 7, Qt.AlignCenter)
-        sublayout_oben.addWidget(self.quant_int, 2, 8, Qt.AlignCenter)
+        sublayout_oben.addWidget(self.quant_int_only, 2, 8, Qt.AlignCenter)
         sublayout_oben.addWidget(self.Abstand, 2, 9, Qt.AlignCenter)
         sublayout_oben.addWidget(self.Abstand, 3, 0, Qt.AlignCenter)
         sublayout_oben.addWidget(self.Abstand, 3, 1, Qt.AlignCenter)

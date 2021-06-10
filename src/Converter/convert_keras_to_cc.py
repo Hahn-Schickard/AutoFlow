@@ -3,7 +3,11 @@ import tensorflow as tf
 import sys
 import os
 
-def convert_model_to_tflite(Keras_model_dir, converted_model_dir, model_name, opti, datascript_path):
+sys.path.append("..") # Adds higher directory to python modules path.
+from src.GUIEvents._Helper import dataloader_quantization
+
+
+def convert_model_to_tflite(Keras_model_dir, converted_model_dir, model_name, opti, datascript_path, quant_dtype):
     """
     A keras model get's converter into a TensorFlow lite model.
     
@@ -18,37 +22,27 @@ def convert_model_to_tflite(Keras_model_dir, converted_model_dir, model_name, op
         model_output_neurons: Number of neurons in the output layer
     """
     
-    keras_file = Keras_model_dir
-    keras_file = tf.keras.models.load_model(keras_file)
-    model_input_shape = keras_file.input.shape
-    model_input_dtype = keras_file.input.dtype
-    model_output_neurons = keras_file.layers[-1].output_shape[1]
-    converter = lite.TFLiteConverter.from_keras_model(keras_file)
+    keras_model = Keras_model_dir
+    keras_model = tf.keras.models.load_model(keras_model)
+    model_input_shape = keras_model.input.shape
+    model_input_dtype = keras_model.input.dtype
+    model_output_neurons = keras_model.layers[-1].output_shape[1]
+    converter = lite.TFLiteConverter.from_keras_model(keras_model)
 
     if "Quantization" in opti:
-        sys.path.append(os.path.dirname(datascript_path))
-        datascript = __import__(os.path.splitext(os.path.basename(datascript_path))[0])
         global x_train
-        x_train, _, _, _ = datascript.get_data()
+        x_train = dataloader_quantization(datascript_path, keras_model.input.shape[1], keras_model.input.shape[2])
+        print("Shape of x_train: " + str(x_train.shape))
         x_train = tf.cast(x_train, tf.float32)
         x_train = tf.data.Dataset.from_tensor_slices(x_train).batch(1)
 
         converter.optimizations = [tf.lite.Optimize.DEFAULT]
         converter.representative_dataset = representative_dataset
-        # Input and Output can be float
-        
-        """
-        Additionally, to ensure compatibility with integer only devices 
-        (such as 8-bit microcontrollers) and accelerators (such as the Coral Edge TPU), 
-        you can enforce full integer quantization for all ops including the input and 
-        output, by using the following steps:
-        
-        converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
-        converter.inference_input_type = tf.int8  # or tf.uint8
-        converter.inference_output_type = tf.int8  # or tf.uint8
-        
-        Input and Output of the TFLite model has to be integer not float values
-        """
+        print(quant_dtype)
+        if "int8 only" in quant_dtype:
+            converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
+            converter.inference_input_type = tf.int8  # or tf.uint8
+            converter.inference_output_type = tf.int8  # or tf.uint8
         
     tflite_model = converter.convert()
     open(converted_model_dir + model_name + ".tflite", "wb").write(tflite_model)

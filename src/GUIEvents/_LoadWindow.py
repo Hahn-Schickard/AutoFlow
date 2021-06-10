@@ -90,10 +90,10 @@ def LoadWindow(self, n):
     
     
         if "Quantization" in self.optimizations:
-            if self.Window3.quant_int.isChecked():
-                self.quant_dtype = "int"
-            elif self.Window3.quant_float.isChecked():
-                self.quant_dtype = "float"
+            if self.Window3.quant_int_only.isChecked():
+                self.quant_dtype = "int8 only"
+            elif self.Window3.quant_int.isChecked():
+                self.quant_dtype = "int8 with float fallback"
             else:
                 print("No datatype for quantization is selected.")
         if "Knowledge_Distillation" in self.optimizations:
@@ -118,16 +118,14 @@ def LoadWindow(self, n):
             
             return       
     
-    self.Window5 = UILoadWindow(self.FONT_STYLE, self.model_path, self.project_name, self.output_path, self.data_loader_path, self.prun_factor_dense, self.prun_factor_conv, self.optimizations,self.target, self)
+    self.Window5 = UILoadWindow(self.FONT_STYLE, self.model_path, self.project_name, self.output_path, self.data_loader_path, self.prun_factor_dense, self.prun_factor_conv, self.optimizations, self.quant_dtype, self.target, self)
     
-    #self.Window5.Back.clicked.connect(lambda:self.RestrictionWindow("Back"))
     self.Window5.Back.clicked.connect(lambda:self.OptiWindow("Back", self.target))
     
-    self.Window5.Load.clicked.connect(self.model_pruning)
-    self.Window5.Load.clicked.connect(self.download)
+    self.Window5.Load.clicked.connect(lambda:self.model_pruning(self.Window5))
     
-    #self.Window5.prune_model.request_signal.connect(self.download)
-    self.Window5.conv_build_load.request_signal.connect(self.terminate_thread)
+    self.Window5.prune_model.request_signal.connect(lambda:self.download(self.Window5))
+    self.Window5.conv_build_load.request_signal.connect(lambda:self.terminate_thread(self.Window5))
     
     self.Window5.Finish.clicked.connect(self.close)
     

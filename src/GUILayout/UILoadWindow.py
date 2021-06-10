@@ -14,7 +14,7 @@ from src.Threads.Prune_model_thread import *
 
 
 class UILoadWindow(QWidget):
-    def __init__(self, FONT_STYLE, model_path, project_name, output_path, datascript_path, prun_factor_dense, prun_factor_conv, optimizations,target, parent=None):
+    def __init__(self, FONT_STYLE, model_path, project_name, output_path, datascript_path, prun_factor_dense, prun_factor_conv, optimizations, quant_dtype, target, parent=None):
         super(UILoadWindow, self).__init__(parent)
         
         self.FONT_STYLE = FONT_STYLE        
@@ -26,6 +26,8 @@ class UILoadWindow(QWidget):
         self.prun_factor_dense = prun_factor_dense
         self.prun_factor_conv = prun_factor_conv
         self.target=target
+        self.optimizations = optimizations
+        self.quant_dtype = quant_dtype
         
         
         self.label = QLabel("Create Projectfiles")
@@ -99,14 +101,14 @@ class UILoadWindow(QWidget):
         
         self.loading_images = Loading_images(self.Loadpng)
         
-        self.prune_model = Prune_model(self.datascript_path, self.model_path, self.prun_factor_dense, self.prun_factor_conv)
+        self.prune_model = Prune_model(self.datascript_path, self.model_path, self.prun_factor_dense, self.prun_factor_conv, self.optimizations)
 
         
         if 'uC' in target:
             if 'Pruning' in optimizations:
-                self.conv_build_load = Convert_Build_Loading(str(self.model_path[:-3]) + '_pruned.h5', self.project_name, self.output_path, optimizations, self.datascript_path)
+                self.conv_build_load = Convert_Build_Loading(str(self.model_path[:-3]) + '_pruned.h5', self.project_name, self.output_path, self.optimizations, self.datascript_path, self.quant_dtype)
             else:
-                self.conv_build_load = Convert_Build_Loading(self.model_path, self.project_name, self.output_path, optimizations, self.datascript_path)
+                self.conv_build_load = Convert_Build_Loading(self.model_path, self.project_name, self.output_path, self.optimizations, self.datascript_path, self.quant_dtype)
         if 'FPGA' in target:
-            self.conv_build_load = Convert_Build_Loading_FPGA(self.model_path, self.project_name, self.output_path, optimizations, self.datascript_path)
+            self.conv_build_load = Convert_Build_Loading_FPGA(self.model_path, self.project_name, self.output_path, self.optimizations, self.datascript_path, self.quant_dtype)
             
