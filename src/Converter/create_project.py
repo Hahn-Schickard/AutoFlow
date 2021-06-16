@@ -6,20 +6,16 @@ import pathlib
 from src.Converter.convert_keras_to_cc import *
 from src.Converter.write_files_uc import *
 
-def convert_and_write(Keras_model_dir, project_name, output_path, optimizations, datascript_path, quant_dtype):  
+def convert_and_write(Keras_model_dir, project_name, output_path, optimizations, datascript_path, quant_dtype):
     """
     A keras model get's converted into a C++ model, the project directory is created
     and all files that are needed to compile the project get generated.
     
     Args: 
         Keras_model_dir: Path of the keras model
-        project_name: Name of the project which should be generated
-        output_path: Directory where the project should be generated
-            
-    Return: 
-        ---
-    """   
-    
+        project_name:    Name of the project which should be generated
+        output_path:     Directory where the project should be generated
+    """
     converted_model_dir = str(pathlib.Path(__file__).parent.absolute()) + "/Converted_model_files/"
     model_name = ntpath.basename(Keras_model_dir)
     model_name,_ = os.path.splitext(model_name)

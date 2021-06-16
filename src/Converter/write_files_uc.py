@@ -10,12 +10,11 @@ def create_project_dir(project_name, output_path, converted_model_dir, model_nam
     
     Args: 
         project_name: Name of the project which should be generated
-        output_path: Directory where the project should be generated
+        output_path:  Directory where the project should be generated
             
     Return: 
         project_dir: Path of the project directory
-    """    
-    
+    """
     path = output_path
     project_dir = path + "/" + project_name
 
@@ -40,16 +39,13 @@ def main_functions(project_dir, model_name, model_input_neurons, model_output_ne
     The script which loads and executes the model is created
     
     Args: 
-        project_dir: Path of the project directory where the file should be created
-        model_name: Name of the model
-        model_input_neurons: Number of neurons in the input layer of the model
+        project_dir:          Path of the project directory where the file should be created
+        model_name:           Name of the model
+        model_input_neurons:  Number of neurons in the input layer of the model
         model_output_neurons: Number of neurons in the output layer of the model
-        model_input_dtype: Dtype of the inputdata of the model
-        model_input_shape: Shape of the inputdata of the model
-        model_input_dim: Number of dimensions of the inputdata
-            
-    Return: 
-        ---
+        model_input_dtype:    Dtype of the inputdata of the model
+        model_input_shape:    Shape of the inputdata of the model
+        model_input_dim:      Number of dimensions of the inputdata
     """
     if 'float' in str(model_input_dtype):
         in_dt = 'f'
@@ -195,14 +191,17 @@ def TensorFlow_library(project_dir):
     
     Args: 
         project_dir: Path of the project directory where the file should be created
-            
-    Return: 
-        ---
-    """    
-    
+    """
     shutil.copytree(str(pathlib.Path(__file__).parent.absolute()) + "/TensorFlow_library", project_dir + "/TensorFlow_library")
 
 
 def pruned_keras_model(Keras_model_dir, project_dir, model_name):
-
+    """
+    Copies the pruned keras model into the project directory.
+    
+    Args: 
+        Keras_model_dir: Path of the keras model
+        project_dir:     Path of the project directory where the file should be created
+        model_name:      Name of the keras model
+    """
     shutil.copy(Keras_model_dir, project_dir + "/pruned_keras_model/" + model_name + ".h5")

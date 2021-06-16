@@ -12,16 +12,15 @@ def convert_model_to_tflite(Keras_model_dir, converted_model_dir, model_name, op
     A keras model get's converter into a TensorFlow lite model.
     
     Args: 
-        Keras_model_dir: Path of the keras model
+        Keras_model_dir:     Path of the keras model
         converted_model_dir: Path where the converted TensorFlow Lite model should be stored
-        model_name: Name of converted .tflite file
+        model_name:          Name of converted .tflite file
             
     Return: 
-        model_input_shape: Shape of the inputdata of the model
-        model_input_dtype: Dtype of the inputdata of the model
+        model_input_shape:    Shape of the inputdata of the model
+        model_input_dtype:    Dtype of the inputdata of the model
         model_output_neurons: Number of neurons in the output layer
     """
-    
     keras_model = Keras_model_dir
     keras_model = tf.keras.models.load_model(keras_model)
     model_input_shape = keras_model.input.shape
@@ -55,17 +54,13 @@ def representative_dataset():
 
 def convert_model_to_cpp(converted_model_dir, model_name, project_dir):
     """
-    A TensorFlow lite model get's converter into a C++ model.
+    A TensorFlow lite model get's converter into a C array model.
     
     Args: 
         converted_model_dir: Path of the .tflite model
-        model_name: Name of the model
-        project_dir: Directory of the project where the C++ model should be stored
-            
-    Return: 
-        ---
+        model_name:          Name of the model
+        project_dir:         Directory of the project where the C array model should be stored
     """
-    
     with open(converted_model_dir + model_name + '.tflite', 'rb') as f:
         content = f.read().hex()
         result = bytearray.fromhex(content)
