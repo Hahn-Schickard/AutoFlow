@@ -1,4 +1,4 @@
-"""This is a splittet method from the Mainwindow class which contain the logic for the AutoMLData window
+"""This is a splittet method from the Mainwindow class which contain the logic for the HelperWindow window
 
 The programmed logic in this method defines the workflow and path for the GUI. Especially
 
@@ -12,63 +12,49 @@ The programmed logic in this method defines the workflow and path for the GUI. E
 from src.GUILayout.UIHelperWindow import *
         
 def HelperWindow(self):
-    """Fetches rows from a Smalltable.
+    """Define Logic for the HelperWindow GUI
 
-    Retrieves rows pertaining to the given keys from the Table instance
-    represented by table_handle.  String keys will be UTF-8 encoded.
+    Retrieves the parameter class and set the data path, project path and output path
 
     Args:
-      table_handle:
-        An open smalltable.Table instance.
-      keys:
-        A sequence of strings representing the key of each table row to
-        fetch.  String keys will be UTF-8 encoded.
-      require_all_keys:
-        Optional; If require_all_keys is True only rows with values set
-        for all keys will be returned.
+      self:
+        self represents the instance of the class.
+      parameter:
+        A parameter class with all the parameter we change and need to start the project
+      
 
     Returns:
-      A dict mapping keys to the corresponding table row data
-      fetched. Each row is represented as a tuple of strings. For
-      example:
 
-      {b'Serak': ('Rigel VII', 'Preparer'),
-       b'Zim': ('Irk', 'Invader'),
-       b'Lrrr': ('Omicron Persei 8', 'Emperor')}
-
-      Returned keys are always bytes.  If a key from the keys argument is
-      missing from the dictionary, then that row was not found in the
-      table (and require_all_keys must have been False).
 
     Raises:
-      IOError: An error occurred accessing the smalltable.
+      IOError: An error occurred accessing the parameterset.
     """        
     self.setFixedWidth(800)
     self.setFixedHeight(900)
-    self.Window3a = UIHelperWindow(self.FONT_STYLE, self)
+    self.HelperWindow = UIHelperWindow(self.FONT_STYLE, self)
     
     
     
-    self.Window3a.Forms.clicked.connect(self.Form_clicked)
-    self.Window3a.Formm.clicked.connect(self.Form_clicked)
-    self.Window3a.Forml.clicked.connect(self.Form_clicked)
-    self.Window3a.Energies.clicked.connect(self.Form_clicked)
-    self.Window3a.Energiem.clicked.connect(self.Form_clicked)
-    self.Window3a.Energiel.clicked.connect(self.Form_clicked)
-    self.Window3a.Flexs.clicked.connect(self.Form_clicked)
-    self.Window3a.Flexm.clicked.connect(self.Form_clicked)
-    self.Window3a.Flexl.clicked.connect(self.Form_clicked)
-    self.Window3a.Preiss.clicked.connect(self.Form_clicked)
-    self.Window3a.Preism.clicked.connect(self.Form_clicked)
-    self.Window3a.Preisl.clicked.connect(self.Form_clicked)
-    self.Window3a.Parameter.textChanged.connect(self.Form_clicked)
-    self.Window3a.FPS.textChanged.connect(self.Form_clicked)
+    self.HelperWindow.Forms.clicked.connect(self.Form_clicked)
+    self.HelperWindow.Formm.clicked.connect(self.Form_clicked)
+    self.HelperWindow.Forml.clicked.connect(self.Form_clicked)
+    self.HelperWindow.Energies.clicked.connect(self.Form_clicked)
+    self.HelperWindow.Energiem.clicked.connect(self.Form_clicked)
+    self.HelperWindow.Energiel.clicked.connect(self.Form_clicked)
+    self.HelperWindow.Flexs.clicked.connect(self.Form_clicked)
+    self.HelperWindow.Flexm.clicked.connect(self.Form_clicked)
+    self.HelperWindow.Flexl.clicked.connect(self.Form_clicked)
+    self.HelperWindow.Preiss.clicked.connect(self.Form_clicked)
+    self.HelperWindow.Preism.clicked.connect(self.Form_clicked)
+    self.HelperWindow.Preisl.clicked.connect(self.Form_clicked)
+    self.HelperWindow.Parameter.textChanged.connect(self.Form_clicked)
+    self.HelperWindow.FPS.textChanged.connect(self.Form_clicked)
     
     
-    self.Window3a.Back.clicked.connect(lambda:self.TargetWindow("Back", self.Window3a))
-    self.Window3a.Next.clicked.connect(lambda:self.OptiWindow("Next","?"))
+    self.HelperWindow.Back.clicked.connect(lambda:self.TargetWindow("Back", self.HelperWindow))
+    self.HelperWindow.Next.clicked.connect(lambda:self.OptiWindow("Next","?"))
     
-    self.setCentralWidget(self.Window3a)
+    self.setCentralWidget(self.HelperWindow)
     
     self.Dot = QLabel(self)
     Dotimg = QPixmap(os.path.join('src','GUILayout','Images', 'Dot.png'))

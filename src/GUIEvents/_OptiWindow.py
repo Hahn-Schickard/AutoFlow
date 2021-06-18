@@ -1,4 +1,4 @@
-"""This is a splittet method from the Mainwindow class which contain the logic for the AutoMLData window
+"""This is a splittet method from the Mainwindow class which contain the logic for the OptiWindow window
 
 The programmed logic in this method defines the workflow and path for the GUI. Especially
 
@@ -10,6 +10,23 @@ The programmed logic in this method defines the workflow and path for the GUI. E
 from src.GUILayout.UIOptiWindow import *
         
 def OptiWindow(self, n, target):
+    """Define Logic for the OptiWindow GUI
+
+    Retrieves the parameter class and set the data path, project path and output path
+
+    Args:
+      self:
+        self represents the instance of the class.
+      parameter:
+        A parameter class with all the parameter we change and need to start the project
+      
+
+    Returns:
+
+
+    Raises:
+      IOError: An error occurred accessing the parameterset.
+    """
     
     if n == "Next":
         self.target = target

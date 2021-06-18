@@ -6,9 +6,9 @@ from PyQt5.QtCore import *
 
 
 
-class UIMarcusWindow4(QWidget):
+class UIAutoMLData(QWidget):
     def __init__(self, FONT_STYLE, parent=None):
-        super(UIMarcusWindow4, self).__init__(parent)
+        super(UIAutoMLData, self).__init__(parent)
         
         self.FONT_STYLE = FONT_STYLE        
         

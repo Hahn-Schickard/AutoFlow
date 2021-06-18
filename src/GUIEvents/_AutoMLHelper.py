@@ -139,16 +139,16 @@ def Form_clicked(self):
     self.Y = 0
 
     self.Dot.setVisible(True)
-    if self.Window3a.Parameter.text() == "":
+    if self.HelperWindow.Parameter.text() == "":
         Parameter = 0
 
     else:
-        Parameter = self.Window3a.Parameter.text()
+        Parameter = self.HelperWindow.Parameter.text()
         print(type(Parameter))
         try:
             Parameter = int(Parameter)
         except ValueError:
-            self.Window3a.Parameter.setText(Parameter[:-1])
+            self.HelperWindow.Parameter.setText(Parameter[:-1])
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
 
@@ -158,15 +158,15 @@ def Form_clicked(self):
             msg.exec_()
             return
 
-    if self.Window3a.FPS.text() == "":
+    if self.HelperWindow.FPS.text() == "":
         FPS = 0
 
     else:
-        FPS = self.Window3a.FPS.text()
+        FPS = self.HelperWindow.FPS.text()
         try:
             FPS = int(FPS)
         except ValueError:
-            self.Window3a.FPS.setText(FPS[:-1])
+            self.HelperWindow.FPS.setText(FPS[:-1])
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
 
@@ -184,35 +184,35 @@ def Form_clicked(self):
     if FLOPs > 100000000000:
         self.Y -= 100
 
-    if self.Window3a.Forms.isChecked():
+    if self.HelperWindow.Forms.isChecked():
         self.Y = 100
 
-    if self.Window3a.Forml.isChecked():
+    if self.HelperWindow.Forml.isChecked():
         self.Y = -100
 
-    if self.Window3a.Flexs.isChecked():
+    if self.HelperWindow.Flexs.isChecked():
         self.X = 200
 
-    if self.Window3a.Flexl.isChecked():
+    if self.HelperWindow.Flexl.isChecked():
         self.X = -200
 
-    if self.Window3a.Energies.isChecked():
+    if self.HelperWindow.Energies.isChecked():
         self.Y = 50
         self.X = 50
 
-    if self.Window3a.Energiel.isChecked():
+    if self.HelperWindow.Energiel.isChecked():
         self.Y = -50
         self.X = -50
 
-    if self.Window3a.Preiss.isChecked():
+    if self.HelperWindow.Preiss.isChecked():
         self.Y = 50
         self.X = 50
 
-    if self.Window3a.Preisl.isChecked():
+    if self.HelperWindow.Preisl.isChecked():
         self.Y = -50
         self.X = -50
 
-    if self.Window3a.Preism.isChecked():
+    if self.HelperWindow.Preism.isChecked():
         if self.X > 0:
             self.X -= 25
         if self.X < 0:
@@ -222,7 +222,7 @@ def Form_clicked(self):
         if self.Y < 0:
             self.Y = 25
 
-    if self.Window3a.Energiem.isChecked():
+    if self.HelperWindow.Energiem.isChecked():
         if self.X > 0:
             self.X -= 25
         if self.X < 0:
@@ -232,13 +232,13 @@ def Form_clicked(self):
         if self.Y < 0:
             self.Y = 25
 
-    if self.Window3a.Formm.isChecked():
+    if self.HelperWindow.Formm.isChecked():
         if self.Y > 0:
             self.Y -= 25
         if self.Y < 0:
             self.Y = 25
 
-    if self.Window3a.Flexm.isChecked():
+    if self.HelperWindow.Flexm.isChecked():
         if self.X > 0:
             self.X -= 100
         if self.X < 0:
