@@ -12,20 +12,20 @@ class Loading_images(QThread):
     def __init__(self, Loadpng):
         QThread.__init__(self)
         self.Loadpng = Loadpng
-        self.i = 0
+        self.image_number = 0
 
     def run(self):
             
         while(self.isRunning()):
             
-            if self.i < 15:
-                self.i += 1
+            if self.image_number < 15:
+                self.image_number += 1
             else:
-                self.i = 1
+                self.image_number = 1
             
             time.sleep(0.75)
             
-            self.Loadpng.setPixmap(QPixmap(os.path.join('Images','GUI_loading_images', 'GUI_load_' + str(self.i) + '.png')))
+            self.Loadpng.setPixmap(QPixmap(os.path.join('src', 'GUILayout', 'Images','GUI_loading_images', 'GUI_load_' + str(self.image_number) + '.png')))
             
         
     def stop_thread(self):

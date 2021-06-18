@@ -58,6 +58,13 @@ class UIStartWindow(QWidget):
         self.Daten_Pfad = QLabel("")
         self.Daten_Pfad.setFixedWidth(300)
         self.Daten_Pfad.setStyleSheet("font: 12pt " + FONT_STYLE)
+
+        self.dataloader_list = QComboBox()
+        self.dataloader_list.setFixedWidth(170)
+        self.dataloader_list.addItems(["Select PATH with data", "Select SCRIPT with data"])
+
+        self.Abstand_dataloader_list = QLabel("")
+        self.Abstand_dataloader_list.setFixedWidth(170)
         
         self.Output_Pfad_Browse = QPushButton(" Output path... ", self)
         self.Output_Pfad_Browse.setToolTip('...')
@@ -153,22 +160,30 @@ class UIStartWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[9].addStretch()
-        self.horizontal_box[9].addWidget(self.Modell_einlesen_Browse)
+        self.horizontal_box[9].addWidget(self.Abstand_dataloader_list)
         self.horizontal_box[9].addStretch()
         self.horizontal_box[9].addStretch()
-        self.horizontal_box[9].addWidget(self.Daten_einlesen_Browse)
+        self.horizontal_box[9].addWidget(self.dataloader_list)
         self.horizontal_box[9].addStretch()
+        
+        self.horizontal_box.append(QHBoxLayout())
+        self.horizontal_box[10].addStretch()
+        self.horizontal_box[10].addWidget(self.Modell_einlesen_Browse)
+        self.horizontal_box[10].addStretch()
+        self.horizontal_box[10].addStretch()
+        self.horizontal_box[10].addWidget(self.Daten_einlesen_Browse)
+        self.horizontal_box[10].addStretch()
     
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[10].addWidget(self.Abstand_unten)
+        self.horizontal_box[11].addWidget(self.Abstand_unten)
         
         self.horizontal_box.append(QHBoxLayout())
         sublayout = QGridLayout()
         sublayout.addWidget(self.Back, 0, 0, Qt.AlignLeft)
         sublayout.addWidget(self.Schritt, 0, 1)
         sublayout.addWidget(self.Next, 0, 2, Qt.AlignRight)
-        self.horizontal_box[11].addLayout(sublayout)
-        self.horizontal_box[11].setAlignment(Qt.AlignBottom)
+        self.horizontal_box[12].addLayout(sublayout)
+        self.horizontal_box[12].setAlignment(Qt.AlignBottom)
         
         
         self.vertical_box = QVBoxLayout()

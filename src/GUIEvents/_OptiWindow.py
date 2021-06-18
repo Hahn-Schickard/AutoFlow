@@ -56,12 +56,12 @@ def OptiWindow(self, n, target):
         self.Window3.Quantization.setChecked(True)
         self.set_quantization(self.Window3)
         if self.quant_dtype != None:
-            if "float" in self.quant_dtype:
-                self.Window3.quant_int.setChecked(False)  
-                self.Window3.quant_float.setChecked(True)              
-            elif "int" in self.quant_dtype:
-                self.Window3.quant_int.setChecked(True)  
-                self.Window3.quant_float.setChecked(False) 
+            if "int8 with float fallback" in self.quant_dtype:
+                self.Window3.quant_int_only.setChecked(False)  
+                self.Window3.quant_int.setChecked(True)              
+            elif "int8 only" in self.quant_dtype:
+                self.Window3.quant_int_only.setChecked(True)  
+                self.Window3.quant_int.setChecked(False) 
     """            
     if "Knowledge_Distillation" in self.optimizations:
         self.Window3.Dis.setChecked(True)
@@ -79,8 +79,8 @@ def OptiWindow(self, n, target):
     #self.Window3.Dis.toggled.connect(lambda:self.set_knowledge_distillation(self.Window3))
     #self.Window3.Huf.toggled.connect(lambda:self.set_huffman_coding(self.Window3))
     
-    self.Window3.quant_float.clicked.connect(lambda:self.set_quant_dtype("float", self.Window3))
-    self.Window3.quant_int.clicked.connect(lambda:self.set_quant_dtype("int", self.Window3))
+    self.Window3.quant_int.clicked.connect(lambda:self.set_quant_dtype("int8 with float fallback", self.Window3))
+    self.Window3.quant_int_only.clicked.connect(lambda:self.set_quant_dtype("int8 only", self.Window3))
     
     self.Window3.Back.clicked.connect(lambda:self.TargetWindow("Back", self.Window3))
     self.Window3.Next.clicked.connect(lambda:self.LoadWindow("Next"))

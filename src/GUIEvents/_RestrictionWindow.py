@@ -77,9 +77,9 @@ def RestrictionWindow(self, n):
     
     
         if "Quantization" in self.optimizations:
-            if self.Window3.quant_int.isChecked():
+            if self.Window3.quant_int_only.isChecked():
                 self.quant_dtype = "int"
-            elif self.Window3.quant_float.isChecked():
+            elif self.Window3.quant_int.isChecked():
                 self.quant_dtype = "float"
             else:
                 print("No datatype for quantization is selected")

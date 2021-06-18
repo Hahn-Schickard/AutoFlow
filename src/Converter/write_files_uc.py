@@ -4,20 +4,22 @@ import shutil
 import pathlib
 
 
-def create_project_dir(project_name, output_path):
+def create_project_dir(project_name, output_path, converted_model_dir, model_name):
     """
     Creates a directory where all files of the project will be stored.
     
     Args: 
         project_name: Name of the project which should be generated
-        output_path: Directory where the project should be generated
+        output_path:  Directory where the project should be generated
             
     Return: 
         project_dir: Path of the project directory
-    """    
-    
+    """
     path = output_path
     project_dir = path + "/" + project_name
+
+    if not os.path.exists(converted_model_dir):
+        os.mkdir(converted_model_dir)
     
     if not os.path.exists(path):
         os.mkdir(path)
@@ -26,6 +28,8 @@ def create_project_dir(project_name, output_path):
         os.mkdir(project_dir)
         os.mkdir(project_dir + "/src")
         os.mkdir(project_dir + "/inc")
+        if "_pruned" in model_name:
+            os.mkdir(project_dir + "/pruned_keras_model")
         
     return project_dir
 
@@ -35,16 +39,13 @@ def main_functions(project_dir, model_name, model_input_neurons, model_output_ne
     The script which loads and executes the model is created
     
     Args: 
-        project_dir: Path of the project directory where the file should be created
-        model_name: Name of the model
-        model_input_neurons: Number of neurons in the input layer of the model
+        project_dir:          Path of the project directory where the file should be created
+        model_name:           Name of the model
+        model_input_neurons:  Number of neurons in the input layer of the model
         model_output_neurons: Number of neurons in the output layer of the model
-        model_input_dtype: Dtype of the inputdata of the model
-        model_input_shape: Shape of the inputdata of the model
-        model_input_dim: Number of dimensions of the inputdata
-            
-    Return: 
-        ---
+        model_input_dtype:    Dtype of the inputdata of the model
+        model_input_shape:    Shape of the inputdata of the model
+        model_input_dim:      Number of dimensions of the inputdata
     """
     if 'float' in str(model_input_dtype):
         in_dt = 'f'
@@ -126,27 +127,27 @@ def main_functions(project_dir, model_name, model_input_neurons, model_output_ne
                 '\n'
                 'float* model_execute(float input_data')
         
-        for i in range(1,model_input_dim):
-            f.write('[' + str(model_input_shape[i]) + ']')
+        for input_dimension in range(1,model_input_dim):
+            f.write('[' + str(model_input_shape[input_dimension]) + ']')
         
         f.write(') {\n'
                 "  // Place our inputdata in the model's input tensor as one dimensional input\n"
                 '  input_neurons = 0;\n')
         
-        for i in range(1,model_input_dim):
-            f.write('  for(int i' + str(i) + ' = 0; i' + str(i) + ' < ' + str(model_input_shape[i]) + '; i' + str(i) + '++) {\n')
+        for input_dimension in range(1,model_input_dim):
+            f.write('  for(int i' + str(input_dimension) + ' = 0; i' + str(input_dimension) + ' < ' + str(model_input_shape[input_dimension]) + '; i' + str(input_dimension) + '++) {\n')
             
         f.write('  input->data.' + in_dt + '[input_neurons] = input_data[')
         
-        for i in range(1,model_input_dim):
-            if i == model_input_dim-1:
-                f.write('i' + str(i) + '];\n')
+        for input_dimension in range(1,model_input_dim):
+            if input_dimension == model_input_dim-1:
+                f.write('i' + str(input_dimension) + '];\n')
             else:
-                f.write('i' + str(i) + '][')
+                f.write('i' + str(input_dimension) + '][')
         
         f.write('  input_neurons++;\n')
                 
-        for i in range(model_input_dim-1,0,-1):
+        for input_dimension in range(model_input_dim-1,0,-1):
             f.write('  }\n')
             
         f.write('\n'
@@ -178,8 +179,8 @@ def main_functions(project_dir, model_name, model_input_neurons, model_output_ne
                 'void setup();\n'
                 'float* model_execute(float ')
          
-        for i in range(1,model_input_dim):
-            f.write('[' + str(model_input_shape[i]) + ']')
+        for input_dimension in range(1,model_input_dim):
+            f.write('[' + str(model_input_shape[input_dimension]) + ']')
         
         f.write(');')
         
@@ -190,34 +191,17 @@ def TensorFlow_library(project_dir):
     
     Args: 
         project_dir: Path of the project directory where the file should be created
-            
-    Return: 
-        ---
-    """    
-    
+    """
     shutil.copytree(str(pathlib.Path(__file__).parent.absolute()) + "/TensorFlow_library", project_dir + "/TensorFlow_library")
 
 
-def create_project_dir(project_name, output_path):
+def pruned_keras_model(Keras_model_dir, project_dir, model_name):
     """
-    Creates a directory where all files of the project will be stored.
+    Copies the pruned keras model into the project directory.
     
     Args: 
-        project_name: Name of the project which should be generated
-        output_path: Directory where the project should be generated
-            
-    Return: 
-        project_dir: Path of the project directory
-    """    
-    path = output_path
-    project_dir = path + "/" + project_name
-    
-    if not os.path.exists(path):
-        os.mkdir(path)
-        
-    if not os.path.exists(project_dir):
-        os.mkdir(project_dir)
-        os.mkdir(project_dir + "/src")
-        os.mkdir(project_dir + "/inc")
-        
-    return project_dir
+        Keras_model_dir: Path of the keras model
+        project_dir:     Path of the project directory where the file should be created
+        model_name:      Name of the keras model
+    """
+    shutil.copy(Keras_model_dir, project_dir + "/pruned_keras_model/" + model_name + ".h5")
