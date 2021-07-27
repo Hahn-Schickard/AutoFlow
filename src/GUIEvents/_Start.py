@@ -1,4 +1,4 @@
-"""This is a splittet method from the Mainwindow class which contain the logic for the AutoMLData window
+"""This is a splittet method from the Mainwindow class which contain the logic for the GUIStart window
 
 The programmed logic in this method defines the workflow and path for the GUI. Especially
 
@@ -10,31 +10,23 @@ The programmed logic in this method defines the workflow and path for the GUI. E
 
 from src.GUILayout.Start import *
 def GUIStart(self):
-        """one liner
+        """Define Logic for the GUIStart GUI
 
-    explain text
-    many lines
-    bla
-    
+    Retrieves the parameter class and set the data path, project path and output path
 
     Args:
       self:
-        explain text
-      parent:
-        Optional; text
+        self represents the instance of the class.
+      parameter:
+        A parameter class with all the parameter we change and need to start the project
+      
 
     Returns:
-      text
 
-      {b'Serak': ('Rigel VII', 'Preparer'),
-       b'Zim': ('Irk', 'Invader'),
-       b'Lrrr': ('Omicron Persei 8', 'Emperor')}
-
-      text
 
     Raises:
-      IOError: An error occurred accessing the smalltable.
-        """
+      IOError: An error occurred accessing the parameterset.
+    """
         
         self.GUIStart1 = UIMarcusWindow1(self.FONT_STYLE, self)
         

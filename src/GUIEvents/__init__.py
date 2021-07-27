@@ -34,15 +34,10 @@ class MainWindow(QMainWindow):
         eggs: An integer count of the eggs we have laid.
     """
     from ._Start import GUIStart
-    #from ._MarcusWindow2 import MarcusWindow2
-    #from ._MarcusWindow3 import MarcusWindow3
     from ._AutoMLData import AutoMLData
-    #from ._MarcusWindow5 import MarcusWindow5
     from ._HelperWindow import HelperWindow
     from ._LoadWindow import LoadWindow
     from ._OptiWindow import OptiWindow
-
-    # from ._RestrictionWindow import RestrictionWindow
     from ._SettingsWindow import SettingsWindow
     from ._StartWindow import StartWindow
     from ._TargetWindow import TargetWindow
@@ -78,30 +73,22 @@ class MainWindow(QMainWindow):
     )
 
     def __init__(self, parent=None):
-        """one liner
+        """the init method for the GUI logic
 
-    explain text
-    many lines
-    bla
+    This method initialize the GUI and the config parameters 
+    we need to execute the train/implement process
     
 
     Args:
       self:
-        explain text
+        self represents the instance of the class.
       parent:
-        Optional; text
+        none
 
     Returns:
-      text
-
-      {b'Serak': ('Rigel VII', 'Preparer'),
-       b'Zim': ('Irk', 'Invader'),
-       b'Lrrr': ('Omicron Persei 8', 'Emperor')}
-
-      text
-
+      
     Raises:
-      IOError: An error occurred accessing the smalltable.
+      IOError: An error occurred accessing the parameter.
     """
         super(MainWindow, self).__init__(parent)
 
