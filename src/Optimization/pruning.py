@@ -6,6 +6,9 @@ from tensorflow.keras.models import Model
 import numpy as np
 from tensorflow.keras.callbacks import EarlyStopping
 import tensorflow as tf
+import os
+
+from GUI._Helper import ThresholdCallback
 
 
 def get_layer_shape_dense(new_model_param,layer):	
@@ -99,13 +102,13 @@ def delete_dense_neuron(new_model_param, layer_types, layer_output_shape, layer_
         
         "Check if there is a dense layer after the current. The parameters of the next dense layer were connected"	
         "to the removed neuron and also have to be removed"	
-        #layer_index = 0	
+
         "If there is a layer with no parameters like max_pool between the current and the next dense layer"	
         "the output neurons are the same as those of the current dense layer" 
         
         for i in range(layer+1,len(new_model_param)):
             if layer_types[i] == "Dense":
-                new_model_param[i][0] = np.delete(new_model_param[i][0], neuron, axis=0)   #Parameter müssen auch aus nächster Gewichtsmatrix gelöscht werden
+                new_model_param[i][0] = np.delete(new_model_param[i][0], neuron, axis=0)   #Parameters also have to be deleted from the next weight matrix
                 return new_model_param, layer_output_shape
             
             "If there is a layer with no parameters like max_pool between the current and the next dense layer"
@@ -137,8 +140,6 @@ def delete_filter(new_model_param, layer_types, layer_output_shape, layer_bias, 
     
     "If the current layer is a conv layer, weights and the bias are removed for the given layer and filter"
     if layer_types[layer] == "Conv2D":
-        print("layer_bias[layer] == True")
-        print(np.asarray(new_model_param[layer][0]).shape)
         new_model_param[layer][0] = np.delete(new_model_param[layer][0], filter, axis=3)   #Delete Filter
         if layer_bias[layer] == True:
             new_model_param[layer][1] = np.delete(new_model_param[layer][1], filter, axis=0)   #Delete Bias
@@ -150,95 +151,35 @@ def delete_filter(new_model_param, layer_types, layer_output_shape, layer_bias, 
         "to the removed neuron and also have to be removed"
         for dense_layer in range(layer+1,len(new_model_param)):
             
-#             print(layer_types[dense_layer])
-#             if "Conv2D" in layer_types[dense_layer]: #Delete Filter of all Conv layers like DepthwiseConv2D until next Conv2D layer
             if len(new_model_param[dense_layer]) != 0:
         
                 if layer_types[dense_layer] == "Dense":
-                    print("new_model_param[dense_layer][0]")
-                    print(new_model_param[dense_layer][0].shape)
                     new_model_param[dense_layer][0] = np.delete(new_model_param[dense_layer][0], filter, axis=0)
-#                     layer_output_shape[dense_layer][1] = get_layer_shape_dense(new_model_param, layer)
-#                     print("layer_output_shape[dense_layer]")
-#                     print(layer_output_shape[dense_layer])
                     return new_model_param, layer_output_shape
-#                     break
                 if layer_bias[dense_layer] == True or layer_bias[dense_layer] == False:
-                    print("4!!!!!!!!!!!!!!")
-                    print(layer_types[dense_layer])
                     new_model_param[dense_layer][0] = np.delete(new_model_param[dense_layer][0], filter, axis=2)
                     layer_output_shape[dense_layer][3] = get_layer_shape_conv(new_model_param, layer) 
                     if layer_types[dense_layer] == "Conv2D":
                         return new_model_param, layer_output_shape
-#                 elif layer_bias[dense_layer] == False:
-#                     print("5!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-#                     print(layer_types[dense_layer])
-#                     new_model_param[dense_layer][0] = np.delete(new_model_param[dense_layer][0], filter, axis=3)
-#                     if layer_types[dense_layer] == "Conv2D":
-#                         return new_model_param, layer_output_shape
                 elif layer_bias[dense_layer] == None:
                     for i in range(0,len(new_model_param[dense_layer])):
                         new_model_param[dense_layer][i] = np.delete(new_model_param[dense_layer][i], filter, axis=0)
                     layer_output_shape[dense_layer][3] = get_layer_shape_conv(new_model_param, layer)
             
             
-#             elif layer_types[dense_layer] == "Dense":
-#                 print(layer_output_shape[dense_layer-2][1]*layer_output_shape[dense_layer-2][2])
-#                 print(filter)
-#                 for j in range(0,layer_output_shape[dense_layer-2][1]*layer_output_shape[dense_layer-2][2]):   #layer before is flatten, we need output shape before layer flatten
-#                     new_model_param[dense_layer][0] = np.delete(new_model_param[dense_layer][0], filter, axis=0)
-#                 return new_model_param, layer_output_shape
-            
-            else:# np.array(new_model_param[dense_layer]).size == 0:
-#                 for next_layer in range(dense_layer+1,len(new_model_param)):
-#                 print(layer)
+
+            else:
                 if layer_types[dense_layer] == "Dense":
-#                     print("TEST1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                     break
                 elif layer_types[dense_layer] == "Flatten":
-#                     print("TEST2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-#                     print(layer_output_shape[dense_layer])
-#                     layer_output_shape[dense_layer][3] = get_layer_shape_conv(new_model_param, layer)
-                    #layer_output_shape[dense_layer][1] = layer_output_shape[dense_layer][1] * layer_output_shape[dense_layer][2] * layer_output_shape[dense_layer][3]
-#                     print("FLATTEN!!!!")
-#                     print(layer_types[dense_layer-1])
-#                     print(np.prod(layer_output_shape[dense_layer-1][1:4]))
                     layer_output_shape[dense_layer][1] = np.prod(layer_output_shape[dense_layer-1][1:4])
-#                     print(np.multiply(np.prod(layer_output_shape[dense_layer-1][1:3]),filter-1))
-#                     print(np.multiply(np.prod(layer_output_shape[dense_layer-1][1:3]),filter))
-                    print("layer_output_shape[dense_layer-1]")
-                    print(layer_output_shape[dense_layer-1])
-                    print("filter-1")
-                    print(filter-1)
-                    print("np.multiply(np.prod(layer_output_shape[dense_layer-1][1:3]),filter-1)")
-                    print(np.multiply(np.prod(layer_output_shape[dense_layer-1][1:3]),filter-1))
-                    print("np.multiply(np.prod(layer_output_shape[dense_layer-1][1:3]),filter)")
-                    print(np.multiply(np.prod(layer_output_shape[dense_layer-1][1:3]),filter))
                     for i in range(np.multiply(np.prod(layer_output_shape[dense_layer-1][1:3]),filter-1), np.multiply(np.prod(layer_output_shape[dense_layer-1][1:3]),filter)):
                         new_model_param[dense_layer+1][0] = np.delete(new_model_param[dense_layer+1][0], i, axis=0)
                     break
                 else:
-                    """
-                    if layer_bias[dense_layer] == True:
-                        print("MOIN!!!!")
-                        print(layer_types[dense_layer])
-                        layer_output_shape[dense_layer][3] = get_layer_shape_conv(new_model_param, layer)
-                        print(layer_output_shape[dense_layer])
-                    elif layer_bias[dense_layer] == False:
-                        print("MOIN!!!!")
-                        print(layer_types[dense_layer])
-                        layer_output_shape[dense_layer][4] = get_layer_shape_conv(new_model_param, layer)
-                        print(layer_output_shape[dense_layer])
-                    """
                     if len(layer_output_shape[dense_layer]) == 4:
-#                         print("TEST3!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-#                         print(layer_output_shape[dense_layer][1])
-#                         print(get_layer_shape_conv(new_model_param, layer))
                         layer_output_shape[dense_layer][3] = get_layer_shape_conv(new_model_param, layer)
                     elif len(layer_output_shape[dense_layer]) == 2:
-#                         print("TEST3!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-#                         print(layer_output_shape[dense_layer][1])
-#                         print(get_layer_shape_conv(new_model_param, layer))
                         layer_output_shape[dense_layer][1] = get_layer_shape_conv(new_model_param, layer)
             
     else:
@@ -437,7 +378,6 @@ def prun_filters_conv(layer_types, layer_params, layer_output_shape, layer_bias,
     if layer_types[prun_layer] != "Conv2D":
         print("No Conv layer!")
         return None, None
-    #print(prun_factor)
     if prun_factor > 0:
         if metric == 'L1':
             prun_filter,num_new_filter=get_filter_to_prune_avarage(layer_params,prun_layer,prun_factor)
@@ -445,9 +385,6 @@ def prun_filters_conv(layer_types, layer_params, layer_output_shape, layer_bias,
             prun_filter,num_new_filter=get_filter_to_prune_L2(layer_params,prun_layer,prun_factor)
         else:
             prun_filter,num_new_filter=get_filter_to_prune_avarage(layer_params,prun_layer,prun_factor)
-        
-#         print("prun_filter: " + str(prun_filter))
-#         print("num_new_filter: " + str(num_new_filter))
         
         'Deleting the filters, beginning with the filter with the highest index'
         if len(prun_filter) > 0:
@@ -489,20 +426,18 @@ def model_pruning(layer_types, layer_params, layer_output_shape, layer_bias, num
     """
     
     for i in range(0,len(layer_params)-2):
-#         print("layer_types[" + str(i) + "]:" + str(layer_types[i]))
         if layer_types[i] == "Dense":
             layer_params, num_new_neurons[i], layer_output_shape = prun_neurons_dense(layer_types, layer_params, layer_output_shape, layer_bias, i, prun_factor_dense,metric)
         elif layer_types[i] == "Conv2D":
             layer_params, num_new_filters[i], layer_output_shape = prun_filters_conv(layer_types, layer_params, layer_output_shape, layer_bias, i, prun_factor_conv,metric)
-#             print("TEST NUM NEW FILTERS: " + str(num_new_filters))
 
         else:
             ("No pruning for this layer")
             
-    print("layer_output_shape")        
-    for i in range(0,len(layer_output_shape)):
-        print(layer_types[i])
-        print(layer_output_shape[i])
+    # print("layer_output_shape")        
+    # for i in range(0,len(layer_output_shape)):
+    #     print(layer_types[i])
+    #     print(layer_output_shape[i])
             
     return layer_params, num_new_neurons, num_new_filters, layer_output_shape
 
@@ -526,16 +461,11 @@ def build_pruned_model(model, new_model_param, layer_types, num_new_neurons, num
     
     model_config = model.get_config()
 
-#     print("BUILD_PRUNED_MODEL")
-#     print("NUM_NEW_NEURONS: "+ str(num_new_neurons))
-#     print("NUM_NEW_FILTERS: "+ str(num_new_filters))
     
-#     print(len(model_config['layers'])-3)
-#     print(len(num_new_neurons))
-#     print(len(num_new_filters))
-    
-    # For functional model first layer is the input layer.
-    # For sequential model the first layer is the layer after the input layer
+    '''
+    For functional model first layer is the input layer.
+    For sequential model the first layer is the layer after the input layer
+    '''
     a=1
     if layer_types[0] == 'InputLayer':
         a=0
@@ -543,16 +473,14 @@ def build_pruned_model(model, new_model_param, layer_types, num_new_neurons, num
         
     for i in range(0,len(model_config['layers'])-3):
         if model_config['layers'][i+a]['class_name'] == "Dense": #i+1 because first layer of model is the inputlayer
-            print("Dense!!!")
+            print("Dense")
             model_config['layers'][i+a]['config']['units'] = num_new_neurons[i]
 
         elif model_config['layers'][i+a]['class_name'] == "Conv2D":
-            print("Conv2D!!!")
+            print("Conv2D")
             model_config['layers'][i+a]['config']['filters'] = num_new_filters[i]
             
         elif model_config['layers'][i+a]['class_name'] == "Reshape":
-            print("Reshape --> target_shape BEFORE")
-            print(model_config['layers'][i+a]['config']['target_shape'])
             temp_list = list(model_config['layers'][i+a]['config']['target_shape'])
             cur_layer=i
             cur_filters = num_new_filters[cur_layer]
@@ -564,8 +492,6 @@ def build_pruned_model(model, new_model_param, layer_types, num_new_neurons, num
             temp_list[2] = cur_filters
             temp_tuple = tuple(temp_list)
             model_config['layers'][i+a]['config']['target_shape'] = temp_tuple
-            print("Reshape --> target_shape AFTER")
-            print(model_config['layers'][i+a]['config']['target_shape'])
 
         else:
             print("No Dense or Conv2D")
@@ -573,10 +499,9 @@ def build_pruned_model(model, new_model_param, layer_types, num_new_neurons, num
     print("Before pruning:")        
     model.summary()
     
-    print(model_config)
-    for i in range(0,len(new_model_param)):
-        print(layer_types[i])
-        print(np.asarray(new_model_param[i]).shape)
+    # for i in range(0,len(new_model_param)):
+    #     print(layer_types[i])
+    #     print(np.asarray(new_model_param[i]).shape)
     
     if "Sequential" in str(model):
         pruned_model = Sequential.from_config(model_config)
@@ -586,15 +511,16 @@ def build_pruned_model(model, new_model_param, layer_types, num_new_neurons, num
     print("After pruning:")
     pruned_model.summary()
     
-    print("new_model_param")
+    # print("new_model_param")
     for i in range(0,len(pruned_model.layers)):
-        print(layer_types[i])
+        # print(layer_types[i])
         if len(new_model_param[i]) != 0:
-            print(np.asarray(new_model_param[i][0]).shape)
-            print(np.asarray(new_model_param[i]).shape)
+            # print(np.asarray(new_model_param[i][0]).shape)
+            # print(np.asarray(new_model_param[i]).shape)
             pruned_model.layers[i].set_weights(new_model_param[i])
         else:
-            print("No weights to set!")
+            None
+            # print("No weights to set!")
     
     pruned_model.compile(**comp)
     
@@ -643,7 +569,7 @@ def pruning(keras_model, x_train, y_train,comp,fit, prun_factor_dense=10, prun_f
     return pruned_model
 
 
-def pruning_for_acc(keras_model, x_train, y_train, x_test, y_test, comp,fit ,pruning_acc=None, max_acc_loss=1):
+def pruning_for_acc(keras_model, x_train, x_val_y_train, comp, pruning_acc=None, max_acc_loss=5, num_classes=None, label_one_hot=None, data_loader_path=None):
     """
     A given keras model gets pruned. Either an accuracy value (in %) can be specified, which 
     the minimized model must still achieve. Or the maximum loss of accuracy (in %) that 
@@ -651,55 +577,172 @@ def pruning_for_acc(keras_model, x_train, y_train, x_test, y_test, comp,fit ,pru
     accuracy value is underrun or the accuracy loss is exceeded.
     
     Args: 
-        keras_model: Model which should be pruned
-        x_train: Training data to retrain the model after pruning
-        y_train: Labels of training data to retrain the model after pruning
-        x_test: Test data for evaluation of the minimized model
-        y_test: Labels of test data for evaluation of the minimized model
-        pruning_acc: Integer which says which accuracy value (in %) should not be fall below. If pruning_acc is not defined, it is Baseline - 5%
-        max_acc_loss: Integer which says which accuracy loss (in %) should not be exceed 
+        keras_model:      Model which should be pruned
+        x_train:          Training data to retrain the model after pruning
+        x_val_y_train:    Labels of training data to retrain the model after pruning
+        comp:             Compiler settings
+        pruning_acc:      Integer which says which accuracy value (in %) should not be fall below. 
+                          If pruning_acc is not defined, it is Baseline - 5%
+        max_acc_loss:     Integer which says which accuracy loss (in %) should not be exceed
+        num_classes:      Number of different classes of the model
+        label_one_hot:    Boolean value if labels are one hot encoded or not
+        data_loader_path: Boolean value if labels are one hot encoded or not 
         
     Return: 
-        pruned_model: New model after pruning and retraining
+        pruned_model:     New model after pruning
     """
-    
-    original_model = load_model(keras_model)
+
+    pruning_factor = 5
+    last_pruning_step = None
+    all_pruning_factors = [5]
+    lowest_pruning_factor_not_working = 100
+    original_model_acc = None
+    req_acc = None
+
+    if callable(getattr(keras_model, "predict", None)) :
+        original_model = keras_model
+    elif isinstance(keras_model, str) and ".h5" in keras_model:
+        original_model = load_model(keras_model)
+    else:
+        print("No model given to prune")
+
     original_model.compile(**comp)
-    original_model_acc = original_model.evaluate(x_test,y_test)[-1]
+
+    if pruning_acc != None:
+        req_acc = pruning_acc/100
+    else:
+        if os.path.isfile(data_loader_path):
+            original_model_acc = original_model.evaluate(x_train,x_val_y_train)[-1]
+        elif os.path.isdir(data_loader_path):
+            original_model_acc = original_model.evaluate_generator(x_val_y_train)[-1]
+        print(original_model_acc)
+        req_acc = original_model_acc-(max_acc_loss/100)
+     
     
-    for i in range(5,100,5):
-        model = pruning(original_model, x_train, y_train,comp,fit, prun_factor_dense=i, prun_factor_conv=i)
+    train_epochs = 10
+    # early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3)
+    threshold = ThresholdCallback(req_acc)
+    callbacks=[threshold]#, early_stopping]
+    
+    
+    
+    
+    while pruning_factor <= 95:
         
-        if pruning_acc != None:
-            if model.evaluate(x_test,y_test)[-1] < pruning_acc:
-                print(i-5)
-                if i == 5:
-                    pruned_model = model
+        print("Next pruning factors: " + str(pruning_factor))
+        
+        model = prune_model(original_model, prun_factor_dense=pruning_factor, prun_factor_conv=pruning_factor, metric='L1', comp=None, num_classes=num_classes, label_one_hot=label_one_hot)
+        
+        if os.path.isfile(data_loader_path):
+            history = model.fit(x=x_train, y=x_val_y_train, batch_size=64, validation_split=0.2, epochs=train_epochs, callbacks=callbacks)
+        elif os.path.isdir(data_loader_path):
+            history = model.fit_generator(x_train, steps_per_epoch=len(x_train),
+                validation_data=x_val_y_train, validation_steps=len(x_val_y_train), epochs=train_epochs, callbacks=callbacks)
+             
+        if history.history['val_accuracy'][-1] < req_acc:
+            #Required accuracy is not reached
+            if lowest_pruning_factor_not_working > pruning_factor:
+                lowest_pruning_factor_not_working = pruning_factor
+
+            if pruning_factor == 5:
+                print("No pruning possible")
+                return model
+
+            if last_pruning_step == 2:
+                print("Pruningfactor dense and conv: " + str(pruning_factor-last_pruning_step))
                 return pruned_model
-            pruned_model = model
-            
+            elif last_pruning_step == 5:
+                pruning_factor -= 3
+                last_pruning_step = 2
+            elif last_pruning_step == 10:
+                pruning_factor -= 5
+                last_pruning_step = 5
+            elif last_pruning_step == 15:
+                pruning_factor -= 5
+                last_pruning_step = 10
+
         else:
-            if model.evaluate(x_test,y_test)[-1] < (original_model_acc-(max_acc_loss/100)):
-                print(i-5)
-                return pruned_model
+            #Required accuracy is reached
             pruned_model = model
-    
+            #Set pruning factor for next pruning step   
+            if len(history.history['val_accuracy']) <= int(0.3*train_epochs):
+                pruning_factor += 15
+                last_pruning_step = 15
+            elif len(history.history['val_accuracy']) <= int(0.5*train_epochs):
+                pruning_factor += 10
+                last_pruning_step = 10
+            elif len(history.history['val_accuracy']) <= int(0.7*train_epochs):
+                pruning_factor += 5
+                last_pruning_step = 5
+            elif len(history.history['val_accuracy']) > int(0.7*train_epochs):
+                pruning_factor += 2
+                last_pruning_step = 2
+                
+                
+        if lowest_pruning_factor_not_working < pruning_factor:
+            #Check if pruning factor is higher than the lowest one which didn't work
+            #and adjust the pruning factor if it's true
+            if lowest_pruning_factor_not_working - (pruning_factor-last_pruning_step) <= 2:
+                print("Pruningfactor dense and conv: " + str(pruning_factor-last_pruning_step))
+                return pruned_model
+            elif lowest_pruning_factor_not_working - (pruning_factor-last_pruning_step) <= 5:
+                pruning_factor = (pruning_factor-last_pruning_step) + 2
+                last_pruning_step = 2
+
+        if all_pruning_factors.count(pruning_factor) >= 1:
+            #Check if the pruning factor for next iteration was already applied
+            if history.history['val_accuracy'][-1] < req_acc:
+                #If required accuracy wasn't reached, the pruning factor is lowered in the step before.
+                #If the new pruning factor was already applied, this is one which worked,
+                #so you increase it a little step.
+                if last_pruning_step == 2 or last_pruning_step == 5:
+                    pruning_factor += 2
+                    last_pruning_step = 2
+                elif last_pruning_step == 10:
+                    pruning_factor += 5
+                    last_pruning_step = 5
+                elif last_pruning_step == 15:
+                    pruning_factor += 10
+                    last_pruning_step = 10
+            else:
+                #If required accuracy was reached, the pruning factor is increased in the step before.
+                #If the new pruning factor was already applied, this is one which didn't work,
+                #so you lower it a little step.
+                if last_pruning_step == 2 or last_pruning_step == 5:
+                    pruning_factor -= 3
+                    last_pruning_step = 2
+                elif last_pruning_step == 10:
+                    pruning_factor -= 5
+                    last_pruning_step = 5
+                elif last_pruning_step == 15:
+                    pruning_factor -= 10
+                    last_pruning_step = 10
+                
+        all_pruning_factors.append(pruning_factor)
+        print("all_pruning_factors: " + str(all_pruning_factors))
+        print("lowest_pruning_factor_not_working: " + str(lowest_pruning_factor_not_working))
+        
+        
     return pruned_model
     
     
-def prune_model(keras_model, prun_factor_dense=10, prun_factor_conv=10,metric='L1',comp=None,num_classes=None, label_one_hot=None):
+def prune_model(keras_model, prun_factor_dense=10, prun_factor_conv=10, metric='L1', comp=None, num_classes=None, label_one_hot=None):
     """
     A given keras model get pruned. The factor for dense and conv says how many percent
     of the dense and conv layers should be deleted. After pruning the model will be
     retrained.
     
     Args: 
-        keras_model: Model which should be pruned
+        keras_model:       Model which should be pruned
         prun_factor_dense: Integer which says how many percent of the neurons should be deleted
-        prun_factor_conv: Integer which says how many percent of the filters should be deleted
+        prun_factor_conv:  Integer which says how many percent of the filters should be deleted
+        metric:            Metric which should be used to prune the model
+        comp:              Dictionary with compiler settings
+        num_classes:       Number of different classes of the model
+        label_one_hot:     Boolean value if labels are one hot encoded or not 
         
     Return: 
-        pruned_model: New model after pruning 
+        pruned_model:      New model after pruning 
     """
     
     if callable(getattr(keras_model, "predict", None)) :
@@ -733,17 +776,15 @@ def prune_model(keras_model, prun_factor_dense=10, prun_factor_conv=10,metric='L
 
     layer_params, num_new_neurons, num_new_filters, layer_output_shape = model_pruning(layer_types, layer_params, layer_output_shape, layer_bias, num_new_neurons, num_new_filters, prun_factor_dense, prun_factor_conv,metric)
     
-#     print(layer_output_shape)
-#     print("NUM_NEW_FILTERS BEFORE BUILD_PRUNED_MODEL: " + str(num_new_filters))
     
     print("Finish with pruning")
     
-    for i in range(0,len(layer_params)):
-        try:
-            print(layer_types[i])
-            print(np.asarray(layer_params[i][0]).shape)
-        except:
-            print("No Parameter in layer")
+    # for i in range(0,len(layer_params)):
+    #     try:
+    #         print(layer_types[i])
+    #         print(np.asarray(layer_params[i][0]).shape)
+    #     except:
+    #         print("No Parameter in layer")
 
     pruned_model = build_pruned_model(model, layer_params, layer_types, num_new_neurons, num_new_filters, comp)
     
