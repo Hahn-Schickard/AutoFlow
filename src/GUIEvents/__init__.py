@@ -59,7 +59,7 @@ class MainWindow(QMainWindow):
     from ._Helper import (
         get_output_path,
         get_model_path,
-        get_data_loader_path,
+        get_data_loader,
         set_pruning,
         set_quantization,
         set_quant_dtype,

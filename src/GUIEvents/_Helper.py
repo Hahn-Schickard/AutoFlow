@@ -18,6 +18,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import csv
 import pandas as pd
 import math
+import tensorflow as tf
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -465,3 +466,24 @@ def dataloader_pruning(datascript_path, image_height, image_width, num_channels,
                 val_it = train_datagen.flow_from_directory(datascript_path, target_size=(image_height, image_width), color_mode='rgb', class_mode='binary', batch_size=64, subset='validation')
 
         return train_it, val_it, False
+
+
+
+class ThresholdCallback(tf.keras.callbacks.Callback):
+    """Custom callback for model training.
+
+    This is a custom callback function. You can define an accuracy threshold
+    value when the model training should be stopped.
+
+    Attributes:
+        threshold: Accuracy value to stop training.
+    """
+
+    def __init__(self, threshold):
+        super(ThresholdCallback, self).__init__()
+        self.threshold = threshold
+
+    def on_epoch_end(self, epoch, logs=None): 
+        val_acc = logs["val_accuracy"]        
+        if val_acc >= self.threshold:
+            self.model.stop_training = True

@@ -263,7 +263,7 @@ def Form_clicked(self):
     if self.X > 0:
         self.X = self.X - ((math.sqrt(self.Y * self.Y)) * 0.5)
     if self.X < 0:
-        self.X = self.X((math.sqrt(self.Y * self.Y)) * 0.5)
+        self.X = self.X + ((math.sqrt(self.Y * self.Y)) * 0.5)
 
     print("y")
     print(self.Y)

@@ -1,5 +1,3 @@
-#PRUNING NEU
-
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.models import load_model
 from tensorflow.keras.models import Model
@@ -8,7 +6,7 @@ from tensorflow.keras.callbacks import EarlyStopping
 import tensorflow as tf
 import os
 
-from GUI._Helper import ThresholdCallback
+from src.GUIEvents._Helper import ThresholdCallback
 
 
 def get_layer_shape_dense(new_model_param,layer):	
