@@ -99,7 +99,7 @@ def TargetWindow(self, n, LastWindow):
     
     self.Window2.uC.clicked.connect(lambda:self.OptiWindow("Next","uC"))
     self.Window2.FPGA.clicked.connect(lambda:self.OptiWindow("Next","FPGA"))
-    self.Window2.DK.clicked.connect(lambda:self.HelperWindow())
+    # self.Window2.DK.clicked.connect(lambda:self.HelperWindow())
     
     self.Window2.Back.clicked.connect(self.StartWindow)
     

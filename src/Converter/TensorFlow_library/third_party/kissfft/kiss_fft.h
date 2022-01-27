@@ -41,7 +41,7 @@ extern "C" {
 // End patch.
 
 #ifdef FIXED_POINT
-#include <sys/types.h>	
+#include <stdint.h> /* Patched. */
 # if (FIXED_POINT == 32)
 #  define kiss_fft_scalar int32_t
 # else	

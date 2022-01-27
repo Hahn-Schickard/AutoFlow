@@ -30,9 +30,9 @@ def TaskWindow(self, n):
     """
     if n == "Next":
         
-        self.project_name = self.Window1d.Projekt_Name.text()
-        self.output_path_ml = self.Window1d.Output_Pfad.text()
-        self.data_loader_path_ml = self.Window1d.Daten_Pfad.text() 
+        self.project_name = self.AutoMLDataWindow.Projekt_Name.text()
+        self.output_path_ml = self.AutoMLDataWindow.Output_Pfad.text()
+        self.data_loader_path_ml = self.AutoMLDataWindow.Daten_Pfad.text() 
             
     if self.project_name == "" or self.output_path == "":
         msg = QMessageBox()

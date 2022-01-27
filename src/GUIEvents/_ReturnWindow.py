@@ -11,7 +11,6 @@ The programmed logic in this method defines the workflow and path for the GUI. E
 from src.GUILayout.UIReturnWindow import *
 
 
-
         
 def ReturnWindow(self, n):  
     """Define Logic for the ReturnWindow GUI
@@ -39,7 +38,7 @@ def ReturnWindow(self, n):
     self.Window6 = UIReturnWindow(self.FONT_STYLE, self)
     
     self.Window6.Back.clicked.connect(lambda:self.AutoMLWindow("Back"))
-    self.Window6.Load.clicked.connect(lambda:self.MarcusWindow1())         
+    self.Window6.Load.clicked.connect(self.GUIStart)      
    
     self.Window6.Finish.clicked.connect(self.close)
     
