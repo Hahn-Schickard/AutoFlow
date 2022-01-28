@@ -34,7 +34,7 @@ def AutoMLWindow(self, n):
         self.max_size = self.Window4.max_size_factor.text()
 
     
-    self.Window5 = UIAutoMLWindow(self.FONT_STYLE, self)
+    self.Window5 = UIAutoMLWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
       
     self.Window5.Back.clicked.connect(lambda:self.SettingsWindow("Back"))
     self.Window5.Start.clicked.connect(lambda:self.ReturnWindow("Next"))

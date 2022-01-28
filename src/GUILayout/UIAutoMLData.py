@@ -7,10 +7,12 @@ from PyQt5.QtCore import *
 
 
 class UIAutoMLData(QWidget):
-    def __init__(self, FONT_STYLE, parent=None):
+    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, parent=None):
         super(UIAutoMLData, self).__init__(parent)
         
-        self.FONT_STYLE = FONT_STYLE        
+        self.WINDOW_WIDTH = WINDOW_WIDTH
+        self.WINDOW_HEIGHT = WINDOW_HEIGHT
+        self.FONT_STYLE = FONT_STYLE
         
         self.Projekt_Name_label = QLabel("AutoML Projectname:")
         self.Projekt_Name_label.setStyleSheet("font: 12pt " + FONT_STYLE)
@@ -23,11 +25,11 @@ class UIAutoMLData(QWidget):
         Dataimg= Dataimg.scaledToWidth(150)
         self.Datapng.setPixmap(Dataimg)
         
-        self.Schritt = QLabel(self)
-        Schritt_img = QPixmap(os.path.join('src','GUILayout','Images', 'GUI_progress_bar', 'GUI_step_2.png'))
-        self.Schritt.setPixmap(Schritt_img)
-        self.Schritt.setFixedHeight(30)
-        self.Schritt.setAlignment(Qt.AlignCenter)
+        self.step = QLabel(self)
+        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_2.png'))
+        self.step.setPixmap(step_img)
+        self.step.setAlignment(Qt.AlignCenter)
         
         self.Abstand_oben = QLabel()
         self.Abstand_oben.setFixedHeight(20)
@@ -134,7 +136,7 @@ class UIAutoMLData(QWidget):
         self.horizontal_box.append(QHBoxLayout())
         sublayout = QGridLayout()
         sublayout.addWidget(self.Back, 0, 0, Qt.AlignLeft)
-        sublayout.addWidget(self.Schritt, 0, 1)
+        sublayout.addWidget(self.step, 0, 1)
         sublayout.addWidget(self.Next, 0, 2, Qt.AlignRight)
         self.horizontal_box[11].addLayout(sublayout)
         self.horizontal_box[11].setAlignment(Qt.AlignBottom)

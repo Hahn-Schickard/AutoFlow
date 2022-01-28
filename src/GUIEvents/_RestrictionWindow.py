@@ -9,7 +9,7 @@ The programmed logic in this method defines the workflow and path for the GUI. E
 """
 
 
-from UIWindows.UIRestrictionWindow import *
+from src.GUILayout.UIRestrictionWindow import *
 
 def RestrictionWindow(self, n):        
     """Define Logic for the RestrictionWindow GUI
@@ -105,7 +105,7 @@ def RestrictionWindow(self, n):
             
             return
 
-    self.Window4 = UIRestrictionWindow(self.FONT_STYLE, self)
+    self.Window4 = UIRestrictionWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
     self.Window4.Back.clicked.connect(lambda:self.OptiWindow("Back", self.target))
     self.Window4.Next.clicked.connect(self.LoadWindow)

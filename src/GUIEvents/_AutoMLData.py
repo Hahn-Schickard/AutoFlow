@@ -7,7 +7,8 @@ The programmed logic in this method defines the workflow and path for the GUI. E
   self.GUIStart.load_model.clicked.connect(self.AutoMLData)
 """
 
-from src.GUILayout.AutoMLData import *
+from src.GUILayout.UIAutoMLData import *
+
 def AutoMLData(self):
         """Define Logic for the AutoMLData GUI
 
@@ -27,7 +28,7 @@ def AutoMLData(self):
       IOError: An error occurred accessing the parameterset.
     """
         
-        self.AutoMLDataWindow = UIAutoMLData(self.FONT_STYLE, self)
+        self.AutoMLDataWindow = UIAutoMLData(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
         
         if self.output_path_ml != None:
             self.AutoMLDataWindow.Output_Pfad.setText(self.output_path_ml)

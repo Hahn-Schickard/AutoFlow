@@ -35,7 +35,7 @@ def ReturnWindow(self, n):
         self.start_autokeras()
   
     
-    self.Window6 = UIReturnWindow(self.FONT_STYLE, self)
+    self.Window6 = UIReturnWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
     self.Window6.Back.clicked.connect(lambda:self.AutoMLWindow("Back"))
     self.Window6.Load.clicked.connect(self.GUIStart)      

@@ -103,7 +103,7 @@ def SettingsWindow(self, n):
                 return
         
 
-    self.Window4 = UISettingsWindow(self.FONT_STYLE, self)
+    self.Window4 = UISettingsWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
 
     self.Window4.epochs_factor.setText(str(self.max_epoch))

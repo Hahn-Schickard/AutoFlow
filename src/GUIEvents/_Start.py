@@ -10,7 +10,7 @@ The programmed logic in this method defines the workflow and path for the GUI. E
 
 from src.GUILayout.Start import *
 def GUIStart(self):
-        """Define Logic for the GUIStart GUI
+    """Define Logic for the GUIStart GUI
 
     Retrieves the parameter class and set the data path, project path and output path
 
@@ -27,11 +27,12 @@ def GUIStart(self):
     Raises:
       IOError: An error occurred accessing the parameterset.
     """
-        
-        self.GUIStart1 = UIMarcusWindow1(self.FONT_STYLE, self)
-        
-        self.GUIStart1.load_model.clicked.connect(self.AutoMLData)
-        self.GUIStart1.train_model.clicked.connect(self.StartWindow)
-        
-        self.setCentralWidget(self.GUIStart1)
-        self.show()
+    
+    
+    self.GUIStart1 = UIMarcusWindow1(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
+    
+    self.GUIStart1.load_model.clicked.connect(self.AutoMLData)
+    self.GUIStart1.train_model.clicked.connect(self.StartWindow)
+    
+    self.setCentralWidget(self.GUIStart1)
+    self.show()

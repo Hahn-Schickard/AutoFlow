@@ -42,7 +42,13 @@ app.setPalette(palette)
 
 app.setStyleSheet("QPushButton:pressed { background-color: rgb(10, 100, 200) }" "QPushButton:checked { background-color: rgb(10, 100, 200) }" "QPushButton::hover { background-color : rgb(10, 100, 200)}" )
 
-w = MainWindow()
+screen_width = app.primaryScreen().size().width()
+screen_height = app.primaryScreen().size().height()
+
+print("screen_width:",screen_width)
+print("screen_height:",screen_height)
+
+w = MainWindow(screen_width, screen_height)
 w.show()
-#w.setFixedSize(w.size())
+w.setFixedSize(w.size())
 sys.exit(app.exec_())

@@ -32,9 +32,9 @@ def TaskWindow(self, n):
         
         self.project_name = self.AutoMLDataWindow.Projekt_Name.text()
         self.output_path_ml = self.AutoMLDataWindow.Output_Pfad.text()
-        self.data_loader_path_ml = self.AutoMLDataWindow.Daten_Pfad.text() 
+        self.data_loader_path_ml = self.AutoMLDataWindow.Daten_Pfad.text()
             
-    if self.project_name == "" or self.output_path == "":
+    if self.project_name == "" or self.output_path_ml == "":
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Warning)
          
@@ -57,7 +57,7 @@ def TaskWindow(self, n):
     print(self.data_loader_path_ml)
     
     
-    self.Window2 = UITaskWindow(self.FONT_STYLE, self)
+    self.Window2 = UITaskWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
     
     self.Window2.ImageClassification.clicked.connect(lambda:self.ConstraintsWindow("Next","imageClassification"))

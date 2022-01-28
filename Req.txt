@@ -1,4 +1,0 @@
-pip install PyQt5
-Tensorflow
-Keras
-pip install hls4ml

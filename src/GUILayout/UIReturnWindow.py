@@ -13,10 +13,12 @@ from src.Threads.Prune_model_thread import *
 
 
 class UIReturnWindow(QWidget):
-    def __init__(self, FONT_STYLE, parent=None):
+    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, parent=None):
         super(UIReturnWindow, self).__init__(parent)
                 
-        self.FONT_STYLE = FONT_STYLE        
+        self.WINDOW_WIDTH = WINDOW_WIDTH
+        self.WINDOW_HEIGHT = WINDOW_HEIGHT
+        self.FONT_STYLE = FONT_STYLE
         
         self.label = QLabel("End")
         self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
@@ -26,11 +28,11 @@ class UIReturnWindow(QWidget):
         self.Abstand.setFixedHeight(100)
         
         
-        self.Schritt = QLabel(self)
-        Schritt_img = QPixmap(os.path.join('src','GUILayout','Images', 'GUI_progress_bar', 'GUI_step_7.png'))
-        self.Schritt.setPixmap(Schritt_img)
-        self.Schritt.setFixedHeight(30)
-        self.Schritt.setAlignment(Qt.AlignCenter)
+        self.step = QLabel(self)
+        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_7.png'))
+        self.step.setPixmap(step_img)
+        self.step.setAlignment(Qt.AlignCenter)
         
         self.Finish = QPushButton("Finish", self)
         self.Finish.setStyleSheet("font: 12pt " + FONT_STYLE)
@@ -84,7 +86,7 @@ class UIReturnWindow(QWidget):
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[6].addWidget(self.Back)
         self.horizontal_box[6].addStretch()
-        self.horizontal_box[6].addWidget(self.Schritt) 
+        self.horizontal_box[6].addWidget(self.step) 
         self.horizontal_box[6].addStretch()         
         self.horizontal_box[6].addWidget(self.Load)
         self.horizontal_box[6].setAlignment(Qt.AlignBottom)

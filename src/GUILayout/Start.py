@@ -13,10 +13,12 @@ from src.Threads.Prune_model_thread import *
 
 
 class UIMarcusWindow1(QWidget):
-    def __init__(self, FONT_STYLE, parent=None):
+    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, parent=None):
         super(UIMarcusWindow1, self).__init__(parent)
 
-        self.FONT_STYLE = FONT_STYLE        
+        self.WINDOW_WIDTH = WINDOW_WIDTH
+        self.WINDOW_HEIGHT = WINDOW_HEIGHT
+        self.FONT_STYLE = FONT_STYLE       
         
         self.label = QLabel("Load or train a model?")
         self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
@@ -31,11 +33,11 @@ class UIMarcusWindow1(QWidget):
         self.Abstand_button = QLabel()
         self.Abstand_button.setFixedWidth(10)
         
-        self.Schritt = QLabel(self)
-        Schritt_img = QPixmap(os.path.join('src','GUILayout','Images', 'GUI_progress_bar', 'GUI_step_1.png'))
-        self.Schritt.setPixmap(Schritt_img)
-        self.Schritt.setFixedHeight(30)
-        self.Schritt.setAlignment(Qt.AlignCenter)
+        self.step = QLabel(self)
+        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_1.png'))
+        self.step.setPixmap(step_img)
+        self.step.setAlignment(Qt.AlignCenter)
         
         self.load_model = QPushButton(self)
         self.load_model.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Loadmodel.png')))
@@ -80,7 +82,7 @@ class UIMarcusWindow1(QWidget):
         self.horizontal_box.append(QHBoxLayout())
         sublayout = QGridLayout()
         sublayout.addWidget(self.Abstand, 0, 0, Qt.AlignLeft)
-        sublayout.addWidget(self.Schritt, 0, 1)
+        sublayout.addWidget(self.step, 0, 1)
         sublayout.addWidget(self.Abstand, 0, 2, Qt.AlignBottom)
         self.horizontal_box[3].addLayout(sublayout)
         

@@ -1,3 +1,9 @@
+''' Copyright [2020] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
+    Copyright [2021] Karlsruhe Institute of Technology, Daniel Konegen
+    Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
+    SPDX-License-Identifier: Apache-2.0
+============================================================================================================'''
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.models import load_model
 from tensorflow.keras.models import Model
@@ -432,11 +438,6 @@ def model_pruning(layer_types, layer_params, layer_output_shape, layer_bias, num
         else:
             ("No pruning for this layer")
             
-    # print("layer_output_shape")        
-    # for i in range(0,len(layer_output_shape)):
-    #     print(layer_types[i])
-    #     print(layer_output_shape[i])
-            
     return layer_params, num_new_neurons, num_new_filters, layer_output_shape
 
 
@@ -497,10 +498,6 @@ def build_pruned_model(model, new_model_param, layer_types, num_new_neurons, num
     print("Before pruning:")        
     model.summary()
     
-    # for i in range(0,len(new_model_param)):
-    #     print(layer_types[i])
-    #     print(np.asarray(new_model_param[i]).shape)
-    
     if "Sequential" in str(model):
         pruned_model = Sequential.from_config(model_config)
     elif "Functional" in str(model):
@@ -509,16 +506,11 @@ def build_pruned_model(model, new_model_param, layer_types, num_new_neurons, num
     print("After pruning:")
     pruned_model.summary()
     
-    # print("new_model_param")
     for i in range(0,len(pruned_model.layers)):
-        # print(layer_types[i])
         if len(new_model_param[i]) != 0:
-            # print(np.asarray(new_model_param[i][0]).shape)
-            # print(np.asarray(new_model_param[i]).shape)
             pruned_model.layers[i].set_weights(new_model_param[i])
         else:
             None
-            # print("No weights to set!")
     
     pruned_model.compile(**comp)
     
@@ -561,8 +553,7 @@ def pruning(keras_model, x_train, y_train,comp,fit, prun_factor_dense=10, prun_f
 
     pruned_model = build_pruned_model(model, layer_params, layer_types, num_new_neurons, num_new_filters,comp)
 
-    #earlystopper = EarlyStopping(monitor='val_accuracy', min_delta= 1e-3, mode='min', verbose=1, patience=5, restore_best_weights=True)
-    history = pruned_model.fit(x_train, y_train, **fit)
+    pruned_model.fit(x_train, y_train, **fit)
     
     return pruned_model
 
@@ -613,14 +604,13 @@ def pruning_for_acc(keras_model, x_train, x_val_y_train, comp, pruning_acc=None,
             original_model_acc = original_model.evaluate(x_train,x_val_y_train)[-1]
         elif os.path.isdir(data_loader_path):
             original_model_acc = original_model.evaluate_generator(x_val_y_train)[-1]
-        print(original_model_acc)
+        print("Start model accuracy: " + str(original_model_acc*100) + "%")
         req_acc = original_model_acc-(max_acc_loss/100)
      
     
     train_epochs = 10
-    # early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3)
     threshold = ThresholdCallback(req_acc)
-    callbacks=[threshold]#, early_stopping]
+    callbacks=[threshold]
     
     
     
@@ -644,7 +634,7 @@ def pruning_for_acc(keras_model, x_train, x_val_y_train, comp, pruning_acc=None,
 
             if pruning_factor == 5:
                 print("No pruning possible")
-                return model
+                return original_model
 
             if last_pruning_step == 2:
                 print("Pruningfactor dense and conv: " + str(pruning_factor-last_pruning_step))
@@ -717,8 +707,6 @@ def pruning_for_acc(keras_model, x_train, x_val_y_train, comp, pruning_acc=None,
                     last_pruning_step = 10
                 
         all_pruning_factors.append(pruning_factor)
-        print("all_pruning_factors: " + str(all_pruning_factors))
-        print("lowest_pruning_factor_not_working: " + str(lowest_pruning_factor_not_working))
         
         
     return pruned_model
@@ -727,8 +715,7 @@ def pruning_for_acc(keras_model, x_train, x_val_y_train, comp, pruning_acc=None,
 def prune_model(keras_model, prun_factor_dense=10, prun_factor_conv=10, metric='L1', comp=None, num_classes=None, label_one_hot=None):
     """
     A given keras model get pruned. The factor for dense and conv says how many percent
-    of the dense and conv layers should be deleted. After pruning the model will be
-    retrained.
+    of the dense and conv layers should be deleted.
     
     Args: 
         keras_model:       Model which should be pruned
@@ -776,13 +763,6 @@ def prune_model(keras_model, prun_factor_dense=10, prun_factor_conv=10, metric='
     
     
     print("Finish with pruning")
-    
-    # for i in range(0,len(layer_params)):
-    #     try:
-    #         print(layer_types[i])
-    #         print(np.asarray(layer_params[i][0]).shape)
-    #     except:
-    #         print("No Parameter in layer")
 
     pruned_model = build_pruned_model(model, layer_params, layer_types, num_new_neurons, num_new_filters, comp)
     

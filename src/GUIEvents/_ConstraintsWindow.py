@@ -46,7 +46,7 @@ def ConstraintsWindow(self, n, target):
             
             return
 
-    self.Window3 = UIConstraintsWindow(self.FONT_STYLE, self)
+    self.Window3 = UIConstraintsWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
     if "Params" in self.constraints:
         self.Window3.Params.setChecked(True)

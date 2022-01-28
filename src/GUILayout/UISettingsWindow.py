@@ -7,10 +7,12 @@ from PyQt5.QtCore import *
 
 
 class UISettingsWindow(QWidget):
-    def __init__(self, FONT_STYLE, parent=None):
+    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, parent=None):
         super(UISettingsWindow, self).__init__(parent)
         
-        self.FONT_STYLE = FONT_STYLE        
+        self.WINDOW_WIDTH = WINDOW_WIDTH
+        self.WINDOW_HEIGHT = WINDOW_HEIGHT
+        self.FONT_STYLE = FONT_STYLE
         
         self.label = QLabel("Settings")
         self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
@@ -57,11 +59,11 @@ class UISettingsWindow(QWidget):
 
         
         
-        self.Schritt = QLabel(self)
-        Schritt_img = QPixmap(os.path.join('src','GUILayout','Images', 'GUI_progress_bar', 'GUI_step_5.png'))
-        self.Schritt.setPixmap(Schritt_img)
-        self.Schritt.setFixedHeight(30)
-        self.Schritt.setAlignment(Qt.AlignCenter)
+        self.step = QLabel(self)
+        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_5.png'))
+        self.step.setPixmap(step_img)
+        self.step.setAlignment(Qt.AlignCenter)
         
         self.Back = QPushButton(self)
         self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
@@ -107,7 +109,7 @@ class UISettingsWindow(QWidget):
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[5].addWidget(self.Back)
         self.horizontal_box[5].addStretch()
-        self.horizontal_box[5].addWidget(self.Schritt)
+        self.horizontal_box[5].addWidget(self.step)
         self.horizontal_box[5].addStretch()
         self.horizontal_box[5].addWidget(self.Next)
         self.horizontal_box[5].setAlignment(Qt.AlignBottom)

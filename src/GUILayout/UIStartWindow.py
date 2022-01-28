@@ -1,3 +1,9 @@
+''' Copyright [2020] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
+    Copyright [2021] Karlsruhe Institute of Technology, Daniel Konegen
+    Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
+    SPDX-License-Identifier: Apache-2.0
+============================================================================================================'''
+
 import os
 
 from PyQt5.QtWidgets import *
@@ -5,182 +11,148 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 
-
 class UIStartWindow(QWidget):
-    def __init__(self, FONT_STYLE, parent=None):
+    """Select project name, output path and model path. 
+
+    This GUI window has an input field and two buttons to pass
+    project name, output path and model path.
+    """
+    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, parent=None):
         super(UIStartWindow, self).__init__(parent)
         
-        self.FONT_STYLE = FONT_STYLE       
+        self.WINDOW_WIDTH = WINDOW_WIDTH
+        self.WINDOW_HEIGHT = WINDOW_HEIGHT
+        self.FONT_STYLE = FONT_STYLE
+
+        self.project_name_label = QLabel("Projectname:")
+        self.project_name_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         
-        self.Projekt_Name_label = QLabel("Projectname:")
-        self.Projekt_Name_label.setStyleSheet("font: 12pt " + FONT_STYLE)
-        
-        self.Modell_einlesen_label = QLabel("Keras model:")
-        self.Modell_einlesen_label.setStyleSheet("font: 12pt " + FONT_STYLE)     
+        self.keras_model_label = QLabel("Keras model:")
+        self.keras_model_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)  
 
         self.Modelpng = QLabel(self)
-        Modelimg = QPixmap(os.path.join('src','GUILayout','Images', 'network.png'))
-        Modelimg= Modelimg.scaledToWidth(150)
+        self.Modelpng.setFixedWidth(0.25*self.WINDOW_HEIGHT)
+        self.Modelpng.setFixedHeight(0.25*self.WINDOW_HEIGHT)
+        Modelimg = QPixmap(os.path.join('src','GUILayout','Images','network.png'))
         self.Modelpng.setPixmap(Modelimg)
+        self.Modelpng.setScaledContents(True)
         
-        self.Daten_label = QLabel("Datascript:")
-        self.Daten_label.setStyleSheet("font: 12pt " + FONT_STYLE)
+        self.step = QLabel(self)
+        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_3.png'))
+        self.step.setPixmap(step_img)
+        self.step.setAlignment(Qt.AlignCenter)
         
-        self.Datapng = QLabel(self)
-        Dataimg = QPixmap(os.path.join('src','GUILayout','Images', 'Database.png'))
-        Dataimg= Dataimg.scaledToWidth(150)
-        self.Datapng.setPixmap(Dataimg)
+        self.project_name = QLineEdit()
+        self.project_name.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.project_name.setFixedWidth(0.25*self.WINDOW_WIDTH)
         
-        self.Schritt = QLabel(self)
-        Schritt_img = QPixmap(os.path.join('src','GUILayout','Images', 'GUI_progress_bar', 'GUI_step_3.png'))
-        self.Schritt.setPixmap(Schritt_img)
-        self.Schritt.setFixedHeight(30)
-        self.Schritt.setAlignment(Qt.AlignCenter)
+        self.model_path_label = QLabel("")
+        self.model_path_label.setFixedWidth(0.7*self.WINDOW_WIDTH)
+        self.model_path_label.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.model_path_label.setAlignment(Qt.AlignCenter)
         
-        self.Abstand_oben = QLabel()
-        self.Abstand_oben.setFixedHeight(20)
+        self.output_path_label = QLabel("")
+        self.output_path_label.setFixedWidth(0.7*self.WINDOW_WIDTH)
+        self.output_path_label.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.output_path_label.setAlignment(Qt.AlignCenter)
         
-        self.Abstand_unten = QLabel()
-        self.Abstand_unten.setFixedHeight(50)
-        
-        self.Projekt_Name = QLineEdit()
-        self.Projekt_Name.setStyleSheet("font: 12pt " + FONT_STYLE)
-        self.Projekt_Name.setFixedWidth(200)
-        
-        self.Model_Pfad = QLabel("")
-        self.Model_Pfad.setFixedWidth(300)
-        self.Model_Pfad.setStyleSheet("font: 12pt " + FONT_STYLE)
-        
-        self.Output_Pfad = QLabel("")
-        self.Output_Pfad.setFixedWidth(300)
-        self.Output_Pfad.setStyleSheet("font: 12pt " + FONT_STYLE)
-        
-        self.Daten_Pfad = QLabel("")
-        self.Daten_Pfad.setFixedWidth(300)
-        self.Daten_Pfad.setStyleSheet("font: 12pt " + FONT_STYLE)
-
-        self.dataloader_list = QComboBox()
-        self.dataloader_list.setFixedWidth(170)
-        self.dataloader_list.addItems(["Select PATH with data", "Select SCRIPT with data"])
-
-        self.Abstand_dataloader_list = QLabel("")
-        self.Abstand_dataloader_list.setFixedWidth(170)
-        
-        self.Output_Pfad_Browse = QPushButton(" Output path... ", self)
-        self.Output_Pfad_Browse.setToolTip('...')
-        self.Output_Pfad_Browse.setStyleSheet("""QPushButton {
-                           font: 12pt """ + FONT_STYLE + """}
+        self.output_path_Browse = QPushButton(" Output path... ", self)
+        self.output_path_Browse.setFixedWidth(0.2*self.WINDOW_WIDTH)
+        self.output_path_Browse.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.output_path_Browse.setToolTip('Select a path where the TFL2uC\n'
+                                           'project should be stored.')
+        self.output_path_Browse.setStyleSheet("""QPushButton {
+                           font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}
                            QToolTip { 
+                           font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
                            border: black solid 1px}""")  
         
-        self.Modell_einlesen_Browse = QPushButton(" Select Model... ", self)
-        self.Modell_einlesen_Browse.setToolTip('...')
-        self.Modell_einlesen_Browse.setStyleSheet("""QPushButton {
-                           font: 12pt """ + FONT_STYLE + """}
+        self.read_model_browse = QPushButton(" Select Model... ", self)
+        self.read_model_browse.setFixedWidth(0.2*self.WINDOW_WIDTH)
+        self.read_model_browse.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.read_model_browse.setToolTip('Select a TensorFlow/Keras model (.h5 file)\n'
+                                          'which should be converted to a TensorFlow\n'
+                                          'Lite C++ file, to execute it on a MCU')
+        self.read_model_browse.setStyleSheet("""QPushButton {
+                           font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}
                            QToolTip { 
-                           background-color : rgb(53, 53, 53);
-                           color: white; 
-                           border: black solid 1px}""") 
-        
-        self.Daten_einlesen_Browse = QPushButton(" Select Data... ", self)
-        self.Daten_einlesen_Browse.setToolTip('...')
-        self.Daten_einlesen_Browse.setStyleSheet("""QPushButton {
-                           font: 12pt """ + FONT_STYLE + """}
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}
-                           QToolTip { 
+                           font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
                            border: black solid 1px}""") 
 
         self.Next = QPushButton(self)
-        self.Next.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'next_arrow.png')))
-        self.Next.setIconSize(QSize(25, 25))
-        self.Next.setFixedHeight(30)
-        
+        self.Next.setIcon(QIcon(os.path.join('src','GUILayout','Images','next_arrow.png')))
+        self.Next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.Next.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+
         self.Back = QPushButton(self)
-        self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
-        self.Back.setIconSize(QSize(25, 25))
-        self.Back.setFixedHeight(30)
+        self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images','back_arrow.png')))
+        self.Back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.Back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         
         self.horizontal_box = []
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[0].addStretch()
-        self.horizontal_box[0].addWidget(self.Projekt_Name_label)
+        self.horizontal_box[0].addWidget(self.project_name_label)
         self.horizontal_box[0].addStretch()
         self.horizontal_box[0].setAlignment(Qt.AlignTop)
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[1].addWidget(self.Projekt_Name)
+        self.horizontal_box[1].addWidget(self.project_name)
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[2].addWidget(self.Abstand_oben)
+        self.horizontal_box[2].addItem(QSpacerItem(0.03*self.WINDOW_WIDTH, 0.03*self.WINDOW_HEIGHT))
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[3].addWidget(self.Output_Pfad)
+        self.horizontal_box[3].addWidget(self.output_path_label)
         self.horizontal_box[3].setAlignment(Qt.AlignCenter)
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[4].addWidget(self.Output_Pfad_Browse)
+        self.horizontal_box[4].addWidget(self.output_path_Browse)
         self.horizontal_box[4].setAlignment(Qt.AlignCenter)
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[5].addWidget(self.Abstand_oben)
+        self.horizontal_box[5].addItem(QSpacerItem(0.03*self.WINDOW_WIDTH, 0.03*self.WINDOW_HEIGHT))
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[6].addStretch()
-        self.horizontal_box[6].addWidget(self.Modell_einlesen_label)
-        self.horizontal_box[6].addStretch()
-        self.horizontal_box[6].addStretch()
-        self.horizontal_box[6].addWidget(self.Daten_label)
+        self.horizontal_box[6].addWidget(self.keras_model_label)
         self.horizontal_box[6].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[7].addStretch()
         self.horizontal_box[7].addWidget(self.Modelpng)
         self.horizontal_box[7].addStretch()
-        self.horizontal_box[7].addStretch()
-        self.horizontal_box[7].addWidget(self.Datapng)
-        self.horizontal_box[7].addStretch()     
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[8].addStretch()
-        self.horizontal_box[8].addWidget(self.Model_Pfad)
-        self.horizontal_box[8].addStretch()
-        self.horizontal_box[8].addStretch()
-        self.horizontal_box[8].addWidget(self.Daten_Pfad)
-        self.horizontal_box[8].addStretch()
+        self.horizontal_box[8].addItem(QSpacerItem(0.03*self.WINDOW_WIDTH, 0.03*self.WINDOW_HEIGHT))
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[9].addStretch()
-        self.horizontal_box[9].addWidget(self.Abstand_dataloader_list)
-        self.horizontal_box[9].addStretch()
-        self.horizontal_box[9].addStretch()
-        self.horizontal_box[9].addWidget(self.dataloader_list)
+        self.horizontal_box[9].addWidget(self.model_path_label)
         self.horizontal_box[9].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[10].addStretch()
-        self.horizontal_box[10].addWidget(self.Modell_einlesen_Browse)
-        self.horizontal_box[10].addStretch()
-        self.horizontal_box[10].addStretch()
-        self.horizontal_box[10].addWidget(self.Daten_einlesen_Browse)
+        self.horizontal_box[10].addWidget(self.read_model_browse)
         self.horizontal_box[10].addStretch()
     
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[11].addWidget(self.Abstand_unten)
+        self.horizontal_box[11].addItem(QSpacerItem(0.08*self.WINDOW_WIDTH, 0.08*self.WINDOW_HEIGHT))
         
         self.horizontal_box.append(QHBoxLayout())
         sublayout = QGridLayout()
         sublayout.addWidget(self.Back, 0, 0, Qt.AlignLeft)
-        sublayout.addWidget(self.Schritt, 0, 1)
+        sublayout.addWidget(self.step, 0, 1)
         sublayout.addWidget(self.Next, 0, 2, Qt.AlignRight)
         self.horizontal_box[12].addLayout(sublayout)
         self.horizontal_box[12].setAlignment(Qt.AlignBottom)
