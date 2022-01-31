@@ -15,7 +15,7 @@ class UIConstraintsWindow(QWidget):
         self.FONT_STYLE = FONT_STYLE
         
         self.label = QLabel("Constraints")
-        self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
+        self.label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
         self.Abstand = QLabel(self)
@@ -34,13 +34,13 @@ class UIConstraintsWindow(QWidget):
         
         self.Back = QPushButton(self)
         self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
-        self.Back.setIconSize(QSize(25, 25))
-        self.Back.setFixedHeight(30)    
+        self.Back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.Back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         self.Next = QPushButton(self)
         self.Next.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'next_arrow.png')))
-        self.Next.setIconSize(QSize(25, 25))
-        self.Next.setFixedHeight(30)    
+        self.Next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.Next.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         self.Params = QPushButton(self)
         self.Params.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'params.png')))

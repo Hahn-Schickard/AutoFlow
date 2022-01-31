@@ -21,6 +21,8 @@ class MainWindow(QMainWindow):
 
     Attributes:
         FONT_STYLE:           Font which is used in the GUI
+        WINDOW_WIDTH:         TBD
+        WINDOW_HEIGHT:        TBD
         project_name:         Name of the project to be created
         output_path:          Output path of the project to be created
         output_path_ml:       TBD

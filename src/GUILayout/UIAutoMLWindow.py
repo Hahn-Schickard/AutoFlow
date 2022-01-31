@@ -21,11 +21,11 @@ class UIAutoMLWindow(QWidget):
         self.FONT_STYLE = FONT_STYLE
 
         self.label = QLabel("AutoML")
-        self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
+        self.label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
         self.info = QLabel("Start the AutoML Process:")
-        self.info.setStyleSheet("font: 12pt " + FONT_STYLE)
+        self.info.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.info.setAlignment(Qt.AlignCenter)
         
         self.Abstand = QLabel()
@@ -42,7 +42,7 @@ class UIAutoMLWindow(QWidget):
         self.step.setAlignment(Qt.AlignCenter)
         
         self.Finish = QPushButton("Finish", self)
-        self.Finish.setStyleSheet("font: 12pt " + FONT_STYLE)
+        self.Finish.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.Finish.setFixedWidth(125)
         self.Finish.setToolTip('...')
         self.Finish.setVisible(False)

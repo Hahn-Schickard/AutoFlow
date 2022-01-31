@@ -152,7 +152,7 @@ class UIStartWindow(QWidget):
         self.horizontal_box.append(QHBoxLayout())
         sublayout = QGridLayout()
         sublayout.addWidget(self.Back, 0, 0, Qt.AlignLeft)
-        sublayout.addWidget(self.step, 0, 1)
+        sublayout.addWidget(self.step, 0, 1, Qt.AlignCenter)
         sublayout.addWidget(self.Next, 0, 2, Qt.AlignRight)
         self.horizontal_box[12].addLayout(sublayout)
         self.horizontal_box[12].setAlignment(Qt.AlignBottom)

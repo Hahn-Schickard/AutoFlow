@@ -53,6 +53,16 @@ $ Einfügen
 ## Get Started
 
 
+## Flowchart
+```mermaid
+flowchart LR
+
+Start --> StartWindow --> TargetWindow  --> OptiWindow        --> LoadWindow
+                          OptiWindow    --> DataloaderWindow  --> LoadWindow
+Start --> AutoMLData  --> TaskWindow    --> ConstraintsWindow --> SettingsWindow  --> AutoMLWindow  --> ReturnWindow  --> Start
+```
+
+
 ## See Also
 - [AUTOKERAS](https://autokeras.com/) - Automl
 - [HLS4ML](https://fastmachinelearning.org/hls4ml/) - FPGA Framework

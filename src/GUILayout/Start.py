@@ -21,15 +21,9 @@ class UIMarcusWindow1(QWidget):
         self.FONT_STYLE = FONT_STYLE       
         
         self.label = QLabel("Load or train a model?")
-        self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
+        self.label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
-        
-        self.Abstand = QLabel()
-        self.Abstand.setFixedHeight(30)
-        
-        self.Abstand_v = QLabel()
-        self.Abstand_v.setFixedHeight(120)
-        
+
         self.Abstand_button = QLabel()
         self.Abstand_button.setFixedWidth(10)
         
@@ -41,7 +35,7 @@ class UIMarcusWindow1(QWidget):
         
         self.load_model = QPushButton(self)
         self.load_model.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Loadmodel.png')))
-        self.load_model.setIconSize(QSize(200, 250))
+        self.load_model.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))
         self.load_model.setToolTip('...')
         self.load_model.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);
@@ -50,10 +44,11 @@ class UIMarcusWindow1(QWidget):
                            }
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}""") 
+        self.load_model.setFixedHeight(0.35*self.WINDOW_HEIGHT)
         
         self.train_model = QPushButton(self)
         self.train_model.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Trainmodel.png')))
-        self.train_model.setIconSize(QSize(200, 250))
+        self.train_model.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.30*self.WINDOW_HEIGHT))
         self.train_model.setToolTip('...')
         self.train_model.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);
@@ -61,15 +56,18 @@ class UIMarcusWindow1(QWidget):
                            border: black solid 1px
                            }
                            QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""") 
+                           background-color : rgb(10, 100, 200)}""")
+        self.train_model.setFixedHeight(0.35*self.WINDOW_HEIGHT)
         
         
         self.horizontal_box = []
         self.horizontal_box.append(QHBoxLayout())
+        self.horizontal_box[0].addStretch()
         self.horizontal_box[0].addWidget(self.label)
+        self.horizontal_box[0].addStretch()
         self.horizontal_box[0].setAlignment(Qt.AlignTop)
         
-        self.horizontal_box.append(QHBoxLayout())        
+        self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[1].addWidget(self.Abstand_button)
         self.horizontal_box[1].addWidget(self.load_model)
         self.horizontal_box[1].addWidget(self.Abstand_button)
@@ -77,14 +75,12 @@ class UIMarcusWindow1(QWidget):
         self.horizontal_box[1].addWidget(self.Abstand_button)
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[2].addWidget(self.Abstand_v)
-        
+        self.horizontal_box[2].addItem(QSpacerItem(0.25*self.WINDOW_WIDTH, 0.25*self.WINDOW_HEIGHT))
+
         self.horizontal_box.append(QHBoxLayout())
-        sublayout = QGridLayout()
-        sublayout.addWidget(self.Abstand, 0, 0, Qt.AlignLeft)
-        sublayout.addWidget(self.step, 0, 1)
-        sublayout.addWidget(self.Abstand, 0, 2, Qt.AlignBottom)
-        self.horizontal_box[3].addLayout(sublayout)
+        self.horizontal_box[3].addStretch()
+        self.horizontal_box[3].addWidget(self.step)
+        self.horizontal_box[3].addStretch()
         
         
         self.vertical_box = QVBoxLayout()

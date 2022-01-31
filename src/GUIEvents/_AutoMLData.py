@@ -6,6 +6,20 @@ The programmed logic in this method defines the workflow and path for the GUI. E
 
   self.GUIStart.load_model.clicked.connect(self.AutoMLData)
 """
+"""                                                                     --> CSVDataloaderWindow --
+                                                                        |                         |
+                                                                        |                         v
+Start  -->  StartWindow  -->  TargetWindow  -->  **OptiWindow**  -->  DataloaderWindow  -->  LoaderWindow
+
+"""
+
+'''
+
+/------/
+/Start/---> 
+/-----/
+'''
+
 
 from src.GUILayout.UIAutoMLData import *
 

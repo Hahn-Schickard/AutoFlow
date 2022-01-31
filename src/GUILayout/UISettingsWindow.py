@@ -15,47 +15,41 @@ class UISettingsWindow(QWidget):
         self.FONT_STYLE = FONT_STYLE
         
         self.label = QLabel("Settings")
-        self.label.setStyleSheet("font: 12pt " + FONT_STYLE)
+        self.label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
         self.Epochs = QLabel("Epochs:")
-        self.Epochs.setStyleSheet("font: 12pt " + FONT_STYLE)
-        self.Epochs.setFixedWidth(120)
-        self.Epochs.setFixedHeight(30)
-        self.Epochs.setAlignment(Qt.AlignLeft)
+        self.Epochs.setStyleSheet("font: " + str(int(0.030*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.Epochs.setFixedWidth(0.20*self.WINDOW_WIDTH)
+        self.Epochs.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        # self.Epochs.setAlignment(Qt.AlignLeft)
         
         self.max_trials = QLabel("Max. Trials:")
-        self.max_trials.setStyleSheet("font: 12pt " + FONT_STYLE)
-        self.max_trials.setFixedWidth(120)
-        self.max_trials.setFixedHeight(30)
-        self.max_trials.setAlignment(Qt.AlignLeft)
-        
+        self.max_trials.setStyleSheet("font: " + str(int(0.030*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.max_trials.setFixedWidth(0.20*self.WINDOW_WIDTH)
+        self.max_trials.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        # self.max_trials.setAlignment(Qt.AlignLeft)
         
         self.max_size = QLabel("Max. Model Size:")
-        self.max_size.setStyleSheet("font: 12pt " + FONT_STYLE)
-        self.max_size.setFixedWidth(120)
-        self.max_size.setFixedHeight(30)
-        self.max_size.setAlignment(Qt.AlignLeft)
-        
-        
-        self.Abstand = QLabel(self)
-        self.Abstand.setFixedWidth(90)
-        self.Abstand.setFixedHeight(30)
+        self.max_size.setStyleSheet("font: " + str(int(0.030*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.max_size.setFixedWidth(0.20*self.WINDOW_WIDTH)
+        self.max_size.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        # self.max_size.setAlignment(Qt.AlignLeft)
         
         self.epochs_factor = QLineEdit(self)
-        self.epochs_factor.setStyleSheet("font: 12pt " + FONT_STYLE)
-        self.epochs_factor.setFixedWidth(90)
-        self.epochs_factor.setFixedHeight(30)
+        self.epochs_factor.setStyleSheet("font: " + str(int(0.030*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.epochs_factor.setFixedWidth(0.10*self.WINDOW_WIDTH)
+        self.epochs_factor.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         self.max_trials_factor = QLineEdit(self)
-        self.max_trials_factor.setStyleSheet("font: 12pt " + FONT_STYLE)
-        self.max_trials_factor.setFixedWidth(90)
-        self.max_trials_factor.setFixedHeight(30)
+        self.max_trials_factor.setStyleSheet("font: " + str(int(0.030*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.max_trials_factor.setFixedWidth(0.10*self.WINDOW_WIDTH)
+        self.max_trials_factor.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         self.max_size_factor = QLineEdit(self)
-        self.max_size_factor.setStyleSheet("font: 12pt " + FONT_STYLE)
-        self.max_size_factor.setFixedWidth(90)
-        self.max_size_factor.setFixedHeight(30)
+        self.max_size_factor.setStyleSheet("font: " + str(int(0.030*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.max_size_factor.setFixedWidth(0.10*self.WINDOW_WIDTH)
+        self.max_size_factor.setFixedHeight(0.05*self.WINDOW_HEIGHT)
 
         
         
@@ -67,13 +61,13 @@ class UISettingsWindow(QWidget):
         
         self.Back = QPushButton(self)
         self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
-        self.Back.setIconSize(QSize(25, 25))
-        self.Back.setFixedHeight(30)    
+        self.Back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.Back.setFixedHeight(0.05*self.WINDOW_HEIGHT) 
         
         self.Next = QPushButton(self)
         self.Next.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'next_arrow.png')))
-        self.Next.setIconSize(QSize(25, 25))
-        self.Next.setFixedHeight(30)    
+        self.Next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.Next.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         
         self.horizontal_box = []
@@ -82,29 +76,25 @@ class UISettingsWindow(QWidget):
         self.horizontal_box[0].setAlignment(Qt.AlignTop)
         
         self.horizontal_box.append(QHBoxLayout())
+        self.horizontal_box[1].addStretch()
         self.horizontal_box[1].addWidget(self.Epochs)
         self.horizontal_box[1].addWidget(self.epochs_factor)
-        #self.horizontal_box[1].addWidget(self.Abstand)
-        #self.horizontal_box[1].addWidget(self.Abstand)
-        #self.horizontal_box[1].setAlignment(Qt.AlignLeft)
+        self.horizontal_box[1].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
+        self.horizontal_box[2].addStretch()
         self.horizontal_box[2].addWidget(self.max_trials)
         self.horizontal_box[2].addWidget(self.max_trials_factor)
-        #self.horizontal_box[2].addWidget(self.Abstand)
-        #self.horizontal_box[2].addWidget(self.Abstand)
-        #self.horizontal_box[2].setAlignment(Qt.AlignLeft)
+        self.horizontal_box[2].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
+        self.horizontal_box[3].addStretch()
         self.horizontal_box[3].addWidget(self.max_size)
         self.horizontal_box[3].addWidget(self.max_size_factor)
-        #self.horizontal_box[3].addWidget(self.Abstand)
-        #self.horizontal_box[3].addWidget(self.Abstand)
-        #self.horizontal_box[3].setAlignment(Qt.AlignLeft)
-        
+        self.horizontal_box[3].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[4].addWidget(self.Abstand)
+        self.horizontal_box[4].addItem(QSpacerItem(0.09*self.WINDOW_WIDTH, 0.09*self.WINDOW_HEIGHT))
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[5].addWidget(self.Back)
