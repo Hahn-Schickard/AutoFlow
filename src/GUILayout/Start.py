@@ -43,8 +43,9 @@ class UIMarcusWindow1(QWidget):
                            border: black solid 1px
                            }
                            QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""") 
+                           background-color : rgb(10, 100, 200)}""")
         self.load_model.setFixedHeight(0.35*self.WINDOW_HEIGHT)
+        self.load_model.setFixedWidth(0.35*self.WINDOW_WIDTH)
         
         self.train_model = QPushButton(self)
         self.train_model.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Trainmodel.png')))
@@ -58,6 +59,7 @@ class UIMarcusWindow1(QWidget):
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}""")
         self.train_model.setFixedHeight(0.35*self.WINDOW_HEIGHT)
+        self.train_model.setFixedWidth(0.35*self.WINDOW_WIDTH)
         
         
         self.horizontal_box = []

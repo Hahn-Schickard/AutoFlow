@@ -107,7 +107,7 @@ class UICSVDataloaderWindow(QWidget):
 
         self.label_col = QLabel("Label column:")
         self.label_col.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.label_col.setFixedWidth(0.15*self.WINDOW_WIDTH)
+        self.label_col.setFixedWidth(0.16*self.WINDOW_WIDTH)
         self.label_col.setFixedHeight(0.04*self.WINDOW_HEIGHT)
         self.label_col.setVisible(False)
         
@@ -134,7 +134,7 @@ class UICSVDataloaderWindow(QWidget):
 
         self.totRow = QLabel('Total rows:', self)
         self.totRow.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.totRow.setFixedWidth(0.15*self.WINDOW_WIDTH)
+        self.totRow.setFixedWidth(0.16*self.WINDOW_WIDTH)
         self.totRow.setFixedHeight(0.04*self.WINDOW_HEIGHT)
         self.totRow.setAlignment(Qt.AlignLeft)
         self.totRow.setVisible(False)
@@ -160,7 +160,7 @@ class UICSVDataloaderWindow(QWidget):
 
         self.totCol = QLabel('Total columns:', self)
         self.totCol.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.totCol.setFixedWidth(0.15*self.WINDOW_WIDTH)
+        self.totCol.setFixedWidth(0.16*self.WINDOW_WIDTH)
         self.totCol.setFixedHeight(0.04*self.WINDOW_HEIGHT)
         self.totCol.setAlignment(Qt.AlignLeft)
         self.totCol.setVisible (False)

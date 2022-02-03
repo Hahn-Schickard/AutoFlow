@@ -29,7 +29,6 @@ def TargetWindow(self):
     
     self.Window2.uC.clicked.connect(lambda:nextWindow(self, "uC"))
     self.Window2.FPGA.clicked.connect(lambda:nextWindow(self, "FPGA"))
-    # self.Window2.DK.clicked.connect(lambda:self.HelperWindow())
     
     self.Window2.Back.clicked.connect(self.StartWindow)
     
@@ -43,6 +42,3 @@ def nextWindow(self, target):
     
     if self.target == "uC" or self.target == "FPGA":
         self.OptiWindow()
-
-    # if self.target == "?":
-    #     self.Dot.setVisible(False)

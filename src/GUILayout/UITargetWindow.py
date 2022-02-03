@@ -34,7 +34,9 @@ class UITargetWindow(QWidget):
                            border: black solid 1px
                            }
                            QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""") 
+                           background-color : rgb(10, 100, 200)}""")
+        self.uC.setFixedHeight(0.35*self.WINDOW_HEIGHT)
+        self.uC.setFixedWidth(0.35*self.WINDOW_WIDTH)
         
         self.FPGA = QPushButton(self)
         self.FPGA.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'FPGA.png')))
@@ -46,20 +48,9 @@ class UITargetWindow(QWidget):
                            border: black solid 1px
                            }
                            QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""") 
-        
-    
-        self.DK = QPushButton(self)
-        self.DK.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'question.png')))
-        self.DK.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.35*self.WINDOW_HEIGHT))
-        self.DK.setToolTip('...')
-        self.DK.setStyleSheet("""QToolTip { 
-                           background-color : rgb(53, 53, 53);
-                           color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""") 
+                           background-color : rgb(10, 100, 200)}""")
+        self.FPGA.setFixedHeight(0.35*self.WINDOW_HEIGHT)
+        self.FPGA.setFixedWidth(0.35*self.WINDOW_WIDTH)
         
         self.Back = QPushButton(self)
         self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
@@ -89,8 +80,6 @@ class UITargetWindow(QWidget):
         self.horizontal_box[2].addWidget(self.uC)
         self.horizontal_box[2].addItem(QSpacerItem(0.02*self.WINDOW_WIDTH, 0.02*self.WINDOW_HEIGHT))
         self.horizontal_box[2].addWidget(self.FPGA)
-        self.horizontal_box[2].addItem(QSpacerItem(0.02*self.WINDOW_WIDTH, 0.02*self.WINDOW_HEIGHT))
-        self.horizontal_box[2].addWidget(self.DK)
         self.horizontal_box[2].addItem(QSpacerItem(0.02*self.WINDOW_WIDTH, 0.02*self.WINDOW_HEIGHT))
         
         self.horizontal_box.append(QHBoxLayout())

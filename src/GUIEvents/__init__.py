@@ -21,27 +21,23 @@ class MainWindow(QMainWindow):
 
     Attributes:
         FONT_STYLE:           Font which is used in the GUI
-        WINDOW_WIDTH:         TBD
-        WINDOW_HEIGHT:        TBD
+        WINDOW_WIDTH:         Width of the GUI window
+        WINDOW_HEIGHT:        Height of the GUI window
         project_name:         Name of the project to be created
         output_path:          Output path of the project to be created
-        output_path_ml:       TBD
+        output_path_ml:       Output path of the project to be created by autokeras
         model_path:           Path of the model to convert
         data_loader_path:     Path of the folder or file with the training data
-        data_loader_path_ml:  TBD
-        target:               TBD
+        data_loader_path_ml:  Path of the folder or file with the training data for autokeras
+        target:               Target to execute the neural network
         optimizations:        Selected optimization algorithms
-        constraints:          TBD
-        prun_type:            TBD
+        constraints:          Contraints for auto machine learning
+        prun_type:            Pruning type to optimize the model
         prun_factor_dense:    Pruning factor for fully connected layers
         prun_factor_conv:     Pruning factor for convolution layers
-        prun_acc_type:        TBD
-        prun_acc:             TBD
+        prun_acc_type:        Type of accuracy pruning
+        prun_acc:             Accuracy for model pruning
         quant_dtype:          Data type to quantize to
-        Know_Dis_1:           TBD
-        Know_Dis_2:           TBD
-        Huffman_1:            TBD
-        Huffman_2:            TBD
         params_factor:        TBD
         floats_factor:        TBD
         complex_factor:       TBD
@@ -53,7 +49,7 @@ class MainWindow(QMainWindow):
         complex_check:        TBD
         separator:            Separator for reading a CSV file
         csv_target_label:     Target label from the CSV file
-        model_memory:         TBD
+        model_memory:         Memory to allocate for the model on a microcontroller
 
 
     """
@@ -94,8 +90,6 @@ class MainWindow(QMainWindow):
         set_prun_type,
         set_prun_acc_type,
         set_quant_dtype,
-        set_knowledge_distillation,
-        set_huffman_coding,
         model_pruning,
         download,
         terminate_thread,
@@ -113,17 +107,9 @@ class MainWindow(QMainWindow):
     This method initialize the GUI and the config parameters 
     we need to execute the train/implement process
     
-
-    Args:
-      self:
-        self represents the instance of the class.
-      parent:
-        none
-
-    Returns:
-      
-    Raises:
-      IOError: An error occurred accessing the parameter.
+    Attributes:
+        screen_width:   Width of the used monitor.
+        screen_height:  Height of the used monitor.
     """
         super(MainWindow, self).__init__(parent)
 
@@ -152,9 +138,6 @@ class MainWindow(QMainWindow):
 
         self.FONT_STYLE = "Helvetica"
 
-        # self.X = 0
-        # self.Y = 0
-
         self.project_name = None
         self.output_path = None
         self.output_path_ml = None
@@ -171,10 +154,6 @@ class MainWindow(QMainWindow):
         self.prun_acc_type = None
         self.prun_acc = None
         self.quant_dtype = None
-        self.Know_Dis_1 = None
-        self.Know_Dis_2 = None
-        self.Huffman_1 = None
-        self.Huffman_2 = None
         
         self.params_factor = 1
         self.floats_factor = 1
