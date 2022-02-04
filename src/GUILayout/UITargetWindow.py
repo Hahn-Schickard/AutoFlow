@@ -26,7 +26,7 @@ class UITargetWindow(QWidget):
 
         self.uC = QPushButton(self)
         self.uC.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'MCU.png')))
-        self.uC.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.35*self.WINDOW_HEIGHT))
+        self.uC.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.25*self.WINDOW_HEIGHT))
         self.uC.setToolTip('...')
         self.uC.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);
@@ -35,12 +35,12 @@ class UITargetWindow(QWidget):
                            }
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}""")
-        self.uC.setFixedHeight(0.35*self.WINDOW_HEIGHT)
-        self.uC.setFixedWidth(0.35*self.WINDOW_WIDTH)
+        self.uC.setFixedHeight(0.3*self.WINDOW_HEIGHT)
+        self.uC.setFixedWidth(0.3*self.WINDOW_WIDTH)
         
         self.FPGA = QPushButton(self)
         self.FPGA.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'FPGA.png')))
-        self.FPGA.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.35*self.WINDOW_HEIGHT))
+        self.FPGA.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.25*self.WINDOW_HEIGHT))
         self.FPGA.setToolTip('...')
         self.FPGA.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);
@@ -49,8 +49,22 @@ class UITargetWindow(QWidget):
                            }
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}""")
-        self.FPGA.setFixedHeight(0.35*self.WINDOW_HEIGHT)
-        self.FPGA.setFixedWidth(0.35*self.WINDOW_WIDTH)
+        self.FPGA.setFixedHeight(0.3*self.WINDOW_HEIGHT)
+        self.FPGA.setFixedWidth(0.3*self.WINDOW_WIDTH)
+        
+        self.EmbeddedPC = QPushButton(self)
+        self.EmbeddedPC.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'EmbeddedPC.svg')))
+        self.EmbeddedPC.setIconSize(QSize(0.8*self.WINDOW_WIDTH, 0.8*self.WINDOW_HEIGHT))
+        self.EmbeddedPC.setToolTip('...')
+        self.EmbeddedPC.setStyleSheet("""QToolTip { 
+                           background-color : rgb(53, 53, 53);
+                           color: white; 
+                           border: black solid 1px
+                           }
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}""")
+        self.EmbeddedPC.setFixedHeight(0.3*self.WINDOW_HEIGHT)
+        self.EmbeddedPC.setFixedWidth(0.3*self.WINDOW_WIDTH)
         
         self.Back = QPushButton(self)
         self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
@@ -76,14 +90,12 @@ class UITargetWindow(QWidget):
         self.horizontal_box[1].addItem(QSpacerItem(self.WINDOW_WIDTH, 0.1*self.WINDOW_HEIGHT))
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[2].addItem(QSpacerItem(0.02*self.WINDOW_WIDTH, 0.02*self.WINDOW_HEIGHT))
         self.horizontal_box[2].addWidget(self.uC)
-        self.horizontal_box[2].addItem(QSpacerItem(0.02*self.WINDOW_WIDTH, 0.02*self.WINDOW_HEIGHT))
         self.horizontal_box[2].addWidget(self.FPGA)
-        self.horizontal_box[2].addItem(QSpacerItem(0.02*self.WINDOW_WIDTH, 0.02*self.WINDOW_HEIGHT))
+        self.horizontal_box[2].addWidget(self.EmbeddedPC)
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[3].addItem(QSpacerItem(self.WINDOW_WIDTH, 0.25*self.WINDOW_HEIGHT))
+        self.horizontal_box[3].addItem(QSpacerItem(self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))
         
         self.horizontal_box.append(QHBoxLayout())
         sublayout = QGridLayout()

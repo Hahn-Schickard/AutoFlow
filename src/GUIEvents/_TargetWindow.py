@@ -29,6 +29,7 @@ def TargetWindow(self):
     
     self.Window2.uC.clicked.connect(lambda:nextWindow(self, "uC"))
     self.Window2.FPGA.clicked.connect(lambda:nextWindow(self, "FPGA"))
+    self.Window2.EmbeddedPC.clicked.connect(lambda:nextWindow(self, "EmbeddedPC"))
     
     self.Window2.Back.clicked.connect(self.StartWindow)
     
@@ -40,5 +41,5 @@ def TargetWindow(self):
 def nextWindow(self, target):
     self.target = target
     
-    if self.target == "uC" or self.target == "FPGA":
+    if self.target == "uC" or self.target == "FPGA" or self.target == "EmbeddedPC":
         self.OptiWindow()

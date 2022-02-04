@@ -13,7 +13,7 @@
 <br />
 
 <div align="center">
-  <sub>A little framework that make your life easier. Built with ❤︎ by
+  <sub>A little framework that makes your life easier. Built with ❤︎ by
   <a href="https://de.linkedin.com/in/marcus-r%C3%BCb-3b07071b2">Marcus Rüb</a> </a> and
   <a href="https://de.linkedin.com/in/daniel-konegen-a451271b3">
     Daniel Konegen
@@ -54,7 +54,6 @@ sudo apt-get install python3-pyqt5 -y
 sudo apt-get install pyqt5-dev-tools -y
 sudo apt-get install qttools5-dev-tools -y
 ```
-
 
 
 ## Flowchart
@@ -134,13 +133,8 @@ At the end the amount of memory for the input, output, and intermediate arrays o
 
 
 
-## API
-?
-
-
-
 ## Upcoming
-?
+It is planned to release the toolkit in the future not only as a GUI but also as a library.
 
 
 
