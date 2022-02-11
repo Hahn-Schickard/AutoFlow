@@ -1,3 +1,8 @@
+''' Copyright [2020] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Marcel Sawrin + Marcus Rueb
+    Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
+    SPDX-License-Identifier: Apache-2.0
+============================================================================================================'''
+
 """This is a splittet method from the Mainwindow class which contain the logic for the GUIStart window
 
 The programmed logic in this method defines the workflow and path for the GUI. Especially
@@ -9,6 +14,7 @@ The programmed logic in this method defines the workflow and path for the GUI. E
 """
 
 from src.GUILayout.Start import *
+
 def GUIStart(self):
     """Define Logic for the GUIStart GUI
 
@@ -31,8 +37,18 @@ def GUIStart(self):
     
     self.GUIStart1 = UIMarcusWindow1(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
-    self.GUIStart1.load_model.clicked.connect(self.AutoMLData)
-    self.GUIStart1.train_model.clicked.connect(self.StartWindow)
+    self.GUIStart1.load_model.clicked.connect(lambda:nextWindow(self,"AutoML"))
+    self.GUIStart1.train_model.clicked.connect(lambda:nextWindow(self,"LoadModel"))
     
     self.setCentralWidget(self.GUIStart1)
     self.show()
+
+
+
+def nextWindow(self,n):
+
+    if n == "AutoML":
+        self.AutoMLData()
+
+    elif n == "LoadModel":
+        self.StartWindow()

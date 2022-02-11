@@ -1,3 +1,8 @@
+''' Copyright [2020] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Marcel Sawrin + Marcus Rueb
+    Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
+    SPDX-License-Identifier: Apache-2.0
+============================================================================================================'''
+
 """This is a splittet method from the Mainwindow class which contain the logic for the AutoMLData window
 
 The programmed logic in this method defines the workflow and path for the GUI. Especially
@@ -8,7 +13,6 @@ The programmed logic in this method defines the workflow and path for the GUI. E
   bar = foo.FunctionBar()
 """
 
-import sys
 import os
 import math
 from PyQt5.QtWidgets import *
@@ -26,14 +30,26 @@ def start_autokeras(self):
     if "Complex" in self.constraints:
         self.complex_check = True
 
-    if self.target == "imageClassification":
+    if self.task == "imageClassification":
+        # print("self.project_name:",self.project_name)
+        # print("self.output_path_ml:",self.output_path_ml)
+        # print("self.data_loader_path_ml:",self.data_loader_path_ml)
+        # print("self.params_check:",self.params_check)
+        # print("self.params_factor:",self.params_factor)
+        # print("self.floats_check:",self.floats_check)
+        # print("self.floats_factor:",self.floats_factor)
+        # print("self.complex_check:", self.complex_check)
+        # print("self.complex_factor:",self.complex_factor)
+        # print("self.max_size:",self.max_size)
+        # print("self.max_trials:",self.max_trials)
+        # print("self.max_epoch:",self.max_epoch)
         os.system(
-            f"start /B start cmd.exe @cmd /k python autoML/ImageClassifier.py --ProjectName={self.project_name} --OutputPath={self.output_path_ml} --DataPath={self.data_loader_path_ml} --ParamConstraint={self.params_check} --ParamFactor={self.params_factor} --FlopConstraint={self.floats_check} --FlopFactor={self.floats_factor} --ComplexConstraint={self.complex_check} --ComplexFactor={self.complex_factor} --MaxSize={self.max_size} --MaxTrials={self.max_trials} --MaxEpochs={self.max_epoch}"
+            f"start /B start cmd.exe @cmd /k python src/AutoML/ImageClassifier.py --ProjectName={self.project_name} --OutputPath={self.output_path_ml} --DataPath={self.data_loader_path_ml} --ParamConstraint={self.params_check} --ParamFactor={self.params_factor} --FlopConstraint={self.floats_check} --FlopFactor={self.floats_factor} --ComplexConstraint={self.complex_check} --ComplexFactor={self.complex_factor} --MaxSize={self.max_size} --MaxTrials={self.max_trials} --MaxEpochs={self.max_epoch}"
         )
 
-    if self.target == "imageRegression":
+    if self.task == "imageRegression":
         os.system(
-            f"start /B start cmd.exe @cmd /k python autoML/ImageRegressor.py --ProjectName={self.project_name} --OutputPath={self.output_path_ml} --DataPath={self.data_loader_path_ml} --ParamConstraint={self.params_check} --ParamFactor={self.params_factor} --FlopConstraint={self.floats_check} --FlopFactor={self.floats_factor} --ComplexConstraint={self.complex_check} --ComplexFactor={self.complex_factor} --MaxSize={self.max_size} --MaxTrials={self.max_trials} --MaxEpochs={self.max_epoch}"
+            f"start /B start cmd.exe @cmd /k python src/AutoML/ImageRegressor.py --ProjectName={self.project_name} --OutputPath={self.output_path_ml} --DataPath={self.data_loader_path_ml} --ParamConstraint={self.params_check} --ParamFactor={self.params_factor} --FlopConstraint={self.floats_check} --FlopFactor={self.floats_factor} --ComplexConstraint={self.complex_check} --ComplexFactor={self.complex_factor} --MaxSize={self.max_size} --MaxTrials={self.max_trials} --MaxEpochs={self.max_epoch}"
         )
 
 
@@ -46,9 +62,9 @@ def get_output_path_ml(self, CurWindow):
 
 
 def get_data_loader_path_ml(self, CurWindow):
-    self.data_loader_path_ml = QFileDialog.getOpenFileName(
+    self.data_loader_path_ml = QFileDialog.getExistingDirectory(#getOpenFileName(
         self, "Select your data loader script", "./"
-    )[0]
+    )#[0]
     CurWindow.Daten_Pfad.setText(self.data_loader_path_ml)
     print(CurWindow.Daten_Pfad.text())
 

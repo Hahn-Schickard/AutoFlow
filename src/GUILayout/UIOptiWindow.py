@@ -18,12 +18,13 @@ class UIOptiWindow(QWidget):
     pruning and quantization. The pruning factors can be passed via
     input fields, and the quantization data type via buttons.
     """
-    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, parent=None):
+    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, target, parent=None):
         super(UIOptiWindow, self).__init__(parent)
 
         self.WINDOW_WIDTH = WINDOW_WIDTH
         self.WINDOW_HEIGHT = WINDOW_HEIGHT
-        self.FONT_STYLE = FONT_STYLE       
+        self.FONT_STYLE = FONT_STYLE
+        self.target = target
         
         self.label = QLabel("Optimization")
         self.label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
@@ -91,26 +92,34 @@ class UIOptiWindow(QWidget):
         self.Quantization = QPushButton(self)
         self.Quantization.setIcon(QIcon(os.path.join('src','GUILayout','Images','Quantization_Button.png')))
         self.Quantization.setIconSize(QSize(0.35*self.WINDOW_WIDTH, 0.35*self.WINDOW_WIDTH))
-        self.Quantization.setCheckable(True)
         self.Quantization.setFixedWidth(0.35*self.WINDOW_WIDTH)
         self.Quantization.setFixedHeight(0.35*self.WINDOW_WIDTH)
-        self.Quantization.setToolTip('Optimize the network through quantization.\n'
-                                     'This reduces the number of bits required\n'
-                                     'to represent the value of the weights.\n'
-                                     'For example, a fourfold reduction of the\n'
-                                     'required memory space can be achieved by\n'
-                                     'converting the weights from 32-bit float\n'
-                                     'values to 8-bit integer values.')
+        if "EmbeddedPC" in self.target:
+            self.Quantization.setEnabled(False)
+            self.Quantization.setToolTip('No quantization possible for embedded PCs.')
+        else:
+            self.Quantization.setCheckable(True)
+            self.Quantization.setToolTip('Optimize the network through quantization.\n'
+                                        'This reduces the number of bits required\n'
+                                        'to represent the value of the weights.\n'
+                                        'For example, a fourfold reduction of the\n'
+                                        'required memory space can be achieved by\n'
+                                        'converting the weights from 32-bit float\n'
+                                        'values to 8-bit integer values.')
         self.Quantization.setStyleSheet("""QToolTip { 
-                           font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
-                           background-color : rgb(53, 53, 53);
-                           color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover
-                           {
-                           background-color : rgb(10, 100, 200);
-                           }""")
+                        font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
+                        background-color : rgb(53, 53, 53);
+                        color: white; 
+                        border: black solid 1px
+                        }
+                        QPushButton::disabled
+                        {
+                        background-color : rgb(30, 30, 30);
+                        }
+                        QPushButton::hover
+                        {
+                        background-color : rgb(10, 100, 200);
+                        }""")
         
         self.prun_fac = QPushButton("Factor", self)
         self.prun_fac.setFixedWidth(0.12*self.WINDOW_WIDTH)

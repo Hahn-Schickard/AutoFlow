@@ -73,7 +73,7 @@ class UIDataloaderWindow(QWidget):
                            font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px}""") 
+                           border: black solid 1px}""")
         
         self.Back = QPushButton(self)
         self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))

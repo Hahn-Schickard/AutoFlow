@@ -18,7 +18,7 @@ def LoadWindow(self):
     selected, the optimization algorithms are applied if any are
     selected. Also, the model is converted and the files are created.
     """
-    self.Window5 = UILoadWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.model_path, self.project_name, self.output_path, self.data_loader_path, self.optimizations, self.prun_type, self.prun_factor_dense, self.prun_factor_conv, self.prun_acc_type, self.prun_acc, self.quant_dtype, self.separator, self.csv_target_label, self)
+    self.Window5 = UILoadWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.model_path, self.project_name, self.output_path, self.data_loader_path, self.optimizations, self.prun_type, self.prun_factor_dense, self.prun_factor_conv, self.prun_acc_type, self.prun_acc, self.quant_dtype, self.separator, self.csv_target_label, self.target, self)
     
     if isinstance(self.model_memory, int):
         self.Window5.model_memory.setText(str(self.model_memory))

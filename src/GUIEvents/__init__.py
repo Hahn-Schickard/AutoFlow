@@ -62,7 +62,6 @@ class MainWindow(QMainWindow):
     from ._StartWindow import StartWindow
     from ._TargetWindow import TargetWindow
     from ._TaskWindow import TaskWindow
-    from ._ConstraintsWindow import ConstraintsWindow
     from ._ReturnWindow import ReturnWindow
     from ._AutoMLWindow import AutoMLWindow
     from ._DataloaderWindow import DataloaderWindow
@@ -155,6 +154,7 @@ class MainWindow(QMainWindow):
         self.prun_acc = None
         self.quant_dtype = None
         
+        self.task = None
         self.params_factor = 1
         self.floats_factor = 1
         self.complex_factor = 1

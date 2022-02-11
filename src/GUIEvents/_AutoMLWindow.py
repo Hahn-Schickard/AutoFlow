@@ -1,3 +1,8 @@
+''' Copyright [2020] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Marcel Sawrin + Marcus Rueb
+    Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
+    SPDX-License-Identifier: Apache-2.0
+============================================================================================================'''
+
 """This is a splittet method from the Mainwindow class which contain the logic for the AutoMLWindow window
 
 The programmed logic in this method defines the workflow and path for the GUI. Especially
@@ -10,7 +15,7 @@ The programmed logic in this method defines the workflow and path for the GUI. E
 from src.GUILayout.UIAutoMLWindow import *
 
    
-def AutoMLWindow(self, n):         
+def AutoMLWindow(self):         
     """Define Logic for the AutoMLWindow GUI
 
     Retrieves the parameter class and set the data path, project path and output path
@@ -27,20 +32,26 @@ def AutoMLWindow(self, n):
 
     Raises:
       IOError: An error occurred accessing the parameterset.
-    """    
-    if n == "Next":
-        self.max_epoch = self.Window4.epochs_factor.text()
-        self.max_trials = self.Window4.max_trials_factor.text()
-        self.max_size = self.Window4.max_size_factor.text()
-
+    """
     
     self.Window5 = UIAutoMLWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
       
-    self.Window5.Back.clicked.connect(lambda:self.SettingsWindow("Back"))
-    self.Window5.Start.clicked.connect(lambda:self.ReturnWindow("Next"))
+    self.Window5.Back.clicked.connect(lambda:nextWindow(self,"Back"))
+    self.Window5.Start.clicked.connect(lambda:nextWindow(self,"Next"))
    
     self.Window5.Finish.clicked.connect(self.close)
 
     
     self.setCentralWidget(self.Window5)
     self.show()
+
+
+
+def nextWindow(self,n):
+
+    if n == "Back":
+        self.SettingsWindow()
+
+    elif n == "Next":
+        self.start_autokeras()
+        self.ReturnWindow()

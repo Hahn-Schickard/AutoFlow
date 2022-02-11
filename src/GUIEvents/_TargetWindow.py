@@ -40,6 +40,7 @@ def TargetWindow(self):
 
 def nextWindow(self, target):
     self.target = target
+    print(self.target)
     
     if self.target == "uC" or self.target == "FPGA" or self.target == "EmbeddedPC":
         self.OptiWindow()

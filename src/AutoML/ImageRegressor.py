@@ -32,17 +32,7 @@ def ImageClassifier(args):
             
     x_train, y_train, x_test, y_test = datascript.get_data()
     
-    
-    # Initialize the image classifier.
-    ak.ImageRegressorEmbedded.embedded_init(args.ParamConstraint,
-                                        args.ParamFactor,
-                                        args.FlopConstraint,
-                                        args.FlopFactor,
-                                        args.ComplexConstraint,
-                                        args.ComplexFactor,
-                                        args.MaxSize)
-    
-    reg = ak.ImageRegressorEmbedded(max_trials=args.MaxTrials, overwrite = args.Overwrite) # It tries 10 different models.
+    reg = ak.ImageRegressor(max_trials=args.MaxTrials, overwrite = args.Overwrite) # It tries 10 different models.
     # Feed the image classifier with training data.
     cifar_validation_data = x_test, y_test
     reg.fit(x_train, y_train, epochs=args.MaxEpochs, validation_data=cifar_validation_data)

@@ -349,75 +349,6 @@ def set_quant_dtype(self, dtype, CurWindow):
             self.quant_dtype = dtype
     print(self.quant_dtype)
 
-def set_knowledge_distillation(self, CurWindow):
-    """Adds or removes knonwledge distillation from optimization.
-
-    If "self.optimizations" doesn't contain konwledge distillation
-    it gets added. Otherwise it gets removed.
-
-    Args:
-        CurWindow: GUI window from which the function is executed.
-    """
-    if CurWindow.Dis.isChecked() == True:
-        if not "Knowledge_Distillation" in self.optimizations:
-            self.optimizations.append("Knowledge_Distillation")
-            print(self.optimizations)
-        CurWindow.Dis_1.setText("10")
-        CurWindow.Dis_2.setText("10")
-        CurWindow.Dis_1.setVisible(True)
-        CurWindow.Dis_2.setVisible(True)
-        CurWindow.Dis_1_label.setVisible(True)
-        CurWindow.Dis_2_label.setVisible(True)
-
-        CurWindow.Dis.setIconSize(QSize(100, 100))
-        CurWindow.Dis.setGeometry(145, 320, 120, 120)
-
-    else:
-        if "Knowledge_Distillation" in self.optimizations:
-            self.optimizations.remove("Knowledge_Distillation")
-            print(self.optimizations)
-        CurWindow.Dis_1.setVisible(False)
-        CurWindow.Dis_2.setVisible(False)
-        CurWindow.Dis_1_label.setVisible(False)
-        CurWindow.Dis_2_label.setVisible(False)
-
-        CurWindow.Dis.setIconSize(QSize(150, 150))
-        CurWindow.Dis.setGeometry(120, 320, 170, 170)
-
-def set_huffman_coding(self, CurWindow):
-    """Adds or removes huffman coding from optimization.
-
-    If "self.optimizations" doesn't contain huffman coding it 
-    gets added. Otherwise it gets removed.
-
-    Args:
-        CurWindow: GUI window from which the function is executed.
-    """
-    if CurWindow.Huf.isChecked() == True:
-        if not "Huffman_Coding" in self.optimizations:
-            self.optimizations.append("Huffman_Coding")
-            print(self.optimizations)
-        CurWindow.Huf_1.setText("10")
-        CurWindow.Huf_2.setText("10")
-        CurWindow.Huf_1.setVisible(True)
-        CurWindow.Huf_2.setVisible(True)
-        CurWindow.Huf_1_label.setVisible(True)
-        CurWindow.Huf_2_label.setVisible(True)
-
-        CurWindow.Huf.setIconSize(QSize(100, 100))
-        CurWindow.Huf.setGeometry(540, 320, 120, 120)
-
-    else:
-        if "Huffman_Coding" in self.optimizations:
-            self.optimizations.remove("Huffman_Coding")
-            print(self.optimizations)
-        CurWindow.Huf_1.setVisible(False)
-        CurWindow.Huf_2.setVisible(False)
-        CurWindow.Huf_1_label.setVisible(False)
-        CurWindow.Huf_2_label.setVisible(False)
-
-        CurWindow.Huf.setIconSize(QSize(150, 150))
-        CurWindow.Huf.setGeometry(515, 320, 170, 170)
 
 def model_pruning(self, CurWindow):
     """Starts the thread to prune the model.
@@ -474,7 +405,7 @@ def model_pruning(self, CurWindow):
     CurWindow.prune_model.start()
 
 
-def download(self, CurWindow):
+def download(self, CurWindow): #change name
     """Starts the thread to convert the model and create the project.
 
     The thread for pruning the model gets terminated and the thread
@@ -485,7 +416,8 @@ def download(self, CurWindow):
     """
     try:
         CurWindow.prune_model.stop_thread()
-        CurWindow.conv_build_load.set_model_memory(self.model_memory)
+        if "uC" in self.target:
+            CurWindow.conv_build_load.set_model_memory(self.model_memory)
         CurWindow.conv_build_load.start()
     except:
         print("Error")
@@ -508,7 +440,7 @@ def terminate_thread(self, CurWindow):
         CurWindow.conv_build_load.stop_thread()
         CurWindow.Finish_placeholder.setVisible(False)
         CurWindow.Finish.setVisible(True)
-        CurWindow.Loadpng.setPixmap(QPixmap(os.path.join("Images", "GUI_loading_images", "GUI_load_finish.png")))
+        CurWindow.Loadpng.setPixmap(QPixmap(os.path.join("src", "GUILayout", "Images", "GUI_loading_images", "GUI_load_finish.png")))
         CurWindow.Loadpng.setScaledContents(True)
     except:
         print("Error")
@@ -785,24 +717,3 @@ def get_separator(self, CurWindow):
             self.separator += '|' + CurWindow.other_separator.text()
         
     print(self.separator)
-
-
-
-class ThresholdCallback(tf.keras.callbacks.Callback):
-    """Custom callback for model training.
-
-    This is a custom callback function. You can define an accuracy threshold
-    value when the model training should be stopped.
-
-    Attributes:
-        threshold: Accuracy value to stop training.
-    """
-
-    def __init__(self, threshold):
-        super(ThresholdCallback, self).__init__()
-        self.threshold = threshold
-
-    def on_epoch_end(self, epoch, logs=None): 
-        val_acc = logs["val_accuracy"]        
-        if val_acc >= self.threshold:
-            self.model.stop_training = True

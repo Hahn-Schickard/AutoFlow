@@ -1,13 +1,13 @@
 # Python v.3.8.12
 # pip v.21.3.1
+# Use TensorFlow with gpu support:
+Tensorflow-gpu==2.5.*
+# Use TensorFlow without gpu support:
+# Tensorflow==2.5.*
+autokeras==1.0.16
+keras-tuner==1.0.4
 PyQt5==5.15.6
-# Tensorflow-gpu==2.6.*
-# Tensorflow==2.6.*
 pandas==1.3.4
 Pillow==9.0.0
 scikit-learn==1.0.2
 hls4ml==0.6.0
-
-Tensorflow-gpu==2.5.*
-autokeras==1.0.16
-keras-tuner

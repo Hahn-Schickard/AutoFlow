@@ -19,7 +19,7 @@ def OptiWindow(self):
     for the quantization via buttons.
     """
 
-    self.Window3 = UIOptiWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
+    self.Window3 = UIOptiWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.target, self)
     
     if "Pruning" in self.optimizations:
         self.Window3.Pruning.setChecked(True)
@@ -50,8 +50,6 @@ def OptiWindow(self):
     """    
     self.Window3.Pruning.toggled.connect(lambda:self.set_pruning(self.Window3))
     self.Window3.Quantization.toggled.connect(lambda:self.set_quantization(self.Window3))
-    #self.Window3.Dis.toggled.connect(lambda:self.set_knowledge_distillation(self.Window3))
-    #self.Window3.Huf.toggled.connect(lambda:self.set_huffman_coding(self.Window3))
     
     self.Window3.prun_fac.clicked.connect(lambda:self.set_prun_type("Factor", self.Window3, False))
     self.Window3.prun_acc.clicked.connect(lambda:self.set_prun_type("Accuracy", self.Window3, False))
@@ -83,20 +81,6 @@ def nextWindow(self,n):
                 self.prun_acc = ""
                 self.prun_factor_dense = ""
                 self.prun_factor_conv = ""
-        if "Knowledge_Distillation" in self.optimizations:
-            try:
-                self.Know_Dis_1 = int(self.Window3.Dis_1.text())
-                self.Know_Dis_2 = int(self.Window3.Dis_2.text())
-            except:
-                self.Know_Dis_1 = ""
-                self.Know_Dis_2 = ""
-        if "Huffman_Coding" in self.optimizations:
-            try:
-                self.Huffman_1 = int(self.Window3.Huf_1.text())
-                self.Huffman_2 = int(self.Window3.Huf_2.text())
-            except:
-                self.Huffman_1 = ""
-                self.Huffman_2 = ""
         
         self.TargetWindow()
     
@@ -189,33 +173,6 @@ def nextWindow(self,n):
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             msg.exec_()
             return
-            
-        if "Knowledge_Distillation" in self.optimizations:
-            try:                
-                self.Know_Dis_1 = int(self.Window3.Dis_1.text())
-                self.Know_Dis_2 = int(self.Window3.Dis_2.text())
-            except:
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Warning)
-                 
-                msg.setText("Please enter a number for Knowledge Distillation or disable it.")
-                msg.setWindowTitle("Warning")
-                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-                msg.exec_()
-                return
-        if "Huffman_Coding" in self.optimizations:
-            try:                
-                self.Huffman_1 = int(self.Window3.Huf_1.text())
-                self.Huffman_2 = int(self.Window3.Huf_2.text())
-            except:
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Warning)
-                 
-                msg.setText("Please enter a number for Huffman Coding or disable it.")
-                msg.setWindowTitle("Warning")
-                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-                msg.exec_()
-                return
         
         if not self.optimizations:
             self.LoadWindow()

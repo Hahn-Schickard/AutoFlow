@@ -14,6 +14,7 @@ from PyQt5.QtCore import *
 
 from src.Threads.Loading_images_thread import * 
 from src.Threads.Create_project_thread import *
+from src.Threads.Create_project_thread_FPGA import *
 from src.Threads.Prune_model_thread import *
 
 
@@ -23,7 +24,7 @@ class UILoadWindow(QWidget):
     If selected the model get optimized. After that it gets converted
     and all necessary files get created.
     """
-    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, model_path, project_name, output_path, data_loader_path, optimizations, prun_type, prun_factor_dense, prun_factor_conv, prun_acc_type, prun_acc, quant_dtype, separator, csv_target_label, parent=None):
+    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, model_path, project_name, output_path, data_loader_path, optimizations, prun_type, prun_factor_dense, prun_factor_conv, prun_acc_type, prun_acc, quant_dtype, separator, csv_target_label, target, parent=None):
         super(UILoadWindow, self).__init__(parent)
         
         self.WINDOW_WIDTH = WINDOW_WIDTH
@@ -42,6 +43,7 @@ class UILoadWindow(QWidget):
         self.quant_dtype = quant_dtype
         self.separator = separator
         self.csv_target_label = csv_target_label
+        self.target = target
         
         
         self.label = QLabel("Create Projectfiles")
@@ -61,7 +63,7 @@ class UILoadWindow(QWidget):
         self.model_memory_label.setFixedWidth(0.19*self.WINDOW_WIDTH)
         self.model_memory_label.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.model_memory_label.setAlignment(Qt.AlignLeft)
-        
+    
         self.model_memory = QLineEdit(self)
         self.model_memory.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.model_memory.setFixedWidth(0.075*self.WINDOW_WIDTH)
@@ -73,6 +75,11 @@ class UILoadWindow(QWidget):
         self.model_memory_label_kb.setFixedWidth(0.57*self.WINDOW_WIDTH)
         self.model_memory_label_kb.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.model_memory_label_kb.setAlignment(Qt.AlignLeft)
+
+        if not "uC" in self.target:
+            self.model_memory_label.setVisible(False)
+            self.model_memory.setVisible(False)
+            self.model_memory_label_kb.setVisible(False)
 
         self.summary = QLabel("Summary")
         self.summary.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
@@ -275,7 +282,16 @@ class UILoadWindow(QWidget):
 
         
         if 'Pruning' in optimizations:
-            self.conv_build_load = Convert_Build(str(self.model_path[:-3]) + '_pruned.h5', self.project_name, self.output_path, self.optimizations, self.data_loader_path, self.quant_dtype, self.separator, self.csv_target_label)
+            if 'uC' in self.target:
+                self.conv_build_load = Convert_Build(str(self.model_path[:-3]) + '_pruned.h5', self.project_name, self.output_path, self.optimizations, self.data_loader_path, self.quant_dtype, self.separator, self.csv_target_label)
+            elif 'FPGA' in self.target:
+                self.conv_build_load = Convert_Build_Loading_FPGA(str(self.model_path[:-3]) + '_pruned.h5', self.project_name, self.output_path)
+            elif 'EmbeddedPC' in self.target:
+                self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations, self.data_loader_path, self.quant_dtype, self.separator, self.csv_target_label)
         else:
-            self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations, self.data_loader_path, self.quant_dtype, self.separator, self.csv_target_label)
-            
+            if 'uC' in self.target:
+                self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations, self.data_loader_path, self.quant_dtype, self.separator, self.csv_target_label)
+            elif 'FPGA' in self.target:
+                self.conv_build_load = Convert_Build_Loading_FPGA(self.model_path, self.project_name, self.output_path)
+            elif 'EmbeddedPC' in self.target:
+                self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations, self.data_loader_path, self.quant_dtype, self.separator, self.csv_target_label)

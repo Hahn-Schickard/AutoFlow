@@ -12,7 +12,27 @@ from tensorflow.keras.callbacks import EarlyStopping
 import tensorflow as tf
 import os
 
-from src.GUIEvents._Helper import ThresholdCallback
+
+
+class ThresholdCallback(tf.keras.callbacks.Callback):
+    """Custom callback for model training.
+
+    This is a custom callback function. You can define an accuracy threshold
+    value when the model training should be stopped.
+
+    Attributes:
+        threshold: Accuracy value to stop training.
+    """
+
+    def __init__(self, threshold):
+        super(ThresholdCallback, self).__init__()
+        self.threshold = threshold
+
+    def on_epoch_end(self, epoch, logs=None): 
+        val_acc = logs["val_accuracy"]        
+        if val_acc >= self.threshold:
+            self.model.stop_training = True
+
 
 
 def get_layer_shape_dense(new_model_param,layer):	
@@ -97,9 +117,9 @@ def delete_dense_neuron(new_model_param, layer_types, layer_output_shape, layer_
     
     "If the current layer is a dense layer, weights and the bias are removed for the given layer and neuron"
     if layer_types[layer] == "Dense":
-        new_model_param[layer][0] = np.delete(new_model_param[layer][0], neuron, axis=1)   #weight
+        new_model_param[layer][0] = np.delete(new_model_param[layer][0], neuron, axis=1)        # Weight
         if layer_bias[layer] == True:
-            new_model_param[layer][1] = np.delete(new_model_param[layer][1], neuron, axis=0)   #Bias
+            new_model_param[layer][1] = np.delete(new_model_param[layer][1], neuron, axis=0)    # Bias
         
         "The new output shape of the layer is restored"
         layer_output_shape[layer][1] = get_layer_shape_dense(new_model_param, layer)
@@ -112,7 +132,7 @@ def delete_dense_neuron(new_model_param, layer_types, layer_output_shape, layer_
         
         for i in range(layer+1,len(new_model_param)):
             if layer_types[i] == "Dense":
-                new_model_param[i][0] = np.delete(new_model_param[i][0], neuron, axis=0)   #Parameters also have to be deleted from the next weight matrix
+                new_model_param[i][0] = np.delete(new_model_param[i][0], neuron, axis=0)   # Parameters also have to be deleted from the next weight matrix
                 return new_model_param, layer_output_shape
             
             "If there is a layer with no parameters like max_pool between the current and the next dense layer"
@@ -144,9 +164,9 @@ def delete_filter(new_model_param, layer_types, layer_output_shape, layer_bias, 
     
     "If the current layer is a conv layer, weights and the bias are removed for the given layer and filter"
     if layer_types[layer] == "Conv2D":
-        new_model_param[layer][0] = np.delete(new_model_param[layer][0], filter, axis=3)   #Delete Filter
+        new_model_param[layer][0] = np.delete(new_model_param[layer][0], filter, axis=3)        # Delete Filter
         if layer_bias[layer] == True:
-            new_model_param[layer][1] = np.delete(new_model_param[layer][1], filter, axis=0)   #Delete Bias
+            new_model_param[layer][1] = np.delete(new_model_param[layer][1], filter, axis=0)    # Delete Bias
         
         "The new output shape of the layer is restored"
         layer_output_shape[layer][3] = get_layer_shape_conv(new_model_param, layer)
@@ -471,7 +491,7 @@ def build_pruned_model(model, new_model_param, layer_types, num_new_neurons, num
         
         
     for i in range(0,len(model_config['layers'])-3):
-        if model_config['layers'][i+a]['class_name'] == "Dense": #i+1 because first layer of model is the inputlayer
+        if model_config['layers'][i+a]['class_name'] == "Dense":    # i+1 because first layer of model is the inputlayer
             print("Dense")
             model_config['layers'][i+a]['config']['units'] = num_new_neurons[i]
 
@@ -483,7 +503,7 @@ def build_pruned_model(model, new_model_param, layer_types, num_new_neurons, num
             temp_list = list(model_config['layers'][i+a]['config']['target_shape'])
             cur_layer=i
             cur_filters = num_new_filters[cur_layer]
-            #Get number of filters of last Conv layer
+            # Get number of filters of last Conv layer
             if cur_filters == 0:
                 while cur_filters==0:
                     cur_layer-=1
@@ -628,7 +648,7 @@ def pruning_for_acc(keras_model, x_train, x_val_y_train, comp, pruning_acc=None,
                 validation_data=x_val_y_train, validation_steps=len(x_val_y_train), epochs=train_epochs, callbacks=callbacks)
              
         if history.history['val_accuracy'][-1] < req_acc:
-            #Required accuracy is not reached
+            # Required accuracy is not reached
             if lowest_pruning_factor_not_working > pruning_factor:
                 lowest_pruning_factor_not_working = pruning_factor
 
@@ -650,9 +670,9 @@ def pruning_for_acc(keras_model, x_train, x_val_y_train, comp, pruning_acc=None,
                 last_pruning_step = 10
 
         else:
-            #Required accuracy is reached
+            # Required accuracy is reached
             pruned_model = model
-            #Set pruning factor for next pruning step   
+            # Set pruning factor for next pruning step   
             if len(history.history['val_accuracy']) <= int(0.3*train_epochs):
                 pruning_factor += 15
                 last_pruning_step = 15
@@ -668,8 +688,8 @@ def pruning_for_acc(keras_model, x_train, x_val_y_train, comp, pruning_acc=None,
                 
                 
         if lowest_pruning_factor_not_working < pruning_factor:
-            #Check if pruning factor is higher than the lowest one which didn't work
-            #and adjust the pruning factor if it's true
+            # Check if pruning factor is higher than the lowest one which didn't work
+            # and adjust the pruning factor if it's true
             if lowest_pruning_factor_not_working - (pruning_factor-last_pruning_step) <= 2:
                 print("Pruningfactor dense and conv: " + str(pruning_factor-last_pruning_step))
                 return pruned_model
@@ -678,11 +698,11 @@ def pruning_for_acc(keras_model, x_train, x_val_y_train, comp, pruning_acc=None,
                 last_pruning_step = 2
 
         if all_pruning_factors.count(pruning_factor) >= 1:
-            #Check if the pruning factor for next iteration was already applied
+            # Check if the pruning factor for next iteration was already applied
             if history.history['val_accuracy'][-1] < req_acc:
-                #If required accuracy wasn't reached, the pruning factor is lowered in the step before.
-                #If the new pruning factor was already applied, this is one which worked,
-                #so you increase it a little step.
+                # If required accuracy wasn't reached, the pruning factor is lowered in the step before.
+                # If the new pruning factor was already applied, this is one which worked,
+                # so you increase it a little step.
                 if last_pruning_step == 2 or last_pruning_step == 5:
                     pruning_factor += 2
                     last_pruning_step = 2
@@ -693,9 +713,9 @@ def pruning_for_acc(keras_model, x_train, x_val_y_train, comp, pruning_acc=None,
                     pruning_factor += 10
                     last_pruning_step = 10
             else:
-                #If required accuracy was reached, the pruning factor is increased in the step before.
-                #If the new pruning factor was already applied, this is one which didn't work,
-                #so you lower it a little step.
+                # If required accuracy was reached, the pruning factor is increased in the step before.
+                # If the new pruning factor was already applied, this is one which didn't work,
+                # so you lower it a little step.
                 if last_pruning_step == 2 or last_pruning_step == 5:
                     pruning_factor -= 3
                     last_pruning_step = 2

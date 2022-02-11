@@ -1,6 +1,8 @@
 ''' Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
     SPDX-License-Identifier: Apache-2.0
-============================================================================================================'''"""This is the start file to run the AUTOFlow GUI
+============================================================================================================'''
+
+"""This is the start file to run the AUTOFlow GUI
 
 In this file we import the libarys and define the GUI with all the layouts
 
@@ -10,8 +12,6 @@ In this file we import the libarys and define the GUI with all the layouts
 """
 
 import sys
-import os
-import math
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *

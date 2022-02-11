@@ -25,12 +25,12 @@
 ## Table of Contents
 - [Features](#features)
 - [Installation](#installation)
-- [Flowchart](#flowchart)
-- [Get Started](#get-started)<!--[FAQ](#faq)-->
-- [API](#api)
+- [GUI Flowchart](#gui-flowchart)
+- [Get Started](#get-started)<!--[FAQ](#faq)[API](#api)-->
 - [Upcoming](#upcoming)
 - [See Also](#see-also)
 - [Support](#support)
+- [License](#license)
 
 
 
@@ -56,9 +56,12 @@ sudo apt-get install qttools5-dev-tools -y
 ```
 
 
-## Flowchart
+## GUI Flowchart
 
-<img src="./src/GUILayout/Images/Flowchart.svg">
+The image below shows the different steps of the AUTOflow GUI.
+<p align="center">
+<img src="https://github.com/Hahn-Schickard/AUTOflow/blob/main/src/GUILayout/Images/Flowchart.svg">
+</p>
 
 
 
@@ -111,7 +114,7 @@ If quantization is selected, you can choose between two options:
 
 The next window appears only if at least one optimization algorithm has been selected. In this window the training data are selected which the neural network requires for the optimization. The data can be transferred in different ways:
 - Path: Images are to be used as training data. In the given path there are subfolders containing the name of the different classes of the neural network and the corresponding images.
-- File (CSV file): The data is stored in a CSV file.
+- File (CSV file): The data is stored in a CSV file. An example of how such a file can look like can be found [here](https://github.com/Hahn-Schickard/AUTOflow/blob/main/Example/Input_data/Datenvorverarbeitung_EMNIST.py).
 - File (Python file): The data is loaded and returned in a Python script. Here it is important that the Python script contains the function get_data() with the return values x_train, y_train, x_test, y_test (training data, training label, test data, test label). The return values here are Numpy arrays.
 
 <p align="center">
@@ -152,21 +155,3 @@ If you need help, please open a new issue and ask your questions. If you have su
 
 ## License
 Code released under the [Apache-2.0 License](LICENSE).
-
-[nanocomponent]: https://github.com/choojs/nanocomponent
-[nanolru]: https://github.com/s3ththompson/nanolru
-[bankai]: https://github.com/choojs/bankai
-[nanohtml]: https://github.com/choojs/nanohtml
-[browserify]: https://github.com/substack/node-browserify
-[budo]: https://github.com/mattdesl/budo
-[es2020]: https://github.com/yoshuawuyts/es2020
-[handbook]: https://github.com/yoshuawuyts/choo-handbook
-[hyperx]: https://github.com/substack/hyperx
-[morphdom-bench]: https://github.com/patrick-steele-idem/morphdom#benchmarks
-[nanomorph]: https://github.com/choojs/nanomorph
-[nanorouter]: https://github.com/choojs/nanorouter
-[yo-yo]: https://github.com/maxogden/yo-yo
-[unassertify]: https://github.com/unassert-js/unassertify
-[window-performance]: https://developer.mozilla.org/en-US/docs/Web/API/Performance
-
-

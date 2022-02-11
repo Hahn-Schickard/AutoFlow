@@ -1,4 +1,4 @@
-.gitignore.txt
+auto_model/
 __pycache__/
 image_classifier/
 image_regressor/
@@ -8,14 +8,3 @@ Auto_TF_to_uC/__pycache__/convert_keras_to_cc.cpython-37.pyc
 Auto_TF_to_uC/__pycache__/write_files_uc.cpython-37.pyc
 Threads/__pycache__/Loading_images_thread.cpython-37.pyc
 Threads/__pycache__/Prune_model_thread.cpython-37.pyc
-UIWindows/__pycache__/UIHelperWindow.cpython-37.pyc
-UIWindows/__pycache__/UILoadWindow.cpython-37.pyc
-UIWindows/__pycache__/UIMarcusWindow1.cpython-37.pyc
-UIWindows/__pycache__/UIMarcusWindow2.cpython-37.pyc
-UIWindows/__pycache__/UIMarcusWindow3.cpython-37.pyc
-UIWindows/__pycache__/UIMarcusWindow4.cpython-37.pyc
-UIWindows/__pycache__/UIMarcusWindow5.cpython-37.pyc
-UIWindows/__pycache__/UIOptiWindow.cpython-37.pyc
-UIWindows/__pycache__/UIRestrictionWindow.cpython-37.pyc
-UIWindows/__pycache__/UIStartWindow.cpython-37.pyc
-UIWindows/__pycache__/UITargetWindow.cpython-37.pyc

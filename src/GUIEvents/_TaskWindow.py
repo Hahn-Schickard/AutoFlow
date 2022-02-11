@@ -1,3 +1,8 @@
+''' Copyright [2020] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Marcel Sawrin + Marcus Rueb
+    Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
+    SPDX-License-Identifier: Apache-2.0
+============================================================================================================'''
+
 """This is a splittet method from the Mainwindow class which contain the logic for the TaskWindow window
 
 The programmed logic in this method defines the workflow and path for the GUI. Especially
@@ -10,7 +15,7 @@ The programmed logic in this method defines the workflow and path for the GUI. E
 from src.GUILayout.UITaskWindow import *
 
         
-def TaskWindow(self, n):
+def TaskWindow(self):
     """Define Logic for the TaskWindow GUI
 
     Retrieves the parameter class and set the data path, project path and output path
@@ -27,48 +32,43 @@ def TaskWindow(self, n):
 
     Raises:
       IOError: An error occurred accessing the parameterset.
-    """
-    if n == "Next":
-        
-        self.project_name = self.AutoMLDataWindow.Projekt_Name.text()
-        self.output_path_ml = self.AutoMLDataWindow.Output_Pfad.text()
-        self.data_loader_path_ml = self.AutoMLDataWindow.Daten_Pfad.text()
-            
-    if self.project_name == "" or self.output_path_ml == "":
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Warning)
-         
-        msg.setText("Please enter your data")
-        msg.setWindowTitle("Warning")
-        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        msg.exec_()
-        
-        return
-    
-    if n == "Back":
-        
-        if "Params" in self.constraints:
-            self.params_factor = float(self.Window3.Params_factor.text())
-        if "Floats" in self.constraints:
-            self.floats_factor = float(self.Window3.Floats_factor.text())
-        if "Complex" in self.constraints:
-            self.complex_factor = float(self.Window3.Complex_factor.text())
-
-    print(self.data_loader_path_ml)
-    
+    """    
     
     self.Window2 = UITaskWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
     
-    self.Window2.ImageClassification.clicked.connect(lambda:self.ConstraintsWindow("Next","imageClassification"))
-    self.Window2.ImageRegression.clicked.connect(lambda:self.ConstraintsWindow("Next","imageRegression"))
-    self.Window2.TextClassification.clicked.connect(lambda:self.ConstraintsWindow("Next","textClassification"))
-    self.Window2.TextRegression.clicked.connect(lambda:self.ConstraintsWindow("Next","textRegression"))
-    self.Window2.DataClassification.clicked.connect(lambda:self.ConstraintsWindow("Next","dataClassification"))
-    self.Window2.DataRegression.clicked.connect(lambda:self.ConstraintsWindow("Next","dataRegression"))
+    self.Window2.ImageClassification.clicked.connect(lambda:nextWindow(self,"Next","imageClassification"))
+    self.Window2.ImageRegression.clicked.connect(lambda:nextWindow(self,"Next","imageRegression"))
+    self.Window2.TextClassification.clicked.connect(lambda:nextWindow(self,"Next","textClassification"))
+    self.Window2.TextRegression.clicked.connect(lambda:nextWindow(self,"Next","textRegression"))
+    self.Window2.DataClassification.clicked.connect(lambda:nextWindow(self,"Next","dataClassification"))
+    self.Window2.DataRegression.clicked.connect(lambda:nextWindow(self,"Next","dataRegression"))
 
     
-    self.Window2.Back.clicked.connect(self.AutoMLData)
+    self.Window2.Back.clicked.connect(lambda:nextWindow(self,"Back",None))
     
     self.setCentralWidget(self.Window2)
     self.show()
+
+
+
+def nextWindow(self,n,task):
+
+    if n == "Back":
+        self.AutoMLData()
+
+    elif n == "Next":
+        self.task = task
+        print(self.task)
+
+        if self.task == None:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+             
+            msg.setText("Please choose a task")
+            msg.setWindowTitle("Warning")
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            msg.exec_()
+            return
+
+        self.SettingsWindow()

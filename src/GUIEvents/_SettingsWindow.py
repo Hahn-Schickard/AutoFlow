@@ -1,3 +1,8 @@
+''' Copyright [2020] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Marcel Sawrin + Marcus Rueb
+    Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
+    SPDX-License-Identifier: Apache-2.0
+============================================================================================================'''
+
 """This is a splittet method from the Mainwindow class which contain the logic for the SettingsWindow window
 
 The programmed logic in this method defines the workflow and path for the GUI. Especially
@@ -9,7 +14,7 @@ The programmed logic in this method defines the workflow and path for the GUI. E
 """
 from src.GUILayout.UISettingsWindow import *
         
-def SettingsWindow(self, n):
+def SettingsWindow(self):
     """Define Logic for the SettingsWindow GUI
 
     Retrieves the parameter class and set the data path, project path and output path
@@ -27,82 +32,6 @@ def SettingsWindow(self, n):
     Raises:
       IOError: An error occurred accessing the parameterset.
     """     
-                  
-    
-    if n == "Next":
-        if "Params" in self.constraints:
-            try:
-                print(float(self.Window3.Params_factor.text()))
-                if float(self.Window3.Params_factor.text()) < 0.1 or float(self.Window3.Params_factor.text()) > 10:
-                    msg = QMessageBox()
-                    msg.setIcon(QMessageBox.Warning)
-                     
-                    msg.setText("Enter factor between 0.1 and 10")
-                    msg.setWindowTitle("Warning")
-                    msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-                    msg.exec_()
-                    return
-                
-                self.params_factor = float(self.Window3.Params_factor.text())
-            except:                    
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Warning)
-                 
-                msg.setText("Please enter a number")
-                msg.setWindowTitle("Warning")
-                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-                msg.exec_()
-                return
-        
-        if "Floats" in self.constraints:
-            try:
-                print(float(self.Window3.Floats_factor.text()))
-                if float(self.Window3.Floats_factor.text()) < 0.1 or float(self.Window3.Floats_factor.text()) > 10:
-                    msg = QMessageBox()
-                    msg.setIcon(QMessageBox.Warning)
-                     
-                    msg.setText("Enter factor between 0.1 and 10")
-                    msg.setWindowTitle("Warning")
-                    msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-                    msg.exec_()
-                    return
-                
-                self.floats_factor = float(self.Window3.Floats_factor.text())
-            except:                    
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Warning)
-                 
-                msg.setText("Please enter a number")
-                msg.setWindowTitle("Warning")
-                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-                msg.exec_()
-                return
-            
-        if "Complex" in self.constraints:
-            try:
-                print(float(self.Window3.Complex_factor.text()))
-                if float(self.Window3.Complex_factor.text()) < 0.1 or float(self.Window3.Complex_factor.text()) > 10:
-                    msg = QMessageBox()
-                    msg.setIcon(QMessageBox.Warning)
-                     
-                    msg.setText("Enter factor between 0.1 and 10")
-                    msg.setWindowTitle("Warning")
-                    msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-                    msg.exec_()
-                    return
-                
-                self.complex_factor = float(self.Window3.Complex_factor.text())
-            except:                    
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Warning)
-                 
-                msg.setText("Please enter a number")
-                msg.setWindowTitle("Warning")
-                msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-                msg.exec_()
-                return
-        
-
     self.Window4 = UISettingsWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
 
@@ -110,9 +39,23 @@ def SettingsWindow(self, n):
     self.Window4.max_trials_factor.setText(str(self.max_trials))
     self.Window4.max_size_factor.setText(str(self.max_size))
     
-    self.Window4.Back.clicked.connect(lambda:self.ConstraintsWindow("Back", self.target))
-    self.Window4.Next.clicked.connect(lambda:self.AutoMLWindow("Next"))
+    self.Window4.Back.clicked.connect(lambda:nextWindow(self,"Back"))
+    self.Window4.Next.clicked.connect(lambda:nextWindow(self,"Next"))
     
     
     self.setCentralWidget(self.Window4)
     self.show()
+
+
+
+def nextWindow(self,n):
+
+    if n == "Back":
+        self.TaskWindow()
+
+    elif n == "Next":
+        self.max_epoch = self.Window4.epochs_factor.text()
+        self.max_trials = self.Window4.max_trials_factor.text()
+        self.max_size = self.Window4.max_size_factor.text()
+
+        self.AutoMLWindow()

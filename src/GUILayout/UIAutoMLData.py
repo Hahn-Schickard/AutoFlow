@@ -1,3 +1,9 @@
+''' Copyright [2020] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Marcel Sawrin + Marcus Rueb
+    Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
+    SPDX-License-Identifier: Apache-2.0
+============================================================================================================'''
+
+
 import os
 
 from PyQt5.QtWidgets import *
@@ -17,7 +23,7 @@ class UIAutoMLData(QWidget):
         self.Projekt_Name_label = QLabel("AutoML Projectname:")
         self.Projekt_Name_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         
-        self.Daten_label = QLabel("Datascript:")
+        self.Daten_label = QLabel("Training data:")
         self.Daten_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         
         self.Datapng = QLabel(self)

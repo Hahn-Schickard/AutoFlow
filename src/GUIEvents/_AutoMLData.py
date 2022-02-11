@@ -1,3 +1,8 @@
+''' Copyright [2020] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Marcel Sawrin + Marcus Rueb
+    Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
+    SPDX-License-Identifier: Apache-2.0
+============================================================================================================'''
+
 """This is a splittet method from the Mainwindow class which contain the logic for the AutoMLData window
 
 The programmed logic in this method defines the workflow and path for the GUI. Especially
@@ -6,19 +11,6 @@ The programmed logic in this method defines the workflow and path for the GUI. E
 
   self.GUIStart.load_model.clicked.connect(self.AutoMLData)
 """
-"""                                                                     --> CSVDataloaderWindow --
-                                                                        |                         |
-                                                                        |                         v
-Start  -->  StartWindow  -->  TargetWindow  -->  **OptiWindow**  -->  DataloaderWindow  -->  LoaderWindow
-
-"""
-
-'''
-
-/------/
-/Start/---> 
-/-----/
-'''
 
 
 from src.GUILayout.UIAutoMLData import *
@@ -55,8 +47,35 @@ def AutoMLData(self):
         
         self.AutoMLDataWindow.Output_Pfad_Browse.clicked.connect(lambda:self.get_output_path_ml(self.AutoMLDataWindow))
         self.AutoMLDataWindow.Daten_einlesen_Browse.clicked.connect(lambda:self.get_data_loader_path_ml(self.AutoMLDataWindow))
-        self.AutoMLDataWindow.Next.clicked.connect(lambda:self.TaskWindow("Next"))
-        self.AutoMLDataWindow.Back.clicked.connect(self.GUIStart)
+        self.AutoMLDataWindow.Next.clicked.connect(lambda:nextWindow(self,"Next"))
+        self.AutoMLDataWindow.Back.clicked.connect(lambda:nextWindow(self,"Back"))
         
         self.setCentralWidget(self.AutoMLDataWindow)
         self.show()
+
+
+
+def nextWindow(self,n):
+
+    if n == "Back":
+        self.GUIStart()
+
+    elif n == "Next":
+        self.project_name = self.AutoMLDataWindow.Projekt_Name.text()
+        self.output_path_ml = self.AutoMLDataWindow.Output_Pfad.text()
+        self.data_loader_path_ml = self.AutoMLDataWindow.Daten_Pfad.text()
+
+        if self.project_name == "" or self.output_path_ml == "":
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+
+            msg.setText("Please enter your data")
+            msg.setWindowTitle("Warning")
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            msg.exec_()
+            return
+
+        print(self.project_name)
+        print(self.output_path_ml)
+        print(self.data_loader_path_ml)
+        self.TaskWindow()

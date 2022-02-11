@@ -10,6 +10,8 @@ import argparse
 import importlib.util
 import shutil
 import os
+import sys
+import tensorflow as tf
 
 #import tensorflow as  tf
 
@@ -24,38 +26,70 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 
+def normalize_data(image,label):
+    image = tf.cast(image/255. ,tf.float32)
+    return image,label
+
 
 def ImageClassifier(args):
-    spec = importlib.util.spec_from_file_location("module.name", args.DataPath)
-    datascript = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(datascript)
-            
-    x_train, y_train, x_test, y_test = datascript.get_data()
-    
-    
-    # Initialize the image classifier.
-    ak.ImageClassifierEmbedded.embedded_init(args.ParamConstraint,
-                                        args.ParamFactor,
-                                        args.FlopConstraint,
-                                        args.FlopFactor,
-                                        args.ComplexConstraint,
-                                        args.ComplexFactor,
-                                        args.MaxSize)
-    
-    clf = ak.ImageClassifierEmbedded(max_trials=args.MaxTrials, overwrite = args.Overwrite) # It tries 10 different models.
-    # Feed the image classifier with training data.
-    cifar_validation_data = x_test, y_test
-    clf.fit(x_train, y_train, epochs=args.MaxEpochs, validation_data=cifar_validation_data)
-    
-    
-    # Predict with the best model.
-    predicted_y = clf.predict(x_test)
-    print(predicted_y)
-    
-    
+
+    if os.path.isfile(args.DataPath):
+        if ".csv" in args.DataPath:
+            pass
+            # df = pd.read_csv(data_loader_path, sep=separator, index_col=False)
+
+            # if "First" in csv_target_label:
+            #     X = np.array(df.iloc[:,1:].values)[..., np.newaxis]
+            #     Y = np.array(df.iloc[:,0].values).astype(np.int8)
+            # else:
+            #     X = np.array(df.iloc[:,:-1].values)[..., np.newaxis]
+            #     Y = np.array(df.iloc[:,-1].values).astype(np.int8)
+
+            # return X, Y, False
+
+        else:
+            spec = importlib.util.spec_from_file_location("module.name", args.DataPath)
+            datascript = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(datascript)
+            x_train, y_train, x_test, y_test = datascript.get_data()
+
+    elif os.path.isdir(args.DataPath):
+        train_data = ak.image_dataset_from_directory(
+            args.DataPath,
+            # Use 20% data as testing data.
+            validation_split=0.2,
+            subset="training",
+            # Set seed to ensure the same split when loading testing data.
+            seed=123,
+            image_size=(args.ImgHeight, args.ImgWidth),
+            batch_size=128,
+        )
+
+        test_data = ak.image_dataset_from_directory(
+            args.DataPath,
+            validation_split=0.2,
+            subset="validation",
+            seed=123,
+            image_size=(args.ImgHeight, args.ImgWidth),
+            batch_size=128,
+        )
+
+    if next(iter(train_data))[0].numpy().max() > 1.0:
+        train_data = train_data.map(normalize_data)
+        test_data = test_data.map(normalize_data)
+
+
+    input_node = ak.ImageInput()
+    output_node = ak.ConvBlock()(input_node)
+    output_node = ak.DenseBlock()(output_node)
+    output_node = ak.ClassificationHead()(output_node)
+    clf = ak.AutoModel(
+        inputs=input_node, outputs=output_node, overwrite=args.Overwrite, max_trials=args.MaxTrials, max_model_size=args.MaxSize
+    )
+    clf.fit(train_data, epochs=args.MaxEpochs, validation_split=0.2, callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)])   
     
     # Evaluate the best model with testing data.
-    print(clf.evaluate(x_test, y_test))
+    print(clf.evaluate(test_data))
     
     best = clf.export_model()
     best.summary()
@@ -83,7 +117,9 @@ if __name__ == '__main__':
     parser.add_argument('--MaxTrials', default=10, type=int, help="Number of Evaluated Models")
     parser.add_argument('--MaxEpochs', default=20, type=int, help="Number of Epochs")
     parser.add_argument('--Overwrite', default=True, type=bool, help="Overwrite True")
-    
+    parser.add_argument('--ImgHeight', default=128, type=int, help="Target height of image")
+    parser.add_argument('--ImgWidth', default=128, type=int, help="Target width of image")
+
     parsed_args = parser.parse_args()
     ImageClassifier(parsed_args)
 
