@@ -93,15 +93,15 @@ class UIHelperWindow(QWidget):
         self.Abstand = QLabel()
         self.Abstand.setFixedHeight(30)
         
-        self.Back = QPushButton(self)
-        self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
-        self.Back.setIconSize(QSize(25, 25))
-        self.Back.setFixedHeight(30)
+        self.back = QPushButton(self)
+        self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
+        self.back.setIconSize(QSize(25, 25))
+        self.back.setFixedHeight(30)
         
-        self.Next = QPushButton(self)
-        self.Next.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'next_arrow.png')))
-        self.Next.setIconSize(QSize(25, 25))
-        self.Next.setFixedHeight(30)
+        self.next = QPushButton(self)
+        self.next.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'next_arrow.png')))
+        self.next.setIconSize(QSize(25, 25))
+        self.next.setFixedHeight(30)
         
         
         self.horizontal_box = []
@@ -175,11 +175,11 @@ class UIHelperWindow(QWidget):
         self.horizontal_box[9].addWidget(self.Abstand)
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[10].addWidget(self.Back)
+        self.horizontal_box[10].addWidget(self.back)
         self.horizontal_box[10].addStretch() 
         self.horizontal_box[10].addWidget(self.step)
         self.horizontal_box[10].addStretch()
-        self.horizontal_box[10].addWidget(self.Next)
+        self.horizontal_box[10].addWidget(self.next)
         self.horizontal_box[10].setAlignment(Qt.AlignBottom)
         
         

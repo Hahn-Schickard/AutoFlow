@@ -11,7 +11,7 @@ from PyQt5.QtCore import *
 from src.GUILayout.UICSVDataloaderWindow import *
 
 
-def CSVDataloaderWindow(self):
+def CSVDataloaderWindow(self, LastWindow):
     """Activates the GUI window to preview and load CSV data.
 
     With the help of the check boxes the separators can be selected 
@@ -26,6 +26,6 @@ def CSVDataloaderWindow(self):
 
     self.Window3_1.Browse.clicked.connect(lambda: self.browseCSVData(self.Window3_1))
     self.Window3_1.Preview.clicked.connect(lambda: self.previewCSVData(self.Window3_1))
-    self.Window3_1.Load_data.clicked.connect(lambda: self.loadCSVData(self.Window3_1, self.Window3))
+    self.Window3_1.Load_data.clicked.connect(lambda: self.loadCSVData(self.Window3_1, LastWindow))
 
     self.Window3_1.show()

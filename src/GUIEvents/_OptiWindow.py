@@ -60,8 +60,8 @@ def OptiWindow(self):
     self.Window3.quant_int.clicked.connect(lambda:self.set_quant_dtype("int8 with float fallback", self.Window3))
     self.Window3.quant_int_only.clicked.connect(lambda:self.set_quant_dtype("int8 only", self.Window3))
     
-    self.Window3.Back.clicked.connect(lambda:nextWindow(self, "Back"))
-    self.Window3.Next.clicked.connect(lambda:nextWindow(self, "Next"))
+    self.Window3.back.clicked.connect(lambda:nextWindow(self, "Back"))
+    self.Window3.next.clicked.connect(lambda:nextWindow(self, "Next"))
     
     self.setCentralWidget(self.Window3)
     self.show()

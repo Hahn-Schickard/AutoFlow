@@ -24,15 +24,15 @@ def StartWindow(self):
     self.Window1 = UIStartWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
     self.Window1.project_name.setText(self.project_name)
-    self.set_output_path_label(self.Window1)
-    self.set_model_path_label(self.Window1)
+    self.set_label(self.Window1, self.output_path_label, self.output_path)
+    self.set_label(self.Window1, self.model_path_label, self.model_path)
 
 
     self.Window1.output_path_Browse.clicked.connect(lambda:self.get_output_path(self.Window1))
-    self.Window1.read_model_browse.clicked.connect(lambda:self.get_model_path(self.Window1))
+    self.Window1.select_model_browse.clicked.connect(lambda:self.get_model_path(self.Window1))
     
-    self.Window1.Next.clicked.connect(lambda:nextWindow(self, "Next"))
-    self.Window1.Back.clicked.connect(lambda:nextWindow(self, "Back"))
+    self.Window1.next.clicked.connect(lambda:nextWindow(self, "Next"))
+    self.Window1.back.clicked.connect(lambda:nextWindow(self, "Back"))
     
     self.setCentralWidget(self.Window1)
     self.show()

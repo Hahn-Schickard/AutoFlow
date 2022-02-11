@@ -75,15 +75,15 @@ class UIDataloaderWindow(QWidget):
                            color: white; 
                            border: black solid 1px}""")
         
-        self.Back = QPushButton(self)
-        self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
-        self.Back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.Back.setFixedHeight(0.05*self.WINDOW_HEIGHT)   
+        self.back = QPushButton(self)
+        self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
+        self.back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.back.setFixedHeight(0.05*self.WINDOW_HEIGHT)   
 
-        self.Next = QPushButton(self)
-        self.Next.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'next_arrow.png')))
-        self.Next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.Next.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.next = QPushButton(self)
+        self.next.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'next_arrow.png')))
+        self.next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.next.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         
         self.horizontal_box = []
@@ -122,9 +122,9 @@ class UIDataloaderWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         sublayout = QGridLayout()
-        sublayout.addWidget(self.Back, 0, 0, Qt.AlignLeft)
+        sublayout.addWidget(self.back, 0, 0, Qt.AlignLeft)
         sublayout.addWidget(self.step, 0, 1)
-        sublayout.addWidget(self.Next, 0, 2, Qt.AlignRight)
+        sublayout.addWidget(self.next, 0, 2, Qt.AlignRight)
         self.horizontal_box[8].addLayout(sublayout)
         self.horizontal_box[8].setAlignment(Qt.AlignBottom)
         

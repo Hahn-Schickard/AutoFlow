@@ -52,10 +52,10 @@ class UIAutoMLWindow(QWidget):
         self.Finish.setToolTip('...')
         self.Finish.setVisible(False)
         
-        self.Back = QPushButton(self)
-        self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
-        self.Back.setIconSize(QSize(25, 25))
-        self.Back.setFixedHeight(30)
+        self.back = QPushButton(self)
+        self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
+        self.back.setIconSize(QSize(25, 25))
+        self.back.setFixedHeight(30)
 
         
         self.Start = QPushButton(self)
@@ -91,7 +91,7 @@ class UIAutoMLWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         sublayout = QGridLayout()
-        sublayout.addWidget(self.Back, 0, 0, Qt.AlignLeft)
+        sublayout.addWidget(self.back, 0, 0, Qt.AlignLeft)
         sublayout.addWidget(self.step, 0, 1)
         sublayout.addWidget(self.Abstand, 0, 2)
         self.horizontal_box[4].addLayout(sublayout)

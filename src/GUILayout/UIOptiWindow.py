@@ -54,15 +54,15 @@ class UIOptiWindow(QWidget):
         self.step.setPixmap(step_img)
         self.step.setAlignment(Qt.AlignCenter)
         
-        self.Back = QPushButton(self)
-        self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images','back_arrow.png')))
-        self.Back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.Back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.back = QPushButton(self)
+        self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images','back_arrow.png')))
+        self.back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
-        self.Next = QPushButton(self)
-        self.Next.setIcon(QIcon(os.path.join('src','GUILayout','Images','next_arrow.png')))
-        self.Next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.Next.setFixedHeight(0.05*self.WINDOW_HEIGHT)    
+        self.next = QPushButton(self)
+        self.next.setIcon(QIcon(os.path.join('src','GUILayout','Images','next_arrow.png')))
+        self.next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.next.setFixedHeight(0.05*self.WINDOW_HEIGHT)    
         
         self.Pruning = QPushButton(self)
         self.Pruning.setIcon(QIcon(os.path.join('src','GUILayout','Images','Pruning_Button.png')))
@@ -337,9 +337,9 @@ class UIOptiWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         sublayout = QGridLayout()
-        sublayout.addWidget(self.Back, 0, 0, Qt.AlignLeft)
+        sublayout.addWidget(self.back, 0, 0, Qt.AlignLeft)
         sublayout.addWidget(self.step, 0, 1, Qt.AlignCenter)
-        sublayout.addWidget(self.Next, 0, 2, Qt.AlignRight)
+        sublayout.addWidget(self.next, 0, 2, Qt.AlignRight)
         self.horizontal_box[4].addLayout(sublayout)
 
         

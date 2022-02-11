@@ -179,19 +179,19 @@ class UILoadWindow(QWidget):
         self.Finish_placeholder.setFixedWidth(0.2*self.WINDOW_WIDTH)
         self.Finish_placeholder.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
-        self.Back = QPushButton(self)
-        self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
-        self.Back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.Back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.back = QPushButton(self)
+        self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
+        self.back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
 
         self.Load = QPushButton(self)
         self.Load.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'load_arrow.png')))
         self.Load.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
         self.Load.setFixedHeight(0.05*self.WINDOW_HEIGHT)
 
-        self.Back_Load_placeholder = QLabel("", self)
-        self.Back_Load_placeholder.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        self.Back_Load_placeholder.setVisible(False)
+        self.back_Load_placeholder = QLabel("", self)
+        self.back_Load_placeholder.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.back_Load_placeholder.setVisible(False)
         
         
         self.horizontal_box = []
@@ -260,13 +260,13 @@ class UILoadWindow(QWidget):
         self.horizontal_box[11].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[12].addWidget(self.Back)
-        self.horizontal_box[12].addWidget(self.Back_Load_placeholder)
+        self.horizontal_box[12].addWidget(self.back)
+        self.horizontal_box[12].addWidget(self.back_Load_placeholder)
         self.horizontal_box[12].addStretch()
         self.horizontal_box[12].addWidget(self.step) 
         self.horizontal_box[12].addStretch()         
         self.horizontal_box[12].addWidget(self.Load)
-        self.horizontal_box[12].addWidget(self.Back_Load_placeholder)
+        self.horizontal_box[12].addWidget(self.back_Load_placeholder)
         self.horizontal_box[12].setAlignment(Qt.AlignBottom)
         
         

@@ -107,8 +107,8 @@ def RestrictionWindow(self, n):
 
     self.Window4 = UIRestrictionWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
-    self.Window4.Back.clicked.connect(lambda:self.OptiWindow("Back", self.target))
-    self.Window4.Next.clicked.connect(self.LoadWindow)
+    self.Window4.back.clicked.connect(lambda:self.OptiWindow("Back", self.target))
+    self.Window4.next.clicked.connect(self.LoadWindow)
     
     self.setCentralWidget(self.Window4)
     self.show()

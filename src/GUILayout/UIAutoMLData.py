@@ -20,47 +20,21 @@ class UIAutoMLData(QWidget):
         self.WINDOW_HEIGHT = WINDOW_HEIGHT
         self.FONT_STYLE = FONT_STYLE
         
-        self.Projekt_Name_label = QLabel("AutoML Projectname:")
-        self.Projekt_Name_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.project_name_label = QLabel("AutoML Projectname:")
+        self.project_name_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         
-        self.Daten_label = QLabel("Training data:")
-        self.Daten_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.project_name = QLineEdit()
+        self.project_name.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.project_name.setFixedWidth(0.25*self.WINDOW_WIDTH)
         
-        self.Datapng = QLabel(self)
-        self.Datapng.setFixedWidth(0.25*self.WINDOW_HEIGHT)
-        self.Datapng.setFixedHeight(0.25*self.WINDOW_HEIGHT)
-        Dataimg = QPixmap(os.path.join('src','GUILayout','Images','network.png'))
-        self.Datapng.setPixmap(Dataimg)
-        self.Datapng.setScaledContents(True)
+        self.output_path_label = QLabel("")
+        self.output_path_label.setFixedWidth(0.7*self.WINDOW_WIDTH)
+        self.output_path_label.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.output_path_label.setAlignment(Qt.AlignCenter)
         
-        self.step = QLabel(self)
-        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_2.png'))
-        self.step.setPixmap(step_img)
-        self.step.setAlignment(Qt.AlignCenter)
-        
-        self.Projekt_Name = QLineEdit()
-        self.Projekt_Name.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.Projekt_Name.setFixedWidth(0.25*self.WINDOW_WIDTH)
-        
-        self.Model_Pfad = QLabel("")
-        self.Model_Pfad.setFixedWidth(0.7*self.WINDOW_WIDTH)
-        self.Model_Pfad.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.Model_Pfad.setAlignment(Qt.AlignCenter)
-        
-        self.Output_Pfad = QLabel("")
-        self.Output_Pfad.setFixedWidth(0.7*self.WINDOW_WIDTH)
-        self.Output_Pfad.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.Output_Pfad.setAlignment(Qt.AlignCenter)
-        
-        self.Daten_Pfad = QLabel("")
-        self.Daten_Pfad.setFixedWidth(0.7*self.WINDOW_WIDTH)
-        self.Daten_Pfad.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.Daten_Pfad.setAlignment(Qt.AlignCenter)
-        
-        self.Output_Pfad_Browse = QPushButton(" Output path... ", self)
-        self.Output_Pfad_Browse.setToolTip('...')
-        self.Output_Pfad_Browse.setStyleSheet("""QPushButton {
+        self.output_path_browse = QPushButton(" Output path... ", self)
+        self.output_path_browse.setToolTip('...')
+        self.output_path_browse.setStyleSheet("""QPushButton {
                            font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}
@@ -69,47 +43,86 @@ class UIAutoMLData(QWidget):
                            color: white; 
                            border: black solid 1px}""")
         
-        self.Daten_einlesen_Browse = QPushButton(" Select Data... ", self)
-        self.Daten_einlesen_Browse.setToolTip('...')
-        self.Daten_einlesen_Browse.setStyleSheet("""QPushButton {
+        self.data_label = QLabel("Training data:")
+        self.data_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        
+        self.data_png = QLabel(self)
+        self.data_png.setFixedWidth(0.25*self.WINDOW_HEIGHT)
+        self.data_png.setFixedHeight(0.25*self.WINDOW_HEIGHT)
+        data_img = QPixmap(os.path.join('src','GUILayout','Images','Database.png'))
+        self.data_png.setPixmap(data_img)
+        self.data_png.setScaledContents(True)
+        
+        self.data_path = QLabel("")
+        self.data_path.setFixedWidth(0.7*self.WINDOW_WIDTH)
+        self.data_path.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.data_path.setAlignment(Qt.AlignCenter)
+
+        self.dataloader_list = QComboBox()
+        self.dataloader_list.setFixedWidth(0.21*self.WINDOW_WIDTH)
+        self.dataloader_list.addItems(["Select PATH with data", "Select FILE with data"])
+        self.dataloader_list.setStyleSheet("font: " + str(int(0.023*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        
+        self.select_data_browse = QPushButton(" Select Data... ", self)
+        self.select_data_browse.setFixedWidth(0.2*self.WINDOW_WIDTH)
+        self.select_data_browse.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.select_data_browse.setToolTip('Select the training data which the neural network requires for the optimization.\n'
+                                              'The data can be transferred in different ways:\n'
+                                              '- PATH (folder):\tImages are to be used as training data. In the given path there are\n'
+                                              '\t\tsubfolders containing the name of the different classes of the neural\n'
+                                              '\t\tnetwork and the corresponding images.\n'
+                                              '- FILE (*.csv):\tThe data is stored in a CSV file.\n'
+                                              '- FILE (*.py):\tThe data is loaded and returned in a Python script. It\n'
+                                              '\t\tis important that the Python script contains the function\n'
+                                              '\t\tget_data() with the return values x_train, y_train, x_test,\n'
+                                              '\t\ty_test (training data, training label, test data, test label).\n'
+                                              '\t\tThe return values here are Numpy arrays.')
+        self.select_data_browse.setStyleSheet("""QPushButton {
                            font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}
                            QToolTip { 
+                           font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px}""") 
-
-        self.Next = QPushButton(self)
-        self.Next.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'next_arrow.png')))
-        self.Next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.Next.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+                           border: black solid 1px}""")
         
-        self.Back = QPushButton(self)
-        self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
-        self.Back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.Back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.step = QLabel(self)
+        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_2.png'))
+        self.step.setPixmap(step_img)
+        self.step.setAlignment(Qt.AlignCenter)
+
+        self.next = QPushButton(self)
+        self.next.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'next_arrow.png')))
+        self.next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.next.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        
+        self.back = QPushButton(self)
+        self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
+        self.back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         
         self.horizontal_box = []
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[0].addStretch()
-        self.horizontal_box[0].addWidget(self.Projekt_Name_label)
+        self.horizontal_box[0].addWidget(self.project_name_label)
         self.horizontal_box[0].addStretch()
         self.horizontal_box[0].setAlignment(Qt.AlignTop)
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[1].addWidget(self.Projekt_Name)
+        self.horizontal_box[1].addWidget(self.project_name)
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[2].addItem(QSpacerItem(0.03*self.WINDOW_WIDTH, 0.03*self.WINDOW_HEIGHT))
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[3].addWidget(self.Output_Pfad)
+        self.horizontal_box[3].addWidget(self.output_path_label)
         self.horizontal_box[3].setAlignment(Qt.AlignCenter)
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[4].addWidget(self.Output_Pfad_Browse)
+        self.horizontal_box[4].addWidget(self.output_path_browse)
         self.horizontal_box[4].setAlignment(Qt.AlignCenter)
         
         self.horizontal_box.append(QHBoxLayout())
@@ -117,34 +130,39 @@ class UIAutoMLData(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[6].addStretch()
-        self.horizontal_box[6].addWidget(self.Daten_label)
+        self.horizontal_box[6].addWidget(self.data_label)
         self.horizontal_box[6].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[7].addStretch()
-        self.horizontal_box[7].addWidget(self.Datapng)
+        self.horizontal_box[7].addWidget(self.data_png)
         self.horizontal_box[7].addStretch()     
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[8].addStretch()
-        self.horizontal_box[8].addWidget(self.Daten_Pfad)
+        self.horizontal_box[8].addWidget(self.data_path)
         self.horizontal_box[8].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[9].addStretch()
-        self.horizontal_box[9].addWidget(self.Daten_einlesen_Browse)
+        self.horizontal_box[9].addWidget(self.dataloader_list)
         self.horizontal_box[9].addStretch()
+        
+        self.horizontal_box.append(QHBoxLayout())
+        self.horizontal_box[10].addStretch()
+        self.horizontal_box[10].addWidget(self.select_data_browse)
+        self.horizontal_box[10].addStretch()
     
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[10].addItem(QSpacerItem(0.03*self.WINDOW_WIDTH, 0.03*self.WINDOW_HEIGHT))
+        self.horizontal_box[11].addItem(QSpacerItem(0.03*self.WINDOW_WIDTH, 0.03*self.WINDOW_HEIGHT))
         
         self.horizontal_box.append(QHBoxLayout())
         sublayout = QGridLayout()
-        sublayout.addWidget(self.Back, 0, 0, Qt.AlignLeft)
+        sublayout.addWidget(self.back, 0, 0, Qt.AlignLeft)
         sublayout.addWidget(self.step, 0, 1)
-        sublayout.addWidget(self.Next, 0, 2, Qt.AlignRight)
-        self.horizontal_box[11].addLayout(sublayout)
-        self.horizontal_box[11].setAlignment(Qt.AlignBottom)
+        sublayout.addWidget(self.next, 0, 2, Qt.AlignRight)
+        self.horizontal_box[12].addLayout(sublayout)
+        self.horizontal_box[12].setAlignment(Qt.AlignBottom)
         
         
         self.vertical_box = QVBoxLayout()

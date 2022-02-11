@@ -36,7 +36,7 @@ def AutoMLWindow(self):
     
     self.Window5 = UIAutoMLWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
       
-    self.Window5.Back.clicked.connect(lambda:nextWindow(self,"Back"))
+    self.Window5.back.clicked.connect(lambda:nextWindow(self,"Back"))
     self.Window5.Start.clicked.connect(lambda:nextWindow(self,"Next"))
    
     self.Window5.Finish.clicked.connect(self.close)

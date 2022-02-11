@@ -44,10 +44,10 @@ class UIReturnWindow(QWidget):
         self.step.setPixmap(step_img)
         self.step.setAlignment(Qt.AlignCenter)
         
-        self.Back = QPushButton(self)
-        self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
-        self.Back.setIconSize(QSize(25, 25))
-        self.Back.setFixedHeight(30)
+        self.back = QPushButton(self)
+        self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
+        self.back.setIconSize(QSize(25, 25))
+        self.back.setFixedHeight(30)
 
         self.Load = QPushButton(self)
         self.Load.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Next_arrow.png')))
@@ -66,7 +66,7 @@ class UIReturnWindow(QWidget):
         self.horizontal_box[1].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[2].addWidget(self.Back)
+        self.horizontal_box[2].addWidget(self.back)
         self.horizontal_box[2].addStretch()
         self.horizontal_box[2].addWidget(self.step) 
         self.horizontal_box[2].addStretch()         

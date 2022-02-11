@@ -19,8 +19,6 @@ from src.GUIEvents import MainWindow
 
 
 
-
-
 app = QApplication(sys.argv)
 # Force the style to be the same on all OSs:
 app.setStyle("Fusion")

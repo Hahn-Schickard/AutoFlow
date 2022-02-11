@@ -25,28 +25,23 @@ class MainWindow(QMainWindow):
         WINDOW_HEIGHT:        Height of the GUI window
         project_name:         Name of the project to be created
         output_path:          Output path of the project to be created
-        output_path_ml:       Output path of the project to be created by autokeras
         model_path:           Path of the model to convert
         data_loader_path:     Path of the folder or file with the training data
-        data_loader_path_ml:  Path of the folder or file with the training data for autokeras
         target:               Target to execute the neural network
         optimizations:        Selected optimization algorithms
-        constraints:          Contraints for auto machine learning
         prun_type:            Pruning type to optimize the model
         prun_factor_dense:    Pruning factor for fully connected layers
         prun_factor_conv:     Pruning factor for convolution layers
         prun_acc_type:        Type of accuracy pruning
         prun_acc:             Accuracy for model pruning
         quant_dtype:          Data type to quantize to
-        params_factor:        TBD
-        floats_factor:        TBD
-        complex_factor:       TBD
-        max_size:             TBD
-        max_trials:           TBD
-        max_epoch:            TBD
-        params_check:         TBD
-        floats_check:         TBD
-        complex_check:        TBD
+        task:                 The model type to interpret the data
+        max_size:             The maximum model size that AutoKeras is allowed to use.
+        max_trials:           The maximum number of attempts for AutoKeras to find the best model
+        max_epoch:            Number of maximal training epochs
+        num_channels:         Number of channels of the inputdata for images
+        img_height:           Height of the input images
+        img_width:            Width of the input images
         separator:            Separator for reading a CSV file
         csv_target_label:     Target label from the CSV file
         model_memory:         Memory to allocate for the model on a microcontroller
@@ -69,19 +64,13 @@ class MainWindow(QMainWindow):
 
     from ._AutoMLHelper import (
         start_autokeras,
-        get_output_path_ml,
-        get_data_loader_path_ml,
-        Form_clicked,
-        update_draw,
-        set_floats,
-        set_complex,
-        set_params,
     )
     from ._Helper import (
         get_output_path,
         set_output_path_label,
         get_model_path,
         set_model_path_label,
+        set_label,
         get_data_loader,
         set_data_loader_label,
         set_pruning,
@@ -139,13 +128,10 @@ class MainWindow(QMainWindow):
 
         self.project_name = None
         self.output_path = None
-        self.output_path_ml = None
         self.model_path = None
         self.data_loader_path = None
-        self.data_loader_path_ml = None
         self.target = None
         self.optimizations = []
-        self.constraints = []
 
         self.prun_type = None
         self.prun_factor_dense = None
@@ -155,16 +141,12 @@ class MainWindow(QMainWindow):
         self.quant_dtype = None
         
         self.task = None
-        self.params_factor = 1
-        self.floats_factor = 1
-        self.complex_factor = 1
         self.max_size = 0
         self.max_trials = 10
         self.max_epoch = 20
-
-        self.params_check = False
-        self.floats_check = False
-        self.complex_check = False
+        self.num_channels = None
+        self.img_height = None
+        self.img_width = None
         
         self.separator = None
         self.csv_target_label = None

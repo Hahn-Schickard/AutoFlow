@@ -64,15 +64,15 @@ class UISettingsWindow(QWidget):
         self.step.setPixmap(step_img)
         self.step.setAlignment(Qt.AlignCenter)
         
-        self.Back = QPushButton(self)
-        self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
-        self.Back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.Back.setFixedHeight(0.05*self.WINDOW_HEIGHT) 
+        self.back = QPushButton(self)
+        self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
+        self.back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.back.setFixedHeight(0.05*self.WINDOW_HEIGHT) 
         
-        self.Next = QPushButton(self)
-        self.Next.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'next_arrow.png')))
-        self.Next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.Next.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.next = QPushButton(self)
+        self.next.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'next_arrow.png')))
+        self.next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.next.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         
         self.horizontal_box = []
@@ -102,11 +102,11 @@ class UISettingsWindow(QWidget):
         self.horizontal_box[4].addItem(QSpacerItem(0.09*self.WINDOW_WIDTH, 0.09*self.WINDOW_HEIGHT))
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[5].addWidget(self.Back)
+        self.horizontal_box[5].addWidget(self.back)
         self.horizontal_box[5].addStretch()
         self.horizontal_box[5].addWidget(self.step)
         self.horizontal_box[5].addStretch()
-        self.horizontal_box[5].addWidget(self.Next)
+        self.horizontal_box[5].addWidget(self.next)
         self.horizontal_box[5].setAlignment(Qt.AlignBottom)
 
         

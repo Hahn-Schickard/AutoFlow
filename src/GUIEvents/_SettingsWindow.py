@@ -39,8 +39,8 @@ def SettingsWindow(self):
     self.Window4.max_trials_factor.setText(str(self.max_trials))
     self.Window4.max_size_factor.setText(str(self.max_size))
     
-    self.Window4.Back.clicked.connect(lambda:nextWindow(self,"Back"))
-    self.Window4.Next.clicked.connect(lambda:nextWindow(self,"Next"))
+    self.Window4.back.clicked.connect(lambda:nextWindow(self,"Back"))
+    self.Window4.next.clicked.connect(lambda:nextWindow(self,"Next"))
     
     
     self.setCentralWidget(self.Window4)

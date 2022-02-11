@@ -38,7 +38,7 @@ def ReturnWindow(self):
     
     self.Window6 = UIReturnWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
-    self.Window6.Back.clicked.connect(lambda:nextWindow(self,"Back"))
+    self.Window6.back.clicked.connect(lambda:nextWindow(self,"Back"))
     self.Window6.Load.clicked.connect(lambda:nextWindow(self,"Next"))    
 
     self.setCentralWidget(self.Window6)

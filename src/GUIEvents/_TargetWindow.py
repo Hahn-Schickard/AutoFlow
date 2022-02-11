@@ -31,7 +31,7 @@ def TargetWindow(self):
     self.Window2.FPGA.clicked.connect(lambda:nextWindow(self, "FPGA"))
     self.Window2.EmbeddedPC.clicked.connect(lambda:nextWindow(self, "EmbeddedPC"))
     
-    self.Window2.Back.clicked.connect(self.StartWindow)
+    self.Window2.back.clicked.connect(self.StartWindow)
     
     self.setCentralWidget(self.Window2)
     self.show()

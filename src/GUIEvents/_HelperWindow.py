@@ -51,8 +51,8 @@ def HelperWindow(self):
     self.HelperWindow.FPS.textChanged.connect(self.Form_clicked)
     
     
-    self.HelperWindow.Back.clicked.connect(lambda:self.TargetWindow("Back", self.HelperWindow))
-    self.HelperWindow.Next.clicked.connect(lambda:self.OptiWindow("Next","?"))
+    self.HelperWindow.back.clicked.connect(lambda:self.TargetWindow("Back", self.HelperWindow))
+    self.HelperWindow.next.clicked.connect(lambda:self.OptiWindow("Next","?"))
     
     self.setCentralWidget(self.HelperWindow)
     

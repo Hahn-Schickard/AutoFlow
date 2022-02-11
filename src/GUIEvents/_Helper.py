@@ -31,18 +31,18 @@ def get_output_path(self, CurWindow):
     self.set_output_path_label(CurWindow)
 
 
-def set_output_path_label(self, CurWindow):
-    """Set the output path label
+# def set_output_path_label(self, CurWindow):
+#     """Set the output path label
 
-    Args:
-        CurWindow: GUI window from which the function is executed.
-    """
-    CurWindow.output_path_label.setText(self.output_path)
-    print(CurWindow.output_path_label.text())
-    if CurWindow.output_path_label.fontMetrics().boundingRect(CurWindow.output_path_label.text()).width() > CurWindow.output_path_label.width():
-        CurWindow.output_path_label.setAlignment(Qt.AlignRight)
-    else:
-        CurWindow.output_path_label.setAlignment(Qt.AlignCenter)
+#     Args:
+#         CurWindow: GUI window from which the function is executed.
+#     """
+#     CurWindow.output_path_label.setText(self.output_path)
+#     print(CurWindow.output_path_label.text())
+#     if CurWindow.output_path_label.fontMetrics().boundingRect(CurWindow.output_path_label.text()).width() > CurWindow.output_path_label.width():
+#         CurWindow.output_path_label.setAlignment(Qt.AlignRight)
+#     else:
+#         CurWindow.output_path_label.setAlignment(Qt.AlignCenter)
 
 
 def get_model_path(self, CurWindow):
@@ -59,18 +59,18 @@ def get_model_path(self, CurWindow):
     self.set_model_path_label(CurWindow)
 
 
-def set_model_path_label(self, CurWindow):
-    """Set the model path label
+# def set_model_path_label(self, CurWindow):
+#     """Set the model path label
 
-    Args:
-        CurWindow: GUI window from which the function is executed.
-    """
-    CurWindow.model_path_label.setText(self.model_path)
-    print(CurWindow.model_path_label.text())
-    if CurWindow.model_path_label.fontMetrics().boundingRect(CurWindow.model_path_label.text()).width() > CurWindow.model_path_label.width():
-        CurWindow.model_path_label.setAlignment(Qt.AlignRight)
-    else:
-        CurWindow.model_path_label.setAlignment(Qt.AlignCenter)
+#     Args:
+#         CurWindow: GUI window from which the function is executed.
+#     """
+#     CurWindow.model_path_label.setText(self.model_path)
+#     print(CurWindow.model_path_label.text())
+#     if CurWindow.model_path_label.fontMetrics().boundingRect(CurWindow.model_path_label.text()).width() > CurWindow.model_path_label.width():
+#         CurWindow.model_path_label.setAlignment(Qt.AlignRight)
+#     else:
+#         CurWindow.model_path_label.setAlignment(Qt.AlignCenter)
 
 
 def get_data_loader(self, CurWindow):
@@ -91,23 +91,38 @@ def get_data_loader(self, CurWindow):
 
     if ".csv" in self.data_loader_path:
         print("CSV file selected")
-        self.CSVDataloaderWindow()
+        self.CSVDataloaderWindow(CurWindow)
     else:
         print("No CSV file")
         self.set_data_loader_label(CurWindow)
 
 
-def set_data_loader_label(self, CurWindow):
-    """Set the data loader path label
+# def set_data_loader_label(self, CurWindow):
+#     """Set the data loader path label
+
+#     Args:
+#         CurWindow: GUI window from which the function is executed.
+#     """
+#     CurWindow.data_path.setText(self.data_loader_path)
+#     if CurWindow.data_path.fontMetrics().boundingRect(CurWindow.data_path.text()).width() > CurWindow.data_path.width():
+#         CurWindow.data_path.setAlignment(Qt.AlignRight)
+#     else:
+#         CurWindow.data_path.setAlignment(Qt.AlignCenter)
+
+
+def set_label(self, CurWindow, label, label_text):
+    """Set a label with a given text
 
     Args:
-        CurWindow: GUI window from which the function is executed.
+        CurWindow:  GUI window from which the function is executed.
+        label:      Label to set a new text.
+        label_text: Text to be inserted in label.
     """
-    CurWindow.data_path.setText(self.data_loader_path)
-    if CurWindow.data_path.fontMetrics().boundingRect(CurWindow.data_path.text()).width() > CurWindow.data_path.width():
-        CurWindow.data_path.setAlignment(Qt.AlignRight)
+    CurWindow.label.setText(label_text)
+    if CurWindow.label.fontMetrics().boundingRect(CurWindow.label.text()).width() > CurWindow.label.width():
+        CurWindow.label.setAlignment(Qt.AlignRight)
     else:
-        CurWindow.data_path.setAlignment(Qt.AlignCenter)
+        CurWindow.label.setAlignment(Qt.AlignCenter)
 
 
 def set_pruning(self, CurWindow):
@@ -394,10 +409,10 @@ def model_pruning(self, CurWindow):
     CurWindow.model_memory.setVisible(False)
     CurWindow.model_memory_label_kb.setVisible(False)
 
-    CurWindow.Back.setVisible(False)
+    CurWindow.back.setVisible(False)
     CurWindow.Load.setVisible(False)
-    CurWindow.Back_Load_placeholder.setVisible(True)
-    CurWindow.Back_Load_placeholder.setVisible(True)
+    CurWindow.back_Load_placeholder.setVisible(True)
+    CurWindow.back_Load_placeholder.setVisible(True)
 
     CurWindow.Loadpng.setVisible(True)
 
@@ -666,7 +681,7 @@ def loadCSVData(self, CurWindow, MainWindow):
     if CurWindow.cb_label_col.isVisible() == True:
         self.csv_target_label = CurWindow.cb_label_col.currentText()
         CurWindow.close()
-        self.set_data_loader_label(MainWindow)
+        self.set_label(MainWindow, self.data_path, self.data_loader_path)
     else:
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Warning)

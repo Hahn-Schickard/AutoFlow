@@ -26,12 +26,12 @@ def DataloaderWindow(self):
     self.Window3 = UIDataloaderWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
 
     if self.data_loader_path != None:
-        self.set_data_loader_label(self.Window3)
+        self.set_label(self.Window3, self.data_path, self.data_loader_path)
 
     self.Window3.select_data_browse.clicked.connect(lambda: self.get_data_loader(self.Window3))
 
-    self.Window3.Back.clicked.connect(lambda: nextWindow(self, "Back"))
-    self.Window3.Next.clicked.connect(lambda: nextWindow(self, "Next"))
+    self.Window3.back.clicked.connect(lambda: nextWindow(self, "Back"))
+    self.Window3.next.clicked.connect(lambda: nextWindow(self, "Next"))
     
     self.setCentralWidget(self.Window3)
     self.show()

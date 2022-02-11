@@ -23,7 +23,7 @@ def LoadWindow(self):
     if isinstance(self.model_memory, int):
         self.Window5.model_memory.setText(str(self.model_memory))
     
-    self.Window5.Back.clicked.connect(lambda:nextWindow(self, self.optimizations))
+    self.Window5.back.clicked.connect(lambda:nextWindow(self, self.optimizations))
     
     self.Window5.Load.clicked.connect(lambda:self.model_pruning(self.Window5))
     

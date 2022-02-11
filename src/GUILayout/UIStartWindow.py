@@ -26,31 +26,10 @@ class UIStartWindow(QWidget):
 
         self.project_name_label = QLabel("Projectname:")
         self.project_name_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        
-        self.keras_model_label = QLabel("Keras model:")
-        self.keras_model_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)  
 
-        self.Modelpng = QLabel(self)
-        self.Modelpng.setFixedWidth(0.25*self.WINDOW_HEIGHT)
-        self.Modelpng.setFixedHeight(0.25*self.WINDOW_HEIGHT)
-        Modelimg = QPixmap(os.path.join('src','GUILayout','Images','network.png'))
-        self.Modelpng.setPixmap(Modelimg)
-        self.Modelpng.setScaledContents(True)
-        
-        self.step = QLabel(self)
-        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_3.png'))
-        self.step.setPixmap(step_img)
-        self.step.setAlignment(Qt.AlignCenter)
-        
         self.project_name = QLineEdit()
         self.project_name.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.project_name.setFixedWidth(0.25*self.WINDOW_WIDTH)
-        
-        self.model_path_label = QLabel("")
-        self.model_path_label.setFixedWidth(0.7*self.WINDOW_WIDTH)
-        self.model_path_label.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.model_path_label.setAlignment(Qt.AlignCenter)
         
         self.output_path_label = QLabel("")
         self.output_path_label.setFixedWidth(0.7*self.WINDOW_WIDTH)
@@ -70,15 +49,30 @@ class UIStartWindow(QWidget):
                            font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px}""")  
+                           border: black solid 1px}""")
+
+        self.keras_model_label = QLabel("Keras model:")
+        self.keras_model_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)  
+
+        self.Modelpng = QLabel(self)
+        self.Modelpng.setFixedWidth(0.25*self.WINDOW_HEIGHT)
+        self.Modelpng.setFixedHeight(0.25*self.WINDOW_HEIGHT)
+        Modelimg = QPixmap(os.path.join('src','GUILayout','Images','network.png'))
+        self.Modelpng.setPixmap(Modelimg)
+        self.Modelpng.setScaledContents(True)
         
-        self.read_model_browse = QPushButton(" Select Model... ", self)
-        self.read_model_browse.setFixedWidth(0.2*self.WINDOW_WIDTH)
-        self.read_model_browse.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        self.read_model_browse.setToolTip('Select a TensorFlow/Keras model (.h5 file)\n'
+        self.model_path_label = QLabel("")
+        self.model_path_label.setFixedWidth(0.7*self.WINDOW_WIDTH)
+        self.model_path_label.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.model_path_label.setAlignment(Qt.AlignCenter)
+        
+        self.select_model_browse = QPushButton(" Select Model... ", self)
+        self.select_model_browse.setFixedWidth(0.2*self.WINDOW_WIDTH)
+        self.select_model_browse.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.select_model_browse.setToolTip('Select a TensorFlow/Keras model (.h5 file)\n'
                                           'which should be converted to a TensorFlow\n'
                                           'Lite C++ file, to execute it on a MCU')
-        self.read_model_browse.setStyleSheet("""QPushButton {
+        self.select_model_browse.setStyleSheet("""QPushButton {
                            font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}
@@ -86,17 +80,23 @@ class UIStartWindow(QWidget):
                            font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px}""") 
+                           border: black solid 1px}""")
+        
+        self.step = QLabel(self)
+        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_3.png'))
+        self.step.setPixmap(step_img)
+        self.step.setAlignment(Qt.AlignCenter) 
 
-        self.Next = QPushButton(self)
-        self.Next.setIcon(QIcon(os.path.join('src','GUILayout','Images','next_arrow.png')))
-        self.Next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.Next.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.next = QPushButton(self)
+        self.next.setIcon(QIcon(os.path.join('src','GUILayout','Images','next_arrow.png')))
+        self.next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.next.setFixedHeight(0.05*self.WINDOW_HEIGHT)
 
-        self.Back = QPushButton(self)
-        self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images','back_arrow.png')))
-        self.Back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.Back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.back = QPushButton(self)
+        self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images','back_arrow.png')))
+        self.back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         
         self.horizontal_box = []
@@ -143,7 +143,7 @@ class UIStartWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[10].addStretch()
-        self.horizontal_box[10].addWidget(self.read_model_browse)
+        self.horizontal_box[10].addWidget(self.select_model_browse)
         self.horizontal_box[10].addStretch()
     
         self.horizontal_box.append(QHBoxLayout())
@@ -151,9 +151,9 @@ class UIStartWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         sublayout = QGridLayout()
-        sublayout.addWidget(self.Back, 0, 0, Qt.AlignLeft)
+        sublayout.addWidget(self.back, 0, 0, Qt.AlignLeft)
         sublayout.addWidget(self.step, 0, 1, Qt.AlignCenter)
-        sublayout.addWidget(self.Next, 0, 2, Qt.AlignRight)
+        sublayout.addWidget(self.next, 0, 2, Qt.AlignRight)
         self.horizontal_box[12].addLayout(sublayout)
         self.horizontal_box[12].setAlignment(Qt.AlignBottom)
         

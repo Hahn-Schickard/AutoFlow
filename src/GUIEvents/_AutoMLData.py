@@ -36,19 +36,19 @@ def AutoMLData(self):
         
         self.AutoMLDataWindow = UIAutoMLData(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
         
-        if self.output_path_ml != None:
-            self.AutoMLDataWindow.Output_Pfad.setText(self.output_path_ml)
+        if self.output_path != None:
+            self.AutoMLDataWindow.output_path_label.setText(self.output_path_label)
         
         if self.project_name != None:
-            self.AutoMLDataWindow.Projekt_Name.setText(self.project_name)
+            self.AutoMLDataWindow.project_name.setText(self.project_name)
 
-        if self.data_loader_path_ml != None:
-            self.AutoMLDataWindow.Daten_Pfad.setText(self.data_loader_path_ml)
+        if self.data_loader_path != None:
+            self.AutoMLDataWindow.data_path.setText(self.data_loader_path)
         
-        self.AutoMLDataWindow.Output_Pfad_Browse.clicked.connect(lambda:self.get_output_path_ml(self.AutoMLDataWindow))
-        self.AutoMLDataWindow.Daten_einlesen_Browse.clicked.connect(lambda:self.get_data_loader_path_ml(self.AutoMLDataWindow))
-        self.AutoMLDataWindow.Next.clicked.connect(lambda:nextWindow(self,"Next"))
-        self.AutoMLDataWindow.Back.clicked.connect(lambda:nextWindow(self,"Back"))
+        self.AutoMLDataWindow.output_path_browse.clicked.connect(lambda:self.get_output_path(self.AutoMLDataWindow))
+        self.AutoMLDataWindow.select_data_browse.clicked.connect(lambda: self.get_data_loader(self.AutoMLDataWindow))
+        self.AutoMLDataWindow.next.clicked.connect(lambda:nextWindow(self,"Next"))
+        self.AutoMLDataWindow.back.clicked.connect(lambda:nextWindow(self,"Back"))
         
         self.setCentralWidget(self.AutoMLDataWindow)
         self.show()
@@ -61,11 +61,11 @@ def nextWindow(self,n):
         self.GUIStart()
 
     elif n == "Next":
-        self.project_name = self.AutoMLDataWindow.Projekt_Name.text()
-        self.output_path_ml = self.AutoMLDataWindow.Output_Pfad.text()
-        self.data_loader_path_ml = self.AutoMLDataWindow.Daten_Pfad.text()
+        self.project_name = self.AutoMLDataWindow.project_name.text()
+        self.output_path_label = self.AutoMLDataWindow.output_path_label.text()
+        self.data_loader_path = self.AutoMLDataWindow.data_path.text()
 
-        if self.project_name == "" or self.output_path_ml == "":
+        if self.project_name == "" or self.output_path_label == "" or self.data_loader_path == "":
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
 
@@ -76,6 +76,6 @@ def nextWindow(self,n):
             return
 
         print(self.project_name)
-        print(self.output_path_ml)
-        print(self.data_loader_path_ml)
+        print(self.output_path_label)
+        print(self.data_loader_path)
         self.TaskWindow()

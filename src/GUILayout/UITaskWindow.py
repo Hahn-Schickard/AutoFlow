@@ -32,10 +32,10 @@ class UITaskWindow(QWidget):
         self.step.setPixmap(step_img)
         self.step.setAlignment(Qt.AlignCenter)
         
-        self.Back = QPushButton(self)
-        self.Back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
-        self.Back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.Back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.back = QPushButton(self)
+        self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
+        self.back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         self.ImageClassification = QPushButton(self)
         self.ImageClassification.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'ImageCl.png')))
@@ -150,7 +150,7 @@ class UITaskWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         sublayout = QGridLayout()
-        sublayout.addWidget(self.Back, 0, 0, Qt.AlignLeft)
+        sublayout.addWidget(self.back, 0, 0, Qt.AlignLeft)
         sublayout.addWidget(self.step, 0, 1, Qt.AlignCenter)
         sublayout.addWidget(self.Abstand_button, 0, 2, Qt.AlignRight)
         self.horizontal_box[6].addLayout(sublayout)
