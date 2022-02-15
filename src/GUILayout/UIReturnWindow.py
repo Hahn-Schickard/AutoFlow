@@ -40,19 +40,25 @@ class UIReturnWindow(QWidget):
         
         self.step = QLabel(self)
         self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_7.png'))
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_6.png'))
         self.step.setPixmap(step_img)
         self.step.setAlignment(Qt.AlignCenter)
+        
+        self.finish = QPushButton("Finish", self)
+        self.finish.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.finish.setFixedWidth(125)
+        self.finish.setToolTip('...')
+        self.finish.setVisible(False)
         
         self.back = QPushButton(self)
         self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
         self.back.setIconSize(QSize(25, 25))
         self.back.setFixedHeight(30)
 
-        self.Load = QPushButton(self)
-        self.Load.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Next_arrow.png')))
-        self.Load.setIconSize(QSize(25, 25))
-        self.Load.setFixedHeight(30)
+        self.load = QPushButton(self)
+        self.load.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Next_arrow.png')))
+        self.load.setIconSize(QSize(25, 25))
+        self.load.setFixedHeight(30)
         
         
         self.horizontal_box = []
@@ -66,12 +72,17 @@ class UIReturnWindow(QWidget):
         self.horizontal_box[1].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[2].addWidget(self.back)
         self.horizontal_box[2].addStretch()
-        self.horizontal_box[2].addWidget(self.step) 
-        self.horizontal_box[2].addStretch()         
-        self.horizontal_box[2].addWidget(self.Load)
-        self.horizontal_box[2].setAlignment(Qt.AlignBottom)
+        self.horizontal_box[2].addWidget(self.finish)
+        self.horizontal_box[2].addStretch()
+        
+        self.horizontal_box.append(QHBoxLayout())
+        self.horizontal_box[3].addWidget(self.back)
+        self.horizontal_box[3].addStretch()
+        self.horizontal_box[3].addWidget(self.step) 
+        self.horizontal_box[3].addStretch()         
+        self.horizontal_box[3].addWidget(self.load)
+        self.horizontal_box[3].setAlignment(Qt.AlignBottom)
         
         self.vertical_box = QVBoxLayout()
         for i in range(0,len(self.horizontal_box)):

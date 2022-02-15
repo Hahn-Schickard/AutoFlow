@@ -53,10 +53,10 @@ class UIAutoMLData(QWidget):
         self.data_png.setPixmap(data_img)
         self.data_png.setScaledContents(True)
         
-        self.data_path = QLabel("")
-        self.data_path.setFixedWidth(0.7*self.WINDOW_WIDTH)
-        self.data_path.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.data_path.setAlignment(Qt.AlignCenter)
+        self.data_path_label = QLabel("")
+        self.data_path_label.setFixedWidth(0.7*self.WINDOW_WIDTH)
+        self.data_path_label.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.data_path_label.setAlignment(Qt.AlignCenter)
 
         self.dataloader_list = QComboBox()
         self.dataloader_list.setFixedWidth(0.21*self.WINDOW_WIDTH)
@@ -140,7 +140,7 @@ class UIAutoMLData(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[8].addStretch()
-        self.horizontal_box[8].addWidget(self.data_path)
+        self.horizontal_box[8].addWidget(self.data_path_label)
         self.horizontal_box[8].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())

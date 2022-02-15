@@ -18,34 +18,20 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 
-def get_output_path(self, CurWindow):
+def get_output_path(self, CurWindow_label):
     """Get the path where the genareted Project should be stored
 
     A Browse window opens and you can navigate to the directory
     you wanna store the project.
 
     Args:
-        CurWindow: GUI window from which the function is executed.
+        CurWindow_label: Label of GUI window to set a new text.
     """
     self.output_path = QFileDialog.getExistingDirectory(self, "Select the output path", os.path.expanduser('~'))
-    self.set_output_path_label(CurWindow)
+    self.set_label(CurWindow_label, self.output_path)
 
 
-# def set_output_path_label(self, CurWindow):
-#     """Set the output path label
-
-#     Args:
-#         CurWindow: GUI window from which the function is executed.
-#     """
-#     CurWindow.output_path_label.setText(self.output_path)
-#     print(CurWindow.output_path_label.text())
-#     if CurWindow.output_path_label.fontMetrics().boundingRect(CurWindow.output_path_label.text()).width() > CurWindow.output_path_label.width():
-#         CurWindow.output_path_label.setAlignment(Qt.AlignRight)
-#     else:
-#         CurWindow.output_path_label.setAlignment(Qt.AlignCenter)
-
-
-def get_model_path(self, CurWindow):
+def get_model_path(self, CurWindow_label):
     """Get the keras model which should be converted
 
     A Browse window opens and you can navigate to the keras
@@ -53,27 +39,13 @@ def get_model_path(self, CurWindow):
     microcontrollers.
 
     Args:
-        CurWindow: GUI window from which the function is executed.
+        CurWindow_label: Label of GUI window to set a new text.
     """
     self.model_path = QFileDialog.getOpenFileName(self, "Select your model", os.path.expanduser('~'))[0]
-    self.set_model_path_label(CurWindow)
+    self.set_label(CurWindow_label, self.model_path)
 
 
-# def set_model_path_label(self, CurWindow):
-#     """Set the model path label
-
-#     Args:
-#         CurWindow: GUI window from which the function is executed.
-#     """
-#     CurWindow.model_path_label.setText(self.model_path)
-#     print(CurWindow.model_path_label.text())
-#     if CurWindow.model_path_label.fontMetrics().boundingRect(CurWindow.model_path_label.text()).width() > CurWindow.model_path_label.width():
-#         CurWindow.model_path_label.setAlignment(Qt.AlignRight)
-#     else:
-#         CurWindow.model_path_label.setAlignment(Qt.AlignCenter)
-
-
-def get_data_loader(self, CurWindow):
+def get_data_loader(self, CurWindow, CurWindow_label):
     """Get the file or path to load your training data.
 
     A Browse window opens and you can navigate to the directory
@@ -82,7 +54,8 @@ def get_data_loader(self, CurWindow):
     CSVDataloaderWindow() function is executed. 
 
     Args:
-        CurWindow: GUI window from which the function is executed.
+        CurWindow:       GUI window from which the function is executed.
+        CurWindow_label: Label of GUI window to set a new text.
     """
     if "Select PATH with data" in CurWindow.dataloader_list.currentText():
         self.data_loader_path = QFileDialog.getExistingDirectory(self, "Select your trainingdata path", os.path.expanduser('~'))
@@ -94,35 +67,21 @@ def get_data_loader(self, CurWindow):
         self.CSVDataloaderWindow(CurWindow)
     else:
         print("No CSV file")
-        self.set_data_loader_label(CurWindow)
+        self.set_label(CurWindow_label, self.data_loader_path)
 
 
-# def set_data_loader_label(self, CurWindow):
-#     """Set the data loader path label
-
-#     Args:
-#         CurWindow: GUI window from which the function is executed.
-#     """
-#     CurWindow.data_path.setText(self.data_loader_path)
-#     if CurWindow.data_path.fontMetrics().boundingRect(CurWindow.data_path.text()).width() > CurWindow.data_path.width():
-#         CurWindow.data_path.setAlignment(Qt.AlignRight)
-#     else:
-#         CurWindow.data_path.setAlignment(Qt.AlignCenter)
-
-
-def set_label(self, CurWindow, label, label_text):
+def set_label(self, CurWindow_label, label_text):
     """Set a label with a given text
 
     Args:
-        CurWindow:  GUI window from which the function is executed.
-        label:      Label to set a new text.
-        label_text: Text to be inserted in label.
+        CurWindow_label: Label of GUI window to set a new text.
+        label_text:      Text to be inserted in label.
     """
-    CurWindow.label.setText(label_text)
-    if CurWindow.label.fontMetrics().boundingRect(CurWindow.label.text()).width() > CurWindow.label.width():
-        CurWindow.label.setAlignment(Qt.AlignRight)
+    CurWindow_label.setText(label_text)
+    if CurWindow_label.fontMetrics().boundingRect(CurWindow_label.text()).width() > CurWindow_label.width():
+        CurWindow_label.setAlignment(Qt.AlignRight)
     else:
-        CurWindow.label.setAlignment(Qt.AlignCenter)
+        CurWindow_label.setAlignment(Qt.AlignCenter)
 
 
 def set_pruning(self, CurWindow):
@@ -410,17 +369,17 @@ def model_pruning(self, CurWindow):
     CurWindow.model_memory_label_kb.setVisible(False)
 
     CurWindow.back.setVisible(False)
-    CurWindow.Load.setVisible(False)
-    CurWindow.back_Load_placeholder.setVisible(True)
-    CurWindow.back_Load_placeholder.setVisible(True)
+    CurWindow.load.setVisible(False)
+    CurWindow.back_load_placeholder.setVisible(True)
+    CurWindow.back_load_placeholder.setVisible(True)
 
-    CurWindow.Loadpng.setVisible(True)
+    CurWindow.loadpng.setVisible(True)
 
     CurWindow.loading_images.start()
     CurWindow.prune_model.start()
 
 
-def download(self, CurWindow): #change name
+def convert_create(self, CurWindow):
     """Starts the thread to convert the model and create the project.
 
     The thread for pruning the model gets terminated and the thread
@@ -453,10 +412,10 @@ def terminate_thread(self, CurWindow):
         print("Finish!")
         CurWindow.loading_images.stop_thread()
         CurWindow.conv_build_load.stop_thread()
-        CurWindow.Finish_placeholder.setVisible(False)
-        CurWindow.Finish.setVisible(True)
-        CurWindow.Loadpng.setPixmap(QPixmap(os.path.join("src", "GUILayout", "Images", "GUI_loading_images", "GUI_load_finish.png")))
-        CurWindow.Loadpng.setScaledContents(True)
+        CurWindow.finish_placeholder.setVisible(False)
+        CurWindow.finish.setVisible(True)
+        CurWindow.loadpng.setPixmap(QPixmap(os.path.join("src", "GUILayout", "Images", "GUI_loading_images", "GUI_load_finish.png")))
+        CurWindow.loadpng.setScaledContents(True)
     except:
         print("Error")
 
@@ -681,7 +640,7 @@ def loadCSVData(self, CurWindow, MainWindow):
     if CurWindow.cb_label_col.isVisible() == True:
         self.csv_target_label = CurWindow.cb_label_col.currentText()
         CurWindow.close()
-        self.set_label(MainWindow, self.data_path, self.data_loader_path)
+        self.set_label(MainWindow.data_path_label, self.data_loader_path)
     else:
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Warning)

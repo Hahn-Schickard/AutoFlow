@@ -36,9 +36,9 @@ class MainWindow(QMainWindow):
         prun_acc:             Accuracy for model pruning
         quant_dtype:          Data type to quantize to
         task:                 The model type to interpret the data
-        max_size:             The maximum model size that AutoKeras is allowed to use.
         max_trials:           The maximum number of attempts for AutoKeras to find the best model
         max_epoch:            Number of maximal training epochs
+        max_size:             The maximum model size that AutoKeras is allowed to use.
         num_channels:         Number of channels of the inputdata for images
         img_height:           Height of the input images
         img_width:            Width of the input images
@@ -67,19 +67,16 @@ class MainWindow(QMainWindow):
     )
     from ._Helper import (
         get_output_path,
-        set_output_path_label,
         get_model_path,
-        set_model_path_label,
-        set_label,
         get_data_loader,
-        set_data_loader_label,
+        set_label,
         set_pruning,
         set_quantization,
         set_prun_type,
         set_prun_acc_type,
         set_quant_dtype,
         model_pruning,
-        download,
+        convert_create,
         terminate_thread,
         dataloader_quantization,
         dataloader_pruning,
@@ -141,12 +138,12 @@ class MainWindow(QMainWindow):
         self.quant_dtype = None
         
         self.task = None
-        self.max_size = 0
         self.max_trials = 10
         self.max_epoch = 20
-        self.num_channels = None
-        self.img_height = None
-        self.img_width = None
+        self.max_size = 0
+        self.num_channels = 3
+        self.img_height = 128
+        self.img_width = 128
         
         self.separator = None
         self.csv_target_label = None

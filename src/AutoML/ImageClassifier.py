@@ -86,7 +86,7 @@ def ImageClassifier(args):
     clf = ak.AutoModel(
         inputs=input_node, outputs=output_node, overwrite=args.Overwrite, max_trials=args.MaxTrials, max_model_size=args.MaxSize
     )
-    clf.fit(train_data, epochs=args.MaxEpochs, validation_split=0.2, callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)])   
+    clf.fit(train_data, epochs=args.MaxEpochs, validation_split=0.2, callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)])   
     
     # Evaluate the best model with testing data.
     print(clf.evaluate(test_data))
@@ -107,16 +107,11 @@ if __name__ == '__main__':
     parser.add_argument('--ProjectName', default='', type=str, help="Name of Modell file")
     parser.add_argument('--OutputPath', default='', type=str, help="Path of Output")
     parser.add_argument('--DataPath', default='', type=str, help="Path of Data Script")
-    parser.add_argument('--ParamConstraint', default=False, type=str2bool, help="Parameter Constraint True/False")
-    parser.add_argument('--ParamFactor', default=1, type=float, help="Parameter Constraint Factor")
-    parser.add_argument('--FlopConstraint', default=False, type=str2bool, help="Floating Point Operation Constraint True/False")
-    parser.add_argument('--FlopFactor', default=1, type=float, help="Floating Point Operation Constraint Factor")
-    parser.add_argument('--ComplexConstraint', default=False, type=str2bool, help="Complexity Constraint True/False")
-    parser.add_argument('--ComplexFactor', default=1, type=float, help="Complexity Constraint Factor")
-    parser.add_argument('--MaxSize', default=0, type=float, help="max. Model Size")
     parser.add_argument('--MaxTrials', default=10, type=int, help="Number of Evaluated Models")
     parser.add_argument('--MaxEpochs', default=20, type=int, help="Number of Epochs")
+    parser.add_argument('--MaxSize', default=0, type=float, help="max. Model Size")
     parser.add_argument('--Overwrite', default=True, type=bool, help="Overwrite True")
+    parser.add_argument('--NumChannels', default=3, type=int, help="Number of channels of the inputdata images")
     parser.add_argument('--ImgHeight', default=128, type=int, help="Target height of image")
     parser.add_argument('--ImgWidth', default=128, type=int, help="Target width of image")
 

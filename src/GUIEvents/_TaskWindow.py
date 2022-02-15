@@ -53,7 +53,13 @@ def TaskWindow(self):
 
 
 def nextWindow(self,n,task):
+    """
+    Defines which one is the next window to open.
 
+    Args:
+        n:      Go forward or go back
+        task:   Model type to interpret the data
+    """
     if n == "Back":
         self.AutoMLData()
 

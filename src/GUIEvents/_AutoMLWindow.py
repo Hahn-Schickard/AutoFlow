@@ -38,9 +38,6 @@ def AutoMLWindow(self):
       
     self.Window5.back.clicked.connect(lambda:nextWindow(self,"Back"))
     self.Window5.Start.clicked.connect(lambda:nextWindow(self,"Next"))
-   
-    self.Window5.Finish.clicked.connect(self.close)
-
     
     self.setCentralWidget(self.Window5)
     self.show()
@@ -48,10 +45,14 @@ def AutoMLWindow(self):
 
 
 def nextWindow(self,n):
+    """
+    Defines which one is the next window to open.
 
+    Args:
+        n:  Go forward or go back
+    """
     if n == "Back":
         self.SettingsWindow()
 
     elif n == "Next":
-        self.start_autokeras()
         self.ReturnWindow()

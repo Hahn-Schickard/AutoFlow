@@ -22,20 +22,9 @@ class UITaskWindow(QWidget):
         self.label = QLabel("Choose your Task")
         self.label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         
-        self.Abstand_button = QLabel()
-        self.Abstand_button.setFixedWidth(0.02*self.WINDOW_HEIGHT)
-        self.Abstand_button.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        
-        self.step = QLabel(self)
-        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_3.png'))
-        self.step.setPixmap(step_img)
-        self.step.setAlignment(Qt.AlignCenter)
-        
-        self.back = QPushButton(self)
-        self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
-        self.back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.placeholder = QLabel()
+        self.placeholder.setFixedWidth(0.02*self.WINDOW_HEIGHT)
+        self.placeholder.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         self.ImageClassification = QPushButton(self)
         self.ImageClassification.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'ImageCl.png')))
@@ -109,7 +98,18 @@ class UITaskWindow(QWidget):
                            border: black solid 1px
                            }
                            QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""") 
+                           background-color : rgb(10, 100, 200)}""")
+        
+        self.step = QLabel(self)
+        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_3.png'))
+        self.step.setPixmap(step_img)
+        self.step.setAlignment(Qt.AlignCenter)
+        
+        self.back = QPushButton(self)
+        self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
+        self.back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         
         self.horizontal_box = []
@@ -123,26 +123,26 @@ class UITaskWindow(QWidget):
         self.horizontal_box[1].addItem(QSpacerItem(0.1*self.WINDOW_WIDTH, 0.1*self.WINDOW_HEIGHT))
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[2].addWidget(self.Abstand_button)
+        self.horizontal_box[2].addWidget(self.placeholder)
         self.horizontal_box[2].addWidget(self.ImageClassification)
-        self.horizontal_box[2].addWidget(self.Abstand_button)
+        self.horizontal_box[2].addWidget(self.placeholder)
         self.horizontal_box[2].addWidget(self.ImageRegression)
-        self.horizontal_box[2].addWidget(self.Abstand_button)
+        self.horizontal_box[2].addWidget(self.placeholder)
         self.horizontal_box[2].addWidget(self.TextClassification)
-        self.horizontal_box[2].addWidget(self.Abstand_button)
+        self.horizontal_box[2].addWidget(self.placeholder)
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[3].addWidget(self.label)
         self.horizontal_box[3].setAlignment(Qt.AlignTop)
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[4].addWidget(self.Abstand_button)
+        self.horizontal_box[4].addWidget(self.placeholder)
         self.horizontal_box[4].addWidget(self.TextRegression)
-        self.horizontal_box[4].addWidget(self.Abstand_button)
+        self.horizontal_box[4].addWidget(self.placeholder)
         self.horizontal_box[4].addWidget(self.DataClassification)
-        self.horizontal_box[4].addWidget(self.Abstand_button)
+        self.horizontal_box[4].addWidget(self.placeholder)
         self.horizontal_box[4].addWidget(self.DataRegression)
-        self.horizontal_box[4].addWidget(self.Abstand_button)
+        self.horizontal_box[4].addWidget(self.placeholder)
         
         
         self.horizontal_box.append(QHBoxLayout())
@@ -152,7 +152,7 @@ class UITaskWindow(QWidget):
         sublayout = QGridLayout()
         sublayout.addWidget(self.back, 0, 0, Qt.AlignLeft)
         sublayout.addWidget(self.step, 0, 1, Qt.AlignCenter)
-        sublayout.addWidget(self.Abstand_button, 0, 2, Qt.AlignRight)
+        sublayout.addWidget(self.placeholder, 0, 2, Qt.AlignRight)
         self.horizontal_box[6].addLayout(sublayout)
         self.horizontal_box[6].setAlignment(Qt.AlignBottom)
         

@@ -22,22 +22,23 @@ def LoadWindow(self):
     
     if isinstance(self.model_memory, int):
         self.Window5.model_memory.setText(str(self.model_memory))
+
     
-    self.Window5.back.clicked.connect(lambda:nextWindow(self, self.optimizations))
+    self.Window5.back.clicked.connect(lambda:nextWindow(self, "Back", self.optimizations, self.Window5))
     
-    self.Window5.Load.clicked.connect(lambda:self.model_pruning(self.Window5))
+    self.Window5.load.clicked.connect(lambda:nextWindow(self, "Next", self.optimizations, self.Window5))
     
-    self.Window5.prune_model.request_signal.connect(lambda:self.download(self.Window5))
+    self.Window5.prune_model.request_signal.connect(lambda:self.convert_create(self.Window5))
     self.Window5.conv_build_load.request_signal.connect(lambda:self.terminate_thread(self.Window5))
     
-    self.Window5.Finish.clicked.connect(self.close)
+    self.Window5.finish.clicked.connect(self.close)
     
     self.setCentralWidget(self.Window5)
     self.show()
 
 
 
-def nextWindow(self, optimizations):
+def nextWindow(self, n, optimizations, CurWindow):
     """
     Defines which one is the next window to open if you
     press "Back". If optimization algorithms were previously
@@ -45,14 +46,25 @@ def nextWindow(self, optimizations):
     the optimization window.
 
     Args:
-        optimizations: Selected optimization algorithms
+        n:              Go forward or go back
+        optimizations:  Selected optimization algorithms
+        CurWindow:      GUI window from which the function is executed
     """
-    try:
-        self.model_memory = int(self.Window5.model_memory.text())
-    except:
-        self.model_memory = None
+    if n == "Back":
+        try:
+            self.model_memory = int(self.Window5.model_memory.text())
+        except:
+            self.model_memory = None
 
-    if optimizations:
-        self.DataloaderWindow()
-    else:
-        self.OptiWindow()
+        if optimizations:
+            self.DataloaderWindow()
+        else:
+            self.OptiWindow()
+    
+    elif n == "Next":
+        reply = QMessageBox.question(self, 'Create Project', 'Do you want to create the project?',
+        QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            self.model_pruning(CurWindow)
+        else:
+            return

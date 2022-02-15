@@ -47,22 +47,6 @@ class UIOptiWindow(QWidget):
         self.button_placeholder.setFixedHeight(0.07*self.WINDOW_HEIGHT)
 
         # self.button_placeholder = QSpacerItem(0.12*self.WINDOW_WIDTH, 0.07*self.WINDOW_HEIGHT)
-
-        self.step = QLabel(self)
-        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_5.png'))
-        self.step.setPixmap(step_img)
-        self.step.setAlignment(Qt.AlignCenter)
-        
-        self.back = QPushButton(self)
-        self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images','back_arrow.png')))
-        self.back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        
-        self.next = QPushButton(self)
-        self.next.setIcon(QIcon(os.path.join('src','GUILayout','Images','next_arrow.png')))
-        self.next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.next.setFixedHeight(0.05*self.WINDOW_HEIGHT)    
         
         self.Pruning = QPushButton(self)
         self.Pruning.setIcon(QIcon(os.path.join('src','GUILayout','Images','Pruning_Button.png')))
@@ -259,6 +243,22 @@ class UIOptiWindow(QWidget):
                            {
                            background-color : rgb(10, 100, 200);
                            }""")
+
+        self.step = QLabel(self)
+        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_4.png'))
+        self.step.setPixmap(step_img)
+        self.step.setAlignment(Qt.AlignCenter)
+        
+        self.back = QPushButton(self)
+        self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images','back_arrow.png')))
+        self.back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        
+        self.next = QPushButton(self)
+        self.next.setIcon(QIcon(os.path.join('src','GUILayout','Images','next_arrow.png')))
+        self.next.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.next.setFixedHeight(0.05*self.WINDOW_HEIGHT)
 
         
         self.horizontal_box = []

@@ -24,12 +24,12 @@ def StartWindow(self):
     self.Window1 = UIStartWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
     self.Window1.project_name.setText(self.project_name)
-    self.set_label(self.Window1, self.output_path_label, self.output_path)
-    self.set_label(self.Window1, self.model_path_label, self.model_path)
+    self.set_label(self.Window1.output_path_label, self.output_path)
+    self.set_label(self.Window1.model_path_label, self.model_path)
 
 
-    self.Window1.output_path_Browse.clicked.connect(lambda:self.get_output_path(self.Window1))
-    self.Window1.select_model_browse.clicked.connect(lambda:self.get_model_path(self.Window1))
+    self.Window1.output_path_Browse.clicked.connect(lambda:self.get_output_path(self.Window1.output_path_label))
+    self.Window1.select_model_browse.clicked.connect(lambda:self.get_model_path(self.Window1.model_path_label))
     
     self.Window1.next.clicked.connect(lambda:nextWindow(self, "Next"))
     self.Window1.back.clicked.connect(lambda:nextWindow(self, "Back"))
@@ -40,9 +40,15 @@ def StartWindow(self):
 
 
 def nextWindow(self,n):
-    self.project_name =  self.Window1.project_name.text()
-    self.output_path =  self.Window1.output_path_label.text()
-    self.model_path =  self.Window1.model_path_label.text()
+    """
+    Defines which one is the next window to open.
+
+    Args:
+        n:  Go forward or go back
+    """
+    self.project_name = self.Window1.project_name.text()
+    self.output_path = self.Window1.output_path_label.text()
+    self.model_path = self.Window1.model_path_label.text()
 
     if n == "Back":
         self.GUIStart()

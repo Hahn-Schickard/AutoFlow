@@ -3,17 +3,8 @@
     SPDX-License-Identifier: Apache-2.0
 ============================================================================================================'''
 
-"""This is a splittet method from the Mainwindow class which contain the logic for the GUIStart window
-
-The programmed logic in this method defines the workflow and path for the GUI. Especially
-
-  Typical usage example:
-
-  foo = ClassFoo()
-  bar = foo.FunctionBar()
-"""
-
 from src.GUILayout.Start import *
+
 
 def GUIStart(self):
     """Define Logic for the GUIStart GUI
@@ -46,7 +37,12 @@ def GUIStart(self):
 
 
 def nextWindow(self,n):
+    """
+    Defines which one is the next window to open.
 
+    Args:
+        n:  Next window to open
+    """
     if n == "AutoML":
         self.AutoMLData()
 

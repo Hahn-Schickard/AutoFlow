@@ -27,20 +27,31 @@ def TargetWindow(self):
     
     self.Window2 = UITargetWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
-    self.Window2.uC.clicked.connect(lambda:nextWindow(self, "uC"))
-    self.Window2.FPGA.clicked.connect(lambda:nextWindow(self, "FPGA"))
-    self.Window2.EmbeddedPC.clicked.connect(lambda:nextWindow(self, "EmbeddedPC"))
+    self.Window2.uC.clicked.connect(lambda:nextWindow(self, "Next", "uC"))
+    self.Window2.FPGA.clicked.connect(lambda:nextWindow(self, "Next", "FPGA"))
+    self.Window2.EmbeddedPC.clicked.connect(lambda:nextWindow(self, "Next", "EmbeddedPC"))
     
-    self.Window2.back.clicked.connect(self.StartWindow)
+    self.Window2.back.clicked.connect(lambda:nextWindow(self, "Back", None))
     
     self.setCentralWidget(self.Window2)
     self.show()
 
 
 
-def nextWindow(self, target):
-    self.target = target
-    print(self.target)
+def nextWindow(self, n, target):
+    """
+    Defines which one is the next window to open.
+
+    Args:
+        n:      Go forward or go back
+        target: Target to execute the neural network
+    """
+    if n == "Back":
+      self.StartWindow()
     
-    if self.target == "uC" or self.target == "FPGA" or self.target == "EmbeddedPC":
-        self.OptiWindow()
+    elif n == "Next":
+      self.target = target
+      print(self.target)
+      
+      if self.target == "uC" or self.target == "FPGA" or self.target == "EmbeddedPC":
+          self.OptiWindow()

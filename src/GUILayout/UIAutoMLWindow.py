@@ -42,15 +42,9 @@ class UIAutoMLWindow(QWidget):
         
         self.step = QLabel(self)
         self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_6.png'))
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_5.png'))
         self.step.setPixmap(step_img)
         self.step.setAlignment(Qt.AlignCenter)
-        
-        self.Finish = QPushButton("Finish", self)
-        self.Finish.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.Finish.setFixedWidth(125)
-        self.Finish.setToolTip('...')
-        self.Finish.setVisible(False)
         
         self.back = QPushButton(self)
         self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
@@ -84,17 +78,14 @@ class UIAutoMLWindow(QWidget):
         self.horizontal_box[1].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[2].addWidget(self.Finish)
-        
-        self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[3].addWidget(self.Abstand_v)
+        self.horizontal_box[2].addWidget(self.Abstand_v)
         
         self.horizontal_box.append(QHBoxLayout())
         sublayout = QGridLayout()
         sublayout.addWidget(self.back, 0, 0, Qt.AlignLeft)
         sublayout.addWidget(self.step, 0, 1)
         sublayout.addWidget(self.Abstand, 0, 2)
-        self.horizontal_box[4].addLayout(sublayout)
+        self.horizontal_box[3].addLayout(sublayout)
         
         self.vertical_box = QVBoxLayout()
         for i in range(0,len(self.horizontal_box)):

@@ -69,6 +69,12 @@ def OptiWindow(self):
 
 
 def nextWindow(self,n):
+    """
+    Defines which one is the next window to open.
+
+    Args:
+        n:  Go forward or go back
+    """
     if n == "Back":
         if "Pruning" in self.optimizations:
             try:

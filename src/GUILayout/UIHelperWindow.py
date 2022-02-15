@@ -86,9 +86,9 @@ class UIHelperWindow(QWidget):
         self.Preisl.setStyleSheet("font: 12pt " + FONT_STYLE)
         self.Preisl.setCheckable(True)
         
-        self.Loadpng = QLabel(self)
+        self.loadpng = QLabel(self)
         img = QPixmap(os.path.join('src','GUILayout','Images', 'Helper.png'))
-        self.Loadpng.setPixmap(img)
+        self.loadpng.setPixmap(img)
         
         self.Abstand = QLabel()
         self.Abstand.setFixedHeight(30)
@@ -168,7 +168,7 @@ class UIHelperWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[8].addStretch()
-        self.horizontal_box[8].addWidget(self.Loadpng)
+        self.horizontal_box[8].addWidget(self.loadpng)
         self.horizontal_box[8].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())

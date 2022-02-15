@@ -50,13 +50,13 @@ class UILoadWindow(QWidget):
         self.label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
-        self.Loadpng = QLabel(self)
-        self.Loadpng.setFixedWidth(0.3*self.WINDOW_HEIGHT)
-        self.Loadpng.setFixedHeight(0.3*self.WINDOW_HEIGHT)
+        self.loadpng = QLabel(self)
+        self.loadpng.setFixedWidth(0.3*self.WINDOW_HEIGHT)
+        self.loadpng.setFixedHeight(0.3*self.WINDOW_HEIGHT)
         img = QPixmap(os.path.join('src','GUILayout','Images','GUI_loading_images', 'GUI_load_0.png'))
-        self.Loadpng.setPixmap(img)
-        self.Loadpng.setVisible(False)
-        self.Loadpng.setScaledContents(True)
+        self.loadpng.setPixmap(img)
+        self.loadpng.setVisible(False)
+        self.loadpng.setScaledContents(True)
         
         self.model_memory_label = QLabel("Model memory:")
         self.model_memory_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
@@ -157,15 +157,15 @@ class UILoadWindow(QWidget):
         
         self.step = QLabel(self)
         self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_7.png'))
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_6.png'))
         self.step.setPixmap(step_img)
         self.step.setAlignment(Qt.AlignCenter)
         
-        self.Finish = QPushButton("Finish", self)
-        self.Finish.setFixedWidth(0.2*self.WINDOW_WIDTH)
-        self.Finish.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        self.Finish.setVisible(False)
-        self.Finish.setStyleSheet("""QPushButton {
+        self.finish = QPushButton("Finish", self)
+        self.finish.setFixedWidth(0.2*self.WINDOW_WIDTH)
+        self.finish.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.finish.setVisible(False)
+        self.finish.setStyleSheet("""QPushButton {
                            font: 20px """ + FONT_STYLE + """}
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}
@@ -175,23 +175,23 @@ class UILoadWindow(QWidget):
                            color: white; 
                            border: black solid 1px}""") 
 
-        self.Finish_placeholder = QLabel("", self)
-        self.Finish_placeholder.setFixedWidth(0.2*self.WINDOW_WIDTH)
-        self.Finish_placeholder.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.finish_placeholder = QLabel("", self)
+        self.finish_placeholder.setFixedWidth(0.2*self.WINDOW_WIDTH)
+        self.finish_placeholder.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         self.back = QPushButton(self)
         self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
         self.back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
         self.back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
 
-        self.Load = QPushButton(self)
-        self.Load.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'load_arrow.png')))
-        self.Load.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
-        self.Load.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.load = QPushButton(self)
+        self.load.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'load_arrow.png')))
+        self.load.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
+        self.load.setFixedHeight(0.05*self.WINDOW_HEIGHT)
 
-        self.back_Load_placeholder = QLabel("", self)
-        self.back_Load_placeholder.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        self.back_Load_placeholder.setVisible(False)
+        self.back_load_placeholder = QLabel("", self)
+        self.back_load_placeholder.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.back_load_placeholder.setVisible(False)
         
         
         self.horizontal_box = []
@@ -210,7 +210,7 @@ class UILoadWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[2].addStretch()
-        self.horizontal_box[2].addWidget(self.Loadpng)
+        self.horizontal_box[2].addWidget(self.loadpng)
         self.horizontal_box[2].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
@@ -255,18 +255,18 @@ class UILoadWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[11].addStretch()
-        self.horizontal_box[11].addWidget(self.Finish)
-        self.horizontal_box[11].addWidget(self.Finish_placeholder)
+        self.horizontal_box[11].addWidget(self.finish)
+        self.horizontal_box[11].addWidget(self.finish_placeholder)
         self.horizontal_box[11].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[12].addWidget(self.back)
-        self.horizontal_box[12].addWidget(self.back_Load_placeholder)
+        self.horizontal_box[12].addWidget(self.back_load_placeholder)
         self.horizontal_box[12].addStretch()
         self.horizontal_box[12].addWidget(self.step) 
         self.horizontal_box[12].addStretch()         
-        self.horizontal_box[12].addWidget(self.Load)
-        self.horizontal_box[12].addWidget(self.back_Load_placeholder)
+        self.horizontal_box[12].addWidget(self.load)
+        self.horizontal_box[12].addWidget(self.back_load_placeholder)
         self.horizontal_box[12].setAlignment(Qt.AlignBottom)
         
         
@@ -276,7 +276,7 @@ class UILoadWindow(QWidget):
         
         self.setLayout(self.vertical_box)
         
-        self.loading_images = Loading_images(self.Loadpng)
+        self.loading_images = Loading_images(self.loadpng)
         
         self.prune_model = Prune_model(self.model_path, self.data_loader_path, self.optimizations, self.prun_type, self.prun_factor_dense, self.prun_factor_conv, self.prun_acc_type, self.prun_acc, self.separator, self.csv_target_label)
 

@@ -3,12 +3,10 @@
 ============================================================================================================'''
 
 """This is the start file to run the AUTOFlow GUI
+In this file we import the libarys and define the GUI with all the layouts.
 
-In this file we import the libarys and define the GUI with all the layouts
-
-  Typical usage example:
-
-  python start.py
+Typical usage example:
+python AUTOflow.py
 """
 
 import sys
