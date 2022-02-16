@@ -15,12 +15,13 @@ def StartWindow(self):
     """Activates the GUI window to select output path, project name
        and model path.
 
-    The GUI gets activated. If you get "Back" from the "OptiWindow"
-    "project_name", "output_path" and "model_path" get set. This data
-    can be entered/selected via an input field and browse window.
-    not a message box appears
+    If the variables "project_name", "output_path" and "model_path" contain
+    strings these are set. This data can be entered/selected via an input 
+    field and browse window. If you select the "Back" button you get to the
+    start window of the GUI. If "Next" is pressed it is checked if the
+    before mentioned variables are not empty. When at least one of them
+    is empty you get an error message. Otherwise you get to the target window.
     """
-
     self.Window1 = UIStartWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
     self.Window1.project_name.setText(self.project_name)
@@ -36,7 +37,6 @@ def StartWindow(self):
     
     self.setCentralWidget(self.Window1)
     self.show()
-
 
 
 def nextWindow(self,n):

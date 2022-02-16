@@ -7,12 +7,18 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 from src.Converter.create_project import *
-import subprocess as sub
 import hls4ml
 
 
 
 class Convert_Build_Loading_FPGA(QThread):
+    """Thread to convert the model and build the project.
+
+    Attributes:
+        model_path:       Path of the model to convert
+        project_name:     Name of the project to be created
+        output_path:      Output path of the project to be created
+    """
     
     request_signal = pyqtSignal()
     
@@ -24,6 +30,11 @@ class Convert_Build_Loading_FPGA(QThread):
         
 
     def run(self):
+        """Activates the thread
+
+        Calls the function to convert the model and build the FPGA
+        project. When the function is finished, a signal is emitted.
+        """
         print(str(self.project_name))
         model = tf.keras.models.load_model(self.model_path)
         
@@ -39,4 +50,6 @@ class Convert_Build_Loading_FPGA(QThread):
         self.request_signal.emit()
         
     def stop_thread(self):
+        """Ends the thread
+        """
         self.terminate()

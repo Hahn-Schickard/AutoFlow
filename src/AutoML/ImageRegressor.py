@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Apr 27 10:26:36 2020
+''' Copyright [2020] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Marcel Sawrin + Marcus Rueb
+    Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
+    SPDX-License-Identifier: Apache-2.0
+============================================================================================================'''
 
-@author: ms101
-"""
 import autokeras as ak
 from tensorflow.keras.datasets import cifar10
 import argparse

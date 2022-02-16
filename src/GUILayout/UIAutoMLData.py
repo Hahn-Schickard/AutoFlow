@@ -3,7 +3,6 @@
     SPDX-License-Identifier: Apache-2.0
 ============================================================================================================'''
 
-
 import os
 
 from PyQt5.QtWidgets import *
@@ -11,8 +10,12 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 
-
 class UIAutoMLData(QWidget):
+    """Select project name, output path and data path. 
+
+    This GUI window has an input field and two buttons to pass
+    project name, output path and data path.
+    """
     def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, parent=None):
         super(UIAutoMLData, self).__init__(parent)
         

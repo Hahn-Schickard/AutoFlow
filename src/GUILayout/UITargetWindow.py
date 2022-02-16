@@ -11,8 +11,14 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 
-
 class UITargetWindow(QWidget):
+    """Select the target where the neural network should
+    be executed.
+
+    In this window you can choose on which device the neural network
+    should be executed. You can choose if you want to execute it on
+    a microcontroller, FPGA or an embedded PC.
+    """
     def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, parent=None):
         super(UITargetWindow, self).__init__(parent)
         

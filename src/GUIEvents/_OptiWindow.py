@@ -6,17 +6,16 @@
 
 from src.GUILayout.UIOptiWindow import *
         
+
 def OptiWindow(self):
     """Activates the GUI window to select the optimizations.
 
-    Before the GUI is activated, the previous window is checked. If
-    "Next" is pressed, it is checked whether data has been entered
-    for the project name, output path and model path. If everything
-    is correct the GUI gets activated. If not a message box appears
-    with a warning. Via the two buttons Pruning and Quantization,
-    the optimization algorithms can be selected, if desired. The
-    pruning factors can be entered via input fields and the data types
-    for the quantization via buttons.
+    Via the two buttons Pruning and Quantization, the optimization
+    algorithms can be selected, if desired. The pruning factors can
+    be entered via input fields and the data types for the quantization
+    via buttons. If "Next" is pressed and pruning and/or quantization
+    have been selected as optimization algorithms, it is checked whether
+    the entries are correct and complete.
     """
 
     self.Window3 = UIOptiWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.target, self)
@@ -35,19 +34,7 @@ def OptiWindow(self):
                 self.Window3.quant_int.setChecked(True)              
             elif "int8 only" in self.quant_dtype:
                 self.Window3.quant_int_only.setChecked(True)  
-                self.Window3.quant_int.setChecked(False) 
-    """            
-    if "Knowledge_Distillation" in self.optimizations:
-        self.Window3.Dis.setChecked(True)
-        self.set_knowledge_distillation(self.Window3)
-        self.Window3.Dis_1.setText(str(self.Know_Dis_1))
-        self.Window3.Dis_2.setText(str(self.Know_Dis_2))
-    if "Huffman_Coding" in self.optimizations:
-        self.Window3.Huf.setChecked(True)
-        self.set_huffman_coding(self.Window3)
-        self.Window3.Huf_1.setText(str(self.Huffman_1))
-        self.Window3.Huf_2.setText(str(self.Huffman_2))
-    """    
+                self.Window3.quant_int.setChecked(False)
     self.Window3.Pruning.toggled.connect(lambda:self.set_pruning(self.Window3))
     self.Window3.Quantization.toggled.connect(lambda:self.set_quantization(self.Window3))
     
@@ -65,7 +52,6 @@ def OptiWindow(self):
     
     self.setCentralWidget(self.Window3)
     self.show()
-
 
 
 def nextWindow(self,n):

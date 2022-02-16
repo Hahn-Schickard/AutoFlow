@@ -12,7 +12,7 @@ from PyQt5.QtCore import *
 
 
 class UIOptiWindow(QWidget):
-    """Select a optimization algorithm. 
+    """Select an optimization algorithm. 
 
     This GUI window has two buttons to choose the optimazion algorithms
     pruning and quantization. The pruning factors can be passed via

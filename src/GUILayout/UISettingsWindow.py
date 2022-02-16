@@ -10,8 +10,13 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 
-
 class UISettingsWindow(QWidget):
+    """Pass the settings for AutoKeras training.
+
+    This GUI window has some input fields to pass the settings
+    according to the task of your which your AutoKeras model
+    should solve.
+    """
     def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, task, parent=None):
         super(UISettingsWindow, self).__init__(parent)
         

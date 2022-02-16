@@ -43,6 +43,8 @@ class Convert_Build(QThread):
         self.model_memory = None
     
     def set_model_memory(self, model_memory):
+        """Sets the model memory value
+        """
         self.model_memory = model_memory
 
     def run(self):

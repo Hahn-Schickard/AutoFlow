@@ -3,45 +3,28 @@
     SPDX-License-Identifier: Apache-2.0
 ============================================================================================================'''
 
-"""This is a splittet method from the Mainwindow class which contain the logic for the AutoMLWindow window
-
-The programmed logic in this method defines the workflow and path for the GUI. Especially
-
-  Typical usage example:
-
-  foo = ClassFoo()
-  bar = foo.FunctionBar()
-"""
 from src.GUILayout.UIAutoMLWindow import *
 
-   
-def AutoMLWindow(self):         
-    """Define Logic for the AutoMLWindow GUI
+        
+def AutoMLWindow(self):  
+    """AutoKeras training process get started.
 
-    Retrieves the parameter class and set the data path, project path and output path
-
-    Args:
-      self:
-        self represents the instance of the class.
-      parameter:
-        A parameter class with all the parameter we change and need to start the project
-      
-
-    Returns:
-
-
-    Raises:
-      IOError: An error occurred accessing the parameterset.
+	The process of training models accoring the passed settings
+	get started. You have to wait until the process is finished.
+	After this you get back to the start window.
     """
-    
-    self.Window5 = UIAutoMLWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
-      
-    self.Window5.back.clicked.connect(lambda:nextWindow(self,"Back"))
-    self.Window5.Start.clicked.connect(lambda:nextWindow(self,"Next"))
-    
-    self.setCentralWidget(self.Window5)
-    self.show()
+    self.Window6 = UIAutoMLWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.project_name, self.output_path, self.data_loader_path, self.max_trials, self.max_epochs, self.max_size, self.num_channels, self.img_height, self.img_width, self)
 
+    # self.start_autokeras()
+    self.Window6.autokeras.start()
+
+    self.Window6.autokeras.request_signal.connect(lambda:nextWindow(self,"Next"))
+    
+    self.Window6.back.clicked.connect(lambda:nextWindow(self,"Back"))
+    self.Window6.load.clicked.connect(lambda:nextWindow(self,"Next"))    
+
+    self.setCentralWidget(self.Window6)
+    self.show()
 
 
 def nextWindow(self,n):
@@ -55,4 +38,4 @@ def nextWindow(self,n):
         self.SettingsWindow()
 
     elif n == "Next":
-        self.ReturnWindow()
+        self.GUIStart()

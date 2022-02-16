@@ -11,58 +11,68 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-from src.Threads.Loading_images_thread import * 
-from src.Threads.Create_project_thread import *
-from src.Threads.Prune_model_thread import *
-
+from src.Threads.Autokeras_thread import *
 
 
 class UIAutoMLWindow(QWidget):
-    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, parent=None):
-        super(UIAutoMLWindow, self).__init__(parent)
+    """GUI window of AutoKeras training process.
 
+	A info text is displayed which tells you to wait in this
+    window until the training process is completed. After it is
+    finished, you get back to the start window.
+    """
+    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, project_name, output_path, data_path, max_trials, max_epochs, max_size, num_channels, img_height, img_width, parent=None):
+        super(UIAutoMLWindow, self).__init__(parent)
+                
         self.WINDOW_WIDTH = WINDOW_WIDTH
         self.WINDOW_HEIGHT = WINDOW_HEIGHT
         self.FONT_STYLE = FONT_STYLE
 
-        self.label = QLabel("AutoML")
+        self.project_name = project_name
+        self.output_path = output_path
+        self.data_path = data_path
+        self.max_trials = max_trials
+        self.max_epochs = max_epochs
+        self.max_size = max_size
+        self.num_channels = num_channels
+        self.img_height = img_height
+        self.img_width = img_width
+        
+        self.label = QLabel("End")
         self.label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
-        self.info = QLabel("Start the AutoML Process:")
+        self.info = QLabel("Check if AutoKeras trains some models.\n"
+                            "Wait here until the training is finished.\n"
+                            "After the training of the models is finished,\n"
+                            "you can return to the start window\n"
+                            "by pressing the right arrow button.")
         self.info.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.info.setAlignment(Qt.AlignCenter)
-        
-        self.Abstand = QLabel()
-        self.Abstand.setFixedHeight(30)
-        
-        self.Abstand_v = QLabel()
-        self.Abstand_v.setFixedHeight(160)
         
         
         self.step = QLabel(self)
         self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_5.png'))
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_6.png'))
         self.step.setPixmap(step_img)
         self.step.setAlignment(Qt.AlignCenter)
+        
+        self.finish = QPushButton("Finish", self)
+        self.finish.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.finish.setFixedWidth(125)
+        self.finish.setToolTip('...')
+        self.finish.setVisible(False)
         
         self.back = QPushButton(self)
         self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
         self.back.setIconSize(QSize(25, 25))
         self.back.setFixedHeight(30)
 
+        self.load = QPushButton(self)
+        self.load.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Next_arrow.png')))
+        self.load.setIconSize(QSize(25, 25))
+        self.load.setFixedHeight(30)
         
-        self.Start = QPushButton(self)
-        self.Start.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'start.png')))
-        self.Start.setIconSize(QSize(160, 160))
-        self.Start.setToolTip('...')
-        self.Start.setStyleSheet("""QToolTip { 
-                           background-color : rgb(53, 53, 53);
-                           color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""") 
         
         self.horizontal_box = []
         self.horizontal_box.append(QHBoxLayout())
@@ -73,19 +83,19 @@ class UIAutoMLWindow(QWidget):
         self.horizontal_box[1].addStretch()
         self.horizontal_box[1].addWidget(self.info)
         self.horizontal_box[1].addStretch()
-        self.horizontal_box[1].addStretch()
-        self.horizontal_box[1].addWidget(self.Start)
-        self.horizontal_box[1].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[2].addWidget(self.Abstand_v)
+        self.horizontal_box[2].addStretch()
+        self.horizontal_box[2].addWidget(self.finish)
+        self.horizontal_box[2].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
-        sublayout = QGridLayout()
-        sublayout.addWidget(self.back, 0, 0, Qt.AlignLeft)
-        sublayout.addWidget(self.step, 0, 1)
-        sublayout.addWidget(self.Abstand, 0, 2)
-        self.horizontal_box[3].addLayout(sublayout)
+        self.horizontal_box[3].addWidget(self.back)
+        self.horizontal_box[3].addStretch()
+        self.horizontal_box[3].addWidget(self.step) 
+        self.horizontal_box[3].addStretch()         
+        self.horizontal_box[3].addWidget(self.load)
+        self.horizontal_box[3].setAlignment(Qt.AlignBottom)
         
         self.vertical_box = QVBoxLayout()
         for i in range(0,len(self.horizontal_box)):
@@ -93,7 +103,5 @@ class UIAutoMLWindow(QWidget):
         
         self.setLayout(self.vertical_box)
         
-
         
-       
-      
+        self.autokeras = Autokeras(self.project_name, self.output_path, self.data_path, self.max_trials, self.max_epochs, self.max_size, self.num_channels, self.img_height, self.img_width)

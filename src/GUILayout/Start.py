@@ -11,13 +11,13 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-from src.Threads.Loading_images_thread import * 
-from src.Threads.Create_project_thread import *
-from src.Threads.Prune_model_thread import *
-
-
 
 class UIMarcusWindow1(QWidget):
+    """Start window of the GUI
+
+    This window has two buttons to choose if you want
+    to train a new model or load a trained one.
+    """
     def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, parent=None):
         super(UIMarcusWindow1, self).__init__(parent)
 

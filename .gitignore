@@ -4,7 +4,3 @@ image_classifier/
 image_regressor/
 my_h5_model.h5
 output/
-Auto_TF_to_uC/__pycache__/convert_keras_to_cc.cpython-37.pyc
-Auto_TF_to_uC/__pycache__/write_files_uc.cpython-37.pyc
-Threads/__pycache__/Loading_images_thread.cpython-37.pyc
-Threads/__pycache__/Prune_model_thread.cpython-37.pyc

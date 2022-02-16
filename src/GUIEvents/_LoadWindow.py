@@ -10,13 +10,9 @@ from src.GUILayout.UILoadWindow import *
 def LoadWindow(self):
     """Activates the GUI window to create the project.
 
-    Before the GUI is activated, the previous window is checked. If
-    pruning and/or quantization have been selected as optimization
-    algorithms, it is checked whether a data loader was selected.
-    If everything is correct the GUI gets activated. If not
-    a message box appears with a warning. When the load button is
-    selected, the optimization algorithms are applied if any are
-    selected. Also, the model is converted and the files are created.
+    When the load button is selected, the optimization algorithms
+    are applied if any are selected. Also, the model is converted
+    and the files are created.
     """
     self.Window5 = UILoadWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.model_path, self.project_name, self.output_path, self.data_loader_path, self.optimizations, self.prun_type, self.prun_factor_dense, self.prun_factor_conv, self.prun_acc_type, self.prun_acc, self.quant_dtype, self.separator, self.csv_target_label, self.target, self)
     
@@ -35,7 +31,6 @@ def LoadWindow(self):
     
     self.setCentralWidget(self.Window5)
     self.show()
-
 
 
 def nextWindow(self, n, optimizations, CurWindow):
@@ -62,7 +57,7 @@ def nextWindow(self, n, optimizations, CurWindow):
             self.OptiWindow()
     
     elif n == "Next":
-        reply = QMessageBox.question(self, 'Create Project', 'Do you want to create the project?',
+        reply = QMessageBox.question(self, 'Create Project', 'Do you want to create the project now?',
         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.Yes:
             self.model_pruning(CurWindow)

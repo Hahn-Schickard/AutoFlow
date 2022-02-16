@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Apr 27 10:26:36 2020
+''' Copyright [2020] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Marcel Sawrin + Marcus Rueb
+    Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
+    SPDX-License-Identifier: Apache-2.0
+============================================================================================================'''
 
-@author: ms101
-"""
 import autokeras as ak
 from tensorflow.keras.datasets import cifar10
 import argparse
@@ -13,28 +12,13 @@ import os
 import sys
 import tensorflow as tf
 
-#import tensorflow as  tf
-
-def str2bool(v):
-    if isinstance(v, bool):
-       return v
-    if v.lower() in ('yes', 'true', 't', 'y', '1'):
-        return True
-    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
-        return False
-    else:
-        raise argparse.ArgumentTypeError('Boolean value expected.')
+from src.GUIEvents._DataloaderHelper import normalize_data
 
 
-def normalize_data(image,label):
-    image = tf.cast(image/255. ,tf.float32)
-    return image,label
+def ImageClassifier(ProjectName, OutputPath, DataPath, MaxTrials=10, MaxEpochs=20, MaxSize=0, Overwrite=True, NumChannels=3, ImgHeight=128, ImgWidth=128):
 
-
-def ImageClassifier(args):
-
-    if os.path.isfile(args.DataPath):
-        if ".csv" in args.DataPath:
+    if os.path.isfile(DataPath):
+        if ".csv" in DataPath:
             pass
             # df = pd.read_csv(data_loader_path, sep=separator, index_col=False)
 
@@ -48,29 +32,39 @@ def ImageClassifier(args):
             # return X, Y, False
 
         else:
-            spec = importlib.util.spec_from_file_location("module.name", args.DataPath)
+            spec = importlib.util.spec_from_file_location("module.name", DataPath)
             datascript = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(datascript)
             x_train, y_train, x_test, y_test = datascript.get_data()
 
-    elif os.path.isdir(args.DataPath):
+    elif os.path.isdir(DataPath):
+        if NumChannels == 1:
+            color_mode = 'grayscale'
+        elif NumChannels == 3:
+            color_mode = 'rgb'
+        else:
+            print("Choose a valid number of channels")
+            return
+
         train_data = ak.image_dataset_from_directory(
-            args.DataPath,
+            DataPath,
             # Use 20% data as testing data.
             validation_split=0.2,
             subset="training",
             # Set seed to ensure the same split when loading testing data.
             seed=123,
-            image_size=(args.ImgHeight, args.ImgWidth),
+            image_size=(ImgHeight, ImgWidth),
+            color_mode=color_mode,
             batch_size=128,
         )
 
         test_data = ak.image_dataset_from_directory(
-            args.DataPath,
+            DataPath,
             validation_split=0.2,
             subset="validation",
             seed=123,
-            image_size=(args.ImgHeight, args.ImgWidth),
+            image_size=(ImgHeight, ImgWidth),
+            color_mode=color_mode,
             batch_size=128,
         )
 
@@ -84,9 +78,9 @@ def ImageClassifier(args):
     output_node = ak.DenseBlock()(output_node)
     output_node = ak.ClassificationHead()(output_node)
     clf = ak.AutoModel(
-        inputs=input_node, outputs=output_node, overwrite=args.Overwrite, max_trials=args.MaxTrials, max_model_size=args.MaxSize
+        inputs=input_node, outputs=output_node, overwrite=Overwrite, max_trials=MaxTrials, max_model_size=MaxSize
     )
-    clf.fit(train_data, epochs=args.MaxEpochs, validation_split=0.2, callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)])   
+    clf.fit(train_data, epochs=MaxEpochs, validation_split=0.2, callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)])   
     
     # Evaluate the best model with testing data.
     print(clf.evaluate(test_data))
@@ -96,25 +90,5 @@ def ImageClassifier(args):
     
 
     best.save('best_model.h5')
-    os.rename("best_model.h5", args.ProjectName)
-    shutil.move(args.ProjectName, os.path.join(args.OutputPath , args.ProjectName + '.h5'))
-    
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Concept Test")
-
-    parser.add_argument('--ProjectName', default='', type=str, help="Name of Modell file")
-    parser.add_argument('--OutputPath', default='', type=str, help="Path of Output")
-    parser.add_argument('--DataPath', default='', type=str, help="Path of Data Script")
-    parser.add_argument('--MaxTrials', default=10, type=int, help="Number of Evaluated Models")
-    parser.add_argument('--MaxEpochs', default=20, type=int, help="Number of Epochs")
-    parser.add_argument('--MaxSize', default=0, type=float, help="max. Model Size")
-    parser.add_argument('--Overwrite', default=True, type=bool, help="Overwrite True")
-    parser.add_argument('--NumChannels', default=3, type=int, help="Number of channels of the inputdata images")
-    parser.add_argument('--ImgHeight', default=128, type=int, help="Target height of image")
-    parser.add_argument('--ImgWidth', default=128, type=int, help="Target width of image")
-
-    parsed_args = parser.parse_args()
-    ImageClassifier(parsed_args)
-
+    os.rename("best_model.h5", ProjectName)
+    shutil.move(ProjectName, os.path.join(OutputPath , ProjectName + '.h5'))

@@ -37,7 +37,7 @@ class MainWindow(QMainWindow):
         quant_dtype:          Data type to quantize to
         task:                 The model type to interpret the data
         max_trials:           The maximum number of attempts for AutoKeras to find the best model
-        max_epoch:            Number of maximal training epochs
+        max_epochs:            Number of maximal training epochs
         max_size:             The maximum model size that AutoKeras is allowed to use.
         num_channels:         Number of channels of the inputdata for images
         img_height:           Height of the input images
@@ -50,14 +50,12 @@ class MainWindow(QMainWindow):
     """
     from ._Start import GUIStart
     from ._AutoMLData import AutoMLData
-    from ._HelperWindow import HelperWindow
     from ._LoadWindow import LoadWindow
     from ._OptiWindow import OptiWindow
     from ._SettingsWindow import SettingsWindow
     from ._StartWindow import StartWindow
     from ._TargetWindow import TargetWindow
     from ._TaskWindow import TaskWindow
-    from ._ReturnWindow import ReturnWindow
     from ._AutoMLWindow import AutoMLWindow
     from ._DataloaderWindow import DataloaderWindow
     from ._CSVDataloaderWindow import CSVDataloaderWindow
@@ -65,7 +63,8 @@ class MainWindow(QMainWindow):
     from ._AutoMLHelper import (
         start_autokeras,
     )
-    from ._Helper import (
+    
+    from ._GUIHelper import (
         get_output_path,
         get_model_path,
         get_data_loader,
@@ -78,12 +77,15 @@ class MainWindow(QMainWindow):
         model_pruning,
         convert_create,
         terminate_thread,
-        dataloader_quantization,
-        dataloader_pruning,
         browseCSVData,
         previewCSVData,
         loadCSVData,
         get_separator
+    )
+
+    from ._DataloaderHelper import (
+        dataloader_quantization,
+        dataloader_pruning
     )
 
     def __init__(self, screen_width, screen_height, parent=None):
@@ -139,7 +141,7 @@ class MainWindow(QMainWindow):
         
         self.task = None
         self.max_trials = 10
-        self.max_epoch = 20
+        self.max_epochs = 20
         self.max_size = 0
         self.num_channels = 3
         self.img_height = 128

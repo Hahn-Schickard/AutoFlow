@@ -7,25 +7,12 @@ from src.GUILayout.Start import *
 
 
 def GUIStart(self):
-    """Define Logic for the GUIStart GUI
+    """Actiivates the start window of the GUI
 
-    Retrieves the parameter class and set the data path, project path and output path
-
-    Args:
-      self:
-        self represents the instance of the class.
-      parameter:
-        A parameter class with all the parameter we change and need to start the project
-      
-
-    Returns:
-
-
-    Raises:
-      IOError: An error occurred accessing the parameterset.
-    """
-    
-    
+    You can decide if you want to train a new model using
+    AutoKeras or if you want to load an alreadytrained
+    model.
+    """    
     self.GUIStart1 = UIMarcusWindow1(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
     self.GUIStart1.load_model.clicked.connect(lambda:nextWindow(self,"AutoML"))
@@ -33,7 +20,6 @@ def GUIStart(self):
     
     self.setCentralWidget(self.GUIStart1)
     self.show()
-
 
 
 def nextWindow(self,n):

@@ -22,7 +22,8 @@ class UILoadWindow(QWidget):
     """Builds the project. 
 
     If selected the model get optimized. After that it gets converted
-    and all necessary files get created.
+    and all necessary files get created. During this process, a
+    loading animation runs.
     """
     def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, model_path, project_name, output_path, data_loader_path, optimizations, prun_type, prun_factor_dense, prun_factor_conv, prun_acc_type, prun_acc, quant_dtype, separator, csv_target_label, target, parent=None):
         super(UILoadWindow, self).__init__(parent)
@@ -155,14 +156,8 @@ class UILoadWindow(QWidget):
         else:
             self.data_loader_label.setVisible(False)
         
-        self.step = QLabel(self)
-        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_6.png'))
-        self.step.setPixmap(step_img)
-        self.step.setAlignment(Qt.AlignCenter)
-        
         self.finish = QPushButton("Finish", self)
-        self.finish.setFixedWidth(0.2*self.WINDOW_WIDTH)
+        self.finish.setFixedWidth(0.17*self.WINDOW_WIDTH)
         self.finish.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.finish.setVisible(False)
         self.finish.setStyleSheet("""QPushButton {
@@ -176,22 +171,28 @@ class UILoadWindow(QWidget):
                            border: black solid 1px}""") 
 
         self.finish_placeholder = QLabel("", self)
-        self.finish_placeholder.setFixedWidth(0.2*self.WINDOW_WIDTH)
+        self.finish_placeholder.setFixedWidth(0.17*self.WINDOW_WIDTH)
         self.finish_placeholder.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        
+        self.step = QLabel(self)
+        self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_6.png'))
+        self.step.setPixmap(step_img)
+        self.step.setAlignment(Qt.AlignCenter)
         
         self.back = QPushButton(self)
         self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
         self.back.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
         self.back.setFixedHeight(0.05*self.WINDOW_HEIGHT)
 
+        self.back_load_placeholder = QLabel("", self)
+        self.back_load_placeholder.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.back_load_placeholder.setVisible(False)
+
         self.load = QPushButton(self)
         self.load.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'load_arrow.png')))
         self.load.setIconSize(QSize(0.04*self.WINDOW_HEIGHT, 0.04*self.WINDOW_HEIGHT))
         self.load.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-
-        self.back_load_placeholder = QLabel("", self)
-        self.back_load_placeholder.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        self.back_load_placeholder.setVisible(False)
         
         
         self.horizontal_box = []

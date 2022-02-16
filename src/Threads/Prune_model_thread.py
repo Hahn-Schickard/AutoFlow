@@ -14,7 +14,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 from src.Optimization.pruning import prune_model, pruning_for_acc
-from src.GUIEvents._Helper import dataloader_pruning
+from src.GUIEvents._DataloaderHelper import dataloader_pruning
 
 
 class Prune_model(QThread):

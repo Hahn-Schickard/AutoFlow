@@ -6,25 +6,14 @@
 
 from src.GUILayout.UITargetWindow import *
 
+
 def TargetWindow(self):
-    """Define Logic for the TargetWindow GUI
+    """Select a button to choose your device.
 
-    Retrieves the parameter class and set the data path, project path and output path
-
-    Args:
-      self:
-        self represents the instance of the class.
-      parameter:
-        A parameter class with all the parameter we change and need to start the project
-      
-
-    Returns:
-
-
-    Raises:
-      IOError: An error occurred accessing the parameterset.
-    """  
-    
+    You can choose via three different buttons on which device you want
+	to exectue the model. If "Back" is pressed you get back to the start
+	window. If you choose a device you get to the optimization window.
+    """
     self.Window2 = UITargetWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
     self.Window2.uC.clicked.connect(lambda:nextWindow(self, "Next", "uC"))
@@ -35,7 +24,6 @@ def TargetWindow(self):
     
     self.setCentralWidget(self.Window2)
     self.show()
-
 
 
 def nextWindow(self, n, target):

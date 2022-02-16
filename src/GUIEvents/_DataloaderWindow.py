@@ -14,15 +14,9 @@ from src.GUILayout.UIDataloaderWindow import *
 def DataloaderWindow(self):
     """Activates the GUI window of the data loader.
 
-    Before the GUI is activated, the previous window is checked. If
-    "Next" is pressed and pruning and/or quantization have been
-    selected as optimization algorithms, it is checked whether the
-    entries are correct and complete. If everything is correct the
-    GUI gets activated. If not a message box appears with a warning.
     With the dropdown menu you can select whether the training data
     should be transferred in a file or folder.
     """
-
     self.Window3 = UIDataloaderWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
 
     if self.data_loader_path != None:
@@ -35,7 +29,6 @@ def DataloaderWindow(self):
     
     self.setCentralWidget(self.Window3)
     self.show()
-
 
 
 def nextWindow(self, n):
