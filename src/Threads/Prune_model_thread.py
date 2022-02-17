@@ -35,7 +35,8 @@ class Prune_model(QThread):
     
     request_signal = pyqtSignal()
     
-    def __init__(self, model_path, data_loader_path, optimizations, prun_type, prun_factor_dense, prun_factor_conv, prun_acc_type, prun_acc, separator, csv_target_label):
+    def __init__(self, model_path, data_loader_path, optimizations, prun_type, prun_factor_dense,
+            prun_factor_conv, prun_acc_type, prun_acc, separator, decimal, csv_target_label):
         QThread.__init__(self)
         self.model_path = model_path
         self.data_loader_path = data_loader_path
@@ -46,6 +47,7 @@ class Prune_model(QThread):
         self.prun_acc_type = prun_acc_type
         self.prun_acc = prun_acc
         self.separator = separator
+        self.decimal = decimal
         self.csv_target_label = csv_target_label
         
 
@@ -61,9 +63,13 @@ class Prune_model(QThread):
             num_classes = model.layers[-1].output_shape[1]
 
             if len(model.input.shape) <= 3:
-                x_train, x_val_y_train, label_one_hot = dataloader_pruning(self.data_loader_path, self.separator, self.csv_target_label, model.input.shape[1], model.input.shape[2], None, num_classes)
+                x_train, x_val_y_train, label_one_hot = dataloader_pruning(self.data_loader_path, self.separator, self.decimal,
+                                                                self.csv_target_label, model.input.shape[1], model.input.shape[2],
+                                                                None, num_classes)
             else:
-                x_train, x_val_y_train, label_one_hot = dataloader_pruning(self.data_loader_path, self.separator, self.csv_target_label, model.input.shape[1], model.input.shape[2], model.input.shape[3], num_classes)
+                x_train, x_val_y_train, label_one_hot = dataloader_pruning(self.data_loader_path, self.separator, self.decimal,
+                                                                self.csv_target_label, model.input.shape[1], model.input.shape[2],
+                                                                model.input.shape[3], num_classes)
 
             #The compiler could also get included to the GUI
             if num_classes <= 2:
@@ -84,12 +90,16 @@ class Prune_model(QThread):
                     "metrics": 'accuracy'}
 
             if "Factor" in self.prun_type:
-                pruned_model = prune_model(model, self.prun_factor_dense, self.prun_factor_conv, metric='L1',comp=comp, num_classes=num_classes, label_one_hot=label_one_hot)
+                pruned_model = prune_model(model, self.prun_factor_dense, self.prun_factor_conv, metric='L1',comp=comp,
+                                    num_classes=num_classes, label_one_hot=label_one_hot)
             else:
                 if "Minimal accuracy" in self.prun_acc_type:
-                    pruned_model = pruning_for_acc(model, x_train, x_val_y_train, comp=comp, pruning_acc=self.prun_acc, max_acc_loss=None, num_classes=num_classes, label_one_hot=label_one_hot, data_loader_path=self.data_loader_path)
+                    pruned_model = pruning_for_acc(model, x_train, x_val_y_train, comp=comp, pruning_acc=self.prun_acc,
+                                            max_acc_loss=None, num_classes=num_classes, label_one_hot=label_one_hot,
+                                            data_loader_path=self.data_loader_path)
                 else:
-                    pruned_model = pruning_for_acc(model, x_train, x_val_y_train, comp=comp, pruning_acc=None, max_acc_loss=self.prun_acc, num_classes=num_classes, label_one_hot=label_one_hot, data_loader_path=self.data_loader_path)
+                    pruned_model = pruning_for_acc(model, x_train, x_val_y_train, comp=comp, pruning_acc=None, max_acc_loss=self.prun_acc,
+                                            num_classes=num_classes, label_one_hot=label_one_hot, data_loader_path=self.data_loader_path)
 
 
             train_epochs = 20

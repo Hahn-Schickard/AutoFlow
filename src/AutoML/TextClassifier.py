@@ -24,7 +24,7 @@ def str2bool(v):
 
 
 def TextClassifier(args):
-    spec = importlib.util.spec_from_file_location("module.name", args.DataPath)
+    spec = importlib.util.spec_from_file_location("module.name", args.data_path)
     datascript = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(datascript)
         
@@ -45,19 +45,19 @@ def TextClassifier(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Concept Test")
 
-    parser.add_argument('--ProjectName', default='', type=str, help="Name of Modell file")
-    parser.add_argument('--OutputPath', default='', type=str, help="Path of Output")
-    parser.add_argument('--DataPath', default='', type=str, help="Path of Data Script")
+    parser.add_argument('--project_name', default='', type=str, help="Name of Modell file")
+    parser.add_argument('--output_path', default='', type=str, help="Path of Output")
+    parser.add_argument('--data_path', default='', type=str, help="Path of Data Script")
     parser.add_argument('--ParamConstraint', default=False, type=str2bool, help="Parameter Constraint True/False")
     parser.add_argument('--ParamFactor', default=1, type=float, help="Parameter Constraint Factor")
     parser.add_argument('--FlopConstraint', default=False, type=str2bool, help="Floating Point Operation Constraint True/False")
     parser.add_argument('--FlopFactor', default=1, type=float, help="Floating Point Operation Constraint Factor")
     parser.add_argument('--ComplexConstraint', default=False, type=str2bool, help="Complexity Constraint True/False")
     parser.add_argument('--ComplexFactor', default=1, type=float, help="Complexity Constraint Factor")
-    parser.add_argument('--MaxSize', default=0, type=float, help="max. Model Size")
-    parser.add_argument('--MaxTrials', default=10, type=int, help="Number of Evaluated Models")
-    parser.add_argument('--MaxEpochs', default=20, type=int, help="Number of Epochs")
-    parser.add_argument('--Overwrite', default=True, type=bool, help="Overwrite True")
+    parser.add_argument('--max_size', default=0, type=float, help="max. Model Size")
+    parser.add_argument('--max_trials', default=10, type=int, help="Number of Evaluated Models")
+    parser.add_argument('--max_epochs', default=20, type=int, help="Number of Epochs")
+    parser.add_argument('--overwrite', default=True, type=bool, help="overwrite True")
     
     parsed_args = parser.parse_args()
     TextClassifier(parsed_args)

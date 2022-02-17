@@ -25,7 +25,10 @@ class UILoadWindow(QWidget):
     and all necessary files get created. During this process, a
     loading animation runs.
     """
-    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, model_path, project_name, output_path, data_loader_path, optimizations, prun_type, prun_factor_dense, prun_factor_conv, prun_acc_type, prun_acc, quant_dtype, separator, csv_target_label, target, parent=None):
+    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, model_path, project_name, output_path,
+            data_loader_path, optimizations, prun_type, prun_factor_dense, prun_factor_conv,
+            prun_acc_type, prun_acc, quant_dtype, separator, decimal, csv_target_label,
+            target, parent=None):
         super(UILoadWindow, self).__init__(parent)
         
         self.WINDOW_WIDTH = WINDOW_WIDTH
@@ -43,6 +46,7 @@ class UILoadWindow(QWidget):
         self.prun_acc = prun_acc
         self.quant_dtype = quant_dtype
         self.separator = separator
+        self.decimal = decimal
         self.csv_target_label = csv_target_label
         self.target = target
         
@@ -176,7 +180,7 @@ class UILoadWindow(QWidget):
         
         self.step = QLabel(self)
         self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_6.png'))
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_load_step_6.png'))
         self.step.setPixmap(step_img)
         self.step.setAlignment(Qt.AlignCenter)
         
@@ -205,7 +209,6 @@ class UILoadWindow(QWidget):
         self.horizontal_box[1].addWidget(self.model_memory_label)
         self.horizontal_box[1].addWidget(self.model_memory)
         self.horizontal_box[1].addWidget(self.model_memory_label_kb)
-        # self.horizontal_box[1].addItem(QSpacerItem(0.46*self.WINDOW_WIDTH, 0.05*self.WINDOW_HEIGHT))
         self.horizontal_box[1].addStretch()
         self.horizontal_box[1].setAlignment(Qt.AlignTop)
         
@@ -279,20 +282,30 @@ class UILoadWindow(QWidget):
         
         self.loading_images = Loading_images(self.loadpng)
         
-        self.prune_model = Prune_model(self.model_path, self.data_loader_path, self.optimizations, self.prun_type, self.prun_factor_dense, self.prun_factor_conv, self.prun_acc_type, self.prun_acc, self.separator, self.csv_target_label)
+        self.prune_model = Prune_model(self.model_path, self.data_loader_path, self.optimizations, self.prun_type, self.prun_factor_dense,
+                                    self.prun_factor_conv, self.prun_acc_type, self.prun_acc, self.separator, self.decimal, self.csv_target_label)
 
         
         if 'Pruning' in optimizations:
             if 'uC' in self.target:
-                self.conv_build_load = Convert_Build(str(self.model_path[:-3]) + '_pruned.h5', self.project_name, self.output_path, self.optimizations, self.data_loader_path, self.quant_dtype, self.separator, self.csv_target_label)
+                self.conv_build_load = Convert_Build(str(self.model_path[:-3]) + '_pruned.h5', self.project_name, self.output_path,
+                                                self.optimizations, self.data_loader_path, self.quant_dtype, self.separator,
+                                                self.decimal, self.csv_target_label)
             elif 'FPGA' in self.target:
-                self.conv_build_load = Convert_Build_Loading_FPGA(str(self.model_path[:-3]) + '_pruned.h5', self.project_name, self.output_path)
+                self.conv_build_load = Convert_Build_Loading_FPGA(str(self.model_path[:-3]) + '_pruned.h5', self.project_name,
+                                                self.output_path)
             elif 'EmbeddedPC' in self.target:
-                self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations, self.data_loader_path, self.quant_dtype, self.separator, self.csv_target_label)
+                self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations,
+                                                self.data_loader_path, self.quant_dtype, self.separator, self.decimal,
+                                                self.csv_target_label)
         else:
             if 'uC' in self.target:
-                self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations, self.data_loader_path, self.quant_dtype, self.separator, self.csv_target_label)
+                self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations,
+                                                self.data_loader_path, self.quant_dtype, self.separator, self.decimal,
+                                                self.csv_target_label)
             elif 'FPGA' in self.target:
                 self.conv_build_load = Convert_Build_Loading_FPGA(self.model_path, self.project_name, self.output_path)
             elif 'EmbeddedPC' in self.target:
-                self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations, self.data_loader_path, self.quant_dtype, self.separator, self.csv_target_label)
+                self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations,
+                                                self.data_loader_path, self.quant_dtype, self.separator, self.decimal,
+                                                self.csv_target_label)

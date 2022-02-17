@@ -18,10 +18,17 @@ def start_autokeras(self):
     """
     if self.task == "imageClassification":
         os.system(
-            f"start /B start cmd.exe @cmd /k python src/AutoML/ImageClassifier.py --ProjectName={self.project_name} --OutputPath={self.output_path} --DataPath={self.data_loader_path} --MaxTrials={self.max_trials} --MaxEpochs={self.max_epochs} --MaxSize={self.max_size} --NumChannels={self.num_channels} --ImgHeight={self.img_height} --ImgWidth={self.img_width}"
+            f"""start /B start cmd.exe @cmd /k python src/AutoML/ImageClassifier.py --project_name={self.project_name} 
+            --output_path={self.output_path} --data_path={self.data_loader_path} --max_trials={self.max_trials} 
+            --max_epochs={self.max_epochs} --max_size={self.max_size} --num_channels={self.num_channels} 
+            --img_height={self.img_height} --img_width={self.img_width}"""
         )
 
     if self.task == "imageRegression":
         os.system(
-            f"start /B start cmd.exe @cmd /k python src/AutoML/ImageRegressor.py --ProjectName={self.project_name} --OutputPath={self.output_path} --DataPath={self.data_loader_path} --ParamConstraint={self.params_check} --ParamFactor={self.params_factor} --FlopConstraint={self.floats_check} --FlopFactor={self.floats_factor} --ComplexConstraint={self.complex_check} --ComplexFactor={self.complex_factor} --MaxSize={self.max_size} --MaxTrials={self.max_trials} --MaxEpochs={self.max_epochs}"
+            f"""start /B start cmd.exe @cmd /k python src/AutoML/ImageRegressor.py --project_name={self.project_name} 
+            --output_path={self.output_path} --data_path={self.data_loader_path} --ParamConstraint={self.params_check} 
+            --ParamFactor={self.params_factor} --FlopConstraint={self.floats_check} --FlopFactor={self.floats_factor} 
+            --ComplexConstraint={self.complex_check} --ComplexFactor={self.complex_factor} --max_size={self.max_size} 
+            --max_trials={self.max_trials} --max_epochs={self.max_epochs}"""
         )

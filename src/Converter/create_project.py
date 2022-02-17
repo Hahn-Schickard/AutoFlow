@@ -11,7 +11,8 @@ import pathlib
 from src.Converter.convert_keras_to_cc import *
 from src.Converter.write_files_uc import *
 
-def convert_and_write(Keras_model_dir, project_name, output_path, optimizations, data_loader_path, quant_dtype, separator, csv_target_label, model_memory):
+def convert_and_write(Keras_model_dir, project_name, output_path, optimizations, data_loader_path,
+                quant_dtype, separator, decimal, csv_target_label, model_memory):
     """
     A keras model get's converted into a C++ model, the project directory is created
     and all files that are needed to compile the project get generated.
@@ -24,6 +25,7 @@ def convert_and_write(Keras_model_dir, project_name, output_path, optimizations,
         data_loader_path: Path of the folder or file with the training data
         quant_dtype:      Data type to quantize to
         separator:        Separator for reading a CSV file
+        decimal:          Decimal for reading a CSV file
         csv_target_label: Target label from the CSV file
         model_memory:     Preallocate a certain amount of memory for input, 
                           output, and intermediate arrays in kilobytes
@@ -36,7 +38,9 @@ def convert_and_write(Keras_model_dir, project_name, output_path, optimizations,
     project_dir = create_project_dir(project_name, output_path, converted_model_dir, model_name)
     
     
-    model_input_shape, model_output_neurons = convert_model_to_tflite(Keras_model_dir, project_dir, model_name, optimizations, data_loader_path, quant_dtype, separator, csv_target_label)
+    model_input_shape, model_output_neurons = convert_model_to_tflite(Keras_model_dir, project_dir,
+                                                        model_name, optimizations, data_loader_path,
+                                                        quant_dtype, separator, decimal, csv_target_label)
     convert_model_to_cpp(model_name, project_dir)
     
     for i in range(1,len(model_input_shape)):

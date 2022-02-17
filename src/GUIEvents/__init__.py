@@ -43,6 +43,7 @@ class MainWindow(QMainWindow):
         img_height:           Height of the input images
         img_width:            Width of the input images
         separator:            Separator for reading a CSV file
+        decimal:              Decimal for reading a CSV file
         csv_target_label:     Target label from the CSV file
         model_memory:         Memory to allocate for the model on a microcontroller
 
@@ -148,6 +149,7 @@ class MainWindow(QMainWindow):
         self.img_width = 128
         
         self.separator = None
+        self.decimal = None
         self.csv_target_label = None
 
         self.model_memory = None

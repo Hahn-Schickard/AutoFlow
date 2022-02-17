@@ -79,7 +79,7 @@ class UITargetWindow(QWidget):
 
         self.step = QLabel(self)
         self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_step_3.png'))
+        step_img = QPixmap(os.path.join('src','GUILayout','Images','GUI_progress_bar','GUI_load_step_3.png'))
         self.step.setPixmap(step_img)
         self.step.setAlignment(Qt.AlignCenter)
         

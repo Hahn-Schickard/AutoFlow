@@ -12,7 +12,8 @@ sys.path.append("..") # Adds higher directory to python modules path.
 from src.GUIEvents._DataloaderHelper import dataloader_quantization
 
 
-def convert_model_to_tflite(Keras_model_dir, project_dir, model_name, optimization, data_loader_path, quant_dtype, separator, csv_target_label):
+def convert_model_to_tflite(Keras_model_dir, project_dir, model_name, optimization,
+                data_loader_path, quant_dtype, separator, decimal, csv_target_label):
     """
     A keras model get's converter into a TensorFlow lite model.
     
@@ -24,6 +25,7 @@ def convert_model_to_tflite(Keras_model_dir, project_dir, model_name, optimizati
         data_loader_path:    Path of the folder or file with the training data
         quant_dtype:         Data type to quantize to
         separator:           Separator for reading a CSV file
+        decimal:             Decimal for reading a CSV file
         csv_target_label:    Target label from the CSV file
             
     Return: 
@@ -38,7 +40,8 @@ def convert_model_to_tflite(Keras_model_dir, project_dir, model_name, optimizati
 
     if "Quantization" in optimization:
         global x_train
-        x_train = dataloader_quantization(data_loader_path, keras_model.input.shape[1], keras_model.input.shape[2], separator, csv_target_label)
+        x_train = dataloader_quantization(data_loader_path, keras_model.input.shape[1],
+                            keras_model.input.shape[2], separator, decimal, csv_target_label)
         x_train = tf.cast(x_train, tf.float32)
         x_train = tf.data.Dataset.from_tensor_slices(x_train).batch(1)
 

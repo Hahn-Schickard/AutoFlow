@@ -40,7 +40,8 @@ class Convert_Build_Loading_FPGA(QThread):
         
         config = hls4ml.utils.config_from_keras_model(model, granularity='model')
         
-        hls_model = hls4ml.converters.convert_from_keras_model(model, hls_config=config, output_dir=str(self.output_path)+'/'+str(self.project_name))
+        hls_model = hls4ml.converters.convert_from_keras_model(model, hls_config=config,
+                                                output_dir=str(self.output_path)+'/'+str(self.project_name))
         try:
             hls_model.compile()
         except:

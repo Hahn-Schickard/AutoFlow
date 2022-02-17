@@ -13,29 +13,27 @@ def AutoMLWindow(self):
 	get started. You have to wait until the process is finished.
 	After this you get back to the start window.
     """
-    self.Window6 = UIAutoMLWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.project_name, self.output_path, self.data_loader_path, self.max_trials, self.max_epochs, self.max_size, self.num_channels, self.img_height, self.img_width, self)
+    self.Window6 = UIAutoMLWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.project_name,
+                            self.output_path, self.data_loader_path, self.max_trials, self.max_epochs,
+                            self.max_size, self.num_channels, self.img_height, self.img_width, 
+                            self.separator, self.decimal, self.csv_target_label, self)
 
-    # self.start_autokeras()
+    self.Window6.loading_images.start()
     self.Window6.autokeras.start()
 
-    self.Window6.autokeras.request_signal.connect(lambda:nextWindow(self,"Next"))
-    
-    self.Window6.back.clicked.connect(lambda:nextWindow(self,"Back"))
-    self.Window6.load.clicked.connect(lambda:nextWindow(self,"Next"))    
+    self.Window6.autokeras.request_signal.connect(lambda:nextWindow(self))
+    print("AuotKeras finished")  
 
     self.setCentralWidget(self.Window6)
     self.show()
 
 
-def nextWindow(self,n):
+def nextWindow(self):
     """
-    Defines which one is the next window to open.
-
-    Args:
-        n:  Go forward or go back
+    After AutoKeras training is finished, stop the
+    the two threads and return to the start window
+    of the GUI.
     """
-    if n == "Back":
-        self.SettingsWindow()
-
-    elif n == "Next":
-        self.GUIStart()
+    self.Window6.autokeras.stop_thread()
+    self.Window6.loading_images.stop_thread()
+    self.GUIStart()

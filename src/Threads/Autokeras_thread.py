@@ -13,7 +13,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-from src.AutoML.ImageClassifier import ImageClassifier
+from src.AutoML.ImageClassifier import image_classifier
 
 
 class Autokeras(QThread):
@@ -33,7 +33,8 @@ class Autokeras(QThread):
     
     request_signal = pyqtSignal()
     
-    def __init__(self, project_name, output_path, data_path, max_trials, max_epochs, max_size, num_channels, img_height, img_width):
+    def __init__(self, project_name, output_path, data_path, max_trials, max_epochs, max_size, num_channels,
+            img_height, img_width, separator, decimal, csv_target_label):
         QThread.__init__(self)
         self.project_name = project_name
         self.output_path = output_path
@@ -44,7 +45,9 @@ class Autokeras(QThread):
         self.num_channels = num_channels
         self.img_height = img_height
         self.img_width = img_width
-        
+        self.separator = separator
+        self.decimal = decimal
+        self.csv_target_label = csv_target_label
 
     def run(self):
         """Activates the thread
@@ -52,7 +55,10 @@ class Autokeras(QThread):
         Depending on the task selected, the training of
         a neural network is started using AutoKeras.
         """
-        ImageClassifier(self.project_name, self.output_path, self.data_path, MaxTrials=self.max_trials, MaxEpochs=self.max_epochs, MaxSize=self.max_size, NumChannels=self.num_channels, ImgHeight=self.img_height, ImgWidth=self.img_width)
+        image_classifier(self.project_name, self.output_path, self.data_path, max_trials=self.max_trials,
+                max_epochs=self.max_epochs, max_size=self.max_size, num_channels=self.num_channels, 
+                img_height=self.img_height, img_width=self.img_width, separator=self.separator, 
+                decimal=self.decimal, csv_target_label=self.csv_target_label)
         
         self.request_signal.emit()
         

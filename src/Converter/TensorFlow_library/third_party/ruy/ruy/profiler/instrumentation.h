@@ -92,9 +92,9 @@ ThreadStack* ThreadLocalThreadStack();
 // code. It's unrelated to real call stacks.
 struct Stack {
   std::uint32_t id = 0;
-  static constexpr int kMaxSize = 64;
+  static constexpr int kmax_size = 64;
   int size = 0;
-  Label labels[kMaxSize];
+  Label labels[kmax_size];
 };
 
 // Returns the buffer byte size required by CopyToSample.
@@ -143,7 +143,7 @@ class ThreadStack {
     // instrumentation code should not ship in release builds anyway, the
     // overhead of this check is negligible, and overrunning a stack array would
     // be bad.
-    if (stack_.size >= Stack::kMaxSize) {
+    if (stack_.size >= Stack::kmax_size) {
       abort();
     }
     stack_.labels[stack_.size++].Set(args...);

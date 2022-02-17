@@ -29,7 +29,8 @@ def AutoMLData(self):
         self.AutoMLDataWindow.data_path_label.setText(self.data_loader_path)
     
     self.AutoMLDataWindow.output_path_browse.clicked.connect(lambda:self.get_output_path(self.AutoMLDataWindow.output_path_label))
-    self.AutoMLDataWindow.select_data_browse.clicked.connect(lambda: self.get_data_loader(self.AutoMLDataWindow, self.AutoMLDataWindow.data_path_label))
+    self.AutoMLDataWindow.select_data_browse.clicked.connect(lambda: self.get_data_loader(self.AutoMLDataWindow, 
+                                                                                self.AutoMLDataWindow.data_path_label))
     self.AutoMLDataWindow.next.clicked.connect(lambda:nextWindow(self,"Next"))
     self.AutoMLDataWindow.back.clicked.connect(lambda:nextWindow(self,"Back"))
     

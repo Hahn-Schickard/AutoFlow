@@ -12,6 +12,8 @@ from PIL import Image
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import pandas as pd
 import tensorflow as tf
+import autokeras as ak
+from sklearn.model_selection import train_test_split
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -32,16 +34,20 @@ def normalize_data(image,label):
     return image,label
 
 
-def dataloader_quantization(data_loader_path, image_height, image_width, separator, csv_target_label):
+def dataloader_quantization(data_loader_path, img_height, img_width, separator, decimal,
+                csv_target_label):
     """Get Training data for quantization.
 
     Checks if your training data is inside a path or a file. Extracts
     the data from the directories or the file and returns it.
 
     Args:
-        data_loader_path: Path or file of training data
-        image_height:    Height of image
-        image_width:     Width of image
+        data_loader_path:   Path or file of training data
+        img_height:         Height of image
+        img_width:          Width of image
+        separator:          Separator for reading a CSV file
+        decimal:            Decimal for reading a CSV file
+        csv_target_label:   Target label from the CSV file
 
     Returns:
         Training data which is needed for quantization.
@@ -50,7 +56,7 @@ def dataloader_quantization(data_loader_path, image_height, image_width, separat
 
     if os.path.isfile(data_loader_path):
         if ".csv" in data_loader_path:
-            df = pd.read_csv(data_loader_path, sep=separator, index_col=False)
+            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal, index_col=False)
 
             if "First" in csv_target_label:
                 X = np.array(df.iloc[:,1:].values)[..., np.newaxis]
@@ -76,7 +82,7 @@ def dataloader_quantization(data_loader_path, image_height, image_width, separat
             for i in range(0,int(500/len(classes))):
                 rand_img = random.choice(images)
                 img = Image.open(data_loader_path + "/" + folders + "/" + rand_img)
-                resized_image = np.array(img.resize((image_height, image_width)))
+                resized_image = np.array(img.resize((img_height, img_width)))
                 train_images.append(resized_image)
         
         train_images = np.asarray(train_images)
@@ -89,7 +95,8 @@ def dataloader_quantization(data_loader_path, image_height, image_width, separat
         return train_images
 
 
-def dataloader_pruning(data_loader_path, separator, csv_target_label, image_height, image_width, num_channels, num_classes):
+def dataloader_pruning(data_loader_path, separator, decimal, csv_target_label, img_height,
+                img_width, num_channels, num_classes):
     """Get data for retraining the model after pruning.
 
     Checks if your data is inside a path or a file. Extracts the
@@ -98,12 +105,14 @@ def dataloader_pruning(data_loader_path, separator, csv_target_label, image_heig
     is a path data genarators are initialized.  
 
     Args:
-        data_loader_path: Path or file of training data
-        separator:       Delimiter to use
-        image_height:    Height of image
-        image_width:     Width of image
-        num_channels:    Number of channels of the image
-        num_classes:     Number of different classes of the model
+        data_loader_path:   Path or file of training data
+        separator:          Delimiter to use
+        decimal:            Decimal for reading a CSV file
+        csv_target_label:   Target label from the CSV file
+        img_height:         Height of image
+        img_width:          Width of image
+        num_channels:       Number of channels of the image
+        num_classes:        Number of different classes of the model
 
     Returns:
         If the dataloader is a file training data, the labels and
@@ -114,7 +123,7 @@ def dataloader_pruning(data_loader_path, separator, csv_target_label, image_heig
     """
     if os.path.isfile(data_loader_path):
         if ".csv" in data_loader_path:
-            df = pd.read_csv(data_loader_path, sep=separator, index_col=False)
+            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal, index_col=False)
 
             if "First" in csv_target_label:
                 X = np.array(df.iloc[:,1:].values)[..., np.newaxis]
@@ -150,11 +159,95 @@ def dataloader_pruning(data_loader_path, separator, csv_target_label, image_heig
         else:
             class_mode = 'binary'
 
-        train_it = train_datagen.flow_from_directory(data_loader_path, target_size=(image_height, image_width), color_mode=color_mode, class_mode=class_mode, batch_size=128, subset='training')
-        val_it = train_datagen.flow_from_directory(data_loader_path, target_size=(image_height, image_width), color_mode=color_mode, class_mode=class_mode, batch_size=128, subset='validation')
+        train_it = train_datagen.flow_from_directory(data_loader_path, target_size=(img_height, img_width),
+                                            color_mode=color_mode, class_mode=class_mode, batch_size=128,
+                                            subset='training')
+        val_it = train_datagen.flow_from_directory(data_loader_path, target_size=(img_height, img_width),
+                                            color_mode=color_mode, class_mode=class_mode, batch_size=128,
+                                            subset='validation')
 
         if next(iter(val_it))[0].numpy().max() > 1.0:
             train_it = val_it.map(normalize_data)
             val_it = val_it.map(normalize_data)
 
         return train_it, val_it, False
+
+
+def dataloader_autokeras(data_loader_path, separator, decimal, csv_target_label, img_height, img_width, num_channels):
+    """Get data for of model using AutoKeras.
+
+    Checks if your data is inside a path or a file. Extracts the
+    data from the directories or the file. If it is a file there
+    is also a check if the label is one hot encoded or not. If it
+    is a path data genarators are initialized.  
+
+    Args:
+        data_loader_path:   Path or file of training data
+        separator:          Delimiter to use
+        decimal:            Decimal for reading a CSV file
+        img_height:         Height of image
+        img_width:          Width of image
+        num_channels:       Number of channels of the image
+        num_classes:        Number of different classes of the model
+
+    Returns:
+        Returns the data for training models as datagenerators
+        or as numpy arrays depending on if the data loader
+        path is a file or directory. 
+    """
+    if os.path.isfile(data_loader_path):
+        if ".csv" in data_loader_path:
+            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal, index_col=False)
+
+            if "First" in csv_target_label:
+                X = np.array(df.iloc[:,1:].values)[..., np.newaxis]
+                Y = np.array(df.iloc[:,0].values).astype(np.int8)
+            else:
+                X = np.array(df.iloc[:,:-1].values)[..., np.newaxis]
+                Y = np.array(df.iloc[:,-1].values).astype(np.int8)
+
+            x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2)
+
+        else:
+            sys.path.append(os.path.dirname(data_loader_path))
+            datascript = __import__(os.path.splitext(os.path.basename(data_loader_path))[0])
+            x_train, y_train, x_test, y_test = datascript.get_data()
+                
+        return x_train, y_train, x_test, y_test
+
+    elif os.path.isdir(data_loader_path):
+        if num_channels == 1:
+            color_mode = 'grayscale'
+        elif num_channels == 3:
+            color_mode = 'rgb'
+        else:
+            print("Choose a valid number of channels")
+            return
+
+        train_data = ak.image_dataset_from_directory(
+            data_loader_path,
+            # Use 20% data as testing data.
+            validation_split=0.2,
+            subset="training",
+            # Set seed to ensure the same split when loading testing data.
+            seed=123,
+            image_size=(img_height, img_width),
+            color_mode=color_mode,
+            batch_size=128,
+        )
+
+        test_data = ak.image_dataset_from_directory(
+            data_loader_path,
+            validation_split=0.2,
+            subset="validation",
+            seed=123,
+            image_size=(img_height, img_width),
+            color_mode=color_mode,
+            batch_size=128,
+        )
+
+        if next(iter(train_data))[0].numpy().max() > 1.0:
+            train_data = train_data.map(normalize_data)
+            test_data = test_data.map(normalize_data)
+
+        return train_data, None, test_data, None

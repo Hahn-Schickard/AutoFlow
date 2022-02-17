@@ -334,28 +334,6 @@ def model_pruning(self, CurWindow):
     Args:
         CurWindow: GUI window from which the function is executed.
     """
-    try:
-        if int(CurWindow.model_memory.text()) < 5 or int(CurWindow.model_memory.text()) > 1000:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-                
-            msg.setText("Please enter number for the model memory between 5 and 1000 kB.")
-            msg.setWindowTitle("Warning")
-            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-            msg.exec_()
-            return
-        else:
-            self.model_memory = int(CurWindow.model_memory.text())
-    except:
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Warning)
-            
-        msg.setText("Please enter a valid number for the model memory.")
-        msg.setWindowTitle("Warning")
-        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        msg.exec_()
-        return
-
     CurWindow.summary.setVisible(False)
     CurWindow.project_name_label.setVisible(False)
     CurWindow.output_path_label.setVisible(False)
@@ -458,10 +436,11 @@ def previewCSVData(self, CurWindow):
     
         if self.data_loader_path != None and ".csv" in self.data_loader_path:
             self.get_separator(CurWindow)
+            decimal = CurWindow.dec_label_col.currentText()
             if not self.separator:
-                df = pd.read_csv(self.data_loader_path, index_col=False)
+                df = pd.read_csv(self.data_loader_path, decimal=decimal, index_col=False)
             else:
-                df = pd.read_csv(self.data_loader_path, index_col=False, sep=self.separator)
+                df = pd.read_csv(self.data_loader_path, decimal=decimal, index_col=False, sep=self.separator)
             if df.size == 0:
                 return
             df.fillna('', inplace=True)
@@ -512,6 +491,7 @@ def loadCSVData(self, CurWindow, MainWindow):
     """
     if CurWindow.cb_label_col.isVisible() == True:
         self.csv_target_label = CurWindow.cb_label_col.currentText()
+        self.decimal = CurWindow.dec_label_col.currentText()
         CurWindow.close()
         self.set_label(MainWindow.data_path_label, self.data_loader_path)
     else:
