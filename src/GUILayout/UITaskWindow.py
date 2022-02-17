@@ -31,61 +31,63 @@ class UITaskWindow(QWidget):
         self.placeholder.setFixedWidth(0.02*self.WINDOW_HEIGHT)
         self.placeholder.setFixedHeight(0.05*self.WINDOW_HEIGHT)        
 
-        self.ImageClassification = QPushButton(self)
-        self.ImageClassification.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'ImageCl.png')))
-        self.ImageClassification.setIconSize(QSize(0.25*self.WINDOW_WIDTH, 0.35*self.WINDOW_HEIGHT))
-        self.ImageClassification.setToolTip('...')
-        self.ImageClassification.setStyleSheet("""QToolTip { 
+        self.image_classification = QPushButton(self)
+        self.image_classification.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Image_classification.png')))
+        self.image_classification.setIconSize(QSize(0.3*self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))
+        self.image_classification.setToolTip('Categorize images to different classes.')
+        self.image_classification.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);
                            color: white; 
                            border: black solid 1px
                            }
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}""")
-        self.ImageClassification.setFixedHeight(0.3*self.WINDOW_HEIGHT)
-        self.ImageClassification.setFixedWidth(0.3*self.WINDOW_WIDTH)
+        self.image_classification.setFixedHeight(0.3*self.WINDOW_HEIGHT)
+        self.image_classification.setFixedWidth(0.3*self.WINDOW_WIDTH)
         
-        self.ImageRegression = QPushButton(self)
-        self.ImageRegression.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'ImageRE.png')))
-        self.ImageRegression.setIconSize(QSize(0.25*self.WINDOW_WIDTH, 0.35*self.WINDOW_HEIGHT))
-        self.ImageRegression.setToolTip('...')
-        self.ImageRegression.setStyleSheet("""QToolTip { 
+        self.image_regression = QPushButton(self)
+        self.image_regression.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Image_regression.png')))
+        self.image_regression.setIconSize(QSize(0.3*self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))
+        self.image_regression.setToolTip('Images get not categorized, instead you\n'
+                                        'get a value as prediction')
+        self.image_regression.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);
                            color: white; 
                            border: black solid 1px
                            }
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}""")
-        self.ImageRegression.setFixedHeight(0.3*self.WINDOW_HEIGHT)
-        self.ImageRegression.setFixedWidth(0.3*self.WINDOW_WIDTH)
+        self.image_regression.setFixedHeight(0.3*self.WINDOW_HEIGHT)
+        self.image_regression.setFixedWidth(0.3*self.WINDOW_WIDTH)
         
-        self.DataClassification = QPushButton(self)
-        self.DataClassification.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'DataCI.png')))
-        self.DataClassification.setIconSize(QSize(0.25*self.WINDOW_WIDTH, 0.35*self.WINDOW_HEIGHT))
-        self.DataClassification.setToolTip('...')
-        self.DataClassification.setStyleSheet("""QToolTip { 
+        self.data_classification = QPushButton(self)
+        self.data_classification.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Data_classification.png')))
+        self.data_classification.setIconSize(QSize(0.3*self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))
+        self.data_classification.setToolTip('Categorize data to different classes.')
+        self.data_classification.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);
                            color: white; 
                            border: black solid 1px
                            }
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}""")
-        self.DataClassification.setFixedHeight(0.3*self.WINDOW_HEIGHT)
-        self.DataClassification.setFixedWidth(0.3*self.WINDOW_WIDTH)
+        self.data_classification.setFixedHeight(0.3*self.WINDOW_HEIGHT)
+        self.data_classification.setFixedWidth(0.3*self.WINDOW_WIDTH)
         
-        self.DataRegression = QPushButton(self)
-        self.DataRegression.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'DataRE.png')))
-        self.DataRegression.setIconSize(QSize(0.25*self.WINDOW_WIDTH, 0.35*self.WINDOW_HEIGHT))
-        self.DataRegression.setToolTip('...')
-        self.DataRegression.setStyleSheet("""QToolTip { 
+        self.data_regression = QPushButton(self)
+        self.data_regression.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Data_regression.png')))
+        self.data_regression.setIconSize(QSize(0.3*self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))
+        self.data_regression.setToolTip('Data get not categorized, instead you\n'
+                                        'get a value as prediction')
+        self.data_regression.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);
                            color: white; 
                            border: black solid 1px
                            }
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}""")
-        self.DataRegression.setFixedHeight(0.3*self.WINDOW_HEIGHT)
-        self.DataRegression.setFixedWidth(0.3*self.WINDOW_WIDTH)
+        self.data_regression.setFixedHeight(0.3*self.WINDOW_HEIGHT)
+        self.data_regression.setFixedWidth(0.3*self.WINDOW_WIDTH)
         
         self.step = QLabel(self)
         self.step.setFixedHeight(0.05*self.WINDOW_HEIGHT)
@@ -111,9 +113,9 @@ class UITaskWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[2].addStretch()
-        self.horizontal_box[2].addWidget(self.ImageClassification)
+        self.horizontal_box[2].addWidget(self.image_classification)
         self.horizontal_box[2].addStretch()
-        self.horizontal_box[2].addWidget(self.ImageRegression)
+        self.horizontal_box[2].addWidget(self.image_regression)
         self.horizontal_box[2].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
@@ -121,9 +123,9 @@ class UITaskWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[4].addStretch()
-        self.horizontal_box[4].addWidget(self.DataClassification)
+        self.horizontal_box[4].addWidget(self.data_classification)
         self.horizontal_box[4].addStretch()
-        self.horizontal_box[4].addWidget(self.DataRegression)
+        self.horizontal_box[4].addWidget(self.data_regression)
         self.horizontal_box[4].addStretch()
         
         

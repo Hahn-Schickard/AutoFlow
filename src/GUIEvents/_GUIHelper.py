@@ -398,7 +398,7 @@ def terminate_thread(self, CurWindow):
         print("Error")
 
 
-def browseCSVData(self, CurWindow):
+def browse_csv_data(self, CurWindow):
     """Get the CSV file which contains your data.
 
     A Browse window opens and you can navigate to the CSV
@@ -418,7 +418,7 @@ def browseCSVData(self, CurWindow):
     CurWindow.numCol.setText("")
 
 
-def previewCSVData(self, CurWindow):
+def preview_csv_data(self, CurWindow):
     """Gives a preview of the CSV data structure.
 
     Read the CSV file and separate the data according the selected
@@ -486,7 +486,7 @@ def previewCSVData(self, CurWindow):
         msg.exec_()
 
 
-def loadCSVData(self, CurWindow, MainWindow):
+def load_csv_data(self, CurWindow, MainWindow):
     """Stores the target column of the CSV file and closes the window.
     """
     if CurWindow.cb_label_col.isVisible() == True:

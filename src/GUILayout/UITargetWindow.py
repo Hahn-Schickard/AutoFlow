@@ -33,7 +33,7 @@ class UITargetWindow(QWidget):
         self.uC = QPushButton(self)
         self.uC.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'MCU.png')))
         self.uC.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.25*self.WINDOW_HEIGHT))
-        self.uC.setToolTip('...')
+        self.uC.setToolTip('Run the TensorFlow model on a microcontroller.')
         self.uC.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);
                            color: white; 
@@ -47,7 +47,7 @@ class UITargetWindow(QWidget):
         self.FPGA = QPushButton(self)
         self.FPGA.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'FPGA.png')))
         self.FPGA.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.25*self.WINDOW_HEIGHT))
-        self.FPGA.setToolTip('...')
+        self.FPGA.setToolTip('Run the TensorFlow model on a FPGA.')
         self.FPGA.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);
                            color: white; 
@@ -61,7 +61,7 @@ class UITargetWindow(QWidget):
         self.EmbeddedPC = QPushButton(self)
         self.EmbeddedPC.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'EmbeddedPC.svg')))
         self.EmbeddedPC.setIconSize(QSize(0.8*self.WINDOW_WIDTH, 0.8*self.WINDOW_HEIGHT))
-        self.EmbeddedPC.setToolTip('...')
+        self.EmbeddedPC.setToolTip('Run the TensorFlow model on an embedded PC.')
         self.EmbeddedPC.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);
                            color: white; 

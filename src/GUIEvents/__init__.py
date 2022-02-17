@@ -78,9 +78,9 @@ class MainWindow(QMainWindow):
         model_pruning,
         convert_create,
         terminate_thread,
-        browseCSVData,
-        previewCSVData,
-        loadCSVData,
+        browse_csv_data,
+        preview_csv_data,
+        load_csv_data,
         get_separator
     )
 

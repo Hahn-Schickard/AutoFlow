@@ -15,10 +15,10 @@ def TaskWindow(self):
     """
     self.Window2 = UITaskWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
         
-    self.Window2.ImageClassification.clicked.connect(lambda:nextWindow(self,"Next","imageClassification"))
-    self.Window2.ImageRegression.clicked.connect(lambda:nextWindow(self,"Next","imageRegression"))
-    self.Window2.DataClassification.clicked.connect(lambda:nextWindow(self,"Next","dataClassification"))
-    self.Window2.DataRegression.clicked.connect(lambda:nextWindow(self,"Next","dataRegression"))
+    self.Window2.image_classification.clicked.connect(lambda:nextWindow(self,"Next","imageClassification"))
+    self.Window2.image_regression.clicked.connect(lambda:nextWindow(self,"Next","imageRegression"))
+    self.Window2.data_classification.clicked.connect(lambda:nextWindow(self,"Next","dataClassification"))
+    self.Window2.data_regression.clicked.connect(lambda:nextWindow(self,"Next","dataRegression"))
 
     
     self.Window2.back.clicked.connect(lambda:nextWindow(self,"Back",None))

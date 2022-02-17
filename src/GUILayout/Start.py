@@ -43,7 +43,7 @@ class UIMarcusWindow1(QWidget):
         self.train_model = QPushButton(self)
         self.train_model.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Trainmodel.png')))
         self.train_model.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.30*self.WINDOW_HEIGHT))
-        self.train_model.setToolTip('...')
+        self.train_model.setToolTip('Train a new TensorFlow model by using AutoKeras.')
         self.train_model.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);
                            color: white; 
@@ -62,7 +62,8 @@ class UIMarcusWindow1(QWidget):
         self.load_model = QPushButton(self)
         self.load_model.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Loadmodel.png')))
         self.load_model.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))
-        self.load_model.setToolTip('...')
+        self.load_model.setToolTip('Load an already trained TensorFlow model and\n'
+                                   'convert it for a device of your choice.')
         self.load_model.setStyleSheet("""QToolTip { 
                            background-color : rgb(53, 53, 53);
                            color: white; 

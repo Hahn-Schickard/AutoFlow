@@ -29,10 +29,10 @@ class UISettingsWindow(QWidget):
         self.label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
-        self.Epochs = QLabel("Epochs:")
-        self.Epochs.setStyleSheet("font: " + str(int(0.030*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.Epochs.setFixedWidth(0.20*self.WINDOW_WIDTH)
-        self.Epochs.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.epochs = QLabel("epochs:")
+        self.epochs.setStyleSheet("font: " + str(int(0.030*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.epochs.setFixedWidth(0.20*self.WINDOW_WIDTH)
+        self.epochs.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
         self.epochs_factor = QLineEdit(self)
         self.epochs_factor.setStyleSheet("font: " + str(int(0.030*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
@@ -121,7 +121,7 @@ class UISettingsWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[1].addStretch()
-        self.horizontal_box[1].addWidget(self.Epochs)
+        self.horizontal_box[1].addWidget(self.epochs)
         self.horizontal_box[1].addWidget(self.epochs_factor)
         self.horizontal_box[1].addStretch()
         

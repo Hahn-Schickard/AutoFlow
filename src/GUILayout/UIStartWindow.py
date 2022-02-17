@@ -39,7 +39,7 @@ class UIStartWindow(QWidget):
         self.output_path_Browse = QPushButton(" Output path... ", self)
         self.output_path_Browse.setFixedWidth(0.2*self.WINDOW_WIDTH)
         self.output_path_Browse.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        self.output_path_Browse.setToolTip('Select a path where the TFL2uC\n'
+        self.output_path_Browse.setToolTip('Select a path where the AUTOFlow\n'
                                            'project should be stored.')
         self.output_path_Browse.setStyleSheet("""QPushButton {
                            font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
