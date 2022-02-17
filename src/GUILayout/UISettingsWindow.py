@@ -29,7 +29,7 @@ class UISettingsWindow(QWidget):
         self.label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
-        self.epochs = QLabel("epochs:")
+        self.epochs = QLabel("Epochs:")
         self.epochs.setStyleSheet("font: " + str(int(0.030*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.epochs.setFixedWidth(0.20*self.WINDOW_WIDTH)
         self.epochs.setFixedHeight(0.05*self.WINDOW_HEIGHT)
@@ -89,7 +89,7 @@ class UISettingsWindow(QWidget):
         self.img_width.setFixedWidth(0.10*self.WINDOW_WIDTH)
         self.img_width.setFixedHeight(0.05*self.WINDOW_HEIGHT)
 
-        if not "imageClassification" in self.task:
+        if not "imageClassification" in self.task and not "imageRegression" in self.task:
             self.img_height_label.setVisible(False)
             self.img_height.setVisible(False)
             self.img_width_label.setVisible(False)

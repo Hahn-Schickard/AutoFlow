@@ -30,47 +30,53 @@ class UITargetWindow(QWidget):
         self.label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
 
-        self.uC = QPushButton(self)
-        self.uC.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'MCU.png')))
-        self.uC.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.25*self.WINDOW_HEIGHT))
-        self.uC.setToolTip('Run the TensorFlow model on a microcontroller.')
-        self.uC.setStyleSheet("""QToolTip { 
+        self.uc = QPushButton(self)
+        self.uc.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'MCU.png')))
+        self.uc.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.25*self.WINDOW_HEIGHT))
+        self.uc.setToolTip('Run the TensorFlow model on a microcontroller.')
+        self.uc.setStyleSheet("""QPushButton {
+                           font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}
+                           QToolTip { 
+                           font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""")
-        self.uC.setFixedHeight(0.3*self.WINDOW_HEIGHT)
-        self.uC.setFixedWidth(0.3*self.WINDOW_WIDTH)
+                           border: black solid 1px}""")
+        self.uc.setFixedHeight(0.3*self.WINDOW_HEIGHT)
+        self.uc.setFixedWidth(0.3*self.WINDOW_WIDTH)
         
-        self.FPGA = QPushButton(self)
-        self.FPGA.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'FPGA.png')))
-        self.FPGA.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.25*self.WINDOW_HEIGHT))
-        self.FPGA.setToolTip('Run the TensorFlow model on a FPGA.')
-        self.FPGA.setStyleSheet("""QToolTip { 
+        self.fpga = QPushButton(self)
+        self.fpga.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'FPGA.png')))
+        self.fpga.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.25*self.WINDOW_HEIGHT))
+        self.fpga.setToolTip('Run the TensorFlow model on a FPGA.')
+        self.fpga.setStyleSheet("""QPushButton {
+                           font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}
+                           QToolTip { 
+                           font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""")
-        self.FPGA.setFixedHeight(0.3*self.WINDOW_HEIGHT)
-        self.FPGA.setFixedWidth(0.3*self.WINDOW_WIDTH)
+                           border: black solid 1px}""")
+        self.fpga.setFixedHeight(0.3*self.WINDOW_HEIGHT)
+        self.fpga.setFixedWidth(0.3*self.WINDOW_WIDTH)
         
-        self.EmbeddedPC = QPushButton(self)
-        self.EmbeddedPC.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'EmbeddedPC.svg')))
-        self.EmbeddedPC.setIconSize(QSize(0.8*self.WINDOW_WIDTH, 0.8*self.WINDOW_HEIGHT))
-        self.EmbeddedPC.setToolTip('Run the TensorFlow model on an embedded PC.')
-        self.EmbeddedPC.setStyleSheet("""QToolTip { 
+        self.embedded_pc = QPushButton(self)
+        self.embedded_pc.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'EmbeddedPC.svg')))
+        self.embedded_pc.setIconSize(QSize(0.8*self.WINDOW_WIDTH, 0.8*self.WINDOW_HEIGHT))
+        self.embedded_pc.setToolTip('Run the TensorFlow model on an embedded PC.')
+        self.embedded_pc.setStyleSheet("""QPushButton {
+                           font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}
+                           QToolTip { 
+                           font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""")
-        self.EmbeddedPC.setFixedHeight(0.3*self.WINDOW_HEIGHT)
-        self.EmbeddedPC.setFixedWidth(0.3*self.WINDOW_WIDTH)
+                           border: black solid 1px}""")
+        self.embedded_pc.setFixedHeight(0.3*self.WINDOW_HEIGHT)
+        self.embedded_pc.setFixedWidth(0.3*self.WINDOW_WIDTH)
         
         self.back = QPushButton(self)
         self.back.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'back_arrow.png')))
@@ -96,9 +102,9 @@ class UITargetWindow(QWidget):
         self.horizontal_box[1].addItem(QSpacerItem(self.WINDOW_WIDTH, 0.1*self.WINDOW_HEIGHT))
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[2].addWidget(self.uC)
-        self.horizontal_box[2].addWidget(self.FPGA)
-        self.horizontal_box[2].addWidget(self.EmbeddedPC)
+        self.horizontal_box[2].addWidget(self.uc)
+        self.horizontal_box[2].addWidget(self.fpga)
+        self.horizontal_box[2].addWidget(self.embedded_pc)
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[3].addItem(QSpacerItem(self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))

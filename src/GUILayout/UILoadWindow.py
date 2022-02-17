@@ -55,13 +55,13 @@ class UILoadWindow(QWidget):
         self.label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
-        self.loadpng = QLabel(self)
-        self.loadpng.setFixedWidth(0.3*self.WINDOW_HEIGHT)
-        self.loadpng.setFixedHeight(0.3*self.WINDOW_HEIGHT)
+        self.load_png = QLabel(self)
+        self.load_png.setFixedWidth(0.3*self.WINDOW_HEIGHT)
+        self.load_png.setFixedHeight(0.3*self.WINDOW_HEIGHT)
         img = QPixmap(os.path.join('src','GUILayout','Images','GUI_loading_images', 'GUI_load_0.png'))
-        self.loadpng.setPixmap(img)
-        self.loadpng.setVisible(False)
-        self.loadpng.setScaledContents(True)
+        self.load_png.setPixmap(img)
+        self.load_png.setVisible(False)
+        self.load_png.setScaledContents(True)
         
         self.model_memory_label = QLabel("Model memory:")
         self.model_memory_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
@@ -214,7 +214,7 @@ class UILoadWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[2].addStretch()
-        self.horizontal_box[2].addWidget(self.loadpng)
+        self.horizontal_box[2].addWidget(self.load_png)
         self.horizontal_box[2].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
@@ -280,7 +280,7 @@ class UILoadWindow(QWidget):
         
         self.setLayout(self.vertical_box)
         
-        self.loading_images = Loading_images(self.loadpng)
+        self.loading_images = Loading_images(self.load_png)
         
         self.prune_model = Prune_model(self.model_path, self.data_loader_path, self.optimizations, self.prun_type, self.prun_factor_dense,
                                     self.prun_factor_conv, self.prun_acc_type, self.prun_acc, self.separator, self.decimal, self.csv_target_label)

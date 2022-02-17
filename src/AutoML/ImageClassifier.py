@@ -4,19 +4,14 @@
 ============================================================================================================'''
 
 import autokeras as ak
-from tensorflow.keras.datasets import cifar10
-import argparse
-import importlib.util
-import shutil
 import os
-import sys
 import tensorflow as tf
 
 from src.GUIEvents._DataloaderHelper import dataloader_autokeras
 
 
-def image_classifier(project_name, output_path, data_path, max_trials=10, max_epochs=20, max_size=0, overwrite=True, num_channels=3,
-            img_height=128, img_width=128, separator=None, decimal=None, csv_target_label=None):
+def image_classifier(project_name, output_path, data_path, max_trials=10, max_epochs=20, max_size=0, overwrite=True, 
+            num_channels=3, img_height=128, img_width=128, separator=None, decimal=None, csv_target_label=None):
 
     input_node = ak.ImageInput()
     output_node = ak.ConvBlock()(input_node)

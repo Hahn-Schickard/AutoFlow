@@ -11,14 +11,14 @@ import pathlib
 from src.Converter.convert_keras_to_cc import *
 from src.Converter.write_files_uc import *
 
-def convert_and_write(Keras_model_dir, project_name, output_path, optimizations, data_loader_path,
+def convert_and_write(keras_model_dir, project_name, output_path, optimizations, data_loader_path,
                 quant_dtype, separator, decimal, csv_target_label, model_memory):
     """
     A keras model get's converted into a C++ model, the project directory is created
     and all files that are needed to compile the project get generated.
     
     Args: 
-        Keras_model_dir:  Path of the keras model
+        keras_model_dir:  Path of the keras model
         project_name:     Name of the project which should be generated
         output_path:      Directory where the project should be generated
         optimization:     Selected optimization algorithms
@@ -31,14 +31,14 @@ def convert_and_write(Keras_model_dir, project_name, output_path, optimizations,
                           output, and intermediate arrays in kilobytes
     """   
     converted_model_dir = str(pathlib.Path(__file__).parent.absolute()) + "/Converted_model_files/"
-    model_name = ntpath.basename(Keras_model_dir)
+    model_name = ntpath.basename(keras_model_dir)
     model_name,_ = os.path.splitext(model_name)
     model_input_neurons = 1
     
     project_dir = create_project_dir(project_name, output_path, converted_model_dir, model_name)
     
     
-    model_input_shape, model_output_neurons = convert_model_to_tflite(Keras_model_dir, project_dir,
+    model_input_shape, model_output_neurons = convert_model_to_tflite(keras_model_dir, project_dir,
                                                         model_name, optimizations, data_loader_path,
                                                         quant_dtype, separator, decimal, csv_target_label)
     convert_model_to_cpp(model_name, project_dir)
@@ -50,5 +50,5 @@ def convert_and_write(Keras_model_dir, project_name, output_path, optimizations,
     main_functions(project_dir, model_name, model_input_neurons, model_output_neurons, quant_dtype, model_memory)
     TensorFlow_library(project_dir)
     if 'Pruning' in optimizations:
-        pruned_keras_model(Keras_model_dir, project_dir, model_name)
-        os.remove(Keras_model_dir)
+        pruned_keras_model(keras_model_dir, project_dir, model_name)
+        os.remove(keras_model_dir)

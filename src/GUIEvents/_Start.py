@@ -10,7 +10,7 @@ def GUIStart(self):
     """Actiivates the start window of the GUI
 
     You can decide if you want to train a new model using
-    AutoKeras or if you want to load an alreadytrained
+    AutoKeras or if you want to load an already trained
     model.
     """    
     self.GUIStart1 = UIMarcusWindow1(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)

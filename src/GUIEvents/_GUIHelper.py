@@ -94,7 +94,7 @@ def set_pruning(self, CurWindow):
     Args:
         CurWindow: GUI window from which the function is executed.
     """
-    if CurWindow.Pruning.isChecked() == True:
+    if CurWindow.pruning.isChecked() == True:
         if not "Pruning" in self.optimizations:
             self.optimizations.append("Pruning")
             print(self.optimizations)
@@ -112,10 +112,10 @@ def set_pruning(self, CurWindow):
         CurWindow.prun_fac.setVisible(False)
         CurWindow.prun_acc.setVisible(False) 
         
-        CurWindow.Pruning_Dense.setVisible(False)
-        CurWindow.Pruning_Conv.setVisible(False)
-        CurWindow.Pruning_Conv_label.setVisible(False)
-        CurWindow.Pruning_Dense_label.setVisible(False)
+        CurWindow.pruning_dense.setVisible(False)
+        CurWindow.pruning_conv.setVisible(False)
+        CurWindow.pruning_conv_label.setVisible(False)
+        CurWindow.pruning_dense_label.setVisible(False)
 
         CurWindow.min_acc.setVisible(False)
         CurWindow.acc_loss.setVisible(False)   
@@ -133,7 +133,7 @@ def set_quantization(self, CurWindow):
     Args:
         CurWindow: GUI window from which the function is executed.
     """
-    if CurWindow.Quantization.isChecked() == True:
+    if CurWindow.quantization.isChecked() == True:
         if not "Quantization" in self.optimizations:
             self.optimizations.append("Quantization")
         if self.quant_dtype != None:
@@ -174,15 +174,15 @@ def set_prun_type(self, prun_type, CurWindow, Pruning_button):
             CurWindow.prun_fac.setChecked(True)
             self.prun_type = prun_type
             if self.prun_factor_dense == None and self.prun_factor_conv == None:
-                CurWindow.Pruning_Dense.setText("10")
-                CurWindow.Pruning_Conv.setText("10")
+                CurWindow.pruning_dense.setText("10")
+                CurWindow.pruning_conv.setText("10")
             else:
-                CurWindow.Pruning_Dense.setText(str(self.prun_factor_dense))
-                CurWindow.Pruning_Conv.setText(str(self.prun_factor_conv))
-            CurWindow.Pruning_Dense.setVisible(True)
-            CurWindow.Pruning_Conv.setVisible(True)
-            CurWindow.Pruning_Conv_label.setVisible(True)
-            CurWindow.Pruning_Dense_label.setVisible(True)
+                CurWindow.pruning_dense.setText(str(self.prun_factor_dense))
+                CurWindow.pruning_conv.setText(str(self.prun_factor_conv))
+            CurWindow.pruning_dense.setVisible(True)
+            CurWindow.pruning_conv.setVisible(True)
+            CurWindow.pruning_conv_label.setVisible(True)
+            CurWindow.pruning_dense_label.setVisible(True)
 
             try:
                 self.prun_acc = int(CurWindow.prun_acc_edit.text())
@@ -195,15 +195,15 @@ def set_prun_type(self, prun_type, CurWindow, Pruning_button):
         else:
             self.prun_type = None
             try:
-                self.prun_factor_dense = int(CurWindow.Pruning_Dense.text())
-                self.prun_factor_conv = int(CurWindow.Pruning_Conv.text())
+                self.prun_factor_dense = int(CurWindow.pruning_dense.text())
+                self.prun_factor_conv = int(CurWindow.pruning_conv.text())
             except:
                 self.prun_factor_dense = None
                 self.prun_factor_conv = None
-            CurWindow.Pruning_Dense.setVisible(False)
-            CurWindow.Pruning_Conv.setVisible(False)
-            CurWindow.Pruning_Conv_label.setVisible(False)
-            CurWindow.Pruning_Dense_label.setVisible(False)
+            CurWindow.pruning_dense.setVisible(False)
+            CurWindow.pruning_conv.setVisible(False)
+            CurWindow.pruning_conv_label.setVisible(False)
+            CurWindow.pruning_dense_label.setVisible(False)
 
     elif "Accuracy" in prun_type:
         CurWindow.prun_fac.setChecked(False)
@@ -237,15 +237,15 @@ def set_prun_type(self, prun_type, CurWindow, Pruning_button):
                     CurWindow.prun_acc_edit.setText(str(self.prun_acc))
 
             try:
-                self.prun_factor_dense = int(CurWindow.Pruning_Dense.text())
-                self.prun_factor_conv = int(CurWindow.Pruning_Conv.text())
+                self.prun_factor_dense = int(CurWindow.pruning_dense.text())
+                self.prun_factor_conv = int(CurWindow.pruning_conv.text())
             except:
                 self.prun_factor_dense = None
                 self.prun_factor_conv = None
-            CurWindow.Pruning_Dense.setVisible(False)
-            CurWindow.Pruning_Conv.setVisible(False)
-            CurWindow.Pruning_Conv_label.setVisible(False)
-            CurWindow.Pruning_Dense_label.setVisible(False)
+            CurWindow.pruning_dense.setVisible(False)
+            CurWindow.pruning_conv.setVisible(False)
+            CurWindow.pruning_conv_label.setVisible(False)
+            CurWindow.pruning_dense_label.setVisible(False)
         else:
             self.prun_type = None
 
@@ -351,7 +351,7 @@ def model_pruning(self, CurWindow):
     CurWindow.back_load_placeholder.setVisible(True)
     CurWindow.back_load_placeholder.setVisible(True)
 
-    CurWindow.loadpng.setVisible(True)
+    CurWindow.load_png.setVisible(True)
 
     CurWindow.loading_images.start()
     CurWindow.prune_model.start()
@@ -392,8 +392,8 @@ def terminate_thread(self, CurWindow):
         CurWindow.conv_build_load.stop_thread()
         CurWindow.finish_placeholder.setVisible(False)
         CurWindow.finish.setVisible(True)
-        CurWindow.loadpng.setPixmap(QPixmap(os.path.join("src", "GUILayout", "Images", "GUI_loading_images", "GUI_load_finish.png")))
-        CurWindow.loadpng.setScaledContents(True)
+        CurWindow.load_png.setPixmap(QPixmap(os.path.join("src", "GUILayout", "Images", "GUI_loading_images", "GUI_load_finish.png")))
+        CurWindow.load_png.setScaledContents(True)
     except:
         print("Error")
 
@@ -412,10 +412,10 @@ def browse_csv_data(self, CurWindow):
     CurWindow.table.setColumnCount(0)
     CurWindow.label_col.setVisible(False)
     CurWindow.cb_label_col.setVisible(False)
-    CurWindow.totRow.setVisible(False)
-    CurWindow.numRow.setText("")
-    CurWindow.totCol.setVisible(False)
-    CurWindow.numCol.setText("")
+    CurWindow.tot_row.setVisible(False)
+    CurWindow.num_row.setText("")
+    CurWindow.tot_col.setVisible(False)
+    CurWindow.num_col.setText("")
 
 
 def preview_csv_data(self, CurWindow):
@@ -456,10 +456,10 @@ def preview_csv_data(self, CurWindow):
             CurWindow.label_col.setVisible(True)
             CurWindow.cb_label_col.setVisible(True)
 
-            CurWindow.totRow.setVisible(True)
-            CurWindow.numRow.setText(str(df.shape[0]))
-            CurWindow.totCol.setVisible(True)
-            CurWindow.numCol.setText(str(df.shape[1]))
+            CurWindow.tot_row.setVisible(True)
+            CurWindow.num_row.setText(str(df.shape[0]))
+            CurWindow.tot_col.setVisible(True)
+            CurWindow.num_col.setText(str(df.shape[1]))
 
             # Default cursor shape
             QApplication.restoreOverrideCursor()
@@ -517,27 +517,27 @@ def get_separator(self, CurWindow):
     """
     self.separator = None
 
-    if CurWindow.cbTab.isChecked():
+    if CurWindow.cb_tab.isChecked():
         if self.separator == None:
             self.separator = r'\t'
         else:
             self.separator += r'|\t'
-    if CurWindow.cbSemicolon.isChecked():
+    if CurWindow.cb_semicolon.isChecked():
         if self.separator == None:
             self.separator = ';'
         else:
             self.separator += '|;'
-    if CurWindow.cbComma.isChecked():
+    if CurWindow.cb_comma.isChecked():
         if self.separator == None:
             self.separator = ','
         else:
             self.separator += '|,'
-    if CurWindow.cbSpace.isChecked():
+    if CurWindow.cb_space.isChecked():
         if self.separator == None:
             self.separator = r'\s+'
         else:
             self.separator += r'|\s+'
-    if CurWindow.cbOther.isChecked():
+    if CurWindow.cb_other.isChecked():
         if self.separator == None:
             self.separator = CurWindow.other_separator.text()
         else:

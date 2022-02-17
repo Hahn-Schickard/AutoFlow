@@ -42,11 +42,12 @@ def nextWindow(self,n,task):
         self.task = task
         print(self.task)
 
-        if self.task == None:
+        if self.task == "dataClassification" and os.path.isdir(self.data_loader_path) or self.task == "dataRegression" and os.path.isdir(self.data_loader_path):
+            
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
              
-            msg.setText("Please choose a task")
+            msg.setText("If you want to use this task please use a file as dataloader.")
             msg.setWindowTitle("Warning")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             msg.exec_()

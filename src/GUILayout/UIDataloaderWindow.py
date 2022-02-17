@@ -28,12 +28,12 @@ class UIDataloaderWindow(QWidget):
         self.data_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.data_label.setAlignment(Qt.AlignCenter)
         
-        self.Datapng = QLabel(self)
-        self.Datapng.setFixedWidth(0.25*self.WINDOW_HEIGHT)
-        self.Datapng.setFixedHeight(0.25*self.WINDOW_HEIGHT)
-        Dataimg = QPixmap(os.path.join('src','GUILayout','Images', 'Database.png'))
-        self.Datapng.setPixmap(Dataimg)
-        self.Datapng.setScaledContents(True)
+        self.data_png = QLabel(self)
+        self.data_png.setFixedWidth(0.25*self.WINDOW_HEIGHT)
+        self.data_png.setFixedHeight(0.25*self.WINDOW_HEIGHT)
+        data_img = QPixmap(os.path.join('src','GUILayout','Images', 'Database.png'))
+        self.data_png.setPixmap(data_img)
+        self.data_png.setScaledContents(True)
         
         self.data_path_label = QLabel("")
         self.data_path_label.setFixedWidth(0.7*self.WINDOW_WIDTH)
@@ -96,7 +96,7 @@ class UIDataloaderWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[2].addStretch()
-        self.horizontal_box[2].addWidget(self.Datapng)
+        self.horizontal_box[2].addWidget(self.data_png)
         self.horizontal_box[2].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())

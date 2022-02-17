@@ -44,13 +44,15 @@ class UIMarcusWindow1(QWidget):
         self.train_model.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Trainmodel.png')))
         self.train_model.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.30*self.WINDOW_HEIGHT))
         self.train_model.setToolTip('Train a new TensorFlow model by using AutoKeras.')
-        self.train_model.setStyleSheet("""QToolTip { 
+        self.train_model.setStyleSheet("""QPushButton {
+                           font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}
+                           QToolTip { 
+                           font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""")
+                           border: black solid 1px}""")
         self.train_model.setFixedHeight(0.35*self.WINDOW_HEIGHT)
         self.train_model.setFixedWidth(0.35*self.WINDOW_WIDTH)
         
@@ -64,13 +66,15 @@ class UIMarcusWindow1(QWidget):
         self.load_model.setIconSize(QSize(0.2*self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))
         self.load_model.setToolTip('Load an already trained TensorFlow model and\n'
                                    'convert it for a device of your choice.')
-        self.load_model.setStyleSheet("""QToolTip { 
+        self.load_model.setStyleSheet("""QPushButton {
+                           font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}
+                           QToolTip { 
+                           font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""")
+                           border: black solid 1px}""")
         self.load_model.setFixedHeight(0.35*self.WINDOW_HEIGHT)
         self.load_model.setFixedWidth(0.35*self.WINDOW_WIDTH)
         

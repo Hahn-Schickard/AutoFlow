@@ -35,13 +35,15 @@ class UITaskWindow(QWidget):
         self.image_classification.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Image_classification.png')))
         self.image_classification.setIconSize(QSize(0.3*self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))
         self.image_classification.setToolTip('Categorize images to different classes.')
-        self.image_classification.setStyleSheet("""QToolTip { 
+        self.image_classification.setStyleSheet("""QPushButton {
+                           font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}
+                           QToolTip { 
+                           font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""")
+                           border: black solid 1px}""")
         self.image_classification.setFixedHeight(0.3*self.WINDOW_HEIGHT)
         self.image_classification.setFixedWidth(0.3*self.WINDOW_WIDTH)
         
@@ -50,13 +52,15 @@ class UITaskWindow(QWidget):
         self.image_regression.setIconSize(QSize(0.3*self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))
         self.image_regression.setToolTip('Images get not categorized, instead you\n'
                                         'get a value as prediction')
-        self.image_regression.setStyleSheet("""QToolTip { 
+        self.image_regression.setStyleSheet("""QPushButton {
+                           font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}
+                           QToolTip { 
+                           font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""")
+                           border: black solid 1px}""")
         self.image_regression.setFixedHeight(0.3*self.WINDOW_HEIGHT)
         self.image_regression.setFixedWidth(0.3*self.WINDOW_WIDTH)
         
@@ -64,13 +68,15 @@ class UITaskWindow(QWidget):
         self.data_classification.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Data_classification.png')))
         self.data_classification.setIconSize(QSize(0.3*self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))
         self.data_classification.setToolTip('Categorize data to different classes.')
-        self.data_classification.setStyleSheet("""QToolTip { 
+        self.data_classification.setStyleSheet("""QPushButton {
+                           font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}
+                           QToolTip { 
+                           font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""")
+                           border: black solid 1px}""")
         self.data_classification.setFixedHeight(0.3*self.WINDOW_HEIGHT)
         self.data_classification.setFixedWidth(0.3*self.WINDOW_WIDTH)
         
@@ -79,13 +85,15 @@ class UITaskWindow(QWidget):
         self.data_regression.setIconSize(QSize(0.3*self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))
         self.data_regression.setToolTip('Data get not categorized, instead you\n'
                                         'get a value as prediction')
-        self.data_regression.setStyleSheet("""QToolTip { 
+        self.data_regression.setStyleSheet("""QPushButton {
+                           font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
+                           QPushButton::hover {
+                           background-color : rgb(10, 100, 200)}
+                           QToolTip { 
+                           font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
-                           border: black solid 1px
-                           }
-                           QPushButton::hover {
-                           background-color : rgb(10, 100, 200)}""")
+                           border: black solid 1px}""")
         self.data_regression.setFixedHeight(0.3*self.WINDOW_HEIGHT)
         self.data_regression.setFixedWidth(0.3*self.WINDOW_WIDTH)
         

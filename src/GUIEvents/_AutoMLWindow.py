@@ -14,7 +14,7 @@ def AutoMLWindow(self):
 	After this you get back to the start window.
     """
     self.Window6 = UIAutoMLWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.project_name,
-                            self.output_path, self.data_loader_path, self.max_trials, self.max_epochs,
+                            self.output_path, self.data_loader_path, self.task, self.max_trials, self.max_epochs,
                             self.max_size, self.num_channels, self.img_height, self.img_width, 
                             self.separator, self.decimal, self.csv_target_label, self)
 

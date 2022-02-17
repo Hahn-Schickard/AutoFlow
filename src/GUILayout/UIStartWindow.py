@@ -54,12 +54,12 @@ class UIStartWindow(QWidget):
         self.keras_model_label = QLabel("Keras model:")
         self.keras_model_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)  
 
-        self.Modelpng = QLabel(self)
-        self.Modelpng.setFixedWidth(0.25*self.WINDOW_HEIGHT)
-        self.Modelpng.setFixedHeight(0.25*self.WINDOW_HEIGHT)
-        Modelimg = QPixmap(os.path.join('src','GUILayout','Images','network.png'))
-        self.Modelpng.setPixmap(Modelimg)
-        self.Modelpng.setScaledContents(True)
+        self.model_png = QLabel(self)
+        self.model_png.setFixedWidth(0.25*self.WINDOW_HEIGHT)
+        self.model_png.setFixedHeight(0.25*self.WINDOW_HEIGHT)
+        model_img = QPixmap(os.path.join('src','GUILayout','Images','network.png'))
+        self.model_png.setPixmap(model_img)
+        self.model_png.setScaledContents(True)
         
         self.model_path_label = QLabel("")
         self.model_path_label.setFixedWidth(0.7*self.WINDOW_WIDTH)
@@ -70,8 +70,7 @@ class UIStartWindow(QWidget):
         self.select_model_browse.setFixedWidth(0.2*self.WINDOW_WIDTH)
         self.select_model_browse.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.select_model_browse.setToolTip('Select a TensorFlow/Keras model (.h5 file)\n'
-                                          'which should be converted to a TensorFlow\n'
-                                          'Lite C++ file, to execute it on a MCU')
+                                            'which should be converted.')
         self.select_model_browse.setStyleSheet("""QPushButton {
                            font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
                            QPushButton::hover {
@@ -130,7 +129,7 @@ class UIStartWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[7].addStretch()
-        self.horizontal_box[7].addWidget(self.Modelpng)
+        self.horizontal_box[7].addWidget(self.model_png)
         self.horizontal_box[7].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())

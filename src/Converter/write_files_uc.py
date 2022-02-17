@@ -190,13 +190,13 @@ def TensorFlow_library(project_dir):
     shutil.copytree(str(pathlib.Path(__file__).parent.absolute()) + "/TensorFlow_library", project_dir + "/TensorFlow_library")
 
 
-def pruned_keras_model(Keras_model_dir, project_dir, model_name):
+def pruned_keras_model(keras_model_dir, project_dir, model_name):
     """
     Copies the pruned keras model into the project directory.
     
     Args: 
-        Keras_model_dir: Path of the keras model
+        keras_model_dir: Path of the keras model
         project_dir:     Path of the project directory where the file should be created
         model_name:      Name of the keras model
     """
-    shutil.copy(Keras_model_dir, project_dir + "/" + model_name + ".h5")
+    shutil.copy(keras_model_dir, project_dir + "/" + model_name + ".h5")

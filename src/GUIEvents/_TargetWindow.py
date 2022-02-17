@@ -16,9 +16,9 @@ def TargetWindow(self):
     """
     self.Window2 = UITargetWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
-    self.Window2.uC.clicked.connect(lambda:nextWindow(self, "Next", "uC"))
-    self.Window2.FPGA.clicked.connect(lambda:nextWindow(self, "Next", "FPGA"))
-    self.Window2.EmbeddedPC.clicked.connect(lambda:nextWindow(self, "Next", "EmbeddedPC"))
+    self.Window2.uc.clicked.connect(lambda:nextWindow(self, "Next", "uC"))
+    self.Window2.fpga.clicked.connect(lambda:nextWindow(self, "Next", "FPGA"))
+    self.Window2.embedded_pc.clicked.connect(lambda:nextWindow(self, "Next", "EmbeddedPC"))
     
     self.Window2.back.clicked.connect(lambda:nextWindow(self, "Back", None))
     

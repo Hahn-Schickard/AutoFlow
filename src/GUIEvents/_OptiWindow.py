@@ -21,12 +21,12 @@ def OptiWindow(self):
     self.Window3 = UIOptiWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.target, self)
     
     if "Pruning" in self.optimizations:
-        self.Window3.Pruning.setChecked(True)
+        self.Window3.pruning.setChecked(True)
         self.set_pruning(self.Window3)
-        self.Window3.Pruning_Dense.setText(str(self.prun_factor_dense))
-        self.Window3.Pruning_Conv.setText(str(self.prun_factor_conv))
+        self.Window3.pruning_dense.setText(str(self.prun_factor_dense))
+        self.Window3.pruning_conv.setText(str(self.prun_factor_conv))
     if "Quantization" in self.optimizations:
-        self.Window3.Quantization.setChecked(True)
+        self.Window3.quantization.setChecked(True)
         self.set_quantization(self.Window3)
         if self.quant_dtype != None:
             if "int8 with float fallback" in self.quant_dtype:
@@ -35,8 +35,8 @@ def OptiWindow(self):
             elif "int8 only" in self.quant_dtype:
                 self.Window3.quant_int_only.setChecked(True)  
                 self.Window3.quant_int.setChecked(False)
-    self.Window3.Pruning.toggled.connect(lambda:self.set_pruning(self.Window3))
-    self.Window3.Quantization.toggled.connect(lambda:self.set_quantization(self.Window3))
+    self.Window3.pruning.toggled.connect(lambda:self.set_pruning(self.Window3))
+    self.Window3.quantization.toggled.connect(lambda:self.set_quantization(self.Window3))
     
     self.Window3.prun_fac.clicked.connect(lambda:self.set_prun_type("Factor", self.Window3, False))
     self.Window3.prun_acc.clicked.connect(lambda:self.set_prun_type("Accuracy", self.Window3, False))
@@ -65,8 +65,8 @@ def nextWindow(self,n):
         if "Pruning" in self.optimizations:
             try:
                 if "Factor" in self.prun_type:
-                    self.prun_factor_dense = int(self.Window3.Pruning_Dense.text())
-                    self.prun_factor_conv = int(self.Window3.Pruning_Conv.text())
+                    self.prun_factor_dense = int(self.Window3.pruning_dense.text())
+                    self.prun_factor_conv = int(self.Window3.pruning_conv.text())
                 elif "Accuracy" in self.prun_type:
                     self.prun_acc = int(self.Window3.prun_acc_edit.text())
             except:
@@ -90,7 +90,7 @@ def nextWindow(self,n):
             
             elif "Factor" in self.prun_type:
                 try:
-                    if int(self.Window3.Pruning_Dense.text()) > 95  or int(self.Window3.Pruning_Conv.text()) > 95:
+                    if int(self.Window3.pruning_dense.text()) > 95  or int(self.Window3.pruning_conv.text()) > 95:
                         msg = QMessageBox()
                         msg.setIcon(QMessageBox.Warning)
                         
@@ -100,8 +100,8 @@ def nextWindow(self,n):
                         msg.exec_()
                         return
                     
-                    self.prun_factor_dense = int(self.Window3.Pruning_Dense.text())
-                    self.prun_factor_conv = int(self.Window3.Pruning_Conv.text())
+                    self.prun_factor_dense = int(self.Window3.pruning_dense.text())
+                    self.prun_factor_conv = int(self.Window3.pruning_conv.text())
                 except:
                     msg = QMessageBox()
                     msg.setIcon(QMessageBox.Warning)

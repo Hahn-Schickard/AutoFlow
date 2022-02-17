@@ -33,35 +33,29 @@ class UIOptiWindow(QWidget):
         self.gap = QLabel(self)
         self.gap.setFixedWidth(0.15*self.WINDOW_WIDTH)
         self.gap.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-
-        # self.gap = QSpacerItem(0.15*self.WINDOW_WIDTH, 0.05*self.WINDOW_HEIGHT)
         
         self.gap_label = QLabel(self)
         self.gap_label.setFixedWidth(0.025*self.WINDOW_WIDTH)
         self.gap_label.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-
-        # self.gap_label = QSpacerItem(0.025*self.WINDOW_WIDTH, 0.05*self.WINDOW_HEIGHT)
         
         self.button_placeholder = QLabel()
         self.button_placeholder.setFixedWidth(0.12*self.WINDOW_WIDTH)
         self.button_placeholder.setFixedHeight(0.07*self.WINDOW_HEIGHT)
-
-        # self.button_placeholder = QSpacerItem(0.12*self.WINDOW_WIDTH, 0.07*self.WINDOW_HEIGHT)
         
-        self.Pruning = QPushButton(self)
-        self.Pruning.setIcon(QIcon(os.path.join('src','GUILayout','Images','Pruning_Button.png')))
-        self.Pruning.setIconSize(QSize(0.35*self.WINDOW_WIDTH, 0.35*self.WINDOW_WIDTH))
-        self.Pruning.setCheckable(True)
-        self.Pruning.setFixedWidth(0.35*self.WINDOW_WIDTH)
-        self.Pruning.setFixedHeight(0.35*self.WINDOW_WIDTH)
-        self.Pruning.setToolTip('Optimize the network through pruning. This\n'
+        self.pruning = QPushButton(self)
+        self.pruning.setIcon(QIcon(os.path.join('src','GUILayout','Images','Pruning_Button.png')))
+        self.pruning.setIconSize(QSize(0.35*self.WINDOW_WIDTH, 0.35*self.WINDOW_WIDTH))
+        self.pruning.setCheckable(True)
+        self.pruning.setFixedWidth(0.35*self.WINDOW_WIDTH)
+        self.pruning.setFixedHeight(0.35*self.WINDOW_WIDTH)
+        self.pruning.setToolTip('Optimize the network through pruning. This\n'
                                 'involves reducing the size of the network\n'
                                 'by removing neurons from the fully connected\n'
                                 'layers or feature maps from the convolution\n'
                                 'layers. The pruning factors determine the\n'
                                 'percentage of neurons or feature maps to\n'
                                 'be removed from each layer.') 
-        self.Pruning.setStyleSheet("""QToolTip { 
+        self.pruning.setStyleSheet("""QToolTip { 
                            font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
@@ -73,24 +67,24 @@ class UIOptiWindow(QWidget):
                            }""")
         
         
-        self.Quantization = QPushButton(self)
-        self.Quantization.setIcon(QIcon(os.path.join('src','GUILayout','Images','Quantization_Button.png')))
-        self.Quantization.setIconSize(QSize(0.35*self.WINDOW_WIDTH, 0.35*self.WINDOW_WIDTH))
-        self.Quantization.setFixedWidth(0.35*self.WINDOW_WIDTH)
-        self.Quantization.setFixedHeight(0.35*self.WINDOW_WIDTH)
+        self.quantization = QPushButton(self)
+        self.quantization.setIcon(QIcon(os.path.join('src','GUILayout','Images','Quantization_Button.png')))
+        self.quantization.setIconSize(QSize(0.35*self.WINDOW_WIDTH, 0.35*self.WINDOW_WIDTH))
+        self.quantization.setFixedWidth(0.35*self.WINDOW_WIDTH)
+        self.quantization.setFixedHeight(0.35*self.WINDOW_WIDTH)
         if "EmbeddedPC" in self.target:
-            self.Quantization.setEnabled(False)
-            self.Quantization.setToolTip('No quantization possible for embedded PCs.')
+            self.quantization.setEnabled(False)
+            self.quantization.setToolTip('No quantization possible for embedded PCs.')
         else:
-            self.Quantization.setCheckable(True)
-            self.Quantization.setToolTip('Optimize the network through quantization.\n'
+            self.quantization.setCheckable(True)
+            self.quantization.setToolTip('Optimize the network through quantization.\n'
                                         'This reduces the number of bits required\n'
                                         'to represent the value of the weights.\n'
                                         'For example, a fourfold reduction of the\n'
                                         'required memory space can be achieved by\n'
                                         'converting the weights from 32-bit float\n'
                                         'values to 8-bit integer values.')
-        self.Quantization.setStyleSheet("""QToolTip { 
+        self.quantization.setStyleSheet("""QToolTip { 
                         font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                         background-color : rgb(53, 53, 53);
                         color: white; 
@@ -148,33 +142,33 @@ class UIOptiWindow(QWidget):
                            background-color : rgb(10, 100, 200);
                            }""")
 
-        self.Pruning_Dense_label = QLabel("Dense layer\nfactor in %", self)
-        self.Pruning_Dense_label.setStyleSheet("font: " + str(int(0.025*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.Pruning_Dense_label.setFixedWidth(0.12*self.WINDOW_WIDTH)
-        self.Pruning_Dense_label.setFixedHeight(0.07*self.WINDOW_HEIGHT)
-        self.Pruning_Dense_label.setAlignment(Qt.AlignCenter)
-        self.Pruning_Dense_label.setVisible(False)
+        self.pruning_dense_label = QLabel("Dense layer\nfactor in %", self)
+        self.pruning_dense_label.setStyleSheet("font: " + str(int(0.025*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.pruning_dense_label.setFixedWidth(0.12*self.WINDOW_WIDTH)
+        self.pruning_dense_label.setFixedHeight(0.07*self.WINDOW_HEIGHT)
+        self.pruning_dense_label.setAlignment(Qt.AlignCenter)
+        self.pruning_dense_label.setVisible(False)
         
-        self.Pruning_Conv_label = QLabel("Conv layer\nfactor in %", self)
-        self.Pruning_Conv_label.setStyleSheet("font: " + str(int(0.025*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.Pruning_Conv_label.setFixedWidth(0.12*self.WINDOW_WIDTH)
-        self.Pruning_Conv_label.setFixedHeight(0.07*self.WINDOW_HEIGHT)
-        self.Pruning_Conv_label.setAlignment(Qt.AlignCenter)
-        self.Pruning_Conv_label.setVisible(False)
+        self.pruning_conv_label = QLabel("Conv layer\nfactor in %", self)
+        self.pruning_conv_label.setStyleSheet("font: " + str(int(0.025*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.pruning_conv_label.setFixedWidth(0.12*self.WINDOW_WIDTH)
+        self.pruning_conv_label.setFixedHeight(0.07*self.WINDOW_HEIGHT)
+        self.pruning_conv_label.setAlignment(Qt.AlignCenter)
+        self.pruning_conv_label.setVisible(False)
         
-        self.Pruning_Dense = QLineEdit(self)
-        self.Pruning_Dense.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.Pruning_Dense.setFixedWidth(0.12*self.WINDOW_WIDTH)
-        self.Pruning_Dense.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        self.Pruning_Dense.setAlignment(Qt.AlignCenter)
-        self.Pruning_Dense.setVisible(False)
+        self.pruning_dense = QLineEdit(self)
+        self.pruning_dense.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.pruning_dense.setFixedWidth(0.12*self.WINDOW_WIDTH)
+        self.pruning_dense.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.pruning_dense.setAlignment(Qt.AlignCenter)
+        self.pruning_dense.setVisible(False)
 
-        self.Pruning_Conv = QLineEdit(self)
-        self.Pruning_Conv.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.Pruning_Conv.setFixedWidth(0.12*self.WINDOW_WIDTH)
-        self.Pruning_Conv.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        self.Pruning_Conv.setAlignment(Qt.AlignCenter)
-        self.Pruning_Conv.setVisible(False)
+        self.pruning_conv = QLineEdit(self)
+        self.pruning_conv.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.pruning_conv.setFixedWidth(0.12*self.WINDOW_WIDTH)
+        self.pruning_conv.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.pruning_conv.setAlignment(Qt.AlignCenter)
+        self.pruning_conv.setVisible(False)
 
         self.min_acc = QCheckBox('Mininmal\naccuracy', self)
         self.min_acc.setStyleSheet("font: " + str(int(0.025*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
@@ -268,9 +262,9 @@ class UIOptiWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[1].addStretch()
-        self.horizontal_box[1].addWidget(self.Pruning)
+        self.horizontal_box[1].addWidget(self.pruning)
         self.horizontal_box[1].addStretch()
-        self.horizontal_box[1].addWidget(self.Quantization)
+        self.horizontal_box[1].addWidget(self.quantization)
         self.horizontal_box[1].addStretch()
         self.horizontal_box[1].setAlignment(Qt.AlignCenter)
         
@@ -287,19 +281,19 @@ class UIOptiWindow(QWidget):
         sublayout.addWidget(self.quant_int, 0, 4, Qt.AlignBottom)
         sublayout.addWidget(self.gap_label, 0, 5, Qt.AlignBottom)
         sublayout.addWidget(self.quant_int_only, 0, 6, Qt.AlignBottom)
-        sublayout.addWidget(self.Pruning_Dense_label, 1, 0, Qt.AlignBottom)
+        sublayout.addWidget(self.pruning_dense_label, 1, 0, Qt.AlignBottom)
         sublayout.addWidget(self.min_acc, 1, 0, Qt.AlignBottom)
         sublayout.addWidget(self.gap_label, 1, 1, Qt.AlignCenter)
-        sublayout.addWidget(self.Pruning_Conv_label, 1, 2, Qt.AlignBottom)
+        sublayout.addWidget(self.pruning_conv_label, 1, 2, Qt.AlignBottom)
         sublayout.addWidget(self.acc_loss, 1, 2, Qt.AlignBottom)
         sublayout.addWidget(self.gap, 1, 3, Qt.AlignCenter)
         sublayout.addWidget(self.button_placeholder, 1, 4, Qt.AlignCenter)
         sublayout.addWidget(self.gap_label, 1, 5, Qt.AlignCenter)
         sublayout.addWidget(self.button_placeholder, 1, 6, Qt.AlignCenter)
-        sublayout.addWidget(self.Pruning_Dense, 2, 0, Qt.AlignCenter)
+        sublayout.addWidget(self.pruning_dense, 2, 0, Qt.AlignCenter)
         sublayout.addWidget(self.prun_acc_label, 2, 0, Qt.AlignCenter)
         sublayout.addWidget(self.gap_label, 2, 1, Qt.AlignCenter)
-        sublayout.addWidget(self.Pruning_Conv, 2, 2, Qt.AlignCenter)
+        sublayout.addWidget(self.pruning_conv, 2, 2, Qt.AlignCenter)
         sublayout.addWidget(self.prun_acc_edit, 2, 2, Qt.AlignCenter)
         sublayout.addWidget(self.gap, 2, 3, Qt.AlignCenter)
         sublayout.addWidget(self.button_placeholder, 2, 4, Qt.AlignCenter)

@@ -14,6 +14,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 from src.AutoML.ImageClassifier import image_classifier
+from src.AutoML.ImageRegressor import image_regressor
 
 
 class Autokeras(QThread):
@@ -33,12 +34,13 @@ class Autokeras(QThread):
     
     request_signal = pyqtSignal()
     
-    def __init__(self, project_name, output_path, data_path, max_trials, max_epochs, max_size, num_channels,
-            img_height, img_width, separator, decimal, csv_target_label):
+    def __init__(self, project_name, output_path, data_path, task, max_trials, max_epochs, max_size,
+            num_channels, img_height, img_width, separator, decimal, csv_target_label):
         QThread.__init__(self)
         self.project_name = project_name
         self.output_path = output_path
         self.data_path = data_path
+        self.task = task
         self.max_trials = max_trials
         self.max_epochs = max_epochs
         self.max_size = max_size
@@ -55,10 +57,16 @@ class Autokeras(QThread):
         Depending on the task selected, the training of
         a neural network is started using AutoKeras.
         """
-        image_classifier(self.project_name, self.output_path, self.data_path, max_trials=self.max_trials,
-                max_epochs=self.max_epochs, max_size=self.max_size, num_channels=self.num_channels, 
-                img_height=self.img_height, img_width=self.img_width, separator=self.separator, 
-                decimal=self.decimal, csv_target_label=self.csv_target_label)
+        if self.task == "imageClassification":
+            image_classifier(self.project_name, self.output_path, self.data_path, max_trials=self.max_trials,
+                    max_epochs=self.max_epochs, max_size=self.max_size, num_channels=self.num_channels, 
+                    img_height=self.img_height, img_width=self.img_width, separator=self.separator, 
+                    decimal=self.decimal, csv_target_label=self.csv_target_label)
+        elif self.task == "imageRegression":
+            image_regressor(self.project_name, self.output_path, self.data_path, max_trials=self.max_trials,
+                    max_epochs=self.max_epochs, max_size=self.max_size, num_channels=self.num_channels, 
+                    img_height=self.img_height, img_width=self.img_width, separator=self.separator, 
+                    decimal=self.decimal, csv_target_label=self.csv_target_label)
         
         self.request_signal.emit()
         

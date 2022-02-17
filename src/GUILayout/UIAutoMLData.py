@@ -43,6 +43,7 @@ class UIAutoMLData(QWidget):
                            QPushButton::hover {
                            background-color : rgb(10, 100, 200)}
                            QToolTip { 
+                           font: """ + str(int(0.025*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """;
                            background-color : rgb(53, 53, 53);
                            color: white; 
                            border: black solid 1px}""")

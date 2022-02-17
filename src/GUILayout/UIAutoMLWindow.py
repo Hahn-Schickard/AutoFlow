@@ -23,8 +23,8 @@ class UIAutoMLWindow(QWidget):
     training, a loading animation runs. After it is finished,
     you get back to the start window.
     """
-    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, project_name, output_path, data_path, max_trials, max_epochs,
-            max_size, num_channels, img_height, img_width, separator, decimal, csv_target_label, parent=None):
+    def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, project_name, output_path, data_path, task, max_trials,
+            max_epochs, max_size, num_channels, img_height, img_width, separator, decimal, csv_target_label, parent=None):
         super(UIAutoMLWindow, self).__init__(parent)
                 
         self.WINDOW_WIDTH = WINDOW_WIDTH
@@ -34,6 +34,7 @@ class UIAutoMLWindow(QWidget):
         self.project_name = project_name
         self.output_path = output_path
         self.data_path = data_path
+        self.task = task
         self.max_trials = max_trials
         self.max_epochs = max_epochs
         self.max_size = max_size
@@ -48,12 +49,12 @@ class UIAutoMLWindow(QWidget):
         self.label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.label.setAlignment(Qt.AlignCenter)
         
-        self.loadpng = QLabel(self)
-        self.loadpng.setFixedWidth(0.3*self.WINDOW_HEIGHT)
-        self.loadpng.setFixedHeight(0.3*self.WINDOW_HEIGHT)
+        self.load_png = QLabel(self)
+        self.load_png.setFixedWidth(0.3*self.WINDOW_HEIGHT)
+        self.load_png.setFixedHeight(0.3*self.WINDOW_HEIGHT)
         img = QPixmap(os.path.join('src','GUILayout','Images','GUI_loading_images', 'GUI_load_0.png'))
-        self.loadpng.setPixmap(img)
-        self.loadpng.setScaledContents(True)
+        self.load_png.setPixmap(img)
+        self.load_png.setScaledContents(True)
         
         self.info = QLabel("Check if AutoKeras trains some models.\n"
                             "You stay in this window until the training is\n"
@@ -77,7 +78,7 @@ class UIAutoMLWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[1].addStretch()
-        self.horizontal_box[1].addWidget(self.loadpng)
+        self.horizontal_box[1].addWidget(self.load_png)
         self.horizontal_box[1].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
@@ -101,8 +102,8 @@ class UIAutoMLWindow(QWidget):
         self.setLayout(self.vertical_box)
         
         
-        self.loading_images = Loading_images(self.loadpng)
+        self.loading_images = Loading_images(self.load_png)
         
-        self.autokeras = Autokeras(self.project_name, self.output_path, self.data_path, self.max_trials, self.max_epochs,
-                                self.max_size, self.num_channels, self.img_height, self.img_width, self.separator,
-                                self.decimal, self.csv_target_label)
+        self.autokeras = Autokeras(self.project_name, self.output_path, self.data_path, self.task, self.max_trials,
+                                self.max_epochs, self.max_size, self.num_channels, self.img_height, self.img_width,
+                                self.separator, self.decimal, self.csv_target_label)

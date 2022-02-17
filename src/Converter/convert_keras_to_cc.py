@@ -12,13 +12,13 @@ sys.path.append("..") # Adds higher directory to python modules path.
 from src.GUIEvents._DataloaderHelper import dataloader_quantization
 
 
-def convert_model_to_tflite(Keras_model_dir, project_dir, model_name, optimization,
+def convert_model_to_tflite(keras_model_dir, project_dir, model_name, optimization,
                 data_loader_path, quant_dtype, separator, decimal, csv_target_label):
     """
     A keras model get's converter into a TensorFlow lite model.
     
     Args: 
-        Keras_model_dir:     Path of the keras model
+        keras_model_dir:     Path of the keras model
         project_dir:         Path of the project
         model_name:          Name of converted .tflite file
         optimization:        Selected optimization algorithms
@@ -32,7 +32,7 @@ def convert_model_to_tflite(Keras_model_dir, project_dir, model_name, optimizati
         model_input_shape:    Shape of the inputdata of the model
         model_output_neurons: Number of neurons in the output layer
     """
-    keras_model = Keras_model_dir
+    keras_model = keras_model_dir
     keras_model = tf.keras.models.load_model(keras_model)
     model_input_shape = keras_model.input.shape
     model_output_neurons = keras_model.layers[-1].output_shape[1]
