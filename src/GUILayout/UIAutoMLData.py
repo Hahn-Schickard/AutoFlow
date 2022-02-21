@@ -23,7 +23,7 @@ class UIAutoMLData(QWidget):
         self.WINDOW_HEIGHT = WINDOW_HEIGHT
         self.FONT_STYLE = FONT_STYLE
         
-        self.project_name_label = QLabel("AutoML Projectname:")
+        self.project_name_label = QLabel("AutoML modelname:")
         self.project_name_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         
         self.project_name = QLineEdit()
@@ -68,7 +68,7 @@ class UIAutoMLData(QWidget):
         self.dataloader_list.addItems(["Select PATH with data", "Select FILE with data"])
         self.dataloader_list.setStyleSheet("font: " + str(int(0.023*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         
-        self.select_data_browse = QPushButton(" Select Data... ", self)
+        self.select_data_browse = QPushButton(" Select data... ", self)
         self.select_data_browse.setFixedWidth(0.2*self.WINDOW_WIDTH)
         self.select_data_browse.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.select_data_browse.setToolTip('Select the training data which the neural network requires for the optimization.\n'

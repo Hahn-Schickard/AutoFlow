@@ -92,7 +92,7 @@ class UILoadWindow(QWidget):
         self.summary.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.summary.setAlignment(Qt.AlignCenter)
 
-        self.project_name_label = QLabel("Projectname: \t" + self.project_name)
+        self.project_name_label = QLabel("Project name: \t" + self.project_name)
         self.project_name_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.project_name_label.setFixedWidth(0.85*self.WINDOW_WIDTH)
         self.project_name_label.setFixedHeight(0.05*self.WINDOW_HEIGHT)

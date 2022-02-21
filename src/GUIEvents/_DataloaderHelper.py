@@ -206,7 +206,7 @@ def dataloader_autokeras(data_loader_path, separator, decimal, csv_target_label,
                 X = np.array(df.iloc[:,:-1].values)[..., np.newaxis]
                 Y = np.array(df.iloc[:,-1].values).astype(np.int8)
 
-            x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2)
+            x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, shuffle=True,)
 
         else:
             sys.path.append(os.path.dirname(data_loader_path))
@@ -234,6 +234,7 @@ def dataloader_autokeras(data_loader_path, separator, decimal, csv_target_label,
             image_size=(img_height, img_width),
             color_mode=color_mode,
             batch_size=128,
+            shuffle=True,
         )
 
         test_data = ak.image_dataset_from_directory(
@@ -244,6 +245,7 @@ def dataloader_autokeras(data_loader_path, separator, decimal, csv_target_label,
             image_size=(img_height, img_width),
             color_mode=color_mode,
             batch_size=128,
+            shuffle=True,
         )
 
         if next(iter(train_data))[0].numpy().max() > 1.0:

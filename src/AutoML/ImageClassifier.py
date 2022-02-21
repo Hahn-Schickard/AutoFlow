@@ -3,6 +3,7 @@
     SPDX-License-Identifier: Apache-2.0
 ============================================================================================================'''
 
+from random import shuffle
 import autokeras as ak
 import os
 import tensorflow as tf
@@ -24,14 +25,14 @@ def image_classifier(project_name, output_path, data_path, max_trials=10, max_ep
     if os.path.isfile(data_path):
         x_train, y_train, x_test, y_test = dataloader_autokeras(data_path, separator, decimal, csv_target_label,
                                                     img_height, img_width, num_channels)
-        clf.fit(x_train, y_train, epochs=max_epochs, validation_split=0.2,
+        clf.fit(x_train, y_train, epochs=max_epochs, validation_split=0.2, shuffle=True,
                 callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)])
         # Evaluate the best model with testing data.
         print(clf.evaluate(x_test, y_test))
     elif os.path.isdir(data_path):
         train_data, _, test_data, _ = dataloader_autokeras(data_path, separator, decimal, csv_target_label,
                                                 img_height, img_width, num_channels)
-        clf.fit(train_data, epochs=max_epochs, validation_split=0.2,
+        clf.fit(train_data, epochs=max_epochs, validation_split=0.2, shuffle=True,
                 callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)])
         # Evaluate the best model with testing data.
         print(clf.evaluate(test_data))

@@ -39,7 +39,7 @@ class UISettingsWindow(QWidget):
         self.epochs_factor.setFixedWidth(0.10*self.WINDOW_WIDTH)
         self.epochs_factor.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         
-        self.max_trials = QLabel("Max. trials:")
+        self.max_trials = QLabel("Trials:")
         self.max_trials.setStyleSheet("font: " + str(int(0.030*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.max_trials.setFixedWidth(0.20*self.WINDOW_WIDTH)
         self.max_trials.setFixedHeight(0.05*self.WINDOW_HEIGHT)

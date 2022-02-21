@@ -63,7 +63,7 @@ class UITargetWindow(QWidget):
         self.fpga.setFixedWidth(0.3*self.WINDOW_WIDTH)
         
         self.embedded_pc = QPushButton(self)
-        self.embedded_pc.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'EmbeddedPC.svg')))
+        self.embedded_pc.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'EmbeddedPC.png')))
         self.embedded_pc.setIconSize(QSize(0.8*self.WINDOW_WIDTH, 0.8*self.WINDOW_HEIGHT))
         self.embedded_pc.setToolTip('Run the TensorFlow model on an embedded PC.')
         self.embedded_pc.setStyleSheet("""QPushButton {

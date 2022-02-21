@@ -24,7 +24,7 @@ class UIStartWindow(QWidget):
         self.WINDOW_HEIGHT = WINDOW_HEIGHT
         self.FONT_STYLE = FONT_STYLE
 
-        self.project_name_label = QLabel("Projectname:")
+        self.project_name_label = QLabel("Project name:")
         self.project_name_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
 
         self.project_name = QLineEdit()
@@ -51,7 +51,7 @@ class UIStartWindow(QWidget):
                            color: white; 
                            border: black solid 1px}""")
 
-        self.keras_model_label = QLabel("Keras model:")
+        self.keras_model_label = QLabel("TensorFlow model:")
         self.keras_model_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)  
 
         self.model_png = QLabel(self)
