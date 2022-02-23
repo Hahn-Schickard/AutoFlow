@@ -28,12 +28,13 @@ class Convert_Build(QThread):
         decimal:            Decimal for reading a CSV file
         csv_target_label:   Target label from the CSV file
         model_memory:       Memory to allocate for the model on a microcontroller
+        target:             Target to execute the neural network
     """
     
     request_signal = pyqtSignal()
     
     def __init__(self, model_path, project_name, output_path, optimizations, data_loader_path,
-            quant_dtype, separator, decimal, csv_target_label):
+            quant_dtype, separator, decimal, csv_target_label, target):
         QThread.__init__(self)
         self.model_path = model_path
         self.project_name = project_name
@@ -45,6 +46,7 @@ class Convert_Build(QThread):
         self.decimal = decimal
         self.csv_target_label = csv_target_label
         self.model_memory = None
+        self.target = target
     
     def set_model_memory(self, model_memory):
         """Sets the model memory value
@@ -59,7 +61,7 @@ class Convert_Build(QThread):
         """
         convert_and_write(self.model_path, self.project_name, self.output_path, self.optimizations,
                 self.data_loader_path, self.quant_dtype, self.separator, self.decimal,
-                self.csv_target_label, self.model_memory)
+                self.csv_target_label, self.model_memory, self.target)
         self.request_signal.emit()
         
     def stop_thread(self):

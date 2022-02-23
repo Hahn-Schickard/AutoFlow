@@ -290,22 +290,22 @@ class UILoadWindow(QWidget):
             if 'uC' in self.target:
                 self.conv_build_load = Convert_Build(str(self.model_path[:-3]) + '_pruned.h5', self.project_name, self.output_path,
                                                 self.optimizations, self.data_loader_path, self.quant_dtype, self.separator,
-                                                self.decimal, self.csv_target_label)
+                                                self.decimal, self.csv_target_label, self.target)
             elif 'FPGA' in self.target:
                 self.conv_build_load = Convert_Build_Loading_FPGA(str(self.model_path[:-3]) + '_pruned.h5', self.project_name,
                                                 self.output_path)
             elif 'EmbeddedPC' in self.target:
-                self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations,
-                                                self.data_loader_path, self.quant_dtype, self.separator, self.decimal,
-                                                self.csv_target_label)
+                self.conv_build_load = Convert_Build(str(self.model_path[:-3]) + '_pruned.h5', self.project_name, self.output_path,
+                                                self.optimizations, self.data_loader_path, self.quant_dtype, self.separator,
+                                                self.decimal, self.csv_target_label, self.target)
         else:
             if 'uC' in self.target:
                 self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations,
                                                 self.data_loader_path, self.quant_dtype, self.separator, self.decimal,
-                                                self.csv_target_label)
+                                                self.csv_target_label, self.target)
             elif 'FPGA' in self.target:
                 self.conv_build_load = Convert_Build_Loading_FPGA(self.model_path, self.project_name, self.output_path)
             elif 'EmbeddedPC' in self.target:
                 self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations,
                                                 self.data_loader_path, self.quant_dtype, self.separator, self.decimal,
-                                                self.csv_target_label)
+                                                self.csv_target_label, self.target)

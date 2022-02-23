@@ -80,11 +80,11 @@ def convert_model_to_cpp(model_name, project_dir):
     with open(project_dir + "/" + model_name + '.tflite', 'rb') as f:
         content = f.read().hex()
         result = bytearray.fromhex(content)
-        with open(project_dir + "/src/" + model_name + "_data.cc", "wb") as w:
+        with open(project_dir + "/src/" + model_name + "_data.cpp", "wb") as w:
             values_in_row = 0
             num_values = 0
             
-            w.write(bytearray('#include "./' + model_name + '_data.h"\n'
+            w.write(bytearray('#include "' + model_name + '_data.h"\n'
                               "\n"
                               "// We need to keep the data array aligned on some architectures.\n"
                               "#ifdef __has_attribute\n"

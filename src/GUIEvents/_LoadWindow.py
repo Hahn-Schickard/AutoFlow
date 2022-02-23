@@ -61,27 +61,28 @@ def nextWindow(self, n, optimizations, CurWindow):
             self.OptiWindow()
     
     elif n == "Next":
-        try:
-            if int(CurWindow.model_memory.text()) < 5 or int(CurWindow.model_memory.text()) > 1000:
+        if "uC" in self.target:
+            try:
+                if int(CurWindow.model_memory.text()) < 5 or int(CurWindow.model_memory.text()) > 1000:
+                    msg = QMessageBox()
+                    msg.setIcon(QMessageBox.Warning)
+                        
+                    msg.setText("Please enter a number for model memory between 5 and 1000 kB.")
+                    msg.setWindowTitle("Warning")
+                    msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                    msg.exec_()
+                    return
+                else:
+                    self.model_memory = int(CurWindow.model_memory.text())
+            except:
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Warning)
                     
-                msg.setText("Please enter a number for model memory between 5 and 1000 kB.")
+                msg.setText("Please enter a valid number for model memory.")
                 msg.setWindowTitle("Warning")
                 msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                 msg.exec_()
                 return
-            else:
-                self.model_memory = int(CurWindow.model_memory.text())
-        except:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-                
-            msg.setText("Please enter a valid number for model memory.")
-            msg.setWindowTitle("Warning")
-            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-            msg.exec_()
-            return
 
         reply = QMessageBox.question(self, 'Create Project', 'Do you want to create the project now?',
         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)

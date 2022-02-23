@@ -9,7 +9,7 @@ import shutil
 import pathlib
 
 
-def create_project_dir(project_name, output_path, converted_model_dir, model_name):
+def create_project_dir(project_name, output_path, converted_model_dir, target):
     """
     Creates a directory where all files of the project will be stored.
     
@@ -17,7 +17,7 @@ def create_project_dir(project_name, output_path, converted_model_dir, model_nam
         project_name:        Name of the project which should be generated
         output_path:         Directory where the project should be generated
         converted_model_dir: Directory to store the converted model temporarily
-        model_name:          Name of keras model
+        target:              Target to execute the neural network
             
     Return: 
         project_dir: Path of the project directory
@@ -30,11 +30,12 @@ def create_project_dir(project_name, output_path, converted_model_dir, model_nam
     
     if not os.path.exists(path):
         os.mkdir(path)
-        
+
     if not os.path.exists(project_dir):
         os.mkdir(project_dir)
-        os.mkdir(project_dir + "/src")
-        os.mkdir(project_dir + "/inc")
+        if "uC" in target:
+            os.mkdir(project_dir + "/src")
+            os.mkdir(project_dir + "/inc")
         
     return project_dir
 
@@ -52,9 +53,9 @@ def main_functions(project_dir, model_name, model_input_neurons, model_output_ne
         model_memory:         Preallocate a certain amount of memory for input, 
                               output, and intermediate arrays in kilobytes
     """        
-    with open(project_dir + "/src/TF_Lite_exe.cc", "w") as f:
+    with open(project_dir + "/src/TF_Lite_exe.cpp", "w") as f:
             
-        f.write('#include "./../inc/TF_Lite_exe.h"\n'
+        f.write('#include "TF_Lite_exe.h"\n'
                 '\n'
                 'namespace {\n'
                 '// Create an area of memory to use for input, output, and intermediate arrays.\n'
@@ -78,7 +79,7 @@ def main_functions(project_dir, model_name, model_input_neurons, model_output_ne
                 f.write('float* prediction = new float[' + str(model_output_neurons) + '];\n')
         f.write('}\n'
                 '\n'
-                'void setup() {\n'
+                'void setup_model() {\n'
                 '  static tflite::MicroErrorReporter micro_error_reporter;\n'
                 '  error_reporter = &micro_error_reporter;\n'
                 '\n'
@@ -167,7 +168,7 @@ def main_functions(project_dir, model_name, model_input_neurons, model_output_ne
                 '#include "tensorflow/lite/schema/schema_generated.h"\n'
                 '#include "tensorflow/lite/version.h"\n'
                 '\n'
-                'void setup();\n')
+                'void setup_model();\n')
         if model_output_neurons == 1:
             if quant_dtype is not None and "int8 only" in quant_dtype: 
                 f.write('int8_t model_execute(int8_t *);')
