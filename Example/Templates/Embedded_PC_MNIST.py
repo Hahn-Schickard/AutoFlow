@@ -10,7 +10,7 @@ tflite_model_file = '../data/MNIST_model.tflite'
 # Get data to test the model
 _, _, x_test, y_test = get_data()
 
-# Load TFLite model and allocate tensors.
+# Read the data of your TFLite model file
 with open(tflite_model_file, 'rb') as f:
     tflite_model = f.read()
     

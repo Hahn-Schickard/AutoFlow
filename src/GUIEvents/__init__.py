@@ -60,10 +60,6 @@ class MainWindow(QMainWindow):
     from ._AutoMLWindow import AutoMLWindow
     from ._DataloaderWindow import DataloaderWindow
     from ._CSVDataloaderWindow import CSVDataloaderWindow
-
-    from ._AutoMLHelper import (
-        start_autokeras,
-    )
     
     from ._GUIHelper import (
         get_output_path,

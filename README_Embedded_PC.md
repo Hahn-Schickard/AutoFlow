@@ -109,4 +109,28 @@ At the end, if you want to execute the TensorFlow model on a microcontroller you
 
 
 ## Model execution
-The optimized model which has been converted to the TensorFlow Lite format is stored in the project folder which was specified as the output path. An example of how to run such a TensorFlow Lite model can be found [here](https://github.com/Hahn-Schickard/AUTOflow/blob/main/Example/Model_execution/Model_execution_Embedded_PC.py).
+The optimized model which has been converted to the TensorFlow Lite format is stored in the project folder which was specified as the output path. The following shows some code snippets that are needed to execute the TensorFlow Lite model on an embedded PC:
+```
+# Read the data of your TFLite model file
+with open(tflite_model_file, 'rb') as f:
+    tflite_model = f.read()
+...
+# Load TFLite model and allocate tensors
+interpreter = tf.lite.Interpreter(model_content=tflite_model)
+interpreter.allocate_tensors()
+...
+# Get input and output of model
+input = interpreter.get_input_details()[0]
+output = interpreter.get_output_details()[0]
+...
+# Set input data
+interpreter.set_tensor(input['index'], input_data)
+...
+# Run the model
+interpreter.invoke()
+...
+# Get model output
+prediction = interpreter.get_tensor(output['index'])
+```
+
+Moreover, an example script for executing a TFLite model, trained on the MNIST dataset, can be found [here](https://github.com/Hahn-Schickard/AUTOflow/blob/main/Example/Templates/Embedded_PC_MNIST.py).

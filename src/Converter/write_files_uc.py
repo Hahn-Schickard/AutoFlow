@@ -9,14 +9,13 @@ import shutil
 import pathlib
 
 
-def create_project_dir(project_name, output_path, converted_model_dir, target):
+def create_project_dir(project_name, output_path, target):
     """
     Creates a directory where all files of the project will be stored.
     
     Args: 
         project_name:        Name of the project which should be generated
         output_path:         Directory where the project should be generated
-        converted_model_dir: Directory to store the converted model temporarily
         target:              Target to execute the neural network
             
     Return: 
@@ -24,9 +23,6 @@ def create_project_dir(project_name, output_path, converted_model_dir, target):
     """
     path = output_path
     project_dir = path + "/" + project_name
-
-    if not os.path.exists(converted_model_dir):
-        os.mkdir(converted_model_dir)
     
     if not os.path.exists(path):
         os.mkdir(path)

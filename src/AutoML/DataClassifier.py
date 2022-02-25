@@ -13,7 +13,7 @@ from src.GUIEvents._DataloaderHelper import dataloader_autokeras
 def data_classifier(project_name, output_path, data_path, max_trials=10, max_epochs=20, max_size=0, overwrite=True,
             separator=None, decimal=None, csv_target_label=None):
 
-    input_node = ak.ImageInput()
+    input_node = ak.Input()
     output_node = ak.DenseBlock()(input_node)
     output_node = ak.ClassificationHead()(output_node)
     clf = ak.AutoModel(

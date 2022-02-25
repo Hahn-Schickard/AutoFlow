@@ -19,7 +19,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-
 def normalize_data(image,label):
     """Normalizes a given image to a range of 0 to 1.
 
@@ -31,6 +30,24 @@ def normalize_data(image,label):
         Normalized images and corresponding labels
     """
     image = tf.cast(image/255. ,tf.float32)
+    return image,label
+
+
+def modify_labels(image,label):
+    """Turn labels from string values to integer values.
+
+    Args:
+        image:  Image of dataloader
+        label:  label to convert
+
+    Returns:
+        Converted label and corresponding image
+    """    
+    for item in label_list:
+        label = tf.strings.regex_replace(label, item, str(label_dict[item]))
+    label = tf.strings.to_number(label)
+    label = tf.cast(label, tf.int8)
+
     return image,label
 
 
@@ -146,8 +163,17 @@ def dataloader_pruning(data_loader_path, separator, decimal, csv_target_label, i
             return x_train, y_train, label_one_hot
 
     elif os.path.isdir(data_loader_path):
+        # Check if image values are normalized or not
+        rand_class = random.choice(os.listdir(data_loader_path))
+        images = os.listdir(data_loader_path + "/" + rand_class)
+        rand_img = random.choice(images)
+        img = Image.open(data_loader_path + "/" + rand_class + "/" + rand_img)
         # create data generator
-        train_datagen = ImageDataGenerator(validation_split=0.2)
+        if np.asarray(img).max() > 1.0:
+            train_datagen = ImageDataGenerator(rescale=1.0/255.0, validation_split=0.2)
+        else:
+            train_datagen = ImageDataGenerator(validation_split=0.2)
+        
         # prepare iterators
         if num_channels == 1:
             color_mode = 'grayscale'
@@ -166,10 +192,6 @@ def dataloader_pruning(data_loader_path, separator, decimal, csv_target_label, i
                                             color_mode=color_mode, class_mode=class_mode, batch_size=128,
                                             subset='validation')
 
-        if next(iter(val_it))[0].numpy().max() > 1.0:
-            train_it = val_it.map(normalize_data)
-            val_it = val_it.map(normalize_data)
-
         return train_it, val_it, False
 
 
@@ -185,10 +207,10 @@ def dataloader_autokeras(data_loader_path, separator, decimal, csv_target_label,
         data_loader_path:   Path or file of training data
         separator:          Delimiter to use
         decimal:            Decimal for reading a CSV file
+        csv_target_label:   Target label from the CSV file
         img_height:         Height of image
         img_width:          Width of image
         num_channels:       Number of channels of the image
-        num_classes:        Number of different classes of the model
 
     Returns:
         Returns the data for training models as datagenerators
@@ -251,5 +273,16 @@ def dataloader_autokeras(data_loader_path, separator, decimal, csv_target_label,
         if next(iter(train_data))[0].numpy().max() > 1.0:
             train_data = train_data.map(normalize_data)
             test_data = test_data.map(normalize_data)
+
+        # Turn string labels to int values
+        classes = os.listdir(data_loader_path)
+        global label_dict
+        label_dict = dict([(y,x) for x,y in enumerate(sorted(set(classes)))])
+        global label_list
+        label_list = list(label_dict.keys())
+
+        train_data = train_data.map(modify_labels)
+        test_data = test_data.map(modify_labels)
+
 
         return train_data, None, test_data, None

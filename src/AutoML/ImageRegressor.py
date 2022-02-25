@@ -31,6 +31,7 @@ def image_regressor(project_name, output_path, data_path, max_trials=10, max_epo
     elif os.path.isdir(data_path):
         train_data, _, test_data, _ = dataloader_autokeras(data_path, separator, decimal, csv_target_label,
                                                 img_height, img_width, num_channels)
+
         clf.fit(train_data, epochs=max_epochs, validation_split=0.2,
                 callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)])
         # Evaluate the best model with testing data.

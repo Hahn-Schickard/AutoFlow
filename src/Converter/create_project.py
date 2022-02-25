@@ -31,12 +31,11 @@ def convert_and_write(keras_model_dir, project_name, output_path, optimizations,
                           output, and intermediate arrays in kilobytes
         target:           Target to execute the neural network
     """   
-    converted_model_dir = str(pathlib.Path(__file__).parent.absolute()) + "/Converted_model_files/"
     model_name = ntpath.basename(keras_model_dir)
     model_name,_ = os.path.splitext(model_name)
     model_input_neurons = 1
     
-    project_dir = create_project_dir(project_name, output_path, converted_model_dir, target)
+    project_dir = create_project_dir(project_name, output_path, target)
     
     
     model_input_shape, model_output_neurons = convert_model_to_tflite(keras_model_dir, project_dir,

@@ -28,7 +28,7 @@ class UICSVDataloaderWindow(QWidget):
 
         self.setFixedSize(0.85*self.WINDOW_WIDTH, 0.85*self.WINDOW_HEIGHT)
         self.setWindowTitle('CSV dataloader')
-        self.setWindowIcon(QIcon(os.path.join("Images", "Window_Icon_blue.png"))) 
+        self.setWindowIcon(QIcon(os.path.join("src", "GUILayout", "Images", "Window_Icon_blue.png")))
 
         layout = QVBoxLayout()
         self.setLayout(layout)

@@ -116,6 +116,7 @@ class Prune_model(QThread):
                     validation_data=x_val_y_train, validation_steps=len(x_val_y_train), epochs=train_epochs, callbacks=[callback])
                 
             pruned_model.save(str(self.model_path[:-3]) + '_pruned.h5', include_optimizer=False)
+        print("Pruning end")
         self.request_signal.emit()
         
     def stop_thread(self):

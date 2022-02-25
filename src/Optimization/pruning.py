@@ -124,9 +124,6 @@ def delete_dense_neuron(new_model_param, layer_types, layer_output_shape, layer_
         
         "Check if there is a dense layer after the current. The parameters of the next dense layer were connected"	
         "to the removed neuron and also have to be removed"	
-
-        "If there is a layer with no parameters like max_pool between the current and the next dense layer"	
-        "the output neurons are the same as those of the current dense layer" 
         
         for i in range(layer+1,len(new_model_param)):
             if layer_types[i] == "Dense":
@@ -505,7 +502,7 @@ def build_pruned_model(model, new_model_param, layer_types, num_new_neurons, num
         
         
     for i in range(0,len(model_config['layers'])-3):
-        if model_config['layers'][i+a]['class_name'] == "Dense":    # i+1 because first layer of model is the inputlayer
+        if model_config['layers'][i+a]['class_name'] == "Dense":
             print("Dense")
             model_config['layers'][i+a]['config']['units'] = num_new_neurons[i]
 

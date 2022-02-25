@@ -110,7 +110,7 @@ At the end, if you want to execute the TensorFlow model on a microcontroller you
 
 ## Model execution
 The .h and .tflite models are stored in the created project folder. However, these are not required for execution on the microcontroller.
-In the folders `src` and `inc` the model is stored, as well as a script for initializing and executing the model (respectively .cpp and .h file). In addition, the folder `TensorFlow_library` contains the files needed from the TensorFlow library to run the model on a microcontroller. These are inserted into the project (for Arduino projects the TensorFlow library is not needed, because it is already included in the Arduino IDE).
+In the folders `src` and `inc` the model is stored, as well as a script for initializing and executing the model (respectively .cpp and .h file). In addition, the folder `TensorFlow_library` contains the files needed from the TensorFlow library to run the model on a microcontroller. These are inserted into the project (for Arduino projects the TensorFlow library is not needed, because it can be directly included from the Arduino IDE).
 The following shows some code snippets that need to be inserted into the microcontroller project:
 ```cpp
 // include the script to load and execute the model
@@ -132,3 +132,5 @@ setup_model();
 // in the prediction variable.
 prediction = model_execute(input_data);
 ```
+
+In addition, an Arduino sample project for the MNIST dataset can be found [here](https://github.com/Hahn-Schickard/AUTOflow/blob/main/Example/Templates/Arduino_MNIST). As already mentioned, the .cpp and .h files (`MNIST_data`, `TF_Lite_exe`) are simply inserted here. The only code that needs to be written can be found in the `MNIST.ino` file. First the `TF_Lite_exe.h` file is included. Afterwards a variable is declared to store the predictions and the functions to initialize and run the model are called.
