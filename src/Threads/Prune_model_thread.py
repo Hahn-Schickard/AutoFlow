@@ -71,26 +71,46 @@ class Prune_model(QThread):
                                                                 self.csv_target_label, model.input.shape[1], model.input.shape[2],
                                                                 model.input.shape[3], num_classes)
 
+            # Check if task is classification or regression
+            if model.get_config()['layers'][-1]['class_name'] == "Dense":
+                if model.get_config()['layers'][-1]['config']['activation'] == "linear":
+                    task = "Regression"
+                    print("Regression"),
+                else:
+                    task = "Classification"
+                    print("Classification")
+            elif model.get_config()['layers'][-1]['class_name'] == "Softmax":
+                task = "Classification"
+                print("Classification")
+
             #The compiler could also get included to the GUI
-            if num_classes <= 2:
+            if task == "Classification":
+                if num_classes <= 2:
+                    comp = {
+                    "optimizer": 'adam',
+                    "loss": tf.keras.losses.BinaryCrossentropy(),
+                    "metrics": 'accuracy'}    
+                else:
+                    if label_one_hot == True:
+                        comp = {
+                        "optimizer": 'adam',
+                        "loss": tf.keras.losses.CategoricalCrossentropy(),
+                        "metrics": 'accuracy'}  
+                    else:
+                        comp = {
+                        "optimizer": 'adam',
+                        "loss": tf.keras.losses.SparseCategoricalCrossentropy(),
+                        "metrics": 'accuracy'}
+                early_stop_monitor = 'val_accuracy'
+            else:
                 comp = {
                 "optimizer": 'adam',
-                "loss": tf.keras.losses.BinaryCrossentropy(),
-                "metrics": 'accuracy'}    
-            else:
-                if label_one_hot == True:
-                    comp = {
-                    "optimizer": 'adam',
-                    "loss": tf.keras.losses.CategoricalCrossentropy(),
-                    "metrics": 'accuracy'}  
-                else:
-                    comp = {
-                    "optimizer": 'adam',
-                    "loss": tf.keras.losses.SparseCategoricalCrossentropy(),
-                    "metrics": 'accuracy'}
+                "loss": tf.keras.losses.MeanSquaredError(),
+                "metrics": 'mean_squared_error'}
+                early_stop_monitor = 'val_mean_squared_error'
 
             if "Factor" in self.prun_type:
-                pruned_model = prune_model(model, self.prun_factor_dense, self.prun_factor_conv, metric='L1',comp=comp,
+                pruned_model = prune_model(model, self.prun_factor_dense, self.prun_factor_conv, metric='L1', comp=comp,
                                     num_classes=num_classes, label_one_hot=label_one_hot)
             else:
                 if "Minimal accuracy" in self.prun_acc_type:
@@ -103,7 +123,7 @@ class Prune_model(QThread):
 
 
             train_epochs = 20
-            callback = tf.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=5, restore_best_weights=True)
+            callback = tf.keras.callbacks.EarlyStopping(monitor=early_stop_monitor, patience=5, restore_best_weights=True)
 
             pruned_model.summary()
 
