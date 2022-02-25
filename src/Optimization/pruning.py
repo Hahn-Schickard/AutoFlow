@@ -61,6 +61,24 @@ def get_layer_shape_conv(new_model_param,layer):
         shape of the current layer	
     """	
     return new_model_param[layer][0].shape[3]
+    
+    
+def get_last_layer_with_params(layer_params):	
+    """	
+    Get the index of the last layer containing parameter
+    	
+    Args: 	
+        layer_params:   Stores the current weights of the model
+            	
+    Return: 	
+        index of last layer containing parameter
+    """	
+    last_params_index = 0
+    for i in range(len(layer_params)):
+        if len(layer_params[i]) > 0:
+            last_params_index = i
+    
+    return last_params_index
 
 
 def load_model_param(model):
@@ -457,7 +475,7 @@ def model_pruning(layer_types, layer_params, layer_output_shape, layer_bias, num
         layer_output_shape: New output shapes of the model after deleting neurons and filters
     """
     
-    for i in range(0,len(layer_params)-2):
+    for i in range(0,get_last_layer_with_params(layer_params)):
         if layer_types[i] == "Dense":
             layer_params, num_new_neurons[i], layer_output_shape = prun_neurons_dense(layer_types, layer_params,
                                                                             layer_output_shape, layer_bias, i,
@@ -501,7 +519,7 @@ def build_pruned_model(model, new_model_param, layer_types, num_new_neurons, num
         a=0
         
         
-    for i in range(0,len(model_config['layers'])-3):
+    for i in range(0,get_last_layer_with_params(new_model_param)):
         if model_config['layers'][i+a]['class_name'] == "Dense":
             print("Dense")
             model_config['layers'][i+a]['config']['units'] = num_new_neurons[i]
