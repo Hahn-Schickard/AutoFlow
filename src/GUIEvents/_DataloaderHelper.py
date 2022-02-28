@@ -73,7 +73,7 @@ def dataloader_quantization(data_loader_path, img_height, img_width, separator, 
 
     if os.path.isfile(data_loader_path):
         if ".csv" in data_loader_path:
-            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal, index_col=False)
+            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal, index_col=False, dtype=np.float32)
 
             if "First" in csv_target_label:
                 X = np.array(df.iloc[:,1:].values)[..., np.newaxis]
@@ -140,7 +140,7 @@ def dataloader_pruning(data_loader_path, separator, decimal, csv_target_label, i
     """
     if os.path.isfile(data_loader_path):
         if ".csv" in data_loader_path:
-            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal, index_col=False)
+            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal, index_col=False, dtype=np.float32)
 
             if "First" in csv_target_label:
                 X = np.array(df.iloc[:,1:].values)[..., np.newaxis]
@@ -219,7 +219,7 @@ def dataloader_autokeras(data_loader_path, separator, decimal, csv_target_label,
     """
     if os.path.isfile(data_loader_path):
         if ".csv" in data_loader_path:
-            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal, index_col=False)
+            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal, index_col=False, dtype=np.float32)
 
             if "First" in csv_target_label:
                 X = np.array(df.iloc[:,1:].values)[..., np.newaxis]
@@ -227,8 +227,9 @@ def dataloader_autokeras(data_loader_path, separator, decimal, csv_target_label,
             else:
                 X = np.array(df.iloc[:,:-1].values)[..., np.newaxis]
                 Y = np.array(df.iloc[:,-1].values).astype(np.int8)
-
+            
             x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, shuffle=True,)
+            print("Type data:", x_train.dtype)
 
         else:
             sys.path.append(os.path.dirname(data_loader_path))
