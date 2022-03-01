@@ -41,7 +41,7 @@ class UICSVDataloaderWindow(QWidget):
         self.browse = QPushButton('Browse...')
         self.browse.setFixedWidth(0.2*self.WINDOW_WIDTH)
         self.browse.setFixedHeight(0.05*self.WINDOW_HEIGHT)
-        self.browse.setToolTip('Select a CSV file')
+        self.browse.setToolTip('Select a CSV file.')
         self.browse.setStyleSheet("""QPushButton {
                            font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
                            QPushButton::hover {

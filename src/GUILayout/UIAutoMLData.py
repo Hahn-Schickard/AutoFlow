@@ -36,7 +36,7 @@ class UIAutoMLData(QWidget):
         self.output_path_label.setAlignment(Qt.AlignCenter)
         
         self.output_path_browse = QPushButton(" Output path... ", self)
-        self.output_path_browse.setToolTip('Select a path where the AUTOFlow\n'
+        self.output_path_browse.setToolTip('Select a path where the AutoFlow\n'
                                            'project should be stored.')
         self.output_path_browse.setStyleSheet("""QPushButton {
                            font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}

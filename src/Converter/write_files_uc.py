@@ -29,7 +29,7 @@ def create_project_dir(project_name, output_path, target):
 
     if not os.path.exists(project_dir):
         os.mkdir(project_dir)
-        if "uC" in target:
+        if "MCU" in target:
             os.mkdir(project_dir + "/src")
             os.mkdir(project_dir + "/inc")
         

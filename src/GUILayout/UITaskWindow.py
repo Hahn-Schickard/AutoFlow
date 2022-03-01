@@ -51,7 +51,7 @@ class UITaskWindow(QWidget):
         self.image_regression.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Image_regression.png')))
         self.image_regression.setIconSize(QSize(0.3*self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))
         self.image_regression.setToolTip('Images get not categorized, instead you\n'
-                                        'get a value as prediction')
+                                        'get a value as prediction.')
         self.image_regression.setStyleSheet("""QPushButton {
                            font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
                            QPushButton::hover {
@@ -84,7 +84,7 @@ class UITaskWindow(QWidget):
         self.data_regression.setIcon(QIcon(os.path.join('src','GUILayout','Images', 'Data_regression.png')))
         self.data_regression.setIconSize(QSize(0.3*self.WINDOW_WIDTH, 0.3*self.WINDOW_HEIGHT))
         self.data_regression.setToolTip('Data get not categorized, instead you\n'
-                                        'get a value as prediction')
+                                        'get a value as prediction.')
         self.data_regression.setStyleSheet("""QPushButton {
                            font: """ + str(int(0.035*self.WINDOW_HEIGHT)) + """px """ + FONT_STYLE + """}
                            QPushButton::hover {

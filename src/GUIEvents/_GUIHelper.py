@@ -34,9 +34,8 @@ def get_output_path(self, CurWindow_label):
 def get_model_path(self, CurWindow_label):
     """Get the keras model which should be converted
 
-    A Browse window opens and you can navigate to the keras
-    model file you wanna convert to TensorFlow lite for
-    microcontrollers.
+    A Browse window opens and you can navigate to the TensorFlow
+    model file you wanna convert to TensorFlow lite.
 
     Args:
         CurWindow_label: Label of GUI window to set a new text.
@@ -368,7 +367,7 @@ def convert_create(self, CurWindow):
     """
     try:
         CurWindow.prune_model.stop_thread()
-        if "uC" in self.target:
+        if "MCU" in self.target:
             CurWindow.conv_build_load.set_model_memory(self.model_memory)
         CurWindow.conv_build_load.start()
     except:

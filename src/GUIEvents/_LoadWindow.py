@@ -61,7 +61,7 @@ def nextWindow(self, n, optimizations, CurWindow):
             self.OptiWindow()
     
     elif n == "Next":
-        if "uC" in self.target:
+        if "MCU" in self.target:
             try:
                 if int(CurWindow.model_memory.text()) < 5 or int(CurWindow.model_memory.text()) > 1000:
                     msg = QMessageBox()

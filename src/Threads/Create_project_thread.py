@@ -27,7 +27,7 @@ class Convert_Build(QThread):
         separator:          Separator for reading a CSV file
         decimal:            Decimal for reading a CSV file
         csv_target_label:   Target label from the CSV file
-        model_memory:       Memory to allocate for the model on a microcontroller
+        model_memory:       Memory to allocate for the model on MCUs
         target:             Target to execute the neural network
     """
     

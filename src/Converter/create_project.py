@@ -42,7 +42,7 @@ def convert_and_write(keras_model_dir, project_name, output_path, optimizations,
                                                         model_name, optimizations, data_loader_path,
                                                         quant_dtype, separator, decimal, csv_target_label)
     
-    if "uC" in target:
+    if "MCU" in target:
         convert_model_to_cpp(model_name, project_dir)
         
         for i in range(1,len(model_input_shape)):

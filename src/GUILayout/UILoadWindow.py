@@ -81,7 +81,7 @@ class UILoadWindow(QWidget):
         self.model_memory_label_kb.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.model_memory_label_kb.setAlignment(Qt.AlignLeft)
 
-        if not "uC" in self.target:
+        if not "MCU" in self.target:
             self.model_memory_label.setVisible(False)
             self.model_memory.setVisible(False)
             self.model_memory_label_kb.setVisible(False)
@@ -109,6 +109,12 @@ class UILoadWindow(QWidget):
         self.model_path_label.setFixedWidth(0.85*self.WINDOW_WIDTH)
         self.model_path_label.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.model_path_label.setAlignment(Qt.AlignLeft)
+
+        self.target_label = QLabel("Target: \t\t" + self.target)
+        self.target_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.target_label.setFixedWidth(0.85*self.WINDOW_WIDTH)
+        self.target_label.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        self.target_label.setAlignment(Qt.AlignLeft)
 
         if "Pruning" in self.optimizations and "Quantization" in self.optimizations:
             self.optimizations_label = QLabel("Optimization: \tPruning + Quantization")
@@ -239,39 +245,44 @@ class UILoadWindow(QWidget):
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[7].addStretch()
-        self.horizontal_box[7].addWidget(self.optimizations_label)
+        self.horizontal_box[7].addWidget(self.target_label)
         self.horizontal_box[7].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[8].addStretch()
-        self.horizontal_box[8].addWidget(self.pruning_label)
+        self.horizontal_box[8].addWidget(self.optimizations_label)
         self.horizontal_box[8].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[9].addStretch()
-        self.horizontal_box[9].addWidget(self.quantization_label)
+        self.horizontal_box[9].addWidget(self.pruning_label)
         self.horizontal_box[9].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[10].addStretch()
-        self.horizontal_box[10].addWidget(self.data_loader_label)
+        self.horizontal_box[10].addWidget(self.quantization_label)
         self.horizontal_box[10].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[11].addStretch()
-        self.horizontal_box[11].addWidget(self.finish)
-        self.horizontal_box[11].addWidget(self.finish_placeholder)
+        self.horizontal_box[11].addWidget(self.data_loader_label)
         self.horizontal_box[11].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
-        self.horizontal_box[12].addWidget(self.back)
-        self.horizontal_box[12].addWidget(self.back_load_placeholder)
         self.horizontal_box[12].addStretch()
-        self.horizontal_box[12].addWidget(self.step) 
-        self.horizontal_box[12].addStretch()         
-        self.horizontal_box[12].addWidget(self.load)
-        self.horizontal_box[12].addWidget(self.back_load_placeholder)
-        self.horizontal_box[12].setAlignment(Qt.AlignBottom)
+        self.horizontal_box[12].addWidget(self.finish)
+        self.horizontal_box[12].addWidget(self.finish_placeholder)
+        self.horizontal_box[12].addStretch()
+        
+        self.horizontal_box.append(QHBoxLayout())
+        self.horizontal_box[13].addWidget(self.back)
+        self.horizontal_box[13].addWidget(self.back_load_placeholder)
+        self.horizontal_box[13].addStretch()
+        self.horizontal_box[13].addWidget(self.step) 
+        self.horizontal_box[13].addStretch()         
+        self.horizontal_box[13].addWidget(self.load)
+        self.horizontal_box[13].addWidget(self.back_load_placeholder)
+        self.horizontal_box[13].setAlignment(Qt.AlignBottom)
         
         
         self.vertical_box = QVBoxLayout()
@@ -287,25 +298,25 @@ class UILoadWindow(QWidget):
 
         
         if 'Pruning' in optimizations:
-            if 'uC' in self.target:
+            if 'MCU' in self.target:
                 self.conv_build_load = Convert_Build(str(self.model_path[:-3]) + '_pruned.h5', self.project_name, self.output_path,
                                                 self.optimizations, self.data_loader_path, self.quant_dtype, self.separator,
                                                 self.decimal, self.csv_target_label, self.target)
             elif 'FPGA' in self.target:
                 self.conv_build_load = Convert_Build_Loading_FPGA(str(self.model_path[:-3]) + '_pruned.h5', self.project_name,
                                                 self.output_path)
-            elif 'EmbeddedPC' in self.target:
+            elif 'SBC' in self.target:
                 self.conv_build_load = Convert_Build(str(self.model_path[:-3]) + '_pruned.h5', self.project_name, self.output_path,
                                                 self.optimizations, self.data_loader_path, self.quant_dtype, self.separator,
                                                 self.decimal, self.csv_target_label, self.target)
         else:
-            if 'uC' in self.target:
+            if 'MCU' in self.target:
                 self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations,
                                                 self.data_loader_path, self.quant_dtype, self.separator, self.decimal,
                                                 self.csv_target_label, self.target)
             elif 'FPGA' in self.target:
                 self.conv_build_load = Convert_Build_Loading_FPGA(self.model_path, self.project_name, self.output_path)
-            elif 'EmbeddedPC' in self.target:
+            elif 'SBC' in self.target:
                 self.conv_build_load = Convert_Build(self.model_path, self.project_name, self.output_path, self.optimizations,
                                                 self.data_loader_path, self.quant_dtype, self.separator, self.decimal,
                                                 self.csv_target_label, self.target)

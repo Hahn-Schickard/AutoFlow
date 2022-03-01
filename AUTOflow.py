@@ -2,11 +2,11 @@
     SPDX-License-Identifier: Apache-2.0
 ============================================================================================================'''
 
-"""This is the start file to run the AUTOFlow GUI
+"""This is the start file to run the AutoFlow GUI
 In this file we import the libarys and define the GUI with all the layouts.
 
 Typical usage example:
-python AUTOflow.py
+python AutoFlow.py
 """
 
 import sys

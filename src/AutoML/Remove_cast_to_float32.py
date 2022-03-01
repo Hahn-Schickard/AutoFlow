@@ -1,7 +1,7 @@
 import sys
 
 # The file path of the environment used is passed to the function.
-# Example path: C:/Users/.../Anaconda3/envs/Autoflow
+# Example path: C:/Users/.../Anaconda3/envs/AutoFlow
 def replace_string(path):
     # creating a variable and storing the text
     # that we want to search

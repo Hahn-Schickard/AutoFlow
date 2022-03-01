@@ -72,9 +72,9 @@ class UIOptiWindow(QWidget):
         self.quantization.setIconSize(QSize(0.35*self.WINDOW_WIDTH, 0.35*self.WINDOW_WIDTH))
         self.quantization.setFixedWidth(0.35*self.WINDOW_WIDTH)
         self.quantization.setFixedHeight(0.35*self.WINDOW_WIDTH)
-        if "EmbeddedPC" in self.target:
+        if "SBC" in self.target:
             self.quantization.setEnabled(False)
-            self.quantization.setToolTip('No quantization possible for embedded PCs.')
+            self.quantization.setToolTip('No quantization possible for SBCs.')
         else:
             self.quantization.setCheckable(True)
             self.quantization.setToolTip('Optimize the network through quantization.\n'
