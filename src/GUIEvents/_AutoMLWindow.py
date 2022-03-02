@@ -22,7 +22,7 @@ def AutoMLWindow(self):
     self.Window6.autokeras.start()
 
     self.Window6.autokeras.request_signal.connect(lambda:nextWindow(self))
-    print("AuotKeras finished")  
+    print("AutoKeras finished")  
 
     self.setCentralWidget(self.Window6)
     self.show()

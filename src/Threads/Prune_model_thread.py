@@ -75,13 +75,13 @@ class Prune_model(QThread):
             if model.get_config()['layers'][-1]['class_name'] == "Dense":
                 if model.get_config()['layers'][-1]['config']['activation'] == "linear":
                     task = "Regression"
-                    print("Regression"),
+                    print("Model task: Regression"),
                 else:
                     task = "Classification"
-                    print("Classification")
+                    print("Model task: Classification")
             elif model.get_config()['layers'][-1]['class_name'] == "Softmax":
                 task = "Classification"
-                print("Classification")
+                print("Model task: Classification")
 
             #The compiler could also get included to the GUI
             if task == "Classification":

@@ -115,8 +115,7 @@ class MainWindow(QMainWindow):
             self.WINDOW_WIDTH, self.WINDOW_HEIGHT = int(0.45*screen_width), int(0.6*screen_height)
 
         self.setFixedSize(self.WINDOW_WIDTH, self.WINDOW_HEIGHT)
-        print("WINDOW_WIDTH:",self.WINDOW_WIDTH)
-        print("WINDOW_HEIGHT:",self.WINDOW_HEIGHT)
+        print("WINDOW_WIDTH:{}; WINDOW_HEIGHT:{}".format(self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
         self.setWindowTitle("AutoFlow")
         self.setWindowIcon(QIcon(os.path.join("src", "GUILayout", "Images", "Window_Icon_blue.png")))
 

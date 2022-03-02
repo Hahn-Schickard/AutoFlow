@@ -47,7 +47,7 @@ def convert_model_to_tflite(keras_model_dir, project_dir, model_name, optimizati
 
         converter.optimizations = [tf.lite.Optimize.DEFAULT]
         converter.representative_dataset = representative_dataset
-        print(quant_dtype)
+        print("Quantization type:",quant_dtype)
         if "int8 only" in quant_dtype:
             converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
             converter.inference_input_type = tf.int8

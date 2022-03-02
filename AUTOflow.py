@@ -42,8 +42,7 @@ app.setStyleSheet("QPushButton:pressed { background-color: rgb(10, 100, 200) }" 
 screen_width = app.primaryScreen().size().width()
 screen_height = app.primaryScreen().size().height()
 
-print("screen_width:",screen_width)
-print("screen_height:",screen_height)
+print("screen_width:{}; screen_height:{}".format(screen_width, screen_height))
 
 w = MainWindow(screen_width, screen_height)
 w.show()

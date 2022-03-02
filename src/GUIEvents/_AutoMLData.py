@@ -63,7 +63,7 @@ def nextWindow(self,n):
             msg.exec_()
             return
 
-        print(self.project_name)
-        print(self.output_path_label)
-        print(self.data_loader_path)
+        print("Project name:",self.project_name)
+        print("Output path:",self.output_path_label)
+        print("Data path:",self.data_loader_path)
         self.TaskWindow()

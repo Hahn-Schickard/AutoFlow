@@ -64,4 +64,8 @@ def nextWindow(self,n):
             msg.exec_()
             
             return
+        
+        print("Project name:",self.project_name)
+        print("Output path:",self.output_path)
+        print("Model path:",self.model_path)
         self.TargetWindow()

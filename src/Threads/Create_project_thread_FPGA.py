@@ -35,7 +35,7 @@ class Convert_Build_Loading_FPGA(QThread):
         Calls the function to convert the model and build the FPGA
         project. When the function is finished, a signal is emitted.
         """
-        print(str(self.project_name))
+        print("Project name:",str(self.project_name))
         model = tf.keras.models.load_model(self.model_path)
         
         config = hls4ml.utils.config_from_keras_model(model, granularity='model')

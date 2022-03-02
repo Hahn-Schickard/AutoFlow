@@ -23,8 +23,8 @@ def OptiWindow(self):
     if "Pruning" in self.optimizations:
         self.Window3.pruning.setChecked(True)
         self.set_pruning(self.Window3)
-        self.Window3.pruning_dense.setText(str(self.prun_factor_dense))
-        self.Window3.pruning_conv.setText(str(self.prun_factor_conv))
+        # self.Window3.pruning_dense.setText(str(self.prun_factor_dense))
+        # self.Window3.pruning_conv.setText(str(self.prun_factor_conv))
     if "Quantization" in self.optimizations:
         self.Window3.quantization.setChecked(True)
         self.set_quantization(self.Window3)
@@ -70,9 +70,9 @@ def nextWindow(self,n):
                 elif "Accuracy" in self.prun_type:
                     self.prun_acc = int(self.Window3.prun_acc_edit.text())
             except:
-                self.prun_acc = ""
-                self.prun_factor_dense = ""
-                self.prun_factor_conv = ""
+                self.prun_acc = None
+                self.prun_factor_dense = None
+                self.prun_factor_conv = None
         
         self.TargetWindow()
     
@@ -167,6 +167,20 @@ def nextWindow(self,n):
             return
         
         if not self.optimizations:
+            print("No optimization")
             self.LoadWindow()
         else:
+            print("Optimizations:",self.optimizations)
+            if "Pruning" in self.optimizations:
+                print("Pruning type:",self.prun_type)
+                if "Factor" in self.prun_type:
+                    print("Pruning factor dense:",self.prun_factor_dense)
+                    print("Pruning factor conv:",self.prun_factor_conv)
+                else:
+                    if "Minimal accuracy" in self.prun_acc_type:
+                        print("Minimal accuracy to reach:",self.prun_acc)
+                    else:
+                        print("Maximal accuracy loss:",self.prun_acc)
+            if "Quantization" in self.optimizations:
+                print("Quantization type:",self.quant_dtype)
             self.DataloaderWindow()

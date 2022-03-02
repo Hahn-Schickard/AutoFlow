@@ -1,4 +1,4 @@
-### Train model from scratch
+### Get Started with an FPGA
 If you want to use an already trained model (right button) you will see this window next. Here the project name, the output path and the neural network to be converted are passed.
 
 <p align="center">

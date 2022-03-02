@@ -96,7 +96,7 @@ def set_pruning(self, CurWindow):
     if CurWindow.pruning.isChecked() == True:
         if not "Pruning" in self.optimizations:
             self.optimizations.append("Pruning")
-            print(self.optimizations)
+            print("Optimizations:",self.optimizations)
 
         CurWindow.prun_fac.setVisible(True)
         CurWindow.prun_acc.setVisible(True)
@@ -107,7 +107,7 @@ def set_pruning(self, CurWindow):
     else:
         if "Pruning" in self.optimizations:
             self.optimizations.remove("Pruning")
-            print(self.optimizations)
+            print("Optimizations:",self.optimizations)
         CurWindow.prun_fac.setVisible(False)
         CurWindow.prun_acc.setVisible(False) 
         
@@ -153,7 +153,7 @@ def set_quantization(self, CurWindow):
         CurWindow.quant_int.setVisible(False)
         CurWindow.quant_int_only.setVisible(False)
 
-    print(self.optimizations)
+    print("Optimizations:",self.optimizations)
 
 
 def set_prun_type(self, prun_type, CurWindow, Pruning_button):
@@ -169,9 +169,12 @@ def set_prun_type(self, prun_type, CurWindow, Pruning_button):
     """
     if "Factor" in prun_type:
         CurWindow.prun_acc.setChecked(False)
+        CurWindow.min_acc.setChecked(False)
+        CurWindow.acc_loss.setChecked(False)
         if self.prun_type == None or not "Factor" in self.prun_type or Pruning_button == True:
             CurWindow.prun_fac.setChecked(True)
             self.prun_type = prun_type
+            self.prun_acc_type = None
             if self.prun_factor_dense == None and self.prun_factor_conv == None:
                 CurWindow.pruning_dense.setText("10")
                 CurWindow.pruning_conv.setText("10")
@@ -183,22 +186,12 @@ def set_prun_type(self, prun_type, CurWindow, Pruning_button):
             CurWindow.pruning_conv_label.setVisible(True)
             CurWindow.pruning_dense_label.setVisible(True)
 
-            try:
-                self.prun_acc = int(CurWindow.prun_acc_edit.text())
-            except:
-                self.prun_acc = None
             CurWindow.min_acc.setVisible(False)
             CurWindow.acc_loss.setVisible(False)
             CurWindow.prun_acc_label.setVisible(False)
             CurWindow.prun_acc_edit.setVisible(False) 
         else:
             self.prun_type = None
-            try:
-                self.prun_factor_dense = int(CurWindow.pruning_dense.text())
-                self.prun_factor_conv = int(CurWindow.pruning_conv.text())
-            except:
-                self.prun_factor_dense = None
-                self.prun_factor_conv = None
             CurWindow.pruning_dense.setVisible(False)
             CurWindow.pruning_conv.setVisible(False)
             CurWindow.pruning_conv_label.setVisible(False)
@@ -213,6 +206,7 @@ def set_prun_type(self, prun_type, CurWindow, Pruning_button):
             CurWindow.min_acc.setVisible(True)
             CurWindow.acc_loss.setVisible(True)
 
+            print("Accuracy pruning type:",self.prun_acc_type)
             if self.prun_acc_type != None and "Minimal accuracy" in self.prun_acc_type:
                 CurWindow.min_acc.setChecked(True)
                 CurWindow.acc_loss.setChecked(False)
@@ -220,7 +214,7 @@ def set_prun_type(self, prun_type, CurWindow, Pruning_button):
                 CurWindow.prun_acc_label.setVisible(True)
                 CurWindow.prun_acc_edit.setVisible(True)
                 if self.prun_acc == None:
-                    CurWindow.prun_acc_edit.setText("")
+                    CurWindow.prun_acc_edit.setText("90")
                 else:
                     CurWindow.prun_acc_edit.setText(str(self.prun_acc))
 
@@ -231,7 +225,7 @@ def set_prun_type(self, prun_type, CurWindow, Pruning_button):
                 CurWindow.prun_acc_label.setVisible(True)
                 CurWindow.prun_acc_edit.setVisible(True)
                 if self.prun_acc == None:
-                    CurWindow.prun_acc_edit.setText("")
+                    CurWindow.prun_acc_edit.setText("3")
                 else:
                     CurWindow.prun_acc_edit.setText(str(self.prun_acc))
 
@@ -247,17 +241,15 @@ def set_prun_type(self, prun_type, CurWindow, Pruning_button):
             CurWindow.pruning_dense_label.setVisible(False)
         else:
             self.prun_type = None
-
-            try:
-                self.prun_acc = int(CurWindow.prun_acc_edit.text())
-            except:
-                self.prun_acc = None            
+            self.prun_acc_type = None
+            CurWindow.min_acc.setChecked(False)
+            CurWindow.acc_loss.setChecked(False)
+    
             CurWindow.min_acc.setVisible(False)
             CurWindow.acc_loss.setVisible(False)
             CurWindow.prun_acc_label.setVisible(False)
             CurWindow.prun_acc_edit.setVisible(False) 
-
-    print(self.prun_type)
+    print("Pruning type:",self.prun_type)
 
 
 def set_prun_acc_type(self, prun_type, CurWindow):
@@ -276,7 +268,7 @@ def set_prun_acc_type(self, prun_type, CurWindow):
             CurWindow.prun_acc_label.setVisible(True)
             CurWindow.prun_acc_label.setText("Min accuracy\nto reach in %")
             CurWindow.prun_acc_edit.setVisible(True)
-            CurWindow.prun_acc_edit.setText("")
+            CurWindow.prun_acc_edit.setText("90")
             self.prun_acc = None
         else:
             self.prun_acc_type = None  
@@ -289,13 +281,13 @@ def set_prun_acc_type(self, prun_type, CurWindow):
             CurWindow.prun_acc_label.setVisible(True)
             CurWindow.prun_acc_label.setText("Max accuracy\nloss in %")
             CurWindow.prun_acc_edit.setVisible(True)
-            CurWindow.prun_acc_edit.setText("")
+            CurWindow.prun_acc_edit.setText("3")
             self.prun_acc = None
         else:
             self.prun_acc_type = None
             CurWindow.prun_acc_label.setVisible(False)
             CurWindow.prun_acc_edit.setVisible(False)
-    print(self.prun_acc_type)
+    print("Accuracy pruning type:",self.prun_acc_type)
 
        
 def set_quant_dtype(self, dtype, CurWindow):
@@ -320,7 +312,7 @@ def set_quant_dtype(self, dtype, CurWindow):
             self.quant_dtype = None
         else:
             self.quant_dtype = dtype
-    print(self.quant_dtype)
+    print("Quantization type:",self.quant_dtype)
 
 
 def model_pruning(self, CurWindow):
@@ -405,7 +397,7 @@ def browse_csv_data(self, CurWindow):
     """
     self.data_loader_path = QFileDialog.getOpenFileName(
         self, "Select your data loader script", os.path.expanduser('~'), 'CSV(*.csv)')[0]    
-    print(self.data_loader_path)
+    print("CSV data path:",self.data_loader_path)
 
     CurWindow.table.setRowCount(0)
     CurWindow.table.setColumnCount(0)
@@ -542,4 +534,4 @@ def get_separator(self, CurWindow):
         else:
             self.separator += '|' + CurWindow.other_separator.text()
         
-    print(self.separator)
+    print("CSV sperator:",self.separator)

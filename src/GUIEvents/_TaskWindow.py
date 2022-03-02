@@ -40,7 +40,7 @@ def nextWindow(self,n,task):
 
     elif n == "Next":
         self.task = task
-        print(self.task)
+        print("Task:",self.task)
 
         if self.task == "dataClassification" and os.path.isdir(self.data_loader_path) or self.task == "dataRegression" and os.path.isdir(self.data_loader_path):
             

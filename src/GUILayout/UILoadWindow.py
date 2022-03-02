@@ -130,9 +130,9 @@ class UILoadWindow(QWidget):
         self.pruning_label = QLabel()
         if "Pruning" in self.optimizations:
             if "Factor" in self.prun_type:
-                self.pruning_label = QLabel("Pruning: \tPruningfactor dense: " + str(self.prun_factor_dense) + "%" + "   Pruningfactor conv: " + str(self.prun_factor_conv) + "%")
+                self.pruning_label = QLabel("Pruning: \tPruningfactor dense: " + str(self.prun_factor_dense) + "%," + "   Pruningfactor conv: " + str(self.prun_factor_conv) + "%")
             else:
-                if "Minimal Accuracy" in self.prun_acc_type:
+                if "Minimal accuracy" in self.prun_acc_type:
                     self.pruning_label = QLabel("Pruning: \tMinimal accuracy to reach: " + str(self.prun_acc) + "%")
                 else:
                     self.pruning_label = QLabel("Pruning: \tMaximal accuracy loss: " + str(self.prun_acc) + "%")

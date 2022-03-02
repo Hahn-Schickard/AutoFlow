@@ -66,7 +66,7 @@ class UIStartWindow(QWidget):
         self.model_path_label.setStyleSheet("font: " + str(int(0.032*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
         self.model_path_label.setAlignment(Qt.AlignCenter)
         
-        self.select_model_browse = QPushButton(" Select Model... ", self)
+        self.select_model_browse = QPushButton(" Select model... ", self)
         self.select_model_browse.setFixedWidth(0.2*self.WINDOW_WIDTH)
         self.select_model_browse.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.select_model_browse.setToolTip('Select a TensorFlow/Keras model (.h5 file)\n'

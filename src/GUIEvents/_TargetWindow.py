@@ -39,7 +39,7 @@ def nextWindow(self, n, target):
     
     elif n == "Next":
       self.target = target
-      print(self.target)
+      print("Target:",self.target)
       
       if self.target == "MCU" or self.target == "FPGA" or self.target == "SBC":
           self.OptiWindow()

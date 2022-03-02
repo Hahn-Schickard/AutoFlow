@@ -26,7 +26,7 @@ def data_classifier(project_name, output_path, data_path, max_trials=10, max_epo
         clf.fit(x_train, y_train, epochs=max_epochs, validation_split=0.2,
                 callbacks=[tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)])
         # Evaluate the best model with testing data.
-        print(clf.evaluate(x_test, y_test))
+        print("Best model evaluation:",clf.evaluate(x_test, y_test))
     elif os.path.isdir(data_path):
         print("For data classification select a file as data loader.")
         return
