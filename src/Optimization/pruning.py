@@ -633,7 +633,6 @@ def pruning_for_acc(keras_model, x_train, x_val_y_train, comp, pruning_acc=None,
     Return: 
         pruned_model:     New model after pruning
     """
-
     pruning_factor = 5
     last_pruning_step = None
     all_pruning_factors = [5]

@@ -7,13 +7,15 @@
 import os
 import sys
 import tensorflow as tf
+import numpy as np
 sys.path.append("..") # Adds higher directory to python modules path.
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-from src.Optimization.pruning import prune_model, pruning_for_acc
+from src.Optimization.Pruning import prune_model, pruning_for_acc
+from src.Optimization.TensorFlow_pruning import tensorflow_pruning
 from src.GUIEvents._DataloaderHelper import dataloader_pruning
 
 
@@ -72,6 +74,7 @@ class Prune_model(QThread):
                                                                 model.input.shape[3], num_classes)
 
             # Check if task is classification or regression
+            print(model.get_config()['layers'][-1]['class_name'])
             if model.get_config()['layers'][-1]['class_name'] == "Dense":
                 if model.get_config()['layers'][-1]['config']['activation'] == "linear":
                     task = "Regression"
@@ -79,7 +82,7 @@ class Prune_model(QThread):
                 else:
                     task = "Classification"
                     print("Model task: Classification")
-            elif model.get_config()['layers'][-1]['class_name'] == "Softmax":
+            elif model.get_config()['layers'][-1]['class_name'] == "Activation" or model.get_config()['layers'][-1]['class_name'] == "Softmax":
                 task = "Classification"
                 print("Model task: Classification")
 
@@ -109,31 +112,44 @@ class Prune_model(QThread):
                 "metrics": 'mean_squared_error'}
                 early_stop_monitor = 'val_mean_squared_error'
 
-            if "Factor" in self.prun_type:
-                pruned_model = prune_model(model, self.prun_factor_dense, self.prun_factor_conv, metric='L1', comp=comp,
-                                    num_classes=num_classes, label_one_hot=label_one_hot)
-            else:
-                if "Minimal accuracy" in self.prun_acc_type:
-                    pruned_model = pruning_for_acc(model, x_train, x_val_y_train, comp=comp, pruning_acc=self.prun_acc,
-                                            max_acc_loss=None, num_classes=num_classes, label_one_hot=label_one_hot,
-                                            data_loader_path=self.data_loader_path)
+            try:
+                sadasd.yxcyc
+                if "Factor" in self.prun_type:
+                    pruned_model = prune_model(model, self.prun_factor_dense, self.prun_factor_conv, metric='L1', comp=comp,
+                                        num_classes=num_classes, label_one_hot=label_one_hot)
                 else:
-                    pruned_model = pruning_for_acc(model, x_train, x_val_y_train, comp=comp, pruning_acc=None, max_acc_loss=self.prun_acc,
-                                            num_classes=num_classes, label_one_hot=label_one_hot, data_loader_path=self.data_loader_path)
+                    if "Minimal accuracy" in self.prun_acc_type:
+                        pruned_model = pruning_for_acc(model, x_train, x_val_y_train, comp=comp, pruning_acc=self.prun_acc,
+                                                max_acc_loss=None, num_classes=num_classes, label_one_hot=label_one_hot,
+                                                data_loader_path=self.data_loader_path)
+                    else:
+                        pruned_model = pruning_for_acc(model, x_train, x_val_y_train, comp=comp, pruning_acc=None, max_acc_loss=self.prun_acc,
+                                                num_classes=num_classes, label_one_hot=label_one_hot, data_loader_path=self.data_loader_path)
 
 
-            train_epochs = 20
-            callback = tf.keras.callbacks.EarlyStopping(monitor=early_stop_monitor, patience=5, restore_best_weights=True)
+                train_epochs = 20
+                callback = tf.keras.callbacks.EarlyStopping(monitor=early_stop_monitor, patience=5, restore_best_weights=True)
 
-            pruned_model.summary()
+                pruned_model.summary()
 
-            # fit model
-            if os.path.isfile(self.data_loader_path):
-                pruned_model.fit(x=x_train, y=x_val_y_train, batch_size=64, validation_split=0.2,
-                    epochs=train_epochs, callbacks=[callback])
-            elif os.path.isdir(self.data_loader_path):
-                pruned_model.fit_generator(x_train, steps_per_epoch=len(x_train),
-                    validation_data=x_val_y_train, validation_steps=len(x_val_y_train), epochs=train_epochs, callbacks=[callback])
+                # fit model
+                if os.path.isfile(self.data_loader_path):
+                    pruned_model.fit(x=x_train, y=x_val_y_train, batch_size=64, validation_split=0.2,
+                        epochs=train_epochs, callbacks=[callback])
+                elif os.path.isdir(self.data_loader_path):
+                    pruned_model.fit_generator(x_train, steps_per_epoch=len(x_train),
+                        validation_data=x_val_y_train, validation_steps=len(x_val_y_train), epochs=train_epochs, callbacks=[callback])
+            except:
+                # If implemented pruning not works execute TensorFlows pruning algorithm
+                print("Pruning don't work. Execute TensorFlows pruning")
+                if os.path.isfile(self.data_loader_path):
+                    pruning_factor = np.mean([self.prun_factor_dense, self.prun_factor_conv])
+                    dataloader = False
+                elif os.path.isdir(self.data_loader_path):
+                    pruning_factor = None
+                    dataloader = True
+
+                pruned_model = tensorflow_pruning(model, comp, [x_train, x_val_y_train], pruning_factor, dataloader)
                 
             pruned_model.save(str(self.model_path[:-3]) + '_pruned.h5', include_optimizer=False)
         print("Pruning end")

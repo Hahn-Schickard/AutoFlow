@@ -329,6 +329,7 @@ def model_pruning(self, CurWindow):
     CurWindow.project_name_label.setVisible(False)
     CurWindow.output_path_label.setVisible(False)
     CurWindow.model_path_label.setVisible(False)
+    CurWindow.target_label.setVisible(False)
     CurWindow.optimizations_label.setVisible(False)
     CurWindow.pruning_label.setVisible(False)
     CurWindow.quantization_label.setVisible(False)
