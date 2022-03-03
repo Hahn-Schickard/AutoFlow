@@ -113,7 +113,6 @@ class Prune_model(QThread):
                 early_stop_monitor = 'val_mean_squared_error'
 
             try:
-                sadasd.yxcyc
                 if "Factor" in self.prun_type:
                     pruned_model = prune_model(model, self.prun_factor_dense, self.prun_factor_conv, metric='L1', comp=comp,
                                         num_classes=num_classes, label_one_hot=label_one_hot)
@@ -129,8 +128,6 @@ class Prune_model(QThread):
 
                 train_epochs = 20
                 callback = tf.keras.callbacks.EarlyStopping(monitor=early_stop_monitor, patience=5, restore_best_weights=True)
-
-                pruned_model.summary()
 
                 # fit model
                 if os.path.isfile(self.data_loader_path):
