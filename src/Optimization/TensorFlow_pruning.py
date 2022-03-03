@@ -1,11 +1,10 @@
-from re import S
 import tensorflow as tf
 import numpy as np
 import tensorflow_model_optimization as tfmot
 from tensorflow_model_optimization.sparsity import keras as sparsity
 
 
-def tensorflow_pruning(model, comp, data, pruning_factor=20, dataloader=False):
+def tensorflow_pruning(model, comp, data, pruning_factor=0.50, dataloader=False):
     """
     A passed model is pruned with TensorFlow's pruning. It should be noted that only the
     weights are removed and no reduction in the number of parameters can be achieved.
@@ -22,7 +21,7 @@ def tensorflow_pruning(model, comp, data, pruning_factor=20, dataloader=False):
     Return: 
         pruned_model:     New model after pruning
     """
-    print("TF pruning factor",pruning_factor)
+    print("TF pruning factor: {}, dtype: {}".format(pruning_factor,type(pruning_factor)))
     print("TF pruning dataloader:",dataloader)
     
     prune_low_magnitude = tfmot.sparsity.keras.prune_low_magnitude
@@ -74,4 +73,11 @@ def tensorflow_pruning(model, comp, data, pruning_factor=20, dataloader=False):
             )
         )
     
+    pruned_model.compile(**comp)
+    
+    if dataloader == True:
+        print("Evaluation of TensorFlow pruned model:", pruned_model.evaluate(data[0]))
+    else:
+        print("Evaluation of TensorFlow pruned model:", pruned_model.evaluate(data[0],data[1]))
+
     return pruned_model

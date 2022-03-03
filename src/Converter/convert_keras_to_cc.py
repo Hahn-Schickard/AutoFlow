@@ -32,6 +32,7 @@ def convert_model_to_tflite(keras_model_dir, project_dir, model_name, optimizati
         model_input_shape:    Shape of the inputdata of the model
         model_output_neurons: Number of neurons in the output layer
     """
+    print("convert_model_to_tflite function called")
     keras_model = keras_model_dir
     keras_model = tf.keras.models.load_model(keras_model)
     model_input_shape = keras_model.input.shape
@@ -77,6 +78,7 @@ def convert_model_to_cpp(model_name, project_dir):
         model_name:          Name of the model
         project_dir:         Directory of the project where the C array model should be stored
     """
+    print("convert_model_to_cpp function called")
     with open(project_dir + "/" + model_name + '.tflite', 'rb') as f:
         content = f.read().hex()
         result = bytearray.fromhex(content)

@@ -142,11 +142,13 @@ class Prune_model(QThread):
             except:
                 # If implemented pruning not works execute TensorFlows pruning algorithm
                 print("Pruning don't work. Execute TensorFlows pruning")
+                if "Factor" in self.prun_type:
+                    pruning_factor = (np.mean([self.prun_factor_dense, self.prun_factor_conv])/100.0).item()
+                else:
+                    pruning_factor = 0.50
                 if os.path.isfile(self.data_loader_path):
-                    pruning_factor = np.mean([self.prun_factor_dense, self.prun_factor_conv])
                     dataloader = False
                 elif os.path.isdir(self.data_loader_path):
-                    pruning_factor = None
                     dataloader = True
 
                 pruned_model = tensorflow_pruning(model, comp, [x_train, x_val_y_train], pruning_factor, dataloader)

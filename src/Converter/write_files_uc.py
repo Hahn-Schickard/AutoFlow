@@ -21,6 +21,7 @@ def create_project_dir(project_name, output_path, target):
     Return: 
         project_dir: Path of the project directory
     """
+    print("create_project_dir function called")
     path = output_path
     project_dir = path + "/" + project_name
     
@@ -48,7 +49,8 @@ def main_functions(project_dir, model_name, model_input_neurons, model_output_ne
         quant_dtype:          Data type to quantize to
         model_memory:         Preallocate a certain amount of memory for input, 
                               output, and intermediate arrays in kilobytes
-    """        
+    """
+    print("main_functions function called")
     with open(project_dir + "/src/TF_Lite_exe.cpp", "w") as f:
             
         f.write('#include "TF_Lite_exe.h"\n'
@@ -183,7 +185,8 @@ def TensorFlow_library(project_dir):
     
     Args: 
         project_dir: Path of the project directory where the file should be created
-    """    
+    """
+    print("TensorFlow_library function called")
     shutil.copytree(str(pathlib.Path(__file__).parent.absolute()) + "/TensorFlow_library", project_dir + "/TensorFlow_library")
 
 
@@ -196,4 +199,5 @@ def pruned_keras_model(keras_model_dir, project_dir, model_name):
         project_dir:     Path of the project directory where the file should be created
         model_name:      Name of the keras model
     """
+    print("pruned_keras_model function called")
     shutil.copy(keras_model_dir, project_dir + "/" + model_name + ".h5")

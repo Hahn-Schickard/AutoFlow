@@ -30,7 +30,8 @@ def convert_and_write(keras_model_dir, project_name, output_path, optimizations,
         model_memory:     Preallocate a certain amount of memory for input, 
                           output, and intermediate arrays in kilobytes
         target:           Target to execute the neural network
-    """   
+    """
+    print("convert_and_write function called")
     model_name = ntpath.basename(keras_model_dir)
     model_name,_ = os.path.splitext(model_name)
     model_input_neurons = 1

@@ -59,6 +59,7 @@ class Convert_Build(QThread):
         Calls the function to convert the model and build the project.
         When the function is finished, a signal is emitted.
         """
+        print("Convert_Build thread started")
         convert_and_write(self.model_path, self.project_name, self.output_path, self.optimizations,
                 self.data_loader_path, self.quant_dtype, self.separator, self.decimal,
                 self.csv_target_label, self.model_memory, self.target)
