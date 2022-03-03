@@ -65,7 +65,7 @@ class UILoadWindow(QWidget):
         
         self.model_memory_label = QLabel("Model memory:")
         self.model_memory_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.model_memory_label.setFixedWidth(0.19*self.WINDOW_WIDTH)
+        self.model_memory_label.setFixedWidth(0.20*self.WINDOW_WIDTH)
         self.model_memory_label.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.model_memory_label.setAlignment(Qt.AlignLeft)
     
@@ -92,79 +92,115 @@ class UILoadWindow(QWidget):
         self.summary.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.summary.setAlignment(Qt.AlignCenter)
 
-        self.project_name_label = QLabel("Project name: \t" + self.project_name)
+        self.project_name_label = QLabel("Project name:")
         self.project_name_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.project_name_label.setFixedWidth(0.85*self.WINDOW_WIDTH)
+        self.project_name_label.setFixedWidth(0.2*self.WINDOW_WIDTH)
         self.project_name_label.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.project_name_label.setAlignment(Qt.AlignLeft)
 
-        self.output_path_label = QLabel("Output path: \t" + self.output_path)
+        self.project_name_label_2 = QLabel()
+        self.project_name_label_2.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.project_name_label_2.setFixedWidth(0.65*self.WINDOW_WIDTH)
+        self.project_name_label_2.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+
+        self.output_path_label = QLabel("Output path:")
         self.output_path_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.output_path_label.setFixedWidth(0.85*self.WINDOW_WIDTH)
+        self.output_path_label.setFixedWidth(0.2*self.WINDOW_WIDTH)
         self.output_path_label.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.output_path_label.setAlignment(Qt.AlignLeft)
 
-        self.model_path_label = QLabel("Model path: \t" + self.model_path)
+        self.output_path_label_2 = QLabel()
+        self.output_path_label_2.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.output_path_label_2.setFixedWidth(0.65*self.WINDOW_WIDTH)
+        self.output_path_label_2.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+
+        self.model_path_label = QLabel("Model path:")
         self.model_path_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.model_path_label.setFixedWidth(0.85*self.WINDOW_WIDTH)
+        self.model_path_label.setFixedWidth(0.2*self.WINDOW_WIDTH)
         self.model_path_label.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.model_path_label.setAlignment(Qt.AlignLeft)
 
-        self.target_label = QLabel("Target: \t\t" + self.target)
+        self.model_path_label_2 = QLabel()
+        self.model_path_label_2.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.model_path_label_2.setFixedWidth(0.65*self.WINDOW_WIDTH)
+        self.model_path_label_2.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+
+        self.target_label = QLabel("Target:")
         self.target_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.target_label.setFixedWidth(0.85*self.WINDOW_WIDTH)
+        self.target_label.setFixedWidth(0.2*self.WINDOW_WIDTH)
         self.target_label.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.target_label.setAlignment(Qt.AlignLeft)
 
-        if "Pruning" in self.optimizations and "Quantization" in self.optimizations:
-            self.optimizations_label = QLabel("Optimization: \tPruning + Quantization")
-        elif len(self.optimizations) != 0:
-            self.optimizations_label = QLabel("Optimization: \t" + self.optimizations[0])
-        else:
-            self.optimizations_label = QLabel("Optimization: \t-")
+        self.target_label_2 = QLabel()
+        self.target_label_2.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.target_label_2.setFixedWidth(0.65*self.WINDOW_WIDTH)
+        self.target_label_2.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+
+        self.optimizations_label = QLabel("Optimization:")
         self.optimizations_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-        self.optimizations_label.setFixedWidth(0.85*self.WINDOW_WIDTH)
+        self.optimizations_label.setFixedWidth(0.2*self.WINDOW_WIDTH)
         self.optimizations_label.setFixedHeight(0.05*self.WINDOW_HEIGHT)
         self.optimizations_label.setAlignment(Qt.AlignLeft)
 
+        self.optimizations_label_2 = QLabel()
+        self.optimizations_label_2.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+        self.optimizations_label_2.setFixedWidth(0.65*self.WINDOW_WIDTH)
+        self.optimizations_label_2.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+
         self.pruning_label = QLabel()
         if "Pruning" in self.optimizations:
-            if "Factor" in self.prun_type:
-                self.pruning_label = QLabel("Pruning: \tPruningfactor dense: " + str(self.prun_factor_dense) + "%," + "   Pruningfactor conv: " + str(self.prun_factor_conv) + "%")
-            else:
-                if "Minimal accuracy" in self.prun_acc_type:
-                    self.pruning_label = QLabel("Pruning: \tMinimal accuracy to reach: " + str(self.prun_acc) + "%")
-                else:
-                    self.pruning_label = QLabel("Pruning: \tMaximal accuracy loss: " + str(self.prun_acc) + "%")
+            self.pruning_label = QLabel("Pruning:")
             self.pruning_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-            self.pruning_label.setFixedWidth(0.85*self.WINDOW_WIDTH)
+            self.pruning_label.setFixedWidth(0.2*self.WINDOW_WIDTH)
             self.pruning_label.setFixedHeight(0.05*self.WINDOW_HEIGHT)
             self.pruning_label.setAlignment(Qt.AlignLeft)
         else:
             self.pruning_label.setVisible(False)
 
+        self.pruning_label_2 = QLabel()
+        if "Pruning" in self.optimizations:
+            self.pruning_label_2.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+            self.pruning_label_2.setFixedWidth(0.65*self.WINDOW_WIDTH)
+            self.pruning_label_2.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        else:
+            self.pruning_label_2.setVisible(False)
+
         self.quantization_label = QLabel()
         if "Quantization" in self.optimizations:
-            if "int8 only" in self.quant_dtype:
-                self.quantization_label = QLabel("Quantization: \tInt8 only")
-            else:
-                self.quantization_label = QLabel("Quantization: \tInt8 with float32 fallback")
+            self.quantization_label = QLabel("Quantization:")
             self.quantization_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-            self.quantization_label.setFixedWidth(0.85*self.WINDOW_WIDTH)
+            self.quantization_label.setFixedWidth(0.2*self.WINDOW_WIDTH)
             self.quantization_label.setFixedHeight(0.05*self.WINDOW_HEIGHT)
             self.quantization_label.setAlignment(Qt.AlignLeft)
         else:
             self.quantization_label.setVisible(False)
 
+        self.quantization_label_2 = QLabel()
+        if "Quantization" in self.optimizations:
+            self.quantization_label_2.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+            self.quantization_label_2.setFixedWidth(0.65*self.WINDOW_WIDTH)
+            self.quantization_label_2.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        else:
+            self.quantization_label_2.setVisible(False)
+
         self.data_loader_label = QLabel()
         if len(self.optimizations) != 0:
-            self.data_loader_label = QLabel("Dataloader: \t" + self.data_loader_path)
+            self.data_loader_label = QLabel("Dataloader:")
             self.data_loader_label.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
-            self.data_loader_label.setFixedWidth(0.85*self.WINDOW_WIDTH)
+            self.data_loader_label.setFixedWidth(0.2*self.WINDOW_WIDTH)
             self.data_loader_label.setFixedHeight(0.05*self.WINDOW_HEIGHT)
             self.data_loader_label.setAlignment(Qt.AlignLeft)
         else:
             self.data_loader_label.setVisible(False)
+
+        self.data_loader_label_2 = QLabel()
+        if len(self.optimizations) != 0:
+            self.data_loader_label_2 = QLabel()
+            self.data_loader_label_2.setStyleSheet("font: " + str(int(0.035*self.WINDOW_HEIGHT)) + "px " + FONT_STYLE)
+            self.data_loader_label_2.setFixedWidth(0.65*self.WINDOW_WIDTH)
+            self.data_loader_label_2.setFixedHeight(0.05*self.WINDOW_HEIGHT)
+        else:
+            self.data_loader_label_2.setVisible(False)
         
         self.finish = QPushButton("Finish", self)
         self.finish.setFixedWidth(0.17*self.WINDOW_WIDTH)
@@ -231,41 +267,49 @@ class UILoadWindow(QWidget):
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[4].addStretch()
         self.horizontal_box[4].addWidget(self.project_name_label)
+        self.horizontal_box[4].addWidget(self.project_name_label_2)
         self.horizontal_box[4].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[5].addStretch()
         self.horizontal_box[5].addWidget(self.output_path_label)
+        self.horizontal_box[5].addWidget(self.output_path_label_2)
         self.horizontal_box[5].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[6].addStretch()
         self.horizontal_box[6].addWidget(self.model_path_label)
+        self.horizontal_box[6].addWidget(self.model_path_label_2)
         self.horizontal_box[6].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[7].addStretch()
         self.horizontal_box[7].addWidget(self.target_label)
+        self.horizontal_box[7].addWidget(self.target_label_2)
         self.horizontal_box[7].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[8].addStretch()
         self.horizontal_box[8].addWidget(self.optimizations_label)
+        self.horizontal_box[8].addWidget(self.optimizations_label_2)
         self.horizontal_box[8].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[9].addStretch()
         self.horizontal_box[9].addWidget(self.pruning_label)
+        self.horizontal_box[9].addWidget(self.pruning_label_2)
         self.horizontal_box[9].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[10].addStretch()
         self.horizontal_box[10].addWidget(self.quantization_label)
+        self.horizontal_box[10].addWidget(self.quantization_label_2)
         self.horizontal_box[10].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())
         self.horizontal_box[11].addStretch()
         self.horizontal_box[11].addWidget(self.data_loader_label)
+        self.horizontal_box[11].addWidget(self.data_loader_label_2)
         self.horizontal_box[11].addStretch()
         
         self.horizontal_box.append(QHBoxLayout())

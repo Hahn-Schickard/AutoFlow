@@ -10,7 +10,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 
-class UISettingsWindow(QWidget):
+class UIAutoMLSettings(QWidget):
     """Pass the settings for AutoKeras training.
 
     This GUI window has some input fields to pass the settings
@@ -18,7 +18,7 @@ class UISettingsWindow(QWidget):
     should solve.
     """
     def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, task, parent=None):
-        super(UISettingsWindow, self).__init__(parent)
+        super(UIAutoMLSettings, self).__init__(parent)
         
         self.WINDOW_WIDTH = WINDOW_WIDTH
         self.WINDOW_HEIGHT = WINDOW_HEIGHT

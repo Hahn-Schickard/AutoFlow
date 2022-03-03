@@ -66,4 +66,4 @@ def nextWindow(self,n):
         print("Project name:",self.project_name)
         print("Output path:",self.output_path_label)
         print("Data path:",self.data_loader_path)
-        self.TaskWindow()
+        self.AutoMLTask()

@@ -10,7 +10,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 
-class UITaskWindow(QWidget):
+class UIAutoMLTask(QWidget):
     """Select the task to interpret the data.
 
     In this window you can choose on which task the neural network
@@ -18,7 +18,7 @@ class UITaskWindow(QWidget):
     corresponding button.
     """
     def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, parent=None):
-        super(UITaskWindow, self).__init__(parent)
+        super(UIAutoMLTask, self).__init__(parent)
         
         self.WINDOW_WIDTH = WINDOW_WIDTH
         self.WINDOW_HEIGHT = WINDOW_HEIGHT

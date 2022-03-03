@@ -15,7 +15,7 @@ from src.Threads.Loading_images_thread import *
 from src.Threads.Autokeras_thread import *
 
 
-class UIAutoMLWindow(QWidget):
+class UIAutoMLTraining(QWidget):
     """GUI window of AutoKeras training process.
 
 	A info text is displayed which tells you to wait in this
@@ -25,7 +25,7 @@ class UIAutoMLWindow(QWidget):
     """
     def __init__(self, WINDOW_WIDTH, WINDOW_HEIGHT, FONT_STYLE, project_name, output_path, data_path, task, max_trials,
             max_epochs, max_size, num_channels, img_height, img_width, separator, decimal, csv_target_label, parent=None):
-        super(UIAutoMLWindow, self).__init__(parent)
+        super(UIAutoMLTraining, self).__init__(parent)
                 
         self.WINDOW_WIDTH = WINDOW_WIDTH
         self.WINDOW_HEIGHT = WINDOW_HEIGHT

@@ -28,7 +28,7 @@ def get_output_path(self, CurWindow_label):
         CurWindow_label: Label of GUI window to set a new text.
     """
     self.output_path = QFileDialog.getExistingDirectory(self, "Select the output path", os.path.expanduser('~'))
-    self.set_label(CurWindow_label, self.output_path)
+    self.set_label(CurWindow_label, self.output_path, Qt.AlignCenter)
 
 
 def get_model_path(self, CurWindow_label):
@@ -41,7 +41,7 @@ def get_model_path(self, CurWindow_label):
         CurWindow_label: Label of GUI window to set a new text.
     """
     self.model_path = QFileDialog.getOpenFileName(self, "Select your model", os.path.expanduser('~'))[0]
-    self.set_label(CurWindow_label, self.model_path)
+    self.set_label(CurWindow_label, self.model_path, Qt.AlignCenter)
 
 
 def get_data_loader(self, CurWindow, CurWindow_label):
@@ -66,21 +66,22 @@ def get_data_loader(self, CurWindow, CurWindow_label):
         self.CSVDataloaderWindow(CurWindow)
     else:
         print("No CSV file")
-        self.set_label(CurWindow_label, self.data_loader_path)
+        self.set_label(CurWindow_label, self.data_loader_path, Qt.AlignCenter)
 
 
-def set_label(self, CurWindow_label, label_text):
+def set_label(self, CurWindow_label, label_text, label_alignment):
     """Set a label with a given text
 
     Args:
-        CurWindow_label: Label of GUI window to set a new text.
-        label_text:      Text to be inserted in label.
+        CurWindow_label:    Label of GUI window to set a new text.
+        label_text:         Text to be inserted in label.
+        label_alignment:    Alignment of the label if it is not to long.
     """
     CurWindow_label.setText(label_text)
     if CurWindow_label.fontMetrics().boundingRect(CurWindow_label.text()).width() > CurWindow_label.width():
         CurWindow_label.setAlignment(Qt.AlignRight)
     else:
-        CurWindow_label.setAlignment(Qt.AlignCenter)
+        CurWindow_label.setAlignment(label_alignment)
 
 
 def set_pruning(self, CurWindow):
@@ -485,7 +486,7 @@ def load_csv_data(self, CurWindow, MainWindow):
         self.csv_target_label = CurWindow.cb_label_col.currentText()
         self.decimal = CurWindow.dec_label_col.currentText()
         CurWindow.close()
-        self.set_label(MainWindow.data_path_label, self.data_loader_path)
+        self.set_label(MainWindow.data_path_label, self.data_loader_path, Qt.AlignCenter)
     else:
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Warning)

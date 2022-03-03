@@ -53,11 +53,11 @@ class MainWindow(QMainWindow):
     from ._AutoMLData import AutoMLData
     from ._LoadWindow import LoadWindow
     from ._OptiWindow import OptiWindow
-    from ._SettingsWindow import SettingsWindow
+    from ._AutoMLSettings import AutoMLSettings
     from ._StartWindow import StartWindow
     from ._TargetWindow import TargetWindow
-    from ._TaskWindow import TaskWindow
-    from ._AutoMLWindow import AutoMLWindow
+    from ._AutoMLTask import AutoMLTask
+    from ._AutoMLTraining import AutoMLTraining
     from ._DataloaderWindow import DataloaderWindow
     from ._CSVDataloaderWindow import CSVDataloaderWindow
     

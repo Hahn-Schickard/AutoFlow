@@ -3,17 +3,17 @@
     SPDX-License-Identifier: Apache-2.0
 ============================================================================================================'''
 
-from src.GUILayout.UIAutoMLWindow import *
+from src.GUILayout.UIAutoMLTraining import *
 
         
-def AutoMLWindow(self):  
+def AutoMLTraining(self):  
     """AutoKeras training process get started.
 
 	The process of training models accoring the passed settings
 	get started. You have to wait until the process is finished.
 	After this you get back to the start window.
     """
-    self.Window6 = UIAutoMLWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.project_name,
+    self.Window6 = UIAutoMLTraining(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.project_name,
                             self.output_path, self.data_loader_path, self.task, self.max_trials, self.max_epochs,
                             self.max_size, self.num_channels, self.img_height, self.img_width, 
                             self.separator, self.decimal, self.csv_target_label, self)

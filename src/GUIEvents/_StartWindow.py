@@ -25,8 +25,8 @@ def StartWindow(self):
     self.Window1 = UIStartWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
     
     self.Window1.project_name.setText(self.project_name)
-    self.set_label(self.Window1.output_path_label, self.output_path)
-    self.set_label(self.Window1.model_path_label, self.model_path)
+    self.set_label(self.Window1.output_path_label, self.output_path, Qt.AlignCenter)
+    self.set_label(self.Window1.model_path_label, self.model_path, Qt.AlignCenter)
 
 
     self.Window1.output_path_Browse.clicked.connect(lambda:self.get_output_path(self.Window1.output_path_label))

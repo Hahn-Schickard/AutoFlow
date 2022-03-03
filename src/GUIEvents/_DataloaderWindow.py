@@ -20,7 +20,7 @@ def DataloaderWindow(self):
     self.Window3 = UIDataloaderWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
 
     if self.data_loader_path != None:
-        self.set_label(self.Window3.data_path_label, self.data_loader_path)
+        self.set_label(self.Window3.data_path_label, self.data_loader_path, Qt.AlignCenter)
 
     self.Window3.select_data_browse.clicked.connect(lambda: self.get_data_loader(self.Window3, self.Window3.data_path_label))
 

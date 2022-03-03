@@ -3,17 +3,17 @@
     SPDX-License-Identifier: Apache-2.0
 ============================================================================================================'''
 
-from src.GUILayout.UITaskWindow import *
+from src.GUILayout.UIAutoMLTask import *
 
 
-def TaskWindow(self):
+def AutoMLTask(self):
     """Select a button to choose your device.
 
     You can choose via three different buttons on which device you want
 	to exectue the model. If "Back" is pressed you get back to the start
 	window. If you choose a device you get to the optimization window.
     """
-    self.Window2 = UITaskWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
+    self.Window2 = UIAutoMLTask(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self)
         
     self.Window2.image_classification.clicked.connect(lambda:nextWindow(self,"Next","imageClassification"))
     self.Window2.image_regression.clicked.connect(lambda:nextWindow(self,"Next","imageRegression"))
@@ -53,4 +53,4 @@ def nextWindow(self,n,task):
             msg.exec_()
             return
 
-        self.SettingsWindow()
+        self.AutoMLSettings()

@@ -3,17 +3,17 @@
     SPDX-License-Identifier: Apache-2.0
 ============================================================================================================'''
 
-from src.GUILayout.UISettingsWindow import *
+from src.GUILayout.UIAutoMLSettings import *
         
 
-def SettingsWindow(self):
+def AutoMLSettings(self):
     """Activates the GUI window to pass the settings for
     AutoKeras training.
 
     You have to pass the settings according to the task of your
     AutoKeras model.
     """     
-    self.Window4 = UISettingsWindow(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.task, self)
+    self.Window4 = UIAutoMLSettings(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.task, self)
     
     self.Window4.epochs_factor.setText(str(self.max_epochs))
     self.Window4.max_trials_factor.setText(str(self.max_trials))
@@ -39,7 +39,7 @@ def nextWindow(self,n):
     """
 
     if n == "Back":
-        self.TaskWindow()
+        self.AutoMLTask()
 
     elif n == "Next":
         try:
@@ -63,6 +63,6 @@ def nextWindow(self,n):
         reply = QMessageBox.question(self, 'Start training', 'Do you want to start model training now?',
         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.Yes:
-            self.AutoMLWindow()
+            self.AutoMLTraining()
         else:
             return
