@@ -13,7 +13,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-from src.Converter.create_project import convert_and_write
+from src.converter.create_project import convert_and_write
 
 
 class ConvertBuild(QThread):

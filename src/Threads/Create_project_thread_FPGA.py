@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-from src.Converter.create_project import *
+from src.converter.create_project import *
 import hls4ml
 
 

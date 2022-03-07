@@ -9,8 +9,8 @@
 import os
 import ntpath
 
-from src.Converter.convert_keras_to_cc import *
-from src.Converter.write_files_uc import *
+from src.converter.convert_keras_to_cc import *
+from src.converter.write_files_uc import *
 
 
 def convert_and_write(keras_model_dir, project_name, output_path,
@@ -54,7 +54,7 @@ def convert_and_write(keras_model_dir, project_name, output_path,
 
         main_functions(project_dir, model_name, model_input_neurons,
                        model_output_neurons, quant_dtype, model_memory)
-        TensorFlow_library(project_dir)
+        tensorflow_library(project_dir)
 
     if 'Pruning' in optimizations:
         pruned_keras_model(keras_model_dir, project_dir, model_name)

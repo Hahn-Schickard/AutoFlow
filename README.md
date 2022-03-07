@@ -55,9 +55,9 @@ sudo apt-get install pyqt5-dev-tools -y
 sudo apt-get install qttools5-dev-tools -y
 ```
 
-To ensure that AutoKeras works without errors, the script `src/AutoML/Remove_cast_to_float32.py` has to be executed. The environment used is passed as the parameter. The following is an example of the execution of the script:
+To ensure that AutoKeras works without errors, the script `src/automl/customize_autokeras.py` has to be executed. The environment used is passed as the parameter. The following is an example of the execution of the script:
 ```
-python src/AutoML/Remove_cast_to_float32.py C:/Users/.../Anaconda3/envs/AutoFlow
+python src/automl/customize_autokeras.py C:/Users/.../Anaconda3/envs/AutoFlow
 ```
 
 
@@ -65,7 +65,7 @@ python src/AutoML/Remove_cast_to_float32.py C:/Users/.../Anaconda3/envs/AutoFlow
 
 The image below shows the different steps of the AutoFlow GUI.
 <p align="center">
-<img src="https://github.com/Hahn-Schickard/AutoFlow/blob/main/src/GUILayout/Images/Flowchart.svg">
+<img src="https://github.com/Hahn-Schickard/AutoFlow/blob/main/src/gui_layout/images/Flowchart.svg">
 </p>
 
 
@@ -75,7 +75,7 @@ To start AutoFlow, the AutoFlow.py file is executed.</br>
 Afterwards, the first window of the GUI will be opened. The tool consists of two parts. Therefore, in the first window, you can choose which part of the AutoFlow tool you want to use. You can train a new model from scratch, by using AutoKeras, according to a database of you (left button). The other option is to use an already trained model, optimize and convert it into a format to execute it on your target platform (right button). If you want, you can also first train a new model from scratch and optimize and convert it afterwards for your target platform.
 
 <p align="center">
-<img src="https://github.com/Hahn-Schickard/AutoFlow/blob/main/src/GUILayout/Images/GUI_windows/GUI_window_1.PNG" width="45%" height="45%">
+<img src="https://github.com/Hahn-Schickard/AutoFlow/blob/main/src/gui_layout/images/gui_windows/GUI_window_1.PNG" width="45%" height="45%">
 </p>
 
 The following links describe the two parts of AutoFlow described above.

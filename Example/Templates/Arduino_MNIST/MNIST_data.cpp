@@ -1,4 +1,4 @@
-#include "MNIST_data.h"
+#include "mnist_data.h"
 
 // We need to keep the data array aligned on some architectures.
 #ifdef __has_attribute

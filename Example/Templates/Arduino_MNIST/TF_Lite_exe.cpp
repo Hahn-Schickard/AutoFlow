@@ -1,4 +1,4 @@
-#include "TF_Lite_exe.h"
+#include "tf_lite_exe.h"
 
 namespace {
 // Create an area of memory to use for input, output, and intermediate arrays.

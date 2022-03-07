@@ -16,9 +16,9 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-from src.Optimization.Pruning import prune_model, pruning_for_acc
-from src.Optimization.TensorFlow_pruning import tensorflow_pruning
-from src.GUIEvents._DataloaderHelper import dataloader_pruning
+from src.optimization.pruning import prune_model, pruning_for_acc
+from src.optimization.tensorflow_pruning import tensorflow_pruning
+from src.gui_event._dataloader_helper import dataloader_pruning
 
 
 class PruneModel(QThread):

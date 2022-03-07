@@ -2,11 +2,11 @@ import tensorflow as tf
 import numpy as np
 import sys
 sys.path.insert(1, '..')
-from data.Data_preprocessing_MNIST import get_data
+from data.data_preprocessing_mnist import get_data
 
 
 # Path of TFLite model
-tflite_model_file = '../data/MNIST_model.tflite'
+tflite_model_file = '../data/mnist_model.tflite'
 # Get data to test the model
 _, _, x_test, y_test = get_data()
 

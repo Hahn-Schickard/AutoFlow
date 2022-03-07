@@ -3,7 +3,7 @@
 #include "input_data.h"
 #include "Model_output.h"
 
-#include "TF_Lite_exe.h"
+#include "tf_lite_exe.h"
 
 float* prediction;
 

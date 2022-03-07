@@ -18,7 +18,7 @@ class LoadingImages(QThread):
     """Loading screen thread.
 
     Attributes:
-        load_png:     The image which is represented on the "LoadWindow"
+        load_png:     The image which is represented on the "create_project"
         loading_img: The different images representing the loadingscreen
     """
 
@@ -43,7 +43,7 @@ class LoadingImages(QThread):
             time.sleep(0.75)
 
             self.load_png.setPixmap(QPixmap(os.path.join(
-                'src', 'GUILayout', 'Images', 'GUI_loading_images',
+                'src', 'gui_layout', 'images', 'gui_loading_images',
                 'GUI_load_' + str(self.loading_img) + '.png')))
 
     def stop_thread(self):

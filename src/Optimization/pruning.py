@@ -435,7 +435,7 @@ def get_filter_to_prune_avarage(layer_params, prun_layer, prun_factor):
     return prun_filter, num_new_filter
 
 
-def get_filter_to_prune_L2(layer_params, prun_layer, prun_factor):
+def get_filter_to_prune_l2(layer_params, prun_layer, prun_factor):
     """
     Calculate the filters which get pruned with the L2 norm.
 
@@ -500,7 +500,7 @@ def prun_filters_conv(layer_types, layer_params, layer_output_shape,
             prun_filter, num_new_filter = get_filter_to_prune_avarage(
                 layer_params, prun_layer, prun_factor)
         elif metric == 'L2':
-            prun_filter, num_new_filter = get_filter_to_prune_L2(
+            prun_filter, num_new_filter = get_filter_to_prune_l2(
                 layer_params, prun_layer, prun_factor)
         else:
             prun_filter, num_new_filter = get_filter_to_prune_avarage(

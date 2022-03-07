@@ -200,7 +200,7 @@ def main_functions(project_dir, model_name, model_input_neurons,
                 f.write('float* model_execute(float *);')
 
 
-def TensorFlow_library(project_dir):
+def tensorflow_library(project_dir):
     """
     Creates the TensorFlow library with all necessary files in the
     project directory.
@@ -209,10 +209,10 @@ def TensorFlow_library(project_dir):
         project_dir:    Path of the project directory where the file
                         should be created
     """
-    print("TensorFlow_library function called")
+    print("tensorflow_library function called")
     shutil.copytree(str(pathlib.Path(__file__).parent.absolute())
-                    + "/TensorFlow_library",
-                    project_dir + "/TensorFlow_library")
+                    + "/tensorflow_library",
+                    project_dir + "/tensorflow_library")
 
 
 def pruned_keras_model(keras_model_dir, project_dir, model_name):

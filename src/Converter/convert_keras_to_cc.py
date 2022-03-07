@@ -11,7 +11,7 @@ import tensorflow as tf
 import sys
 
 sys.path.append("..")   # Adds higher directory to python modules path.
-from src.GUIEvents._DataloaderHelper import dataloader_quantization
+from src.gui_event._dataloader_helper import dataloader_quantization
 
 
 def convert_model_to_tflite(keras_model_dir, project_dir, model_name,

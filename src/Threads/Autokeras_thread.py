@@ -10,10 +10,10 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-from src.AutoML.ImageClassifier import image_classifier
-from src.AutoML.ImageRegressor import image_regressor
-from src.AutoML.DataClassifier import data_classifier
-from src.AutoML.DataRegressor import data_regressor
+from src.automl.image_classifier import image_classifier
+from src.automl.image_regressor import image_regressor
+from src.automl.data_classifier import data_classifier
+from src.automl.data_regressor import data_regressor
 
 
 class Autokeras(QThread):
