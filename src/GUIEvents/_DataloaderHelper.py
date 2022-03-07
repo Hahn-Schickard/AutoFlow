@@ -1,8 +1,10 @@
-''' Copyright [2020] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
-    Copyright [2021] Karlsruhe Institute of Technology, Daniel Konegen
-    Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
-    SPDX-License-Identifier: Apache-2.0
-============================================================================================================'''
+'''Copyright [2020] Hahn-Schickard-Gesellschaft fuer angewandte Forschung e.V.,
+                    Daniel Konegen + Marcus Rueb
+   Copyright [2021] Karlsruhe Institute of Technology, Daniel Konegen
+   Copyright [2022] Hahn-Schickard-Gesellschaft fuer angewandte Forschung e.V.,
+                    Daniel Konegen + Marcus Rueb
+   SPDX-License-Identifier: Apache-2.0
+============================================================================'''
 
 import sys
 import os
@@ -19,7 +21,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-def normalize_data(image,label):
+
+def normalize_data(image, label):
     """Normalizes a given image to a range of 0 to 1.
 
     Args:
@@ -29,11 +32,11 @@ def normalize_data(image,label):
     Returns:
         Normalized images and corresponding labels
     """
-    image = tf.cast(image/255. ,tf.float32)
-    return image,label
+    image = tf.cast(image / 255., tf.float32)
+    return image, label
 
 
-def modify_labels(image,label):
+def modify_labels(image, label):
     """Turn labels from string values to integer values.
 
     Args:
@@ -42,17 +45,17 @@ def modify_labels(image,label):
 
     Returns:
         Converted label and corresponding image
-    """    
+    """
     for item in label_list:
         label = tf.strings.regex_replace(label, item, str(label_dict[item]))
     label = tf.strings.to_number(label)
     label = tf.cast(label, tf.int8)
 
-    return image,label
+    return image, label
 
 
-def dataloader_quantization(data_loader_path, img_height, img_width, separator, decimal,
-                csv_target_label):
+def dataloader_quantization(data_loader_path, img_height, img_width, separator,
+                            decimal, csv_target_label):
     """Get Training data for quantization.
 
     Checks if your training data is inside a path or a file. Extracts
@@ -73,18 +76,20 @@ def dataloader_quantization(data_loader_path, img_height, img_width, separator, 
 
     if os.path.isfile(data_loader_path):
         if ".csv" in data_loader_path:
-            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal, index_col=False, dtype=np.float32)
+            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal,
+                             index_col=False, dtype=np.float32)
 
             if "First" in csv_target_label:
-                X = np.array(df.iloc[:,1:].values)[..., np.newaxis]
+                X = np.array(df.iloc[:, 1:].values)[..., np.newaxis]
             else:
-                X = np.array(df.iloc[:,:-1].values)[..., np.newaxis]
+                X = np.array(df.iloc[:, :-1].values)[..., np.newaxis]
 
             return X
 
         else:
             sys.path.append(os.path.dirname(data_loader_path))
-            datascript = __import__(os.path.splitext(os.path.basename(data_loader_path))[0])
+            datascript = __import__(os.path.splitext(
+                os.path.basename(data_loader_path))[0])
             x_train, _, _, _ = datascript.get_data()
 
         return x_train
@@ -96,30 +101,31 @@ def dataloader_quantization(data_loader_path, img_height, img_width, separator, 
         for folders in classes:
             if os.path.isdir(data_loader_path + "/" + folders):
                 images = os.listdir(data_loader_path + "/" + folders)
-            for i in range(0,int(500/len(classes))):
+            for i in range(0, int(500 / len(classes))):
                 rand_img = random.choice(images)
-                img = Image.open(data_loader_path + "/" + folders + "/" + rand_img)
+                img = Image.open(data_loader_path + "/" + folders + "/" +
+                                 rand_img)
                 resized_image = np.array(img.resize((img_height, img_width)))
                 train_images.append(resized_image)
-        
+
         train_images = np.asarray(train_images)
         if np.max(train_images) > 1:
-            train_images = train_images/255.0
-            
+            train_images = train_images / 255.0
+
         if len(train_images.shape) == 3:
-            train_images = np.expand_dims(train_images, axis=3) 
+            train_images = np.expand_dims(train_images, axis=3)
 
         return train_images
 
 
-def dataloader_pruning(data_loader_path, separator, decimal, csv_target_label, img_height,
-                img_width, num_channels, num_classes):
+def dataloader_pruning(data_loader_path, separator, decimal, csv_target_label,
+                       img_height, img_width, num_channels, num_classes):
     """Get data for retraining the model after pruning.
 
     Checks if your data is inside a path or a file. Extracts the
     data from the directories or the file. If it is a file there
     is also a check if the label is one hot encoded or not. If it
-    is a path data genarators are initialized.  
+    is a path data genarators are initialized.
 
     Args:
         data_loader_path:   Path or file of training data
@@ -136,30 +142,32 @@ def dataloader_pruning(data_loader_path, separator, decimal, csv_target_label, i
         whether the label is one hot encoded or not is returned.
         If the dataloader is a path the datagenerators for training
         and validation data is returned. Furthermore "False" is
-        returned, because it is not one hot encoded. 
+        returned, because it is not one hot encoded.
     """
     if os.path.isfile(data_loader_path):
         if ".csv" in data_loader_path:
-            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal, index_col=False, dtype=np.float32)
+            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal,
+                             index_col=False, dtype=np.float32)
 
             if "First" in csv_target_label:
-                X = np.array(df.iloc[:,1:].values)[..., np.newaxis]
-                Y = np.array(df.iloc[:,0].values).astype(np.int8)
+                X = np.array(df.iloc[:, 1:].values)[..., np.newaxis]
+                Y = np.array(df.iloc[:, 0].values).astype(np.int8)
             else:
-                X = np.array(df.iloc[:,:-1].values)[..., np.newaxis]
-                Y = np.array(df.iloc[:,-1].values).astype(np.int8)
+                X = np.array(df.iloc[:, :-1].values)[..., np.newaxis]
+                Y = np.array(df.iloc[:, -1].values).astype(np.int8)
 
             return X, Y, False
 
         else:
             sys.path.append(os.path.dirname(data_loader_path))
-            datascript = __import__(os.path.splitext(os.path.basename(data_loader_path))[0])
+            datascript = __import__(os.path.splitext(os.path.basename(
+                data_loader_path))[0])
             x_train, y_train, _, _ = datascript.get_data()
             if len(y_train.shape) > 1:
                 label_one_hot = True
             else:
                 label_one_hot = False
-                
+
             return x_train, y_train, label_one_hot
 
     elif os.path.isdir(data_loader_path):
@@ -170,38 +178,43 @@ def dataloader_pruning(data_loader_path, separator, decimal, csv_target_label, i
         img = Image.open(data_loader_path + "/" + rand_class + "/" + rand_img)
         # create data generator
         if np.asarray(img).max() > 1.0:
-            train_datagen = ImageDataGenerator(rescale=1.0/255.0, validation_split=0.2)
+            train_datagen = ImageDataGenerator(rescale=1.0 / 255.0,
+                                               validation_split=0.2)
         else:
             train_datagen = ImageDataGenerator(validation_split=0.2)
-        
+
         # prepare iterators
         if num_channels == 1:
             color_mode = 'grayscale'
         elif num_channels == 3:
             color_mode = 'rgb'
-            
+
         if num_classes > 2:
             class_mode = 'sparse'
         else:
             class_mode = 'binary'
 
-        train_it = train_datagen.flow_from_directory(data_loader_path, target_size=(img_height, img_width),
-                                            color_mode=color_mode, class_mode=class_mode, batch_size=128,
-                                            subset='training')
-        val_it = train_datagen.flow_from_directory(data_loader_path, target_size=(img_height, img_width),
-                                            color_mode=color_mode, class_mode=class_mode, batch_size=128,
-                                            subset='validation')
+        train_it = train_datagen.flow_from_directory(
+            data_loader_path, target_size=(img_height, img_width),
+            color_mode=color_mode, class_mode=class_mode, batch_size=128,
+            subset='training')
+        val_it = train_datagen.flow_from_directory(
+            data_loader_path, target_size=(img_height, img_width),
+            color_mode=color_mode, class_mode=class_mode, batch_size=128,
+            subset='validation')
 
         return train_it, val_it, False
 
 
-def dataloader_autokeras(data_loader_path, separator, decimal, csv_target_label, img_height, img_width, num_channels):
+def dataloader_autokeras(data_loader_path, separator, decimal,
+                         csv_target_label, img_height, img_width,
+                         num_channels):
     """Get data for of model using AutoKeras.
 
     Checks if your data is inside a path or a file. Extracts the
     data from the directories or the file. If it is a file there
     is also a check if the label is one hot encoded or not. If it
-    is a path data genarators are initialized.  
+    is a path data genarators are initialized.
 
     Args:
         data_loader_path:   Path or file of training data
@@ -215,27 +228,30 @@ def dataloader_autokeras(data_loader_path, separator, decimal, csv_target_label,
     Returns:
         Returns the data for training models as datagenerators
         or as numpy arrays depending on if the data loader
-        path is a file or directory. 
+        path is a file or directory.
     """
     if os.path.isfile(data_loader_path):
         if ".csv" in data_loader_path:
-            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal, index_col=False, dtype=np.float32)
+            df = pd.read_csv(data_loader_path, sep=separator, decimal=decimal,
+                             index_col=False, dtype=np.float32)
 
             if "First" in csv_target_label:
-                X = np.array(df.iloc[:,1:].values)[..., np.newaxis]
-                Y = np.array(df.iloc[:,0].values).astype(np.int8)
+                X = np.array(df.iloc[:, 1:].values)[..., np.newaxis]
+                Y = np.array(df.iloc[:, 0].values).astype(np.int8)
             else:
-                X = np.array(df.iloc[:,:-1].values)[..., np.newaxis]
-                Y = np.array(df.iloc[:,-1].values).astype(np.int8)
-            
-            x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, shuffle=True,)
+                X = np.array(df.iloc[:, :-1].values)[..., np.newaxis]
+                Y = np.array(df.iloc[:, -1].values).astype(np.int8)
+
+            x_train, x_test, y_train, y_test = train_test_split(
+                X, Y, test_size=0.2, shuffle=True,)
             print("Type data:", x_train.dtype)
 
         else:
             sys.path.append(os.path.dirname(data_loader_path))
-            datascript = __import__(os.path.splitext(os.path.basename(data_loader_path))[0])
+            datascript = __import__(os.path.splitext(
+                os.path.basename(data_loader_path))[0])
             x_train, y_train, x_test, y_test = datascript.get_data()
-                
+
         return x_train, y_train, x_test, y_test
 
     elif os.path.isdir(data_loader_path):
@@ -278,12 +294,11 @@ def dataloader_autokeras(data_loader_path, separator, decimal, csv_target_label,
         # Turn string labels to int values
         classes = os.listdir(data_loader_path)
         global label_dict
-        label_dict = dict([(y,x) for x,y in enumerate(sorted(set(classes)))])
+        label_dict = dict([(y, x) for x, y in enumerate(sorted(set(classes)))])
         global label_list
         label_list = list(label_dict.keys())
 
         train_data = train_data.map(modify_labels)
         test_data = test_data.map(modify_labels)
-
 
         return train_data, None, test_data, None

@@ -1,28 +1,32 @@
-''' Copyright [2020] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Marcel Sawrin + Marcus Rueb
-    Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
-    SPDX-License-Identifier: Apache-2.0
-============================================================================================================'''
+'''Copyright [2020] Hahn-Schickard-Gesellschaft fuer angewandte Forschung e.V.,
+                    Marcel Sawrin + Marcus Rueb
+   Copyright [2022] Hahn-Schickard-Gesellschaft fuer angewandte Forschung e.V.,
+                    Daniel Konegen + Marcus Rueb
+   SPDX-License-Identifier: Apache-2.0
+============================================================================'''
 
 from src.GUILayout.UIAutoMLTraining import *
 
-        
-def AutoMLTraining(self):  
+
+def AutoMLTraining(self):
     """AutoKeras training process get started.
 
-	The process of training models accoring the passed settings
-	get started. You have to wait until the process is finished.
-	After this you get back to the start window.
+    The process of training models accoring the passed settings
+    get started. You have to wait until the process is finished.
+    After this you get back to the start window.
     """
-    self.Window6 = UIAutoMLTraining(self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE, self.project_name,
-                            self.output_path, self.data_loader_path, self.task, self.max_trials, self.max_epochs,
-                            self.max_size, self.num_channels, self.img_height, self.img_width, 
-                            self.separator, self.decimal, self.csv_target_label, self)
+    self.Window6 = UIAutoMLTraining(
+        self.WINDOW_WIDTH, self.WINDOW_HEIGHT, self.FONT_STYLE,
+        self.project_name, self.output_path, self.data_loader_path,
+        self.task, self.max_trials, self.max_epochs, self.max_size,
+        self.num_channels, self.img_height, self.img_width, self.separator,
+        self.decimal, self.csv_target_label, self)
 
     self.Window6.loading_images.start()
     self.Window6.autokeras.start()
 
-    self.Window6.autokeras.request_signal.connect(lambda:nextWindow(self))
-    print("AutoKeras finished")  
+    self.Window6.autokeras.request_signal.connect(lambda: nextWindow(self))
+    print("AutoKeras finished")
 
     self.setCentralWidget(self.Window6)
     self.show()

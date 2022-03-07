@@ -1,17 +1,13 @@
-''' Copyright [2020] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
-    Copyright [2021] Karlsruhe Institute of Technology, Daniel Konegen
-    Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
-    SPDX-License-Identifier: Apache-2.0
-============================================================================================================'''
+'''Copyright [2020] Hahn-Schickard-Gesellschaft fuer angewandte Forschung e.V.,
+                    Daniel Konegen + Marcus Rueb
+   Copyright [2021] Karlsruhe Institute of Technology, Daniel Konegen
+   Copyright [2022] Hahn-Schickard-Gesellschaft fuer angewandte Forschung e.V.,
+                    Daniel Konegen + Marcus Rueb
+   SPDX-License-Identifier: Apache-2.0
+============================================================================'''
 
-import sys
 import os
-import numpy as np
-import random
-from PIL import Image
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import pandas as pd
-import tensorflow as tf
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -27,7 +23,8 @@ def get_output_path(self, CurWindow_label):
     Args:
         CurWindow_label: Label of GUI window to set a new text.
     """
-    self.output_path = QFileDialog.getExistingDirectory(self, "Select the output path", os.path.expanduser('~'))
+    self.output_path = QFileDialog.getExistingDirectory(
+        self, "Select the output path", os.path.expanduser('~'))
     self.set_label(CurWindow_label, self.output_path, Qt.AlignCenter)
 
 
@@ -40,7 +37,8 @@ def get_model_path(self, CurWindow_label):
     Args:
         CurWindow_label: Label of GUI window to set a new text.
     """
-    self.model_path = QFileDialog.getOpenFileName(self, "Select your model", os.path.expanduser('~'))[0]
+    self.model_path = QFileDialog.getOpenFileName(self, "Select your model",
+                                                  os.path.expanduser('~'))[0]
     self.set_label(CurWindow_label, self.model_path, Qt.AlignCenter)
 
 
@@ -49,17 +47,21 @@ def get_data_loader(self, CurWindow, CurWindow_label):
 
     A Browse window opens and you can navigate to the directory
     containing your training data. Otherwise you can select a file
-    which loads your training. If the file is a CSV the 
-    CSVDataloaderWindow() function is executed. 
+    which loads your training. If the file is a CSV the
+    CSVDataloaderWindow() function is executed.
 
     Args:
         CurWindow:       GUI window from which the function is executed.
         CurWindow_label: Label of GUI window to set a new text.
     """
     if "Select PATH with data" in CurWindow.dataloader_list.currentText():
-        self.data_loader_path = QFileDialog.getExistingDirectory(self, "Select your trainingdata path", os.path.expanduser('~'))
-    elif "Select FILE with data" in CurWindow.dataloader_list.currentText():
-        self.data_loader_path = QFileDialog.getOpenFileName(self, "Select your data loader script", os.path.expanduser('~'), 'CSV(*.csv);; Python(*.py)')[0]
+        self.data_loader_path = QFileDialog.getExistingDirectory(
+            self, "Select your trainingdata path", os.path.expanduser('~'))
+    elif ("Select FILE with data" in
+            CurWindow.dataloader_list.currentText()):
+        self.data_loader_path = QFileDialog.getOpenFileName(
+            self, "Select your data loader script", os.path.expanduser('~'),
+            'CSV(*.csv);; Python(*.py)')[0]
 
     if ".csv" in self.data_loader_path:
         print("CSV file selected")
@@ -78,7 +80,9 @@ def set_label(self, CurWindow_label, label_text, label_alignment):
         label_alignment:    Alignment of the label if it is not to long.
     """
     CurWindow_label.setText(label_text)
-    if CurWindow_label.fontMetrics().boundingRect(CurWindow_label.text()).width() > CurWindow_label.width():
+    if (CurWindow_label.fontMetrics().boundingRect(
+            CurWindow_label.text()).width() >
+            CurWindow_label.width()):
         CurWindow_label.setAlignment(Qt.AlignRight)
     else:
         CurWindow_label.setAlignment(label_alignment)
@@ -94,33 +98,33 @@ def set_pruning(self, CurWindow):
     Args:
         CurWindow: GUI window from which the function is executed.
     """
-    if CurWindow.pruning.isChecked() == True:
-        if not "Pruning" in self.optimizations:
+    if CurWindow.pruning.isChecked():
+        if "Pruning" not in self.optimizations:
             self.optimizations.append("Pruning")
-            print("Optimizations:",self.optimizations)
+            print("Optimizations:", self.optimizations)
 
         CurWindow.prun_fac.setVisible(True)
         CurWindow.prun_acc.setVisible(True)
 
-        if self.prun_type != None:
+        if self.prun_type is not None:
             set_prun_type(self, self.prun_type, CurWindow, True)
 
     else:
         if "Pruning" in self.optimizations:
             self.optimizations.remove("Pruning")
-            print("Optimizations:",self.optimizations)
+            print("Optimizations:", self.optimizations)
         CurWindow.prun_fac.setVisible(False)
-        CurWindow.prun_acc.setVisible(False) 
-        
+        CurWindow.prun_acc.setVisible(False)
+
         CurWindow.pruning_dense.setVisible(False)
         CurWindow.pruning_conv.setVisible(False)
         CurWindow.pruning_conv_label.setVisible(False)
         CurWindow.pruning_dense_label.setVisible(False)
 
         CurWindow.min_acc.setVisible(False)
-        CurWindow.acc_loss.setVisible(False)   
+        CurWindow.acc_loss.setVisible(False)
         CurWindow.prun_acc_label.setVisible(False)
-        CurWindow.prun_acc_edit.setVisible(False) 
+        CurWindow.prun_acc_edit.setVisible(False)
 
 
 def set_quantization(self, CurWindow):
@@ -133,10 +137,10 @@ def set_quantization(self, CurWindow):
     Args:
         CurWindow: GUI window from which the function is executed.
     """
-    if CurWindow.quantization.isChecked() == True:
-        if not "Quantization" in self.optimizations:
+    if CurWindow.quantization.isChecked():
+        if "Quantization" not in self.optimizations:
             self.optimizations.append("Quantization")
-        if self.quant_dtype != None:
+        if self.quant_dtype is not None:
             if "int8 with float fallback" in self.quant_dtype:
                 CurWindow.quant_int_only.setChecked(False)
                 CurWindow.quant_int.setChecked(True)
@@ -154,7 +158,7 @@ def set_quantization(self, CurWindow):
         CurWindow.quant_int.setVisible(False)
         CurWindow.quant_int_only.setVisible(False)
 
-    print("Optimizations:",self.optimizations)
+    print("Optimizations:", self.optimizations)
 
 
 def set_prun_type(self, prun_type, CurWindow, Pruning_button):
@@ -172,11 +176,13 @@ def set_prun_type(self, prun_type, CurWindow, Pruning_button):
         CurWindow.prun_acc.setChecked(False)
         CurWindow.min_acc.setChecked(False)
         CurWindow.acc_loss.setChecked(False)
-        if self.prun_type == None or not "Factor" in self.prun_type or Pruning_button == True:
+        if (self.prun_type is None or "Factor" not in self.prun_type or
+                Pruning_button):
             CurWindow.prun_fac.setChecked(True)
             self.prun_type = prun_type
             self.prun_acc_type = None
-            if self.prun_factor_dense == None and self.prun_factor_conv == None:
+            if (self.prun_factor_dense is None and
+                    self.prun_factor_conv is None):
                 CurWindow.pruning_dense.setText("10")
                 CurWindow.pruning_conv.setText("10")
             else:
@@ -190,7 +196,7 @@ def set_prun_type(self, prun_type, CurWindow, Pruning_button):
             CurWindow.min_acc.setVisible(False)
             CurWindow.acc_loss.setVisible(False)
             CurWindow.prun_acc_label.setVisible(False)
-            CurWindow.prun_acc_edit.setVisible(False) 
+            CurWindow.prun_acc_edit.setVisible(False)
         else:
             self.prun_type = None
             CurWindow.pruning_dense.setVisible(False)
@@ -200,32 +206,35 @@ def set_prun_type(self, prun_type, CurWindow, Pruning_button):
 
     elif "Accuracy" in prun_type:
         CurWindow.prun_fac.setChecked(False)
-        if self.prun_type == None or not "Accuracy" in self.prun_type or Pruning_button == True:
+        if (self.prun_type is None or "Accuracy" not in self.prun_type or
+                Pruning_button):
             CurWindow.prun_acc.setChecked(True)
             self.prun_type = prun_type
-            
+
             CurWindow.min_acc.setVisible(True)
             CurWindow.acc_loss.setVisible(True)
 
-            print("Accuracy pruning type:",self.prun_acc_type)
-            if self.prun_acc_type != None and "Minimal accuracy" in self.prun_acc_type:
+            print("Accuracy pruning type:", self.prun_acc_type)
+            if (self.prun_acc_type is not None and
+                    "Minimal accuracy" in self.prun_acc_type):
                 CurWindow.min_acc.setChecked(True)
                 CurWindow.acc_loss.setChecked(False)
                 CurWindow.prun_acc_label.setText("Min accuracy\nto reach in %")
                 CurWindow.prun_acc_label.setVisible(True)
                 CurWindow.prun_acc_edit.setVisible(True)
-                if self.prun_acc == None:
+                if self.prun_acc is None:
                     CurWindow.prun_acc_edit.setText("90")
                 else:
                     CurWindow.prun_acc_edit.setText(str(self.prun_acc))
 
-            elif self.prun_acc_type != None and "Accuracy loss" in self.prun_acc_type:
+            elif (self.prun_acc_type is not None and
+                    "Accuracy loss" in self.prun_acc_type):
                 CurWindow.min_acc.setChecked(False)
                 CurWindow.acc_loss.setChecked(True)
                 CurWindow.prun_acc_label.setText("Max accuracy\nloss in %")
                 CurWindow.prun_acc_label.setVisible(True)
                 CurWindow.prun_acc_edit.setVisible(True)
-                if self.prun_acc == None:
+                if self.prun_acc is None:
                     CurWindow.prun_acc_edit.setText("3")
                 else:
                     CurWindow.prun_acc_edit.setText(str(self.prun_acc))
@@ -245,12 +254,12 @@ def set_prun_type(self, prun_type, CurWindow, Pruning_button):
             self.prun_acc_type = None
             CurWindow.min_acc.setChecked(False)
             CurWindow.acc_loss.setChecked(False)
-    
+
             CurWindow.min_acc.setVisible(False)
             CurWindow.acc_loss.setVisible(False)
             CurWindow.prun_acc_label.setVisible(False)
-            CurWindow.prun_acc_edit.setVisible(False) 
-    print("Pruning type:",self.prun_type)
+            CurWindow.prun_acc_edit.setVisible(False)
+    print("Pruning type:", self.prun_type)
 
 
 def set_prun_acc_type(self, prun_type, CurWindow):
@@ -264,7 +273,8 @@ def set_prun_acc_type(self, prun_type, CurWindow):
     """
     if "Minimal accuracy" in prun_type:
         CurWindow.acc_loss.setChecked(False)
-        if self.prun_acc_type == None or not "Minimal accuracy" in self.prun_acc_type:  
+        if (self.prun_acc_type is None or
+                "Minimal accuracy" not in self.prun_acc_type):
             self.prun_acc_type = prun_type
             CurWindow.prun_acc_label.setVisible(True)
             CurWindow.prun_acc_label.setText("Min accuracy\nto reach in %")
@@ -272,12 +282,13 @@ def set_prun_acc_type(self, prun_type, CurWindow):
             CurWindow.prun_acc_edit.setText("90")
             self.prun_acc = None
         else:
-            self.prun_acc_type = None  
+            self.prun_acc_type = None
             CurWindow.prun_acc_label.setVisible(False)
             CurWindow.prun_acc_edit.setVisible(False)
     elif "Accuracy loss" in prun_type:
         CurWindow.min_acc.setChecked(False)
-        if self.prun_acc_type == None or not "Accuracy loss" in self.prun_acc_type:
+        if (self.prun_acc_type is None or
+                "Accuracy loss" not in self.prun_acc_type):
             self.prun_acc_type = prun_type
             CurWindow.prun_acc_label.setVisible(True)
             CurWindow.prun_acc_label.setText("Max accuracy\nloss in %")
@@ -288,9 +299,9 @@ def set_prun_acc_type(self, prun_type, CurWindow):
             self.prun_acc_type = None
             CurWindow.prun_acc_label.setVisible(False)
             CurWindow.prun_acc_edit.setVisible(False)
-    print("Accuracy pruning type:",self.prun_acc_type)
+    print("Accuracy pruning type:", self.prun_acc_type)
 
-       
+
 def set_quant_dtype(self, dtype, CurWindow):
     """Sets the quantization type.
 
@@ -303,24 +314,24 @@ def set_quant_dtype(self, dtype, CurWindow):
     """
     if "int8 with float fallback" in dtype:
         CurWindow.quant_int_only.setChecked(False)
-        if CurWindow.quant_int.isChecked() == False:
+        if not CurWindow.quant_int.isChecked():
             self.quant_dtype = None
         else:
             self.quant_dtype = dtype
     elif "int8 only" in dtype:
         CurWindow.quant_int.setChecked(False)
-        if CurWindow.quant_int_only.isChecked() == False:
+        if not CurWindow.quant_int_only.isChecked():
             self.quant_dtype = None
         else:
             self.quant_dtype = dtype
-    print("Quantization type:",self.quant_dtype)
+    print("Quantization type:", self.quant_dtype)
 
 
 def model_pruning(self, CurWindow):
     """Starts the thread to prune the model.
 
-    The thread for pruning the model is started. Also, the two 
-    buttons of the GUI window are hidden and the thread for the 
+    The thread for pruning the model is started. Also, the two
+    buttons of the GUI window are hidden and the thread for the
     loading screen is started.
 
     Args:
@@ -385,7 +396,9 @@ def terminate_thread(self, CurWindow):
         CurWindow.conv_build_load.stop_thread()
         CurWindow.finish_placeholder.setVisible(False)
         CurWindow.finish.setVisible(True)
-        CurWindow.load_png.setPixmap(QPixmap(os.path.join("src", "GUILayout", "Images", "GUI_loading_images", "GUI_load_finish.png")))
+        CurWindow.load_png.setPixmap(QPixmap(os.path.join(
+            "src", "GUILayout", "Images", "GUI_loading_images",
+            "GUI_load_finish.png")))
         CurWindow.load_png.setScaledContents(True)
     except:
         print("Error")
@@ -398,8 +411,9 @@ def browse_csv_data(self, CurWindow):
     file which contains your data.
     """
     self.data_loader_path = QFileDialog.getOpenFileName(
-        self, "Select your data loader script", os.path.expanduser('~'), 'CSV(*.csv)')[0]    
-    print("CSV data path:",self.data_loader_path)
+        self, "Select your data loader script", os.path.expanduser('~'),
+        'CSV(*.csv)')[0]
+    print("CSV data path:", self.data_loader_path)
 
     CurWindow.table.setRowCount(0)
     CurWindow.table.setColumnCount(0)
@@ -422,18 +436,22 @@ def preview_csv_data(self, CurWindow):
 
     Args:
         CurWindow: GUI window from which the function is executed.
-    """    
+    """
     try:
         # Change shape of cursor to wait cursor
         QApplication.setOverrideCursor(Qt.WaitCursor)
-    
-        if self.data_loader_path != None and ".csv" in self.data_loader_path:
+
+        if (self.data_loader_path is not None and
+                ".csv" in self.data_loader_path):
             self.get_separator(CurWindow)
             decimal = CurWindow.dec_label_col.currentText()
             if not self.separator:
-                df = pd.read_csv(self.data_loader_path, decimal=decimal, index_col=False)
+                df = pd.read_csv(
+                    self.data_loader_path, decimal=decimal, index_col=False)
             else:
-                df = pd.read_csv(self.data_loader_path, decimal=decimal, index_col=False, sep=self.separator)
+                df = pd.read_csv(
+                    self.data_loader_path, decimal=decimal, index_col=False,
+                    sep=self.separator)
             if df.size == 0:
                 return
             df.fillna('', inplace=True)
@@ -456,23 +474,23 @@ def preview_csv_data(self, CurWindow):
 
             # Default cursor shape
             QApplication.restoreOverrideCursor()
-        
+
         else:
             # Default cursor shape
             QApplication.restoreOverrideCursor()
 
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
-                
+
             msg.setText("Preview of data failed.")
             msg.setWindowTitle("Warning")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             msg.exec_()
-    
+
     except:
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Warning)
-            
+
         msg.setText("This separator cannot be used")
         msg.setWindowTitle("Warning")
         msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
@@ -482,15 +500,16 @@ def preview_csv_data(self, CurWindow):
 def load_csv_data(self, CurWindow, MainWindow):
     """Stores the target column of the CSV file and closes the window.
     """
-    if CurWindow.cb_label_col.isVisible() == True:
+    if CurWindow.cb_label_col.isVisible():
         self.csv_target_label = CurWindow.cb_label_col.currentText()
         self.decimal = CurWindow.dec_label_col.currentText()
         CurWindow.close()
-        self.set_label(MainWindow.data_path_label, self.data_loader_path, Qt.AlignCenter)
+        self.set_label(MainWindow.data_path_label, self.data_loader_path,
+                       Qt.AlignCenter)
     else:
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Warning)
-            
+
         msg.setText("You have to preview the data before you can load it.")
         msg.setWindowTitle("Warning")
         msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
@@ -502,7 +521,7 @@ def get_separator(self, CurWindow):
     """Read the selected separators.
 
     Checks if the different separator check boxes are checked or
-    not. If a checkbox is selected, the corresponding separator is 
+    not. If a checkbox is selected, the corresponding separator is
     written to the variable "self.separator".
 
     Args:
@@ -511,29 +530,29 @@ def get_separator(self, CurWindow):
     self.separator = None
 
     if CurWindow.cb_tab.isChecked():
-        if self.separator == None:
+        if self.separator is None:
             self.separator = r'\t'
         else:
             self.separator += r'|\t'
     if CurWindow.cb_semicolon.isChecked():
-        if self.separator == None:
+        if self.separator is None:
             self.separator = ';'
         else:
             self.separator += '|;'
     if CurWindow.cb_comma.isChecked():
-        if self.separator == None:
+        if self.separator is None:
             self.separator = ','
         else:
             self.separator += '|,'
     if CurWindow.cb_space.isChecked():
-        if self.separator == None:
+        if self.separator is None:
             self.separator = r'\s+'
         else:
             self.separator += r'|\s+'
     if CurWindow.cb_other.isChecked():
-        if self.separator == None:
+        if self.separator is None:
             self.separator = CurWindow.other_separator.text()
         else:
             self.separator += '|' + CurWindow.other_separator.text()
-        
-    print("CSV sperator:",self.separator)
+
+    print("CSV sperator:", self.separator)

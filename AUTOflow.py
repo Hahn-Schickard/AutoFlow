@@ -1,6 +1,7 @@
-''' Copyright [2022] Hahn-Schickard-Gesellschaft für angewandte Forschung e.V., Daniel Konegen + Marcus Rueb
-    SPDX-License-Identifier: Apache-2.0
-============================================================================================================'''
+'''Copyright [2022] Hahn-Schickard-Gesellschaft fuer angewandte Forschung e.V.,
+                    Daniel Konegen + Marcus Rueb
+   SPDX-License-Identifier: Apache-2.0
+============================================================================'''
 
 """This is the start file to run the AutoFlow GUI
 In this file we import the libarys and define the GUI with all the layouts.
@@ -37,7 +38,9 @@ palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
 palette.setColor(QPalette.HighlightedText, Qt.black)
 app.setPalette(palette)
 
-app.setStyleSheet("QPushButton:pressed { background-color: rgb(10, 100, 200) }" "QPushButton:checked { background-color: rgb(10, 100, 200) }" "QPushButton::hover { background-color : rgb(10, 100, 200)}" )
+app.setStyleSheet("QPushButton:pressed { background-color: rgb(10, 100, 200) }"
+                  "QPushButton:checked { background-color: rgb(10, 100, 200) }"
+                  "QPushButton::hover { background-color : rgb(10, 100, 200)}")
 
 screen_width = app.primaryScreen().size().width()
 screen_height = app.primaryScreen().size().height()
