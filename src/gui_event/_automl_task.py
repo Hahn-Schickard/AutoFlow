@@ -57,7 +57,7 @@ def next_window(self, n, task):
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
 
-            msg.setText("If you want to use this task please use a file"
+            msg.setText("If you want to use this task please use a file "
                         "as dataloader.")
             msg.setWindowTitle("Warning")
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)

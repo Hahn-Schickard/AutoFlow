@@ -17,7 +17,7 @@ def data_classifier(project_name, output_path, data_path, max_trials=10,
                     decimal=None, csv_target_label=None):
 
     input_node = ak.Input()
-    output_node = ak.DenseBlock()(input_node)
+    output_node = ak.DenseBlock(use_batchnorm=False)(input_node)
     output_node = ak.ClassificationHead()(output_node)
     clf = ak.AutoModel(
         inputs=input_node, outputs=output_node, overwrite=overwrite,
