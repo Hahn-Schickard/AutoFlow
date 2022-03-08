@@ -1,3 +1,4 @@
+.vscode/
 auto_model/
 __pycache__/
 image_classifier/
