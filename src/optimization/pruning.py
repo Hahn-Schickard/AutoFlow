@@ -748,8 +748,6 @@ def pruning_for_acc(keras_model, x_train, x_val_y_train, comp,
         req_acc = pruning_acc / 100
     else:
         if os.path.isfile(data_loader_path):
-            print(x_train.shape)
-            print(x_val_y_train.shape)
             original_model_acc = original_model.evaluate(
                 x_train, x_val_y_train)[-1]
         elif os.path.isdir(data_loader_path):
