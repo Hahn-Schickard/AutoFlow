@@ -196,11 +196,11 @@ def dataloader_pruning(data_loader_path, separator, decimal, csv_target_label,
 
         train_it = train_datagen.flow_from_directory(
             data_loader_path, target_size=(img_height, img_width),
-            color_mode=color_mode, class_mode=class_mode, batch_size=128,
+            color_mode=color_mode, class_mode=class_mode, batch_size=64,
             subset='training')
         val_it = train_datagen.flow_from_directory(
             data_loader_path, target_size=(img_height, img_width),
-            color_mode=color_mode, class_mode=class_mode, batch_size=128,
+            color_mode=color_mode, class_mode=class_mode, batch_size=64,
             subset='validation')
 
         return train_it, val_it, False
@@ -272,7 +272,7 @@ def dataloader_autokeras(data_loader_path, separator, decimal,
             seed=123,
             image_size=(img_height, img_width),
             color_mode=color_mode,
-            batch_size=128,
+            batch_size=64,
             shuffle=True,
         )
 
@@ -283,7 +283,7 @@ def dataloader_autokeras(data_loader_path, separator, decimal,
             seed=123,
             image_size=(img_height, img_width),
             color_mode=color_mode,
-            batch_size=128,
+            batch_size=64,
             shuffle=True,
         )
 

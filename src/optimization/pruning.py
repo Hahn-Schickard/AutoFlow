@@ -12,6 +12,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.models import load_model
 from tensorflow.keras.models import Model
+from sklearn.model_selection import train_test_split
 
 
 class ThresholdCallback(tf.keras.callbacks.Callback):
@@ -748,8 +749,10 @@ def pruning_for_acc(keras_model, x_train, x_val_y_train, comp,
         req_acc = pruning_acc / 100
     else:
         if os.path.isfile(data_loader_path):
+            x_train, x_val, y_train, y_val = train_test_split(
+                x_train, x_val_y_train, test_size=0.2)
             original_model_acc = original_model.evaluate(
-                x_train, x_val_y_train)[-1]
+                x_val, y_val)[-1]
         elif os.path.isdir(data_loader_path):
             original_model_acc = original_model.evaluate(x_val_y_train)[-1]
         print("Start model accuracy: " + str(original_model_acc * 100) + "%")
@@ -769,9 +772,9 @@ def pruning_for_acc(keras_model, x_train, x_val_y_train, comp,
                             label_one_hot=label_one_hot)
 
         if os.path.isfile(data_loader_path):
-            history = model.fit(x=x_train, y=x_val_y_train, batch_size=64,
-                                validation_split=0.2, epochs=train_epochs,
-                                callbacks=callbacks)
+            history = model.fit(x=x_train, y=y_train, batch_size=64,
+                                validation_data=(x_val, y_val),
+                                epochs=train_epochs, callbacks=callbacks)
         elif os.path.isdir(data_loader_path):
             history = model.fit_generator(
                 x_train, steps_per_epoch=len(x_train),
