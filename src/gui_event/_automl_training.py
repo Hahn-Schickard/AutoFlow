@@ -27,7 +27,6 @@ def automl_training(self):
 
     self.automl_training_ui.autokeras.request_signal.connect(
         lambda: next_window(self))
-    print("AutoKeras finished")
 
     self.setCentralWidget(self.automl_training_ui)
     self.show()
