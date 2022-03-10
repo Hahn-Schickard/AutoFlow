@@ -743,20 +743,23 @@ def pruning_for_acc(keras_model, x_train, x_val_y_train, comp,
     else:
         print("No model given to prune")
 
+    if os.path.isfile(data_loader_path):
+        x_train, x_val, y_train, y_val = train_test_split(
+            x_train, x_val_y_train, test_size=0.2)
+
     original_model.compile(**comp)
 
     if pruning_acc is not None:
         req_acc = pruning_acc / 100
     else:
         if os.path.isfile(data_loader_path):
-            x_train, x_val, y_train, y_val = train_test_split(
-                x_train, x_val_y_train, test_size=0.2)
             original_model_acc = original_model.evaluate(
                 x_val, y_val)[-1]
         elif os.path.isdir(data_loader_path):
             original_model_acc = original_model.evaluate(x_val_y_train)[-1]
-        print("Start model accuracy: " + str(original_model_acc * 100) + "%")
+        print("Start model accuracy: {:.3f}%".format(original_model_acc * 100))
         req_acc = original_model_acc - (max_acc_loss / 100)
+    print("Min required model accuracy: {:.3f}%".format(req_acc * 100))
 
     train_epochs = 10
     threshold = ThresholdCallback(req_acc)
