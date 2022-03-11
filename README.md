@@ -35,7 +35,7 @@
 
 
 ## Features
-- __GUI interface:__ With this framework we offer a GUI, which should facilitate the entry into the AI as far as possible.
+- __Graphical user interface:__ With this framework we offer a GUI, which should facilitate the entry into the AI as far as possible.
 - __AutoML:__ With the help of AUTOML techniques, ML models can be generated automatically. No experience with ML is required.
 - __Automatic compression:__ Existing ML models can be automatically compressed to reduce the size of the model and speed it up.
 - __Automatic Code generation:__ The framework automatically generates code for executing the ML models on the target platform.
