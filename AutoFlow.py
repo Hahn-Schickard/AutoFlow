@@ -1,6 +1,6 @@
 '''Copyright [2022] Hahn-Schickard-Gesellschaft fuer angewandte Forschung e.V.,
                     Daniel Konegen + Marcus Rueb
-   SPDX-License-Identifier: Apache-2.0
+   SPDX-License-Identifier: GPL-3.0
 ============================================================================'''
 
 """This is the start file to run the AutoFlow GUI
@@ -40,7 +40,7 @@ app.setPalette(palette)
 
 app.setStyleSheet("QPushButton:pressed { background-color: rgb(10, 100, 200) }"
                   "QPushButton:checked { background-color: rgb(10, 100, 200) }"
-                  "QPushButton::hover { background-color : rgb(10, 100, 200)}")
+                  "QPushButton::hover { background-color : rgb(10, 100, 200)} ")
 
 screen_width = app.primaryScreen().size().width()
 screen_height = app.primaryScreen().size().height()

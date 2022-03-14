@@ -1,3 +1,8 @@
+/* Copyright [2022] Hahn-Schickard-Gesellschaft fuer angewandte Forschung e.V.,
+                    Daniel Konegen + Marcus Rueb
+   SPDX-License-Identifier: GPL-3.0
+============================================================================*/
+
 #include <TensorFlowLite.h>
 
 #include "input_data.h"

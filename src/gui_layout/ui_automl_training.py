@@ -2,7 +2,7 @@
                     Marcel Sawrin + Marcus Rueb
    Copyright [2022] Hahn-Schickard-Gesellschaft fuer angewandte Forschung e.V.,
                     Daniel Konegen + Marcus Rueb
-   SPDX-License-Identifier: Apache-2.0
+   SPDX-License-Identifier: GPL-3.0
 ============================================================================'''
 
 import os

@@ -110,4 +110,4 @@ If you need help, please open a new issue and ask your questions. If you have su
 
 
 ## License
-Code released under the [Apache-2.0 License](LICENSE).
+Code released under the [GPL-3.0 License](LICENSE).
