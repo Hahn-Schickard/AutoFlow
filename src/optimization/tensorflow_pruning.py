@@ -1,3 +1,8 @@
+'''Copyright [2022] Hahn-Schickard-Gesellschaft fuer angewandte Forschung e.V.,
+                    Daniel Konegen + Marcus Rueb
+   SPDX-License-Identifier: Apache-2.0
+============================================================================'''
+
 import numpy as np
 import tensorflow_model_optimization as tfmot
 
