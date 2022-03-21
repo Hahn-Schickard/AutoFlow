@@ -8,7 +8,8 @@ It causes no CastToFloat32 layer to be added to the AutoKeras models. This
 would generate an error later when converting the models to TensorFlow Lite.
 
 Typical usage example:
-python Remove_cast_to_float32.py C:/Users/.../Anaconda3/envs/AutoFlow
+win   - python Remove_cast_to_float32.py C:/Users/.../Anaconda3/envs/AutoFlow
+linux - python Remove_cast_to_float32.py .../Anaconda3/envs/AutoFlow
 """
 
 import sys
@@ -30,9 +31,14 @@ def replace_string(path):
     # that we want to add
     replace_text = 'input_node #' + search_text
 
+    if 'linux' in sys.platform:
+        file_path = '/lib/python3.8/site-packages/autokeras/nodes.py'
+    else:
+        file_path = '/Lib/site-packages/autokeras/nodes.py'
+
     # Opening our text file in read only
     # mode using the open() function
-    with open(path + '/Lib/site-packages/autokeras/nodes.py', 'r') as f:
+    with open(path + file_path, 'r') as f:
 
         # Reading the content of the file
         # using the read() function and storing
@@ -49,7 +55,7 @@ def replace_string(path):
 
     # Opening our text file in write only
     # mode to write the replaced content
-    with open(path + '/Lib/site-packages/autokeras/nodes.py', 'w') as f:
+    with open(path + file_path, 'w') as f:
 
         # Writing the replaced data in our
         # text file
