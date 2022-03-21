@@ -62,7 +62,7 @@ python src/automl/customize_autokeras.py C:/Users/.../Anaconda3/envs/AutoFlow
 ```
 **Linux:**
 ```
-python src/automl/customize_autokeras.py .../Anaconda3/envs/AutoFlow
+python src/automl/customize_autokeras.py .../anaconda3/envs/AutoFlow
 ```
 
 ## GUI Flowchart
