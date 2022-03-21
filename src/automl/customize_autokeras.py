@@ -31,6 +31,7 @@ def replace_string(path):
     # that we want to add
     replace_text = 'input_node #' + search_text
 
+    # Set the file path, according to the operating system
     if 'linux' in sys.platform:
         file_path = '/lib/python3.8/site-packages/autokeras/nodes.py'
     else:

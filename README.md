@@ -23,14 +23,21 @@
 
 
 ## Table of Contents
+- [Code of Conduct](#code-of-conduct)
 - [Features](#features)
 - [Installation](#installation)
 - [GUI Flowchart](#gui-flowchart)
 - [Get Started](#get-started)
+- [Contributing](#contributing)
 - [Upcoming](#upcoming)
 - [See Also](#see-also)
 - [Support](#support)
 - [License](#license)
+
+
+
+## Code of Conduct
+Trust, respect, collaboration and transparency are core values we believe should live and breathe within our project. Our community welcomes participants from around the world with different experiences, unique perspectives, and great ideas to share. Our detailed Code of Conduct can be found [here](https://github.com/Hahn-Schickard/AutoFlow/blob/main/CODE_OF_CONDUCT.md).
 
 
 
@@ -93,6 +100,12 @@ If you select the right button on the start window, you optimize and convert a m
 
 
 If you want to contribute to the further development of AutoFlow, the most important questions for getting started are answered in our [developer documentation](https://github.com/Hahn-Schickard/AUTOflow/blob/main/READMEs/README_Developer_documentation.md).
+
+
+
+## Contribution
+If you would like to be a part of programming AutoFlow, we would be very happy to have you. For example, you can implement new functions or features and create a "pull request". If your innovations fit our vision of AutoFlow, we will gladly incorporate the changes/new features into our tool. We are always open and grateful for new creative ideas to extend the tool! Further information can be found [here](https://github.com/Hahn-Schickard/AutoFlow/blob/main/CONTRIBUTING.md).
+
 
 
 ## Upcoming
