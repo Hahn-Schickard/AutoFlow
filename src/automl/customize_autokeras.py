@@ -9,7 +9,7 @@ would generate an error later when converting the models to TensorFlow Lite.
 
 Typical usage example:
 win   - python Remove_cast_to_float32.py C:/Users/.../Anaconda3/envs/AutoFlow
-linux - python Remove_cast_to_float32.py .../Anaconda3/envs/AutoFlow
+linux - python Remove_cast_to_float32.py .../anaconda3/envs/AutoFlow
 """
 
 import sys
