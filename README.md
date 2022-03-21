@@ -57,7 +57,8 @@ sudo apt-get install qttools5-dev-tools -y
 
 To ensure that AutoKeras works without errors, the script `src/automl/customize_autokeras.py` has to be executed. The environment used is passed as the parameter. The following is an example of the execution of the script:
 ```
-python src/automl/customize_autokeras.py C:/Users/.../Anaconda3/envs/AutoFlow
+win   - python src/automl/customize_autokeras.py C:/Users/.../Anaconda3/envs/AutoFlow
+linux - python src/automl/customize_autokeras.py .../Anaconda3/envs/AutoFlow
 ```
 
 
