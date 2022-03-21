@@ -74,7 +74,7 @@ class UITargetPlatform(QWidget):
 
         self.sbc = QPushButton(self)
         self.sbc.setIcon(QIcon(os.path.join(
-            'src', 'gui_layout', 'images', 'sbc.png')))
+            'src', 'gui_layout', 'images', 'SBC.png')))
         self.sbc.setIconSize(QSize(0.25 * self.WINDOW_WIDTH,
                                    0.25 * self.WINDOW_HEIGHT))
         self.sbc.setToolTip('Run the TensorFlow model on an SBC.')
