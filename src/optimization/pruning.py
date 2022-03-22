@@ -456,7 +456,7 @@ def get_filter_to_prune_l2(layer_params, prun_layer, prun_factor):
     avg_filter_w = []
     "Absolute average of the filter values are written into an array"
     for i in range(0, filters[0].shape[-1]):
-        avg_filter_w.append(np.average(np.abs(filters[0][:, :, :, i])))
+        avg_filter_w.append(np.linalg.norm(filters[0][:, :, :, i]))
 
     """Absolute average of the filter values are sorted and a percantage of
        these which is given through the prune factor are stored in

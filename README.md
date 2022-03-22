@@ -37,7 +37,7 @@
 
 
 ## Code of Conduct
-Trust, respect, collaboration and transparency are core values we believe should live and breathe within our project. Our community welcomes participants from around the world with different experiences, unique perspectives, and great ideas to share. Our detailed Code of Conduct can be found [here](https://github.com/Hahn-Schickard/AutoFlow/blob/main/CODE_OF_CONDUCT.md).
+Trust, respect, collaboration and transparency are core values we believe should live and breathe within our project. Our community welcomes participants from around the world with different experiences, unique perspectives, and great ideas to share. Our detailed Code of Conduct can be found [here](https://github.com/Hahn-Schickard/AutoFlow/blob/main/.github/CODE_OF_CONDUCT.md).
 
 
 
@@ -91,20 +91,20 @@ Afterwards, the first window of the GUI will be opened. The tool consists of two
 
 The following links describe the two parts of AutoFlow described above.
 If you select the left button on the start window, you train a model from scratch:
-- [Train a new model with AutoKeras](https://github.com/Hahn-Schickard/AUTOflow/blob/main/READMEs/README_AutoKeras.md)
+- [Train a new model with AutoKeras](https://github.com/Hahn-Schickard/AUTOflow/blob/main/.github/README/README_AutoKeras.md)
 
 If you select the right button on the start window, you optimize and convert a model:
-- [Get started with an MCU](https://github.com/Hahn-Schickard/AUTOflow/blob/main/READMEs/README_MCU.md)
-- [Get started with an FPGA](https://github.com/Hahn-Schickard/AUTOflow/blob/main/READMEs/README_FPGA.md)
-- [Get started with an SBC](https://github.com/Hahn-Schickard/AUTOflow/blob/main/READMEs/README_SBC.md)
+- [Get started with an MCU](https://github.com/Hahn-Schickard/AUTOflow/blob/main/.github/README/README_MCU.md)
+- [Get started with an FPGA](https://github.com/Hahn-Schickard/AUTOflow/blob/main/.github/README/README_FPGA.md)
+- [Get started with an SBC](https://github.com/Hahn-Schickard/AUTOflow/blob/main/.github/README/README_SBC.md)
 
 
-If you want to contribute to the further development of AutoFlow, the most important questions for getting started are answered in our [developer documentation](https://github.com/Hahn-Schickard/AUTOflow/blob/main/READMEs/README_Developer_documentation.md).
+If you want to contribute to the further development of AutoFlow, the most important questions for getting started are answered in our [developer documentation](https://github.com/Hahn-Schickard/AUTOflow/blob/main/.github/README/README_Developer_documentation.md).
 
 
 
-## Contribution
-If you would like to be a part of programming AutoFlow, we would be very happy to have you. For example, you can implement new functions or features and create a "pull request". If your innovations fit our vision of AutoFlow, we will gladly incorporate the changes/new features into our tool. We are always open and grateful for new creative ideas to extend the tool! Further information can be found [here](https://github.com/Hahn-Schickard/AutoFlow/blob/main/CONTRIBUTING.md).
+## Contributing
+If you would like to be a part of programming AutoFlow, we would be very happy to have you. For example, you can implement new functions or features and create a "pull request". If your innovations fit our vision of AutoFlow, we will gladly incorporate the changes/new features into our tool. We are always open and grateful for new creative ideas to extend the tool! Further information can be found [here](https://github.com/Hahn-Schickard/AutoFlow/blob/main/.github/CONTRIBUTING.md).
 
 
 
