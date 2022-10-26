@@ -210,7 +210,7 @@ def next_window(self, n):
             msg.exec_()
             return
 
-        if not self.optimizations:
+        if not self.optimizations or "int8 with float fallback" in self.quant_dtype:
             print("No optimization")
             self.create_project()
         else:

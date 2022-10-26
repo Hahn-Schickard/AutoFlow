@@ -43,18 +43,21 @@ def convert_model_to_tflite(keras_model_dir, project_dir, model_name,
     converter = lite.TFLiteConverter.from_keras_model(keras_model)
 
     if "Quantization" in optimization:
-        global x_train
-        x_train = dataloader_quantization(
-            data_loader_path, keras_model.input.shape[1],
-            keras_model.input.shape[2], separator, decimal,
-            csv_target_label)
-        x_train = tf.cast(x_train, tf.float32)
-        x_train = tf.data.Dataset.from_tensor_slices(x_train).batch(1)
 
         converter.optimizations = [tf.lite.Optimize.DEFAULT]
-        converter.representative_dataset = representative_dataset
+        
         print("Quantization type:", quant_dtype)
         if "int8 only" in quant_dtype:
+            global x_train
+            x_train = dataloader_quantization(
+                data_loader_path, keras_model.input.shape[1],
+                keras_model.input.shape[2], separator, decimal,
+                csv_target_label)
+            x_train = tf.cast(x_train, tf.float32)
+            x_train = tf.data.Dataset.from_tensor_slices(x_train).batch(1)
+
+            converter.representative_dataset = representative_dataset
+
             supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
             converter.target_spec.supported_ops = supported_ops
             converter.inference_input_type = tf.int8
